@@ -1,11 +1,12 @@
 package com.firmamentengine.firmament;
-import com.firmamentengine.firmament.FRenderable;
+
+import com.firmamentengine.firmament.FEntity;
 /**
  * ...
  * @author Jordan Wambaugh
  */
 
-class FEntity extends FRenderable
+class FPhysicsEntity extends FEntity
 {
 
 	public function new() 

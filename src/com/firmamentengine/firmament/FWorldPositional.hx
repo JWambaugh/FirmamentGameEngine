@@ -1,17 +1,21 @@
 package com.firmamentengine.firmament;
 import com.firmamentengine.firmament.FVector;
+import nme.events.EventDispatcher;
+
+
 /**
  * ...
  * @author Jordan Wambaugh
  */
 
-class FWorldPositional 
+class FWorldPositional extends EventDispatcher
 {
 
 	var position:FVector;
 	var positionBase:String;
 	var angle:Float;
 	public function new() {
+		super();
 		this.position = new FVector(0, 0);
 	}
 	

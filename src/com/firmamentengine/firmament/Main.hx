@@ -4,10 +4,10 @@ import box2D.collision.B2WorldManifold;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
 import nme.Lib;
-import box2D.dynamics.B2World;
-import box2D.common.math.B2Vec2;
+
 
 import com.firmamentengine.firmament.FRenderable;
+import com.firmamentengine.firmament.FPhysicsWorld;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -23,7 +23,7 @@ class Main
 		stage.align = StageAlign.TOP_LEFT;
 		// entry point
 		
-		var world = new B2World(new B2Vec2(0,.5) ,true);
+		var world = new FPhysicsWorld(new FVector(0,.5));
 	}
 	
 }
