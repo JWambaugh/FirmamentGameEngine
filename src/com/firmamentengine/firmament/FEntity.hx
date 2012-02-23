@@ -7,10 +7,11 @@ import com.firmamentengine.firmament.FRenderable;
 
 class FEntity extends FRenderable
 {
-
-	public function new() 
+	var world:FWorld;
+	public function new(world:FWorld,config:Dynamic) 
 	{
 		super();
+		this.world = world;
 	}
 	
 }

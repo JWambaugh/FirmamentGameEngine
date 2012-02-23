@@ -8,7 +8,7 @@ package com.firmamentengine.firmament;
 interface FRenderer 
 {
 
-	function render(cxt:Dynamic,item:Dynamic,camera:Dynamic):Void;
+	function render(item:FRenderable,camera:FCamera):Void;
 	
 	
 }

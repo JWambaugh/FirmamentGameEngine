@@ -1,4 +1,5 @@
 package com.firmamentengine.firmament;
+import box2D.dynamics.B2World;
 import com.firmamentengine.firmament.FEntity;
 /**
  * ...
@@ -9,12 +10,14 @@ class FWorld
 {
 	
 	var entities:Array<FEntity>;
+
 	public function new() 
 	{
-		
+		this.entities = new Array<FEntity>();
 	}
 	public function addEntity(ent:FEntity) {
 		this.entities.push(ent);
+		
 		
 	}
 	
@@ -22,7 +25,7 @@ class FWorld
 		return this.entities;
 	}
 	
-	public function step() {
+	public function step():Void {
 	}
 	
 	

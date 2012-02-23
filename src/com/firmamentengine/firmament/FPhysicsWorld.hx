@@ -36,5 +36,21 @@ class FPhysicsWorld extends FWorld
 		return selectEntities;
 	}
 	
+	public function getB2World():B2World {
+		return this.b2world;
+	}
+	
+	public function createEntity(config:Dynamic):FPhysicsEntity {
+		var ent:FPhysicsEntity = new FPhysicsEntity(this,config);
+		this.addEntity(ent);
+		return ent;
+		
+	}
+	
+	override public function step():Void {
+		this.b2world.step(1 / 30, 10, 10);
+	}
+	
+	
 	
 }
