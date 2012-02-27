@@ -1,0 +1,1668 @@
+<xml>
+<files id="haxe">
+<compilerflag value="-Iinclude"/>
+  <file name="src/nme/display/BitmapData.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/display/BitmapData.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/filters/BitmapFilter.h"/>
+   <depend name="include/nme/geom/ColorTransform.h"/>
+   <depend name="include/nme/geom/Matrix.h"/>
+   <depend name="include/nme/geom/Point.h"/>
+   <depend name="include/nme/geom/Rectangle.h"/>
+   <depend name="include/nme/utils/ByteArray.h"/>
+   <depend name="include/nme/utils/IDataInput.h"/>
+  </file>
+  <file name="src/box2D/collision/B2ContactID.cpp">
+   <depend name="include/box2D/collision/B2ContactID.h"/>
+   <depend name="include/box2D/collision/Features.h"/>
+  </file>
+  <file name="src/nme/events/Listener.cpp">
+   <depend name="include/Reflect.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/Listener.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/FGame.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/com/firmamentengine/firmament/FCamera.h"/>
+   <depend name="include/com/firmamentengine/firmament/FEntity.h"/>
+   <depend name="include/com/firmamentengine/firmament/FGame.h"/>
+   <depend name="include/com/firmamentengine/firmament/FPhysicsEntity.h"/>
+   <depend name="include/com/firmamentengine/firmament/FPhysicsWorld.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderable.h"/>
+   <depend name="include/com/firmamentengine/firmament/FVector.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorld.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositional.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositionalInterface.h"/>
+   <depend name="include/nme/Lib.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/MovieClip.h"/>
+   <depend name="include/nme/display/Sprite.h"/>
+   <depend name="include/nme/display/Stage.h"/>
+   <depend name="include/nme/display/StageAlign.h"/>
+   <depend name="include/nme/display/StageScaleMode.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/box2D/common/math/B2Mat33.cpp">
+   <depend name="include/box2D/common/math/B2Mat33.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/common/math/B2Vec3.h"/>
+  </file>
+  <file name="src/nme/display/CapsStyle.cpp">
+   <depend name="include/nme/display/CapsStyle.h"/>
+  </file>
+  <file name="src/nme/geom/Transform.cpp">
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/geom/ColorTransform.h"/>
+   <depend name="include/nme/geom/Matrix.h"/>
+   <depend name="include/nme/geom/Rectangle.h"/>
+   <depend name="include/nme/geom/Transform.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2LineJoint.cpp">
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2LineJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2LineJointDef.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2DebugDraw.cpp">
+   <depend name="include/box2D/common/B2Color.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2DebugDraw.h"/>
+   <depend name="include/nme/display/CapsStyle.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/Graphics.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/JointStyle.h"/>
+   <depend name="include/nme/display/LineScaleMode.h"/>
+   <depend name="include/nme/display/Sprite.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2PolyAndEdgeContact.cpp">
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/collision/shapes/B2EdgeShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2PolygonShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2PolyAndEdgeContact.h"/>
+  </file>
+  <file name="src/nme/errors/EOFError.cpp">
+   <depend name="include/nme/errors/EOFError.h"/>
+   <depend name="include/nme/errors/Error.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2PrismaticJoint.cpp">
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Mat33.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/common/math/B2Vec3.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PrismaticJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PrismaticJointDef.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/FVector.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/com/firmamentengine/firmament/FVector.h"/>
+  </file>
+  <file name="src/nme/display/InterpolationMethod.cpp">
+   <depend name="include/nme/display/InterpolationMethod.h"/>
+  </file>
+  <file name="src/box2D/collision/shapes/B2PolygonShape.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2OBB.h"/>
+   <depend name="include/box2D/collision/B2RayCastInput.h"/>
+   <depend name="include/box2D/collision/B2RayCastOutput.h"/>
+   <depend name="include/box2D/collision/shapes/B2MassData.h"/>
+   <depend name="include/box2D/collision/shapes/B2PolygonShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/nme/utils/ByteArray.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/cpp/zip/Compress.h"/>
+   <depend name="include/cpp/zip/Uncompress.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/errors/EOFError.h"/>
+   <depend name="include/nme/errors/Error.h"/>
+   <depend name="include/nme/utils/ByteArray.h"/>
+   <depend name="include/nme/utils/IDataInput.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2FrictionJoint.cpp">
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/joints/B2FrictionJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2FrictionJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+  </file>
+  <file name="src/box2D/collision/B2SimplexVertex.cpp">
+   <depend name="include/box2D/collision/B2SimplexVertex.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/nme/display/PixelSnapping.cpp">
+   <depend name="include/nme/display/PixelSnapping.h"/>
+  </file>
+  <file name="src/nme/events/FocusEvent.cpp">
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/FocusEvent.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/haxe/io/Error.cpp">
+   <depend name="include/haxe/io/Error.h"/>
+  </file>
+  <file name="src/nme/media/SoundChannel.cpp">
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/media/SoundChannel.h"/>
+   <depend name="include/nme/media/SoundTransform.h"/>
+  </file>
+  <file name="src/cpp/Sys.cpp">
+   <depend name="include/Hash.h"/>
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/cpp/Sys.h"/>
+   <depend name="include/haxe/Log.h"/>
+  </file>
+  <file name="src/box2D/collision/shapes/B2CircleShape.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2RayCastInput.h"/>
+   <depend name="include/box2D/collision/B2RayCastOutput.h"/>
+   <depend name="include/box2D/collision/shapes/B2CircleShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2MassData.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2DestructionListener.cpp">
+   <depend name="include/box2D/dynamics/B2DestructionListener.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2WeldJointDef.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2WeldJointDef.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2ContactRegister.cpp">
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactRegister.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2Jacobian.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Jacobian.h"/>
+  </file>
+  <file name="src/nme/errors/RangeError.cpp">
+   <depend name="include/nme/errors/Error.h"/>
+   <depend name="include/nme/errors/RangeError.h"/>
+  </file>
+  <file name="src/cpp/zip/Uncompress.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/cpp/zip/Flush.h"/>
+   <depend name="include/cpp/zip/Uncompress.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/BytesBuffer.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+  </file>
+  <file name="src/nme/events/EventPhase.cpp">
+   <depend name="include/nme/events/EventPhase.h"/>
+  </file>
+  <file name="src/box2D/collision/B2DynamicTree.cpp">
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2DynamicTree.h"/>
+   <depend name="include/box2D/collision/B2DynamicTreeNode.h"/>
+   <depend name="include/box2D/collision/B2RayCastInput.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/nme/filters/BitmapFilter.cpp">
+   <depend name="include/nme/filters/BitmapFilter.h"/>
+  </file>
+  <file name="src/haxe/Timer.cpp">
+   <depend name="include/haxe/Timer.h"/>
+   <depend name="include/nme/Loader.h"/>
+  </file>
+  <file name="src/box2D/collision/B2AABB.cpp">
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2RayCastInput.h"/>
+   <depend name="include/box2D/collision/B2RayCastOutput.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/Std.cpp">
+   <depend name="include/Std.h"/>
+  </file>
+  <file name="src/nme/media/SoundTransform.cpp">
+   <depend name="include/nme/media/SoundTransform.h"/>
+  </file>
+  <file name="src/nme/display/MovieClip.cpp">
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/MovieClip.h"/>
+   <depend name="include/nme/display/Sprite.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/nme/display/LineScaleMode.cpp">
+   <depend name="include/nme/display/LineScaleMode.h"/>
+  </file>
+  <file name="src/nme/display/TriangleCulling.cpp">
+   <depend name="include/nme/display/TriangleCulling.h"/>
+  </file>
+  <file name="src/nme/utils/WeakRef.cpp">
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/utils/WeakRef.h"/>
+  </file>
+  <file name="src/nme/geom/Matrix.cpp">
+   <depend name="include/nme/geom/Matrix.h"/>
+   <depend name="include/nme/geom/Point.h"/>
+  </file>
+  <file name="src/cpp/rtti/FieldNumericIntegerLookup.cpp">
+   <depend name="include/cpp/rtti/FieldNumericIntegerLookup.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2ContactSolver.cpp">
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/collision/B2ManifoldPoint.h"/>
+   <depend name="include/box2D/collision/B2WorldManifold.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactConstraint.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactConstraintPoint.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactSolver.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2PositionSolverManifold.h"/>
+  </file>
+  <file name="src/box2D/collision/B2WorldManifold.cpp">
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/collision/B2ManifoldPoint.h"/>
+   <depend name="include/box2D/collision/B2WorldManifold.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/nme/display/StageScaleMode.cpp">
+   <depend name="include/nme/display/StageScaleMode.h"/>
+  </file>
+  <file name="src/nme/display/Bitmap.cpp">
+   <depend name="include/nme/display/Bitmap.h"/>
+   <depend name="include/nme/display/BitmapData.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/Graphics.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/PixelSnapping.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/geom/Matrix.h"/>
+  </file>
+  <file name="src/ApplicationMain.cpp">
+   <depend name="include/ApplicationMain.h"/>
+   <depend name="include/com/firmamentengine/firmament/Main.h"/>
+   <depend name="include/nme/Lib.h"/>
+   <depend name="include/nme/display/BitmapData.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/Stage.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/box2D/dynamics/controllers/B2Controller.cpp">
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2DebugDraw.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/B2World.h"/>
+   <depend name="include/box2D/dynamics/controllers/B2Controller.h"/>
+   <depend name="include/box2D/dynamics/controllers/B2ControllerEdge.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2ContactConstraint.cpp">
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactConstraint.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactConstraintPoint.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2EdgeAndCircleContact.cpp">
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/collision/shapes/B2CircleShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2EdgeShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2EdgeAndCircleContact.h"/>
+  </file>
+  <file name="src/nme/utils/Endian.cpp">
+   <depend name="include/nme/utils/Endian.h"/>
+  </file>
+  <file name="src/nme/events/KeyboardEvent.cpp">
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/KeyboardEvent.h"/>
+  </file>
+  <file name="src/box2D/collision/B2RayCastInput.cpp">
+   <depend name="include/box2D/collision/B2RayCastInput.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/nme/events/TimerEvent.cpp">
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/TimerEvent.h"/>
+  </file>
+  <file name="src/nme/net/URLLoader.cpp">
+   <depend name="include/List.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/events/ErrorEvent.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/events/IOErrorEvent.h"/>
+   <depend name="include/nme/events/ProgressEvent.h"/>
+   <depend name="include/nme/events/TextEvent.h"/>
+   <depend name="include/nme/net/URLLoader.h"/>
+   <depend name="include/nme/net/URLLoaderDataFormat.h"/>
+   <depend name="include/nme/net/URLRequest.h"/>
+   <depend name="include/nme/net/URLVariables.h"/>
+   <depend name="include/nme/utils/ByteArray.h"/>
+   <depend name="include/nme/utils/IDataInput.h"/>
+  </file>
+  <file name="src/nme/display/SpreadMethod.cpp">
+   <depend name="include/nme/display/SpreadMethod.h"/>
+  </file>
+  <file name="src/box2D/collision/B2TimeOfImpact.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/box2D/collision/B2Distance.h"/>
+   <depend name="include/box2D/collision/B2DistanceInput.h"/>
+   <depend name="include/box2D/collision/B2DistanceOutput.h"/>
+   <depend name="include/box2D/collision/B2DistanceProxy.h"/>
+   <depend name="include/box2D/collision/B2SeparationFunction.h"/>
+   <depend name="include/box2D/collision/B2SimplexCache.h"/>
+   <depend name="include/box2D/collision/B2TOIInput.h"/>
+   <depend name="include/box2D/collision/B2TimeOfImpact.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/collision/B2DistanceInput.cpp">
+   <depend name="include/box2D/collision/B2DistanceInput.h"/>
+   <depend name="include/box2D/collision/B2DistanceProxy.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2BodyDef.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2BodyDef.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2Fixture.cpp">
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2RayCastInput.h"/>
+   <depend name="include/box2D/collision/B2RayCastOutput.h"/>
+   <depend name="include/box2D/collision/IBroadPhase.h"/>
+   <depend name="include/box2D/collision/shapes/B2MassData.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2FilterData.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/B2FixtureDef.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactEdge.h"/>
+  </file>
+  <file name="src/haxe/Log.cpp">
+   <depend name="include/haxe/Log.h"/>
+  </file>
+  <file name="src/box2D/collision/B2DynamicTreePair.cpp">
+   <depend name="include/box2D/collision/B2DynamicTreeNode.h"/>
+   <depend name="include/box2D/collision/B2DynamicTreePair.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/FPhysicsEntity.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/box2D/collision/shapes/B2CircleShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2BodyDef.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/B2FixtureDef.h"/>
+   <depend name="include/box2D/dynamics/B2World.h"/>
+   <depend name="include/com/firmamentengine/firmament/FEntity.h"/>
+   <depend name="include/com/firmamentengine/firmament/FPhysicsEntity.h"/>
+   <depend name="include/com/firmamentengine/firmament/FPhysicsWorld.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderable.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderer.h"/>
+   <depend name="include/com/firmamentengine/firmament/FVector.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWireframeRenderer.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorld.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositional.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/FEntity.cpp">
+   <depend name="include/com/firmamentengine/firmament/FEntity.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderable.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorld.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositional.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/FRenderable.cpp">
+   <depend name="include/com/firmamentengine/firmament/FRenderable.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderer.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositional.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/box2D/collision/B2DynamicTreeNode.cpp">
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2DynamicTreeNode.h"/>
+  </file>
+  <file name="src/StringBuf.cpp">
+   <depend name="include/StringBuf.h"/>
+  </file>
+  <file name="src/nme/display/Tilesheet.cpp">
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/display/BitmapData.h"/>
+   <depend name="include/nme/display/Graphics.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/Tilesheet.h"/>
+   <depend name="include/nme/geom/Point.h"/>
+   <depend name="include/nme/geom/Rectangle.h"/>
+  </file>
+  <file name="src/box2D/collision/Features.cpp">
+   <depend name="include/box2D/collision/B2ContactID.h"/>
+   <depend name="include/box2D/collision/Features.h"/>
+  </file>
+  <file name="src/box2D/collision/B2DistanceOutput.cpp">
+   <depend name="include/box2D/collision/B2DistanceOutput.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/nme/display/StageAlign.cpp">
+   <depend name="include/nme/display/StageAlign.h"/>
+  </file>
+  <file name="src/nme/display/ManagedStage.cpp">
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/ManagedStage.h"/>
+   <depend name="include/nme/display/Stage.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/Main.cpp">
+   <depend name="include/com/firmamentengine/firmament/FGame.h"/>
+   <depend name="include/com/firmamentengine/firmament/Main.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2ContactFactory.cpp">
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2CircleContact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactFactory.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactRegister.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2EdgeAndCircleContact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2PolyAndCircleContact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2PolyAndEdgeContact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2PolygonContact.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2PrismaticJointDef.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PrismaticJointDef.h"/>
+  </file>
+  <file name="src/box2D/collision/B2DynamicTreeBroadPhase.cpp">
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2DynamicTree.h"/>
+   <depend name="include/box2D/collision/B2DynamicTreeBroadPhase.h"/>
+   <depend name="include/box2D/collision/B2DynamicTreeNode.h"/>
+   <depend name="include/box2D/collision/B2DynamicTreePair.h"/>
+   <depend name="include/box2D/collision/B2RayCastInput.h"/>
+   <depend name="include/box2D/collision/IBroadPhase.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/collision/IBroadPhase.cpp">
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2RayCastInput.h"/>
+   <depend name="include/box2D/collision/IBroadPhase.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2GearJoint.cpp">
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/joints/B2GearJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2GearJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Jacobian.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PrismaticJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2RevoluteJoint.h"/>
+  </file>
+  <file name="src/nme/geom/ColorTransform.cpp">
+   <depend name="include/nme/geom/ColorTransform.h"/>
+  </file>
+  <file name="src/haxe/io/Eof.cpp">
+   <depend name="include/haxe/io/Eof.h"/>
+  </file>
+  <file name="src/nme/utils/IDataInput.cpp">
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/nme/utils/ByteArray.h"/>
+   <depend name="include/nme/utils/IDataInput.h"/>
+  </file>
+  <file name="src/nme/events/JoystickEvent.cpp">
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/JoystickEvent.h"/>
+  </file>
+  <file name="src/box2D/collision/shapes/B2MassData.cpp">
+   <depend name="include/box2D/collision/shapes/B2MassData.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/Date.cpp">
+   <depend name="include/Date.h"/>
+   <depend name="include/Std.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2DistanceJoint.cpp">
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/joints/B2DistanceJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2DistanceJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+  </file>
+  <file name="src/nme/utils/Timer.cpp">
+   <depend name="include/haxe/Timer.h"/>
+   <depend name="include/nme/errors/Error.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/events/TimerEvent.h"/>
+   <depend name="include/nme/utils/Timer.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2ContactListener.cpp">
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/dynamics/B2ContactImpulse.h"/>
+   <depend name="include/box2D/dynamics/B2ContactListener.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+  </file>
+  <file name="src/nme/Lib.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/haxe/Timer.h"/>
+   <depend name="include/nme/Lib.h"/>
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/display/BitmapData.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/ManagedStage.h"/>
+   <depend name="include/nme/display/MovieClip.h"/>
+   <depend name="include/nme/display/Sprite.h"/>
+   <depend name="include/nme/display/Stage.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/net/URLRequest.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2ContactConstraintPoint.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactConstraintPoint.h"/>
+  </file>
+  <file name="src/box2D/collision/B2Collision.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2Collision.h"/>
+   <depend name="include/box2D/collision/B2ContactID.h"/>
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/collision/B2ManifoldPoint.h"/>
+   <depend name="include/box2D/collision/ClipVertex.h"/>
+   <depend name="include/box2D/collision/Features.h"/>
+   <depend name="include/box2D/collision/shapes/B2CircleShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2PolygonShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/nme/display/IGraphicsData.cpp">
+   <depend name="include/nme/display/IGraphicsData.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/FCamera.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/com/firmamentengine/firmament/FCamera.h"/>
+   <depend name="include/com/firmamentengine/firmament/FEntity.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderable.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderer.h"/>
+   <depend name="include/com/firmamentengine/firmament/FVector.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorld.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositional.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositionalInterface.h"/>
+   <depend name="include/nme/display/CapsStyle.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/Graphics.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/JointStyle.h"/>
+   <depend name="include/nme/display/LineScaleMode.h"/>
+   <depend name="include/nme/display/Sprite.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/FWorldPositionalInterface.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/com/firmamentengine/firmament/FVector.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositionalInterface.h"/>
+  </file>
+  <file name="src/nme/display/Sprite.cpp">
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/Sprite.h"/>
+   <depend name="include/nme/display/Stage.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/geom/Rectangle.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2LineJointDef.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2LineJointDef.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/FPhysicsWorld.cpp">
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/B2World.h"/>
+   <depend name="include/com/firmamentengine/firmament/FEntity.h"/>
+   <depend name="include/com/firmamentengine/firmament/FPhysicsEntity.h"/>
+   <depend name="include/com/firmamentengine/firmament/FPhysicsWorld.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderable.h"/>
+   <depend name="include/com/firmamentengine/firmament/FVector.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorld.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositional.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2GearJointDef.cpp">
+   <depend name="include/box2D/dynamics/joints/B2GearJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+  </file>
+  <file name="src/box2D/collision/B2ManifoldPoint.cpp">
+   <depend name="include/box2D/collision/B2ContactID.h"/>
+   <depend name="include/box2D/collision/B2ManifoldPoint.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2MouseJoint.cpp">
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2MouseJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2MouseJointDef.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2PulleyJoint.cpp">
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/B2World.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PulleyJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PulleyJointDef.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2CircleContact.cpp">
+   <depend name="include/box2D/collision/B2Collision.h"/>
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/collision/shapes/B2CircleShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2CircleContact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+  </file>
+  <file name="src/cpp/io/FileInput.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/cpp/io/FileInput.h"/>
+   <depend name="include/cpp/io/FileSeek.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/Eof.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+   <depend name="include/haxe/io/Input.h"/>
+  </file>
+  <file name="src/Reflect.cpp">
+   <depend name="include/Reflect.h"/>
+  </file>
+  <file name="src/nme/display/JointStyle.cpp">
+   <depend name="include/nme/display/JointStyle.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2FrictionJointDef.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/joints/B2FrictionJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2RevoluteJoint.cpp">
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Mat33.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/common/math/B2Vec3.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2RevoluteJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2RevoluteJointDef.h"/>
+  </file>
+  <file name="src/box2D/collision/B2SimplexCache.cpp">
+   <depend name="include/box2D/collision/B2SimplexCache.h"/>
+  </file>
+  <file name="src/nme/events/IOErrorEvent.cpp">
+   <depend name="include/nme/events/ErrorEvent.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/IOErrorEvent.h"/>
+   <depend name="include/nme/events/TextEvent.h"/>
+  </file>
+  <file name="src/nme/events/ErrorEvent.cpp">
+   <depend name="include/nme/events/ErrorEvent.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/TextEvent.h"/>
+  </file>
+  <file name="src/nme/events/TextEvent.cpp">
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/TextEvent.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/FWorldPositional.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/com/firmamentengine/firmament/FVector.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositional.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/box2D/common/math/B2Math.cpp">
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/nme/errors/Error.cpp">
+   <depend name="include/nme/errors/Error.h"/>
+  </file>
+  <file name="src/Type.cpp">
+   <depend name="include/Reflect.h"/>
+   <depend name="include/Type.h"/>
+   <depend name="include/ValueType.h"/>
+  </file>
+  <file name="src/ValueType.cpp">
+   <depend name="include/ValueType.h"/>
+  </file>
+  <file name="src/nme/display/BlendMode.cpp">
+   <depend name="include/nme/display/BlendMode.h"/>
+  </file>
+  <file name="src/cpp/zip/Flush.cpp">
+   <depend name="include/cpp/zip/Flush.h"/>
+  </file>
+  <file name="src/cpp/io/File.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/cpp/io/File.h"/>
+   <depend name="include/cpp/io/FileInput.h"/>
+   <depend name="include/cpp/io/FileOutput.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/Input.h"/>
+   <depend name="include/haxe/io/Output.h"/>
+  </file>
+  <file name="src/cpp/io/FileSeek.cpp">
+   <depend name="include/cpp/io/FileSeek.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2ContactManager.cpp">
+   <depend name="include/box2D/collision/B2ContactPoint.h"/>
+   <depend name="include/box2D/collision/B2DynamicTreeBroadPhase.h"/>
+   <depend name="include/box2D/collision/IBroadPhase.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2ContactFilter.h"/>
+   <depend name="include/box2D/dynamics/B2ContactListener.h"/>
+   <depend name="include/box2D/dynamics/B2ContactManager.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/B2World.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactEdge.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactFactory.h"/>
+  </file>
+  <file name="src/box2D/collision/B2ContactPoint.cpp">
+   <depend name="include/box2D/collision/B2ContactID.h"/>
+   <depend name="include/box2D/collision/B2ContactPoint.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2WeldJoint.cpp">
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Mat33.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/common/math/B2Vec3.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2WeldJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2WeldJointDef.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2Joint.cpp">
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/joints/B2DistanceJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2DistanceJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2FrictionJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2FrictionJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2GearJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2GearJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointEdge.h"/>
+   <depend name="include/box2D/dynamics/joints/B2LineJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2LineJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2MouseJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2MouseJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PrismaticJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PrismaticJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PulleyJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PulleyJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2RevoluteJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2RevoluteJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2WeldJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2WeldJointDef.h"/>
+  </file>
+  <file name="src/nme/geom/Rectangle.cpp">
+   <depend name="include/nme/geom/Matrix.h"/>
+   <depend name="include/nme/geom/Point.h"/>
+   <depend name="include/nme/geom/Rectangle.h"/>
+  </file>
+  <file name="src/box2D/collision/B2Distance.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/box2D/collision/B2Distance.h"/>
+   <depend name="include/box2D/collision/B2DistanceInput.h"/>
+   <depend name="include/box2D/collision/B2DistanceOutput.h"/>
+   <depend name="include/box2D/collision/B2DistanceProxy.h"/>
+   <depend name="include/box2D/collision/B2Simplex.h"/>
+   <depend name="include/box2D/collision/B2SimplexCache.h"/>
+   <depend name="include/box2D/collision/B2SimplexVertex.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/collision/B2Simplex.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/box2D/collision/B2DistanceProxy.h"/>
+   <depend name="include/box2D/collision/B2Simplex.h"/>
+   <depend name="include/box2D/collision/B2SimplexCache.h"/>
+   <depend name="include/box2D/collision/B2SimplexVertex.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/collision/B2DistanceProxy.cpp">
+   <depend name="include/box2D/collision/B2DistanceProxy.h"/>
+   <depend name="include/box2D/collision/shapes/B2CircleShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2PolygonShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/collision/B2Manifold.cpp">
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/collision/B2ManifoldPoint.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2FilterData.cpp">
+   <depend name="include/box2D/dynamics/B2FilterData.h"/>
+  </file>
+  <file name="src/nme/net/URLVariables.cpp">
+   <depend name="include/Reflect.h"/>
+   <depend name="include/StringTools.h"/>
+   <depend name="include/nme/net/URLVariables.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/FWorld.cpp">
+   <depend name="include/com/firmamentengine/firmament/FEntity.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderable.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorld.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositional.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/box2D/collision/B2RayCastOutput.cpp">
+   <depend name="include/box2D/collision/B2RayCastOutput.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/nme/display/StageQuality.cpp">
+   <depend name="include/nme/display/StageQuality.h"/>
+  </file>
+  <file name="src/box2D/collision/ClipVertex.cpp">
+   <depend name="include/box2D/collision/B2ContactID.h"/>
+   <depend name="include/box2D/collision/ClipVertex.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2DistanceJointDef.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/joints/B2DistanceJointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+  </file>
+  <file name="src/box2D/common/math/B2Vec3.cpp">
+   <depend name="include/box2D/common/math/B2Vec3.h"/>
+  </file>
+  <file name="src/box2D/collision/B2SeparationFunction.cpp">
+   <depend name="include/box2D/collision/B2DistanceProxy.h"/>
+   <depend name="include/box2D/collision/B2SeparationFunction.h"/>
+   <depend name="include/box2D/collision/B2SimplexCache.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/common/B2Settings.cpp">
+   <depend name="include/box2D/common/B2Settings.h"/>
+  </file>
+  <file name="src/cpp/io/FileOutput.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/cpp/io/FileOutput.h"/>
+   <depend name="include/cpp/io/FileSeek.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+   <depend name="include/haxe/io/Output.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2RevoluteJointDef.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2RevoluteJointDef.h"/>
+  </file>
+  <file name="src/nme/display/Graphics.cpp">
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/display/BitmapData.h"/>
+   <depend name="include/nme/display/CapsStyle.h"/>
+   <depend name="include/nme/display/GradientType.h"/>
+   <depend name="include/nme/display/Graphics.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/IGraphicsData.h"/>
+   <depend name="include/nme/display/InterpolationMethod.h"/>
+   <depend name="include/nme/display/JointStyle.h"/>
+   <depend name="include/nme/display/LineScaleMode.h"/>
+   <depend name="include/nme/display/SpreadMethod.h"/>
+   <depend name="include/nme/display/Tilesheet.h"/>
+   <depend name="include/nme/display/TriangleCulling.h"/>
+   <depend name="include/nme/geom/Matrix.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2PulleyJointDef.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PulleyJoint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PulleyJointDef.h"/>
+  </file>
+  <file name="src/cpp/FileSystem.cpp">
+   <depend name="include/Date.h"/>
+   <depend name="include/cpp/FileKind.h"/>
+   <depend name="include/cpp/FileSystem.h"/>
+   <depend name="include/cpp/Lib.h"/>
+  </file>
+  <file name="src/cpp/FileKind.cpp">
+   <depend name="include/cpp/FileKind.h"/>
+  </file>
+  <file name="src/nme/display/TouchInfo.cpp">
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/TouchInfo.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/nme/display/Stage.cpp">
+   <depend name="include/IntHash.h"/>
+   <depend name="include/Reflect.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/Type.h"/>
+   <depend name="include/haxe/Timer.h"/>
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/Sprite.h"/>
+   <depend name="include/nme/display/Stage.h"/>
+   <depend name="include/nme/display/StageAlign.h"/>
+   <depend name="include/nme/display/StageDisplayState.h"/>
+   <depend name="include/nme/display/StageQuality.h"/>
+   <depend name="include/nme/display/StageScaleMode.h"/>
+   <depend name="include/nme/display/TouchInfo.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/FocusEvent.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/events/JoystickEvent.h"/>
+   <depend name="include/nme/events/KeyboardEvent.h"/>
+   <depend name="include/nme/events/MouseEvent.h"/>
+   <depend name="include/nme/events/TouchEvent.h"/>
+   <depend name="include/nme/geom/Point.h"/>
+   <depend name="include/nme/geom/Rectangle.h"/>
+   <depend name="include/nme/media/SoundChannel.h"/>
+   <depend name="include/nme/net/URLLoader.h"/>
+  </file>
+  <file name="src/nme/display/DisplayObjectContainer.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/errors/Error.h"/>
+   <depend name="include/nme/errors/RangeError.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/geom/Point.h"/>
+  </file>
+  <file name="src/nme/display/InteractiveObject.cpp">
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/nme/display/DisplayObject.cpp">
+   <depend name="include/Type.h"/>
+   <depend name="include/nme/Loader.h"/>
+   <depend name="include/nme/display/BlendMode.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/Graphics.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/Stage.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/EventPhase.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/geom/ColorTransform.h"/>
+   <depend name="include/nme/geom/Matrix.h"/>
+   <depend name="include/nme/geom/Point.h"/>
+   <depend name="include/nme/geom/Rectangle.h"/>
+   <depend name="include/nme/geom/Transform.h"/>
+  </file>
+  <file name="src/nme/Loader.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/nme/Loader.h"/>
+  </file>
+  <file name="src/nme/display/IBitmapDrawable.cpp">
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/geom/ColorTransform.h"/>
+   <depend name="include/nme/geom/Matrix.h"/>
+   <depend name="include/nme/geom/Rectangle.h"/>
+  </file>
+  <file name="src/nme/events/EventDispatcher.cpp">
+   <depend name="include/Hash.h"/>
+   <depend name="include/Type.h"/>
+   <depend name="include/nme/events/ErrorEvent.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/EventPhase.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/events/IOErrorEvent.h"/>
+   <depend name="include/nme/events/Listener.h"/>
+   <depend name="include/nme/events/TextEvent.h"/>
+   <depend name="include/nme/utils/WeakRef.h"/>
+  </file>
+  <file name="src/nme/events/IEventDispatcher.cpp">
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2World.cpp">
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2RayCastInput.h"/>
+   <depend name="include/box2D/collision/B2RayCastOutput.h"/>
+   <depend name="include/box2D/collision/IBroadPhase.h"/>
+   <depend name="include/box2D/collision/shapes/B2CircleShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2EdgeShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2PolygonShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/B2Color.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2BodyDef.h"/>
+   <depend name="include/box2D/dynamics/B2ContactFilter.h"/>
+   <depend name="include/box2D/dynamics/B2ContactListener.h"/>
+   <depend name="include/box2D/dynamics/B2ContactManager.h"/>
+   <depend name="include/box2D/dynamics/B2DebugDraw.h"/>
+   <depend name="include/box2D/dynamics/B2DestructionListener.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/B2Island.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/B2World.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactEdge.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactSolver.h"/>
+   <depend name="include/box2D/dynamics/controllers/B2Controller.h"/>
+   <depend name="include/box2D/dynamics/controllers/B2ControllerEdge.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointEdge.h"/>
+   <depend name="include/box2D/dynamics/joints/B2PulleyJoint.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/Graphics.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/Sprite.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2TimeStep.cpp">
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+  </file>
+  <file name="src/box2D/common/B2Color.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/box2D/common/B2Color.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+  </file>
+  <file name="src/box2D/common/math/B2Sweep.cpp">
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2PolygonContact.cpp">
+   <depend name="include/box2D/collision/B2Collision.h"/>
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/collision/shapes/B2PolygonShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2PolygonContact.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/FWireframeRenderer.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/com/firmamentengine/firmament/FCamera.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderable.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderer.h"/>
+   <depend name="include/com/firmamentengine/firmament/FVector.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWireframeRenderer.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositional.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositionalInterface.h"/>
+   <depend name="include/nme/display/CapsStyle.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/Graphics.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/JointStyle.h"/>
+   <depend name="include/nme/display/LineScaleMode.h"/>
+   <depend name="include/nme/display/Sprite.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/com/firmamentengine/firmament/FRenderer.cpp">
+   <depend name="include/com/firmamentengine/firmament/FCamera.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderable.h"/>
+   <depend name="include/com/firmamentengine/firmament/FRenderer.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositional.h"/>
+   <depend name="include/com/firmamentengine/firmament/FWorldPositionalInterface.h"/>
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/DisplayObjectContainer.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/display/Sprite.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+  </file>
+  <file name="src/haxe/io/BytesBuffer.cpp">
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/BytesBuffer.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+  </file>
+  <file name="src/box2D/collision/B2OBB.cpp">
+   <depend name="include/box2D/collision/B2OBB.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2ContactEdge.cpp">
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactEdge.h"/>
+  </file>
+  <file name="src/haxe/io/Bytes.cpp">
+   <depend name="include/StringBuf.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+  </file>
+  <file name="src/StringTools.cpp">
+   <depend name="include/StringTools.h"/>
+  </file>
+  <file name="src/cpp/zip/Compress.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/cpp/zip/Compress.h"/>
+   <depend name="include/cpp/zip/Flush.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+  </file>
+  <file name="src/box2D/dynamics/controllers/B2ControllerEdge.cpp">
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/controllers/B2Controller.h"/>
+   <depend name="include/box2D/dynamics/controllers/B2ControllerEdge.h"/>
+  </file>
+  <file name="src/nme/net/URLRequest.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/nme/net/URLRequest.h"/>
+   <depend name="include/nme/net/URLVariables.h"/>
+   <depend name="include/nme/utils/ByteArray.h"/>
+   <depend name="include/nme/utils/IDataInput.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2FixtureDef.cpp">
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/dynamics/B2FilterData.h"/>
+   <depend name="include/box2D/dynamics/B2FixtureDef.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2ContactFilter.cpp">
+   <depend name="include/box2D/dynamics/B2ContactFilter.h"/>
+   <depend name="include/box2D/dynamics/B2FilterData.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+  </file>
+  <file name="src/IntHash.cpp">
+   <depend name="include/IntHash.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/StringBuf.h"/>
+  </file>
+  <file name="src/nme/display/GradientType.cpp">
+   <depend name="include/nme/display/GradientType.h"/>
+  </file>
+  <file name="src/Hash.cpp">
+   <depend name="include/Hash.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/StringBuf.h"/>
+  </file>
+  <file name="src/nme/net/URLRequestMethod.cpp">
+   <depend name="include/nme/net/URLRequestMethod.h"/>
+  </file>
+  <file name="src/cpp/io/Process.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/cpp/io/Process.h"/>
+   <depend name="include/cpp/io/_Process/Stdin.h"/>
+   <depend name="include/cpp/io/_Process/Stdout.h"/>
+   <depend name="include/haxe/io/Input.h"/>
+   <depend name="include/haxe/io/Output.h"/>
+  </file>
+  <file name="src/cpp/io/_Process/Stdout.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/cpp/io/_Process/Stdout.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/Eof.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+   <depend name="include/haxe/io/Input.h"/>
+  </file>
+  <file name="src/haxe/io/Input.cpp">
+   <depend name="include/StringBuf.h"/>
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/BytesBuffer.h"/>
+   <depend name="include/haxe/io/Eof.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+   <depend name="include/haxe/io/Input.h"/>
+  </file>
+  <file name="src/cpp/io/_Process/Stdin.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/cpp/io/_Process/Stdin.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/Eof.h"/>
+   <depend name="include/haxe/io/Output.h"/>
+  </file>
+  <file name="src/haxe/io/Output.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/Eof.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+   <depend name="include/haxe/io/Input.h"/>
+   <depend name="include/haxe/io/Output.h"/>
+  </file>
+  <file name="src/cpp/Lib.cpp">
+   <depend name="include/cpp/Lib.h"/>
+  </file>
+  <file name="src/IntIter.cpp">
+   <depend name="include/IntIter.h"/>
+  </file>
+  <file name="src/box2D/collision/shapes/B2EdgeShape.cpp">
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2RayCastInput.h"/>
+   <depend name="include/box2D/collision/B2RayCastOutput.h"/>
+   <depend name="include/box2D/collision/shapes/B2EdgeShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2MassData.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/collision/shapes/B2Shape.cpp">
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2Distance.h"/>
+   <depend name="include/box2D/collision/B2DistanceInput.h"/>
+   <depend name="include/box2D/collision/B2DistanceOutput.h"/>
+   <depend name="include/box2D/collision/B2DistanceProxy.h"/>
+   <depend name="include/box2D/collision/B2RayCastInput.h"/>
+   <depend name="include/box2D/collision/B2RayCastOutput.h"/>
+   <depend name="include/box2D/collision/B2SimplexCache.h"/>
+   <depend name="include/box2D/collision/shapes/B2MassData.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/nme/geom/Point.cpp">
+   <depend name="include/nme/geom/Point.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2JointEdge.cpp">
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointEdge.h"/>
+  </file>
+  <file name="src/List.cpp">
+   <depend name="include/List.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/StringBuf.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2MouseJointDef.cpp">
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+   <depend name="include/box2D/dynamics/joints/B2MouseJointDef.h"/>
+  </file>
+  <file name="src/box2D/dynamics/joints/B2JointDef.cpp">
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointDef.h"/>
+  </file>
+  <file name="src/nme/net/URLLoaderDataFormat.cpp">
+   <depend name="include/nme/net/URLLoaderDataFormat.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2Body.cpp">
+   <depend name="include/box2D/collision/IBroadPhase.h"/>
+   <depend name="include/box2D/collision/shapes/B2EdgeShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2MassData.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2BodyDef.h"/>
+   <depend name="include/box2D/dynamics/B2ContactManager.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/B2FixtureDef.h"/>
+   <depend name="include/box2D/dynamics/B2World.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactEdge.h"/>
+   <depend name="include/box2D/dynamics/controllers/B2ControllerEdge.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+   <depend name="include/box2D/dynamics/joints/B2JointEdge.h"/>
+  </file>
+  <file name="src/box2D/common/math/B2Transform.cpp">
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2PositionSolverManifold.cpp">
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactConstraint.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactConstraintPoint.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2PositionSolverManifold.h"/>
+  </file>
+  <file name="src/box2D/common/math/B2Vec2.cpp">
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2Island.cpp">
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Math.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2ContactImpulse.h"/>
+   <depend name="include/box2D/dynamics/B2ContactListener.h"/>
+   <depend name="include/box2D/dynamics/B2Island.h"/>
+   <depend name="include/box2D/dynamics/B2TimeStep.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactConstraint.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactConstraintPoint.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactSolver.h"/>
+   <depend name="include/box2D/dynamics/joints/B2Joint.h"/>
+  </file>
+  <file name="src/box2D/dynamics/B2ContactImpulse.cpp">
+   <depend name="include/box2D/dynamics/B2ContactImpulse.h"/>
+  </file>
+  <file name="src/box2D/common/math/B2Mat22.cpp">
+   <depend name="include/box2D/common/math/B2Mat22.h"/>
+   <depend name="include/box2D/common/math/B2Vec2.h"/>
+  </file>
+  <file name="src/nme/events/ProgressEvent.cpp">
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/ProgressEvent.h"/>
+  </file>
+  <file name="src/nme/display/StageDisplayState.cpp">
+   <depend name="include/nme/display/StageDisplayState.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2PolyAndCircleContact.cpp">
+   <depend name="include/box2D/collision/B2Collision.h"/>
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/collision/shapes/B2CircleShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2PolygonShape.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2PolyAndCircleContact.h"/>
+  </file>
+  <file name="src/box2D/dynamics/contacts/B2Contact.cpp">
+   <depend name="include/box2D/collision/B2AABB.h"/>
+   <depend name="include/box2D/collision/B2ContactID.h"/>
+   <depend name="include/box2D/collision/B2DistanceProxy.h"/>
+   <depend name="include/box2D/collision/B2Manifold.h"/>
+   <depend name="include/box2D/collision/B2ManifoldPoint.h"/>
+   <depend name="include/box2D/collision/B2TOIInput.h"/>
+   <depend name="include/box2D/collision/B2TimeOfImpact.h"/>
+   <depend name="include/box2D/collision/B2WorldManifold.h"/>
+   <depend name="include/box2D/collision/shapes/B2Shape.h"/>
+   <depend name="include/box2D/common/B2Settings.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+   <depend name="include/box2D/common/math/B2Transform.h"/>
+   <depend name="include/box2D/dynamics/B2Body.h"/>
+   <depend name="include/box2D/dynamics/B2ContactListener.h"/>
+   <depend name="include/box2D/dynamics/B2Fixture.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2Contact.h"/>
+   <depend name="include/box2D/dynamics/contacts/B2ContactEdge.h"/>
+  </file>
+  <file name="src/box2D/collision/B2TOIInput.cpp">
+   <depend name="include/box2D/collision/B2DistanceProxy.h"/>
+   <depend name="include/box2D/collision/B2TOIInput.h"/>
+   <depend name="include/box2D/common/math/B2Sweep.h"/>
+  </file>
+  <file name="src/nme/events/TouchEvent.cpp">
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/events/MouseEvent.h"/>
+   <depend name="include/nme/events/TouchEvent.h"/>
+   <depend name="include/nme/geom/Point.h"/>
+  </file>
+  <file name="src/nme/events/MouseEvent.cpp">
+   <depend name="include/nme/display/DisplayObject.h"/>
+   <depend name="include/nme/display/IBitmapDrawable.h"/>
+   <depend name="include/nme/display/InteractiveObject.h"/>
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/EventDispatcher.h"/>
+   <depend name="include/nme/events/IEventDispatcher.h"/>
+   <depend name="include/nme/events/MouseEvent.h"/>
+   <depend name="include/nme/geom/Point.h"/>
+  </file>
+  <file name="src/nme/events/Event.cpp">
+   <depend name="include/nme/events/Event.h"/>
+   <depend name="include/nme/events/EventPhase.h"/>
+  </file>
+  <file name="src/__boot__.cpp">
+  </file>
+  <file name="src/__resources__.cpp">
+  </file>
+</files>
+<files id="__lib__">
+<compilerflag value="-Iinclude"/>
+  <file name="src/__lib__.cpp">
+   <depend name="include/ApplicationMain.h"/>
+  </file>
+</files>
+<files id="__main__">
+<compilerflag value="-Iinclude"/>
+  <file name="src/__main__.cpp">
+   <depend name="include/ApplicationMain.h"/>
+  </file>
+</files>
+<set name="HAXE_OUTPUT" value="ApplicationMain" />
+<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
+</xml>

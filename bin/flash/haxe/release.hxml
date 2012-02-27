@@ -1,0 +1,10 @@
+-main ApplicationMain 
+-D nme_install_tool
+-cp src
+-lib nme
+-lib box2d
+-D web
+-swf-version 10
+-swf9 bin/flash/bin/Firmamenthx.swf
+-swf-header 800:480:60:FFFFFF
+-cp bin/flash/haxe
