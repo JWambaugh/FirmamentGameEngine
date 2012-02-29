@@ -1,6 +1,7 @@
 package com.firmamentengine.firmament;
 
 import box2D.collision.shapes.B2CircleShape;
+import box2D.collision.shapes.B2PolygonShape;
 import com.firmamentengine.firmament.FEntity;
 import box2D.dynamics.B2Body;
 import box2D.dynamics.B2BodyDef;
@@ -30,12 +31,40 @@ class FPhysicsEntity extends FEntity
 			def.position = new FVector(0, 0);
 		}
 		def.userData = this;
-		def.type = B2Body.b2_dynamicBody;
 		
+		if(config.type=='dynamic')
+			def.type = B2Body.b2_dynamicBody;
+		else def.type = B2Body.b2_staticBody;
 		var physWorld:FPhysicsWorld = cast world;
 		
 		body = physWorld.getB2World().createBody(def);
-		body.createFixture2(new B2CircleShape(1));
+		//body.createFixture2(new B2CircleShape(1));
+		
+		if(Std.is(config.shapes,Array))
+		for (shape in cast(config.shapes, Array<Dynamic>)) {
+				var shapeDef = new B2FixtureDef();
+				if (shape.type == 'circle') {
+					if (!Std.is(shape.radius, Float)) {
+						shape.radius = 1;
+					}
+					shapeDef.shape = new B2CircleShape(shape.radius);
+				}
+				
+				if (shape.type == 'box') {
+					var s:B2PolygonShape = new B2PolygonShape();
+					s.setAsBox(shape.width, shape.height);
+					shapeDef.shape = s;
+				}
+				
+				if (Std.is(shape.density, Float))
+					shapeDef.density = shape.density;
+				if (Std.is(shape.friction, Float))
+					shapeDef.friction = shape.friction;
+				if (Std.is(shape.restitution, Float))
+					shapeDef.restitution= shape.restitution;
+				
+				body.createFixture(shapeDef);
+		}
 		
 		
 		

@@ -32,11 +32,42 @@ class FGame
 		world = new FPhysicsWorld(new FVector(0, 1));
 		world.createEntity( {
 			test:'blah'
-			,position:new FVector(0,1)
+			,position:new FVector(0, 0)
+			,type:'dynamic'
+			,shapes:[
+				{
+					type:'circle'
+					,radius:1
+					,restitution:1
+				}
+			]
 		});
 		world.createEntity( {
 			test:'blah'
-			,position:new FVector(.5,1)
+			,position:new FVector(.5, 0)
+			,type:'dynamic'
+			,shapes:[
+				{
+					type:'circle'
+					,radius:1
+					,restitution:1
+				}
+				
+			]
+		});
+		
+		world.createEntity( {
+			test:'blah'
+			,position:new FVector(.5, 3)
+			,type:'static'
+			,shapes:[
+				{
+					type:'box'
+					,width:10
+					,height:.2
+				}
+				
+			]
 		});
 		camera = new FCamera(500,500);
 		worldArray = new Array<FWorld>();
