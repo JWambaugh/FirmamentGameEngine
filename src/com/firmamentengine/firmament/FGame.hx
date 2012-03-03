@@ -8,8 +8,10 @@ package com.firmamentengine.firmament;
 
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
+import nme.events.TimerEvent;
 import nme.Lib;
 import nme.events.Event;
+
 import nme.utils.Timer;
 
 import com.firmamentengine.firmament.FPhysicsEntity;
@@ -41,16 +43,23 @@ class FGame
 		worldArray.push(world);
 		stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
 		
-		//var timer = new Timer();
+		var timer = new Timer(33);
+		timer.addEventListener(TimerEvent.TIMER, this_step);
+		timer.start();
 		
 		stage.addChild(camera);
 		
 	}
+	private function this_step(timer):Void {
+		//trace('step');
+		for (world in this.worldArray) {
+			world.step();
+			
+		}
+	}
 	private function this_onEnterFrame (event:Event):Void {
 		//trace('this is called.');
 		camera.render(worldArray);
-		for (world in this.worldArray) {
-			world.step();
-		}
+		
 	}
 }
