@@ -1,8 +1,9 @@
 package com.firmamentengine.firmament;
 
-import nme.display.Sprite;
+import nme.display.Bitmap;
 import com.firmamentengine.firmament.FEntity;
 import com.firmamentengine.firmament.FWorld;
+import nme.display.Sprite;
 import nme.events.Event;
 /**
  * ...
@@ -44,7 +45,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		}
 	}
 	private function calculateTopLeftPosition() {
-		
+		trace(this.width);
 		this.topLeftPosition.x=this.position.x-(this.displayWidth/this.zoom)/2;
 		this.topLeftPosition.y = this.position.y - (this.displayHeight / this.zoom) / 2;
 		this.calculatedTopLeft = true;
