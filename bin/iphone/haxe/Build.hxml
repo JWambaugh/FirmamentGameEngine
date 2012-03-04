@@ -1,9 +1,0 @@
--main ApplicationMain 
--D nme_install_tool
--cp /Users/jordan/source/Firmament.hx
--cp /Users/jordan/source/Firmament.hx/src
--lib nme
--lib box2d
--D mobile
--D iphone
---remap flash:nme

@@ -1,426 +1,0 @@
-TFirmamenthx
-v4
-r1
-cCheck dependencies
-cProcessInfoPlistFile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Info.plist Firmamenthx-Info.plist
-cCpResource /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/ResourceRules.plist build/Release-iphoneos/Firmament.hx.app/ResourceRules.plist
-cCpResource assets build/Release-iphoneos/Firmament.hx.app/assets
-cCopyPNGFile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon.png Icon.png
-cCopyPNGFile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon@2x.png Icon@2x.png
-cCopyPNGFile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon-72.png Icon-72.png
-cCopyPNGFile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon-Small.png Icon-Small.png
-cCompileC build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Objects-normal/armv6/Main.o /Users/jordan/source/Firmament.hx/bin/iphone/Classes/Main.cpp normal armv6 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cLd /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Firmament.hx normal armv6
-cGenerateDSYMFile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app.dSYM /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Firmament.hx
-cProcessProductPackaging "/Users/jordan/Library/MobileDevice/Provisioning Profiles/4C674E5E-C55C-4C27-8268-E1EE94D89325.mobileprovision" /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/embedded.mobileprovision
-cProcessProductPackaging "/Users/jordan/Library/MobileDevice/Provisioning Profiles/4C674E5E-C55C-4C27-8268-E1EE94D89325.mobileprovision" /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/embedded.mobileprovision
-cTouch /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app
-cProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist /Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx.xcent
-cCodeSign /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app
-cValidate /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk
-c000000004E7840290000000000000110
-t1316503593
-s272
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist
-c000000004E5C595800000000000001A7
-t1314675032
-s423
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/ResourceRules.plist
-c000000004E5C595800000000000001E5
-t1314675032
-s485
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation
-c000000004E7807DB000000000015F8A0
-t1316489179
-s1439904
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox
-c000000004E72F36E00000000005AF640
-t1316156270
-s5961280
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreAudio.framework/CoreAudio
-c000000004E72F310000000000007BCB0
-t1316156176
-s507056
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004E72F28700000000003AB0A0
-t1316156039
-s3846304
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004E72F3440000000000529540
-t1316156228
-s5412160
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/OpenAL.framework/OpenAL
-c000000004E72F3C20000000000022660
-t1316156354
-s140896
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/OpenGLES.framework/OpenGLES
-c000000004E72F6E00000000000017190
-t1316157152
-s94608
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore
-c000000004E72F8910000000000173260
-t1316157585
-s1520224
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004E7808C7000000000078BE50
-t1316489415
-s7913040
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/usr/include/stdio.h
-c000000004E6059C20000000000004763
-t1314937282
-s18275
-
-N/Users/jordan/Library/MobileDevice/Provisioning Profiles/4C674E5E-C55C-4C27-8268-E1EE94D89325.mobileprovision
-c000000004F46CE230000000000001C9C
-t1330040355
-s7324
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/Classes/Main.cpp
-c000000004F46CE5100000000000003E4
-t1330040401
-s996
-i<stdio.h>
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/Icon-72.png
-c000000004F46B59C000000000000030C
-t1330034076
-s780
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/Icon-Small.png
-c000000004F46B59C0000000000000261
-t1330034076
-s609
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/Icon.png
-c000000004F46B59C000000000000024A
-t1330034076
-s586
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/Icon@2x.png
-c000000004F46B59C00000000000003A2
-t1330034076
-s930
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/assets
-c000000004F46B59F0000000000000044
-t1330034079
-s68
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx.xcent
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Objects-normal/armv6/Firmament.hx.LinkFileList
-c000000004F46CE5A0000000000000084
-t1330040410
-s132
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Objects-normal/armv6/Main.o
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/com.apple.build-tools.platform.validate
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app.dSYM
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Firmament.hx
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon-72.png
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon-Small.png
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon.png
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon@2x.png
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Info.plist
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/PkgInfo
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/ResourceRules.plist
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/assets
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/embedded.mobileprovision
-t2
-s0
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/ApplicationMain.a
-c000000004F46B5F90000000000655388
-t1330034169
-s6640520
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libcurl_ssl.iphoneos.a
-c000000004F46B59E0000000000089A08
-t1330034078
-s563720
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libcurl_ssl.iphonesim.a
-c000000004F46B59F000000000007C548
-t1330034079
-s509256
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libjpeg.iphoneos.a
-c000000004F46B59F000000000002A808
-t1330034079
-s174088
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libjpeg.iphonesim.a
-c000000004F46B59F0000000000025A28
-t1330034079
-s154152
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libnme.iphoneos.a
-c000000004F46B59C000000000036F638
-t1330034076
-s3601976
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libnme.iphonesim.a
-c000000004F46B59E00000000003FFA48
-t1330034078
-s4192840
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libpng.iphoneos.a
-c000000004F46B59F000000000002E258
-t1330034079
-s189016
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libpng.iphonesim.a
-c000000004F46B59F000000000002D848
-t1330034079
-s186440
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libregexp.iphoneos.a
-c000000004F46B59C0000000000027D90
-t1330034076
-s163216
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libregexp.iphonesim.a
-c000000004F46B59C000000000002EA78
-t1330034076
-s191096
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libstd.iphoneos.a
-c000000004F46B59C0000000000019810
-t1330034076
-s104464
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libstd.iphonesim.a
-c000000004F46B59C0000000000019B50
-t1330034076
-s105296
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libz.iphoneos.a
-c000000004F46B59F00000000000144C8
-t1330034079
-s83144
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libz.iphonesim.a
-c000000004F46B59F00000000000135C0
-t1330034079
-s79296
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libzlib.iphoneos.a
-c000000004F46B59C0000000000017C20
-t1330034076
-s97312
-
-N/Users/jordan/source/Firmament.hx/bin/iphone/lib/libzlib.iphonesim.a
-c000000004F46B59C0000000000016EE0
-t1330034076
-s93920
-
-NFirmamenthx-Info.plist
-c000000004F46CE510000000000000559
-t1330040401
-s1369
-
-CCheck dependencies
-r0
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesa4dfa2da05f7b441^bb0cafda05f7b441^-89"[BWARN]warning: all apps should include an armv7 architecture (current ARCHS = "armv6").1(21%IDEActivityLogMessage2@81"warning: all apps should include an armv7 architecture (current ARCHS = "armv6").-351733210#18446744073709551615#0#-1#-----0#1#0#--18"Check dependencies36"FCD1E55D-AA3E-4908-A81A-18F47B3DE2EC-
-
-CCodeSign /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app
-s351733212.893718
-e351733221.315873
-r1
-xCodeSign
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection48"CodeSign build/Release-iphoneos/Firmament.hx.appe0dbe4dc05f7b441^dee350e505f7b441^---0#0#0#-19%DVTDocumentLocation2@101"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/0000000000000000^807"CodeSign build/Release-iphoneos/Firmament.hx.app    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv CODESIGN_ALLOCATE /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    /usr/bin/codesign --force --sign "iPhone Developer: Jordan Wambaugh (33298H3M9Q)" --resource-rules=/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/ResourceRules.plist --entitlements /Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx.xcent /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app36"8AFFC0C7-695C-465B-8507-58231155B7A6-
-
-CCompileC build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Objects-normal/armv6/Main.o /Users/jordan/source/Firmament.hx/bin/iphone/Classes/Main.cpp normal armv6 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s351733210.865999
-e351733211.412132
-r1
-xCompileC
-xbuild/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Objects-normal/armv6/Main.o
-x/Users/jordan/source/Firmament.hx/bin/iphone/Classes/Main.cpp
-xnormal
-xarmv6
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection69"Compile /Users/jordan/source/Firmament.hx/bin/iphone/Classes/Main.cpp32c8ddda05f7b441^7c8169db05f7b441^---0#0#0#-19%DVTDocumentLocation2@77"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/Classes/Main.cpp0000000000000000^2355"CompileC build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Objects-normal/armv6/Main.o Classes/Main.cpp normal armv6 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/clang -x c++ -arch armv6 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-shorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -mthumb -miphoneos-version-min=3.0 -iquote /Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx-generated-files.hmap -I/Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx-own-target-headers.hmap -I/Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx-all-target-headers.hmap -iquote /Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx-project-headers.hmap -I/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/include -I/Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/DerivedSources/armv6 -I/Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/DerivedSources -F/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos -DNS_BLOCK_ASSERTIONS=1 -MMD -MT dependencies -MF /Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Objects-normal/armv6/Main.d -c /Users/jordan/source/Firmament.hx/bin/iphone/Classes/Main.cpp -o /Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Objects-normal/armv6/Main.o36"2EAC6BE0-9856-41B5-B2B6-43A67B164501-
-
-CCopyPNGFile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon-72.png Icon-72.png
-s351733210.726842
-e351733210.857513
-r1
-xCopyPNGFile
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon-72.png
-xIcon-72.png
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection75"CopyPNGFile build/Release-iphoneos/Firmament.hx.app/Icon-72.png Icon-72.pngc11fbada05f7b441^5c8edbda05f7b441^---0#0#0#-19%DVTDocumentLocation2@72"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/Icon-72.png0000000000000000^606"CopyPNGFile build/Release-iphoneos/Firmament.hx.app/Icon-72.png Icon-72.png    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    "/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/PrivatePlugIns/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng" "" /Users/jordan/source/Firmament.hx/bin/iphone/Icon-72.png /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon-72.png36"94600BE7-BE33-405A-A51C-E5B71095837D-
-
-CCopyPNGFile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon-Small.png Icon-Small.png
-s351733210.730547
-e351733210.840006
-r1
-xCopyPNGFile
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon-Small.png
-xIcon-Small.png
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection81"CopyPNGFile build/Release-iphoneos/Firmament.hx.app/Icon-Small.png Icon-Small.pngec14bbda05f7b441^f60ad7da05f7b441^---0#0#0#-19%DVTDocumentLocation2@75"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/Icon-Small.png0000000000000000^618"CopyPNGFile build/Release-iphoneos/Firmament.hx.app/Icon-Small.png Icon-Small.png    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    "/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/PrivatePlugIns/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng" "" /Users/jordan/source/Firmament.hx/bin/iphone/Icon-Small.png /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon-Small.png36"6FB7910E-DA67-4D1D-81C6-E609F536E07D-
-
-CCopyPNGFile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon.png Icon.png
-s351733210.726564
-e351733210.839614
-r1
-xCopyPNGFile
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon.png
-xIcon.png
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection69"CopyPNGFile build/Release-iphoneos/Firmament.hx.app/Icon.png Icon.pngdf18bada05f7b441^dcf1d6da05f7b441^---0#0#0#-19%DVTDocumentLocation2@69"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/Icon.png0000000000000000^594"CopyPNGFile build/Release-iphoneos/Firmament.hx.app/Icon.png Icon.png    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    "/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/PrivatePlugIns/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng" "" /Users/jordan/source/Firmament.hx/bin/iphone/Icon.png /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon.png36"ABE214E1-B50F-4EB6-B82D-DFA7A552D3DA-
-
-CCopyPNGFile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon@2x.png Icon@2x.png
-s351733210.726697
-e351733210.857519
-r1
-xCopyPNGFile
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon@2x.png
-xIcon@2x.png
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection75"CopyPNGFile build/Release-iphoneos/Firmament.hx.app/Icon@2x.png Icon@2x.pnge31bbada05f7b441^2b86dbda05f7b441^---0#0#0#-19%DVTDocumentLocation2@72"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/Icon@2x.png0000000000000000^614"CopyPNGFile "build/Release-iphoneos/Firmament.hx.app/Icon@2x.png" "Icon@2x.png"    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    "/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/PrivatePlugIns/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng" "" "/Users/jordan/source/Firmament.hx/bin/iphone/Icon@2x.png" "/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Icon@2x.png"36"7AFB5273-DF85-48A1-8C2D-B93C2FC4DAF4-
-
-CCpResource /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/ResourceRules.plist build/Release-iphoneos/Firmament.hx.app/ResourceRules.plist
-s351733210.687533
-e351733210.718501
-r1
-xCpResource
-x/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/ResourceRules.plist
-xbuild/Release-iphoneos/Firmament.hx.app/ResourceRules.plist
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection64"Copy build/Release-iphoneos/Firmament.hx.app/ResourceRules.plist2f18b0da05f7b441^16fbb7da05f7b441^---0#0#0#-19%DVTDocumentLocation2@120"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/ResourceRules.plist00f454c0dfffdf42^692"CpResource /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/ResourceRules.plist build/Release-iphoneos/Firmament.hx.app/ResourceRules.plist    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-debug-symbols -resolve-src-symlinks /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/ResourceRules.plist /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app36"E3743910-A793-4431-A01D-F84EB567E2F6-
-
-CCpResource assets build/Release-iphoneos/Firmament.hx.app/assets
-s351733210.726526
-e351733210.729324
-r1
-xCpResource
-xassets
-xbuild/Release-iphoneos/Firmament.hx.app/assets
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection51"Copy build/Release-iphoneos/Firmament.hx.app/assets840ebada05f7b441^5fb5bada05f7b441^---0#0#0#-19%DVTDocumentLocation2@107"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/assets00f454c0dfffdf42^558"CpResource assets build/Release-iphoneos/Firmament.hx.app/assets    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-debug-symbols -resolve-src-symlinks /Users/jordan/source/Firmament.hx/bin/iphone/assets /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app36"69F7F4D3-001A-40B2-9046-68876B43FA35-
-
-CGenerateDSYMFile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app.dSYM /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Firmament.hx
-s351733212.731607
-e351733212.806087
-r1
-xGenerateDSYMFile
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app.dSYM
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Firmament.hx
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"Generating /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app.dSYMfb5abbdc05f7b441^f65ccedc05f7b441^---0#0#0#-19%DVTDocumentLocation2@105"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app.dSYM00f454c0dfffdf42^561"GenerateDSYMFile build/Release-iphoneos/Firmament.hx.app.dSYM build/Release-iphoneos/Firmament.hx.app/Firmament.hx    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    /Developer/usr/bin/dsymutil /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Firmament.hx -o /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app.dSYM36"91107D85-2F6B-46CD-9366-24FF0902B743-
-
-CLd /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Firmament.hx normal armv6
-s351733211.419277
-e351733212.724006
-r1
-xLd
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Firmament.hx
-xnormal
-xarmv6
-old: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libstd.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)
-old: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libregexp.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)
-old: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libzlib.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)
-old: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libnme.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)
-old: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libcurl_ssl.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)
-old: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libpng.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)
-old: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libjpeg.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)
-old: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libz.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection102"Link /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Firmament.hx1a6f6bdb05f7b441^5c5ab9dc05f7b441^-1400"ld: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libstd.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)ld: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libregexp.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)ld: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libzlib.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)ld: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libnme.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)ld: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libcurl_ssl.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)ld: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libpng.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)ld: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libjpeg.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)ld: warning: ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libz.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)8(21%IDEActivityLogMessage2@160"Ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libstd.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)-351733211#0#174#-1#-23%DVTTextDocumentLocation3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#27"Apple Mach-O Linker Warning--2@163"Ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libregexp.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)-351733211#174#177#-1#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#27"Apple Mach-O Linker Warning--2@161"Ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libzlib.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)-351733211#351#175#-1#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#27"Apple Mach-O Linker Warning--2@160"Ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libnme.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)-351733211#526#174#-1#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#27"Apple Mach-O Linker Warning--2@165"Ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libcurl_ssl.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)-351733211#700#179#-1#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#27"Apple Mach-O Linker Warning--2@160"Ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libpng.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)-351733211#879#174#-1#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#27"Apple Mach-O Linker Warning--2@161"Ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libjpeg.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)-351733211#1053#175#-1#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#27"Apple Mach-O Linker Warning--2@158"Ignoring file /Users/jordan/source/Firmament.hx/bin/iphone/lib/libz.iphonesim.a, file was built for archive which is not the architecture being linked (armv6)-351733211#1228#172#-1#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#27"Apple Mach-O Linker Warning--0#0#0#--1510"Ld build/Release-iphoneos/Firmament.hx.app/Firmament.hx normal armv6    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv IPHONEOS_DEPLOYMENT_TARGET 3.0    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/clang++ -arch armv6 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk -L/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos -L/Users/jordan/source/Firmament.hx/bin/iphone/lib -F/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos -filelist /Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Objects-normal/armv6/Firmament.hx.LinkFileList -dead_strip -miphoneos-version-min=3.0 -lstd.iphoneos -lstd.iphonesim -lregexp.iphoneos -lregexp.iphonesim -lzlib.iphoneos -lzlib.iphonesim -lnme.iphoneos -lnme.iphonesim -lcurl_ssl.iphoneos -lcurl_ssl.iphonesim -lpng.iphoneos -lpng.iphonesim -ljpeg.iphoneos -ljpeg.iphonesim -lz.iphoneos -lz.iphonesim /Users/jordan/source/Firmament.hx/bin/iphone/lib/ApplicationMain.a -framework UIKit -framework OpenAL -framework OpenGLES -framework QuartzCore -framework CoreAudio -framework CoreGraphics -framework AudioToolbox -framework AVFoundation -framework Foundation -o /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Firmament.hx36"8BE66E04-A24B-4F1D-BE79-EC069E3D534F-
-
-CProcessInfoPlistFile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Info.plist Firmamenthx-Info.plist
-s351733210.687522
-e351733210.718815
-r1
-xProcessInfoPlistFile
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Info.plist
-xFirmamenthx-Info.plist
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection30"Process Firmamenthx-Info.plistb917b0da05f7b441^8e02b8da05f7b441^---0#0#0#-19%DVTDocumentLocation2@83"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/Firmamenthx-Info.plist0000000000000000^753"ProcessInfoPlistFile build/Release-iphoneos/Firmament.hx.app/Info.plist Firmamenthx-Info.plist    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    builtin-infoPlistUtility Firmamenthx-Info.plist -genpkginfo /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/PkgInfo -expandbuildsettings -format binary -platform iphoneos -resourcerulesfile /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/ResourceRules.plist -o /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/Info.plist36"4A86CE2B-2AC3-465B-B54A-B7D1118B3866-
-
-CProcessProductPackaging "/Users/jordan/Library/MobileDevice/Provisioning Profiles/4C674E5E-C55C-4C27-8268-E1EE94D89325.mobileprovision" /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/embedded.mobileprovision
-s351733212.825721
-e351733212.829018
-r1
-xProcessProductPackaging
-x/Users/jordan/Library/MobileDevice/Provisioning Profiles/4C674E5E-C55C-4C27-8268-E1EE94D89325.mobileprovision
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/embedded.mobileprovision
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection200"ProcessProductPackaging "/Users/jordan/Library/MobileDevice/Provisioning Profiles/4C674E5E-C55C-4C27-8268-E1EE94D89325.mobileprovision" build/Release-iphoneos/Firmament.hx.app/embedded.mobileprovision3674d3dc05f7b441^a83ad4dc05f7b441^---0#0#0#-19%DVTDocumentLocation2@125"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/embedded.mobileprovision0000000000000000^685"ProcessProductPackaging "/Users/jordan/Library/MobileDevice/Provisioning Profiles/4C674E5E-C55C-4C27-8268-E1EE94D89325.mobileprovision" build/Release-iphoneos/Firmament.hx.app/embedded.mobileprovision    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    builtin-productPackagingUtility "/Users/jordan/Library/MobileDevice/Provisioning Profiles/4C674E5E-C55C-4C27-8268-E1EE94D89325.mobileprovision" -o /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/embedded.mobileprovision36"3231D71B-9067-4581-930A-7BB35E22B510-
-
-CProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist /Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx.xcent
-s351733212.871137
-e351733212.885062
-r1
-xProcessProductPackaging
-x/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx.xcent
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection190"ProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx.xcent4913dfdc05f7b441^7d93e2dc05f7b441^---0#0#0#-19%DVTDocumentLocation2@138"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx.xcent00f454c0dfffdf42^691"ProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx.xcent    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    builtin-productPackagingUtility /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist -entitlements -format xml -o /Users/jordan/source/Firmament.hx/bin/iphone/build/Firmamenthx.build/Release-iphoneos/Firmamenthx.build/Firmament.hx.xcent36"C7ED83B1-0B3A-4527-AB73-71103F2BD444-
-
-CTouch /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app
-s351733212.836977
-e351733212.862475
-r1
-xTouch
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection90"Touch /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app9c52d6dc05f7b441^e2cbdcdc05f7b441^---0#0#0#--376"Touch build/Release-iphoneos/Firmament.hx.app    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    /usr/bin/touch -c /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app36"AE3A4622-0016-443F-929D-F6F8B4820B8D-
-
-CValidate /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app
-s351733221.323748
-e351733225.733487
-r1
-xValidate
-x/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection48"Validate build/Release-iphoneos/Firmament.hx.appaef052e505f7b441^65c6bbe905f7b441^---0#0#0#-19%DVTDocumentLocation2@101"file://localhost/Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app/0000000000000000^488"Validate build/Release-iphoneos/Firmament.hx.app    cd /Users/jordan/source/Firmament.hx/bin/iphone    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin"    setenv PRODUCT_TYPE com.apple.product-type.application    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/Validation /Users/jordan/source/Firmament.hx/bin/iphone/build/Release-iphoneos/Firmament.hx.app36"AB4CAC74-3AC2-453A-B4E3-171709775B39-
-
