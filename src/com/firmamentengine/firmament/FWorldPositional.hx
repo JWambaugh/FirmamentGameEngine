@@ -34,4 +34,9 @@ class FWorldPositional extends EventDispatcher
 	public function getPositionY():Float {
 		return this.position.y;
 	}
+	
+	public function getAngle():Float {
+		return this.angle;
+	}
+	
 }

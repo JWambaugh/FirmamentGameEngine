@@ -21,7 +21,7 @@ class FPhysicsEntity extends FEntity
 	public function new(world:FPhysicsWorld,config:Dynamic) 
 	{
 		super(world,config);
-		this.renderer = new FWireframeRenderer();
+		this.renderer = new FSpriteRenderer();
 		var def:B2BodyDef = new B2BodyDef();
 		var fixtureDef:B2FixtureDef = new B2FixtureDef();
 		
@@ -36,7 +36,9 @@ class FPhysicsEntity extends FEntity
 			def.type = B2Body.b2_dynamicBody;
 		else def.type = B2Body.b2_staticBody;
 		var physWorld:FPhysicsWorld = cast world;
-		
+		if(Std.is(config.angle,Float))
+			def.angle = config.angle;
+		def.fixedRotation = false;
 		body = physWorld.getB2World().createBody(def);
 		//body.createFixture2(new B2CircleShape(1));
 		
@@ -75,6 +77,10 @@ class FPhysicsEntity extends FEntity
 		this.position.x = this.body.getPosition().x;
 		this.position.y = this.body.getPosition().y;
 		return this.position;
+	}
+	
+	override public function getAngle():Float {
+		return this.body.getAngle();
 	}
 	
 }

@@ -11,7 +11,8 @@ import nme.display.StageScaleMode;
 import nme.events.TimerEvent;
 import nme.Lib;
 import nme.events.Event;
-
+import nme.display.Bitmap;
+import nme.Assets;
 import nme.utils.Timer;
 
 import com.firmamentengine.firmament.FPhysicsEntity;
@@ -28,28 +29,20 @@ class FGame
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.align = StageAlign.TOP_LEFT;
 		// entry point
-		
+		var logo = new Bitmap (Assets.getBitmapData ("assets/ufo.png"));
 		world = new FPhysicsWorld(new FVector(0, 1));
-		world.createEntity( {
-			test:'blah'
-			,position:new FVector(0, 0)
-			,type:'dynamic'
-			,shapes:[
-				{
-					type:'circle'
-					,radius:1
-					,restitution:1
-				}
-			]
-		});
+		
 		world.createEntity( {
 			test:'blah'
 			,position:new FVector(.5, 0)
 			,type:'dynamic'
+			,sprite:logo
+			,angle:.1
 			,shapes:[
 				{
-					type:'circle'
-					,radius:1
+					type:'box'
+					,width:1
+					,height:.2
 					,restitution:1
 				}
 				
@@ -69,6 +62,7 @@ class FGame
 				
 			]
 		});
+		
 		camera = new FCamera(500,500);
 		worldArray = new Array<FWorld>();
 		worldArray.push(world);
