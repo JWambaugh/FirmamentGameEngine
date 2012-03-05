@@ -14,7 +14,7 @@
 	<haxelib name="box2d" />
 	<!-- assets -->
 	<icon name="assets/nme.svg" />
-	<assets path="assets" include="*" exclude="nme.svg" />
+	<assets path="assets" include="*" />
 	
 	<!-- DLLs -->
 	<ndll name="std" />

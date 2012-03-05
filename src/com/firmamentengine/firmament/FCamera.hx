@@ -3,14 +3,16 @@ package com.firmamentengine.firmament;
 import nme.display.Bitmap;
 import com.firmamentengine.firmament.FEntity;
 import com.firmamentengine.firmament.FWorld;
-import nme.display.Sprite;
+import nme.display.BitmapData;
+import nme.geom.Rectangle;
+
 import nme.events.Event;
 /**
  * ...
  * @author Jordan Wambaugh
  */
 
-class FCamera extends Sprite ,implements FWorldPositionalInterface 
+class FCamera extends Bitmap ,implements FWorldPositionalInterface 
 {
 	var position:FVector;
 	var topLeftPosition:FVector;
@@ -21,11 +23,11 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	var displayHeight:Int;
 
 	var calculatedTopLeft:Bool;
-	public function new(height:Int,width:Int) 
+	public function new(width:Int,height:Int) 
 	{
 		super();
-		this.zoom = 100;
-		
+		this.zoom = 80;
+		this.bitmapData = new BitmapData(width, height);
 		this.position = new FVector(0, 0);
 		this.calculatedTopLeft = false;
 		this.topLeftPosition = new FVector(0, 0);
@@ -34,9 +36,10 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	}
 	
 	public function render(worlds:Array<FWorld>) {
-		this.graphics.clear();
-		this.graphics.lineStyle(1, 0);
-		this.graphics.drawRect(0,0, this.displayWidth, this.displayHeight);
+		
+		this.bitmapData.fillRect(new Rectangle(0, 0, this.width, this.height),0xFFFFFF);
+		
+		//this.graphics.drawRect(0,0, this.displayWidth, this.displayHeight);
 		for (world in worlds) {
 			var entities:Array<FEntity> = world.getAllEntities();
 			for (ent in entities) {
@@ -45,7 +48,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		}
 	}
 	private function calculateTopLeftPosition() {
-		trace(this.width);
+		//trace(this.width);
 		this.topLeftPosition.x=this.position.x-(this.displayWidth/this.zoom)/2;
 		this.topLeftPosition.y = this.position.y - (this.displayHeight / this.zoom) / 2;
 		this.calculatedTopLeft = true;
