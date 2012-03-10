@@ -1,6 +1,8 @@
 package com.firmamentengine.firmament;
+import nme.display.BitmapData;
 import nme.geom.Matrix;
 import nme.display.IBitmapDrawable;
+import nme.geom.Point;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -19,21 +21,29 @@ class FSpriteRenderer implements FRenderer
 		if (item.getCurrentImage() == null) return;
 		var bmData = item.getCurrentImage().bitmapData;
 		if (bmData == null) return;
-		var pos = item.getPosition();
+		
 		
 		var cameraPos = camera.getTopLeftPosition();
-		var matrix = new Matrix();
+		//var matrix = new Matrix();
 		var ratio = camera.getZoom() / item.getImageScale();
 		var pos = item.getPosition();
-		var nx=(pos.x-cameraPos.x)*camera.getZoom();
-		var ny=(pos.y-cameraPos.y)*camera.getZoom();
-		
+		var nx = ((pos.x - cameraPos.x) * camera.getZoom());
+		var ny = ((pos.y - cameraPos.y) * camera.getZoom());
+		//matrix.scale(ratio,ratio);
 		
 		//trace(cameraPos.y);
-		matrix.translate(nx, ny);
+		
+		
+	
+		var matrix = new Matrix();
+		
+		
+		matrix.translate( -bmData.width/2, -bmData.height/2);
 		matrix.rotate(item.getAngle());
-		matrix.scale(ratio,ratio);
-		trace(item.getAngle());
+		matrix.translate( bmData.width/2, bmData.height/2);
+		
+		matrix.translate(nx - (bmData.width / 2), ny - (bmData.height / 2));
+		if(ratio!=1)matrix.scale(ratio, ratio);
 		camera.bitmapData.draw(bmData, matrix,null,null,null,true);
 		
 		
