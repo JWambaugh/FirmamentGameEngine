@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	<!-- metadata, make sure 'package' is at least 2 segments (ie. com.myproject) -->
-	<app file="Firmamenthx" title="Firmament.hx" main="com.firmamentengine.firmament.Main" package="com.firmamentengine.firmament" 
+	<app file="Test" title="Firmament Test" main="com.firmamentengine.games.Test" package="com.firmamentengine.games" 
 		version="1.0.0" company="Jordan Wambaugh" />
 		
 	<!-- output -->

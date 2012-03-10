@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="application.nmml" />
+    <movie path="test.nmml" />
     <movie fps="0" />
     <movie width="0" />
     <movie height="0" />
@@ -21,7 +21,7 @@
   <build>
     <option directives="" />
     <option flashStrict="False" />
-    <option mainClass="com.firmamentengine.firmament.Main" />
+    <option mainClass="com.firmamentengine.game.Test" />
     <option enabledebug="True" />
     <option additional="" />
   </build>
@@ -32,7 +32,7 @@
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\com\firmamentengine\firmament\Main.hx" />
+    <compile path="src\com\firmamentengine\games\Test.hx" />
   </compileTargets>
   <!-- Assets to embed into the output SWF -->
   <library>
