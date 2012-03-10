@@ -29,29 +29,31 @@ class FGame
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.align = StageAlign.TOP_LEFT;
 		// entry point
-		var logo = new Bitmap (Assets.getBitmapData ("assets/ufo.png"));
-		world = new FPhysicsWorld(new FVector(0, 1));
-		
+		var logo = new Bitmap (Assets.getBitmapData ("assets/sample.gif"));
+		world = new FPhysicsWorld(new FVector(0, 10));
+		for(x in 1...10){
 		world.createEntity( {
 			test:'blah'
-			,position:new FVector(.5, 0)
+			,position:new FVector(Math.random()*2-1, 0)
 			,type:'dynamic'
 			,sprite:logo
-			,angle:.1
+			,angle:Math.random()
 			,shapes:[
 				{
 					type:'box'
 					,width:1
-					,height:.2
+					,height:1
 					,restitution:1
+					,density:.5
+					,friction:.5
 				}
 				
 			]
 		});
-		
+		}
 		world.createEntity( {
 			test:'blah'
-			,position:new FVector(.5, 3)
+			,position:new FVector(.5, 2)
 			,type:'static'
 			,shapes:[
 				{

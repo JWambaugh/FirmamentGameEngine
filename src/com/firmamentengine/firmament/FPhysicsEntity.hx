@@ -54,7 +54,7 @@ class FPhysicsEntity extends FEntity
 				
 				if (shape.type == 'box') {
 					var s:B2PolygonShape = new B2PolygonShape();
-					s.setAsBox(shape.width, shape.height);
+					s.setAsBox(shape.width/2, shape.height/2);
 					shapeDef.shape = s;
 				}
 				

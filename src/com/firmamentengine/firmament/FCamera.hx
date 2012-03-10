@@ -26,7 +26,7 @@ class FCamera extends Bitmap ,implements FWorldPositionalInterface
 	public function new(width:Int,height:Int) 
 	{
 		super();
-		this.zoom = 80;
+		this.zoom = 100;
 		this.bitmapData = new BitmapData(width, height);
 		this.position = new FVector(0, 0);
 		this.calculatedTopLeft = false;
