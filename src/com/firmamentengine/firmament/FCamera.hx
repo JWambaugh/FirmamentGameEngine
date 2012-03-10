@@ -33,6 +33,8 @@ class FCamera extends Bitmap ,implements FWorldPositionalInterface
 		this.topLeftPosition = new FVector(0, 0);
 		this.displayHeight = height;
 		this.displayWidth = width;
+		this.width = width;
+		this.height = height;
 	}
 	
 	public function render(worlds:Array<FWorld>) {
@@ -46,6 +48,7 @@ class FCamera extends Bitmap ,implements FWorldPositionalInterface
 				ent.getRenderer().render(ent, this);
 			}
 		}
+		trace(this.width);
 	}
 	private function calculateTopLeftPosition() {
 		//trace(this.width);
