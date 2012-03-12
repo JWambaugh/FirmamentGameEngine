@@ -24,7 +24,11 @@ class FWorld
 	public function getAllEntities():Array<FEntity> {
 		return this.entities;
 	}
-	
+	public function getEntitiesInBox(topLeftX:Int, topLeftY:Int, bottomRightX:Int, bottomRightY:Int):Array<FEntity> {
+			throw("Not implemented");
+			return null;
+		
+	}
 	public function step():Void {
 	}
 	

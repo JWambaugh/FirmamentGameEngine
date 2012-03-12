@@ -19,7 +19,7 @@ class FPhysicsWorld extends FWorld
 		super();
 		this.b2world = new B2World(gravity,true);
 	}
-	public function getEntitiesInBox(topLeftX:Int,topLeftY:Int,bottomRightX:Int,bottomRightY:Int):Array<FEntity>{
+	override public function getEntitiesInBox(topLeftX:Int,topLeftY:Int,bottomRightX:Int,bottomRightY:Int):Array<FEntity>{
 		var selectEntities:Array<FEntity> = new Array();
 		var query = new B2AABB();
 		
