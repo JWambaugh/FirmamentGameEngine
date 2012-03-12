@@ -42,12 +42,29 @@ class FCamera extends Bitmap ,implements FWorldPositionalInterface
 		this.bitmapData.fillRect(new Rectangle(0, 0, this.width, this.height),0xFFFFFF);
 		
 		//this.graphics.drawRect(0,0, this.displayWidth, this.displayHeight);
+		var entityList:Array<FEntity> = new Array<FEntity>();
+		var displayPadding = 4; //number of meters to pad in query for entities. Incres this if you have entities popping out at the edges
 		for (world in worlds) {
-			var entities:Array<FEntity> = world.getAllEntities();
-			for (ent in entities) {
+			var entities = world.getEntitiesInBox(Math.floor(this.position.x - (this.displayWidth / 2 / this.zoom+displayPadding))
+				,Math.floor(this.position.y - (this.displayHeight / 2 / this.zoom+displayPadding))
+				,Math.floor(this.position.x + this.displayWidth / 2 / this.zoom+displayPadding)
+				,Math.floor(this.position.y + this.displayHeight / 2 / this.zoom+displayPadding));
+			
+			//Firmament.log(entities);
+			entityList=entityList.concat(entities);
+			
+			
+		}
+		entityList.sort(function(a:FEntity,b:FEntity):Int{
+			var cmp = a.getZPosition() - b.getZPosition();
+			if (cmp==0) {
+				return 0;	
+			} else if (cmp > 0) return 1;
+			return -1;
+		});
+		for (ent in entityList) {
 				ent.getRenderer().render(ent, this);
 			}
-		}
 		trace(this.width);
 	}
 	private function calculateTopLeftPosition() {
@@ -85,5 +102,8 @@ class FCamera extends Bitmap ,implements FWorldPositionalInterface
 		return this.zoom;
 	}
 	
+	public function setZoom(z:Int) {
+			this.zoom = z;
+	}
 	
 }

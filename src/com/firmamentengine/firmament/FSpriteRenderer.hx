@@ -40,10 +40,10 @@ class FSpriteRenderer implements FRenderer
 		
 		matrix.translate( -bmData.width/2, -bmData.height/2);
 		matrix.rotate(item.getAngle());
-		matrix.translate( bmData.width/2, bmData.height/2);
 		
-		matrix.translate(nx - (bmData.width / 2), ny - (bmData.height / 2));
 		if(ratio!=1)matrix.scale(ratio, ratio);
+		matrix.translate(nx, ny);
+		
 		camera.bitmapData.draw(bmData, matrix,null,null,null,true);
 		
 		
