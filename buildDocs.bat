@@ -1,3 +1,3 @@
 haxe -xml docs.xml bin\flash\haxe\debug.hxml
-chxdoc.exe -o docs docs.xml
+chxdoc -o docs --includeOnly=com.firmamentengine.* docs.xml
 del docs.xml

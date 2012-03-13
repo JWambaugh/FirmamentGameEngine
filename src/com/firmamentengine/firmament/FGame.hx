@@ -20,6 +20,10 @@ import nme.utils.Timer;
 import com.firmamentengine.firmament.FPhysicsEntity;
 import com.firmamentengine.firmament.FPhysicsWorld;
 import com.firmamentengine.firmament.FCamera;
+
+/**
+ * Main Game class
+ */
 class FGame extends EventDispatcher
 {
 	var cameras:Array<FCamera>;
