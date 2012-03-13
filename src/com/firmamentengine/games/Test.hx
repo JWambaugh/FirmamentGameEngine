@@ -1,5 +1,6 @@
 package com.firmamentengine.games;
 
+import com.firmamentengine.firmament.FInput;
 import nme.display.Stage;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
@@ -85,7 +86,10 @@ class Test
 		var field = new TextField();
 		field.text = 'This is working!?';
 		stage.addChild(field);
-		
+		var input = new FInput(stage);
+		game.addEventListener(FGame.BEFORE_STEP, function(e:Event) {
+			trace(input.getStageX());
+			} );
 		stage.addEventListener(Event.RESIZE, function(e:Event) { trace('resizing'); } );
 		
 		
