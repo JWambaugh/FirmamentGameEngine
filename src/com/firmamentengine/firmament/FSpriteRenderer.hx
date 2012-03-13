@@ -3,17 +3,18 @@ import nme.display.BitmapData;
 import nme.geom.Matrix;
 import nme.display.IBitmapDrawable;
 import nme.geom.Point;
+import nme.events.EventDispatcher;
 /**
  * ...
  * @author Jordan Wambaugh
  */
 
-class FSpriteRenderer implements FRenderer
+class FSpriteRenderer extends EventDispatcher ,implements FRenderer 
 {
 
 	public function new() 
 	{
-		
+		super();
 	}
 	
 	public function render(item:FRenderable, camera:FCamera):Void {

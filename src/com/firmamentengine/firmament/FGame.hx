@@ -8,6 +8,7 @@ package com.firmamentengine.firmament;
 
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
+import nme.events.EventDispatcher;
 import nme.events.TimerEvent;
 import nme.Lib;
 import nme.events.Event;
@@ -19,14 +20,14 @@ import nme.utils.Timer;
 import com.firmamentengine.firmament.FPhysicsEntity;
 import com.firmamentengine.firmament.FPhysicsWorld;
 import com.firmamentengine.firmament.FCamera;
-class FGame 
+class FGame extends EventDispatcher
 {
 	var cameras:Array<FCamera>;
 	var world:FPhysicsWorld;
 	var worldArray:Array<FWorld>;
 	public function new() 
 	{
-		
+		super();
 		
 		
 		worldArray = new Array<FWorld>();
