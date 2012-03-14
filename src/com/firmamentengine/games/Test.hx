@@ -1,5 +1,7 @@
 package com.firmamentengine.games;
 
+import com.firmamentengine.firmament.FInput;
+import nme.display.Stage;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
 import nme.events.TimerEvent;
@@ -69,6 +71,7 @@ class Test
 					type:'box'
 					,width:10
 					,height:.2
+					,restitution:1
 				}
 				
 			]
@@ -78,16 +81,21 @@ class Test
 		
 		var input = new FInput(stage);
 		camera.setZoom(90);
-		var map = new FCamera(200, 200);
-		map.x = 500;
-		map.setZoom(20);
+		
 		stage.addChild(camera);
-		stage.addChild(map);
+		
 		var game = new FGame();
 		game.addWorld(world);
 		game.addCamera(camera);
-		game.addCamera(map);
+		
 		var field = new TextField();
+		field.text = 'This is working!?';
+		stage.addChild(field);
+		var input = new FInput(stage);
+		game.addEventListener(FGame.BEFORE_STEP, function(e:Event) {
+			trace(input.getStageX());
+			} );
+		stage.addEventListener(Event.RESIZE, function(e:Event) { trace('resizing'); } );
 		
 		
 	}
