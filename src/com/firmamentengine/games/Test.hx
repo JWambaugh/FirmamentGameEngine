@@ -42,25 +42,27 @@ class Test
 		// entry point
 		var logo = new Bitmap (Assets.getBitmapData ("assets/sample.png"));
 		var world = new FPhysicsWorld(new FVector(0, 10));
-		for(x in 1...10){
-		world.createEntity( {
-			test:'blah'
-			,position:new FVector(Math.random()*2-1, 0)
-			,type:'dynamic'
-			,sprite:logo
-			,angle:Math.random()
-			,shapes:[
-				{
-					type:'box'
-					,width:1
-					,height:1
-					,restitution:1
-					,density:.5
-					,friction:.5
-				}
-				
-			]
-		});
+		for (x in 1...100) {
+			for(y in 1...50){
+				world.createEntity( {
+					test:'blah'
+					,position:new FVector(x-50, y)
+					,type:'static'
+					,sprite:logo
+					,angle:0
+					,shapes:[
+						{
+							type:'box'
+							,width:1
+							,height:1
+							,restitution:1
+							,density:.5
+							,friction:.5
+						}
+						
+					]
+				});
+			}
 		}
 		world.createEntity( {
 			test:'blah'
@@ -94,7 +96,25 @@ class Test
 		var input = new FInput(stage);
 		game.addEventListener(FGame.BEFORE_STEP, function(e:Event) {
 		//	trace(input.getStageX());
-			} );
+			if (input.isKeyPressed(38)) {
+				camera.setPosition(new FVector(camera.getPositionX(), camera.getPositionY()-.2));
+			}
+			if (input.isKeyPressed(40)) {
+				camera.setPosition(new FVector(camera.getPositionX(), camera.getPositionY()+.2));
+			}
+			if (input.isKeyPressed(37)) {
+				camera.setPosition(new FVector(camera.getPositionX()-.2, camera.getPositionY()));
+			}
+			if (input.isKeyPressed(39)) {
+				camera.setPosition(new FVector(camera.getPositionX()+.2, camera.getPositionY()));
+			}
+			if (input.isKeyPressed(65)) {
+				camera.setZoom(camera.getZoom() * 1.02);
+			}
+			if (input.isKeyPressed(90)) {
+				camera.setZoom(camera.getZoom() * .98);
+			}
+		} );
 		stage.addEventListener(Event.RESIZE, function(e:Event) { trace('resizing'); } );
 		
 		
