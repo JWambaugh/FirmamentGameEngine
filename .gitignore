@@ -1,1 +1,4 @@
 bin
+docs
+__chxdoctmp
+*.exe

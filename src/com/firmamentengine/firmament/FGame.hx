@@ -8,6 +8,7 @@ package com.firmamentengine.firmament;
 
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
+import nme.events.EventDispatcher;
 import nme.events.TimerEvent;
 import nme.Lib;
 import nme.events.Event;
@@ -19,14 +20,20 @@ import nme.utils.Timer;
 import com.firmamentengine.firmament.FPhysicsEntity;
 import com.firmamentengine.firmament.FPhysicsWorld;
 import com.firmamentengine.firmament.FCamera;
-class FGame 
+
+/**
+ * Main Game class
+ */
+class FGame extends EventDispatcher
 {
 	var cameras:Array<FCamera>;
 	var world:FPhysicsWorld;
 	var worldArray:Array<FWorld>;
+	public static inline var BEFORE_STEP = 'beforeStep';
+	public static inline var AFTER_STEP='afterStep';
 	public function new() 
 	{
-		
+		super();
 		
 		
 		worldArray = new Array<FWorld>();
@@ -51,6 +58,7 @@ class FGame
 	}
 	private function this_step(timer):Void {
 		//trace('step');
+		
 		for (world in this.worldArray) {
 			world.step();
 			
@@ -58,10 +66,10 @@ class FGame
 	}
 	private function this_onEnterFrame (event:Event):Void {
 		//trace('this is called.');
-
+		this.dispatchEvent(new Event(FGame.BEFORE_STEP));
 		for(camera in cameras){
 			camera.render(worldArray);
 		}
-		
+		this.dispatchEvent(new Event(FGame.AFTER_STEP));
 	}
 }
