@@ -101,7 +101,7 @@ class FCamera extends Bitmap ,implements FWorldPositionalInterface
 		return this.zoom;
 	}
 	
-	public function setZoom(z:Int) {
+	public function setZoom(z:Float) {
 			this.zoom = z;
 	}
 	
