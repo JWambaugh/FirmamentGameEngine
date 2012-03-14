@@ -5,6 +5,8 @@ import nme.display.StageScaleMode;
 import nme.events.TimerEvent;
 import nme.Lib;
 import nme.events.Event;
+import nme.events.MouseEvent;
+
 import nme.display.Bitmap;
 import nme.Assets;
 import nme.text.TextField;
@@ -15,6 +17,7 @@ import com.firmamentengine.firmament.FPhysicsWorld;
 import com.firmamentengine.firmament.FCamera;
 import com.firmamentengine.firmament.FGame;
 import com.firmamentengine.firmament.FVector;
+import com.firmamentengine.firmament.FInput;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -72,6 +75,8 @@ class Test
 		});
 		
 		var camera = new FCamera(500, 500);
+		
+		var input = new FInput(stage);
 		camera.setZoom(90);
 		var map = new FCamera(200, 200);
 		map.x = 500;
@@ -83,8 +88,6 @@ class Test
 		game.addCamera(camera);
 		game.addCamera(map);
 		var field = new TextField();
-		field.text = 'This is working!?';
-		stage.addChild(field);
 		
 		
 	}
