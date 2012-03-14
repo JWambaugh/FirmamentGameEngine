@@ -1,4 +1,5 @@
 package com.firmamentengine.firmament;
+import nme.events.EventDispatcher;
 
 /**
  * ...
