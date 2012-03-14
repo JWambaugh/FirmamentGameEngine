@@ -41,12 +41,12 @@ class Test
 		
 		// entry point
 		var logo = new Bitmap (Assets.getBitmapData ("assets/sample.png"));
-		var world = new FPhysicsWorld(new FVector(0, 10));
-		for (x in 1...100) {
-			for(y in 1...50){
+		var world = new FPhysicsWorld(new FVector(0, 0));
+		for (x in 1...50) {
+			for(y in 1...30){
 				world.createEntity( {
 					test:'blah'
-					,position:new FVector(x-50, y)
+					,position:new FVector(x-25, y)
 					,type:'static'
 					,sprite:logo
 					,angle:0
@@ -64,22 +64,22 @@ class Test
 				});
 			}
 		}
-		world.createEntity( {
+		var player = world.createEntity( {
 			test:'blah'
-			,position:new FVector(.5, 2)
-			,type:'static'
+			,position:new FVector(2, -2)
+			,type:'dynamic'
+			,sprite:logo
 			,shapes:[
 				{
-					type:'box'
-					,width:10
-					,height:.2
+					type:'circle'
+					,radius:.5
 					,restitution:1
 				}
 				
 			]
 		});
 		
-		var camera = new FCamera(500, 500);
+		var camera = new FCamera(stage.stageWidth,stage.stageHeight);
 		
 		var input = new FInput(stage);
 		camera.setZoom(90);
@@ -97,16 +97,16 @@ class Test
 		game.addEventListener(FGame.BEFORE_STEP, function(e:Event) {
 		//	trace(input.getStageX());
 			if (input.isKeyPressed(38)) {
-				camera.setPosition(new FVector(camera.getPositionX(), camera.getPositionY()-.2));
+				player.setLinearVelocity(new FVector(player.getLinearVelocity().x,player.getLinearVelocity().y-.5));
 			}
 			if (input.isKeyPressed(40)) {
-				camera.setPosition(new FVector(camera.getPositionX(), camera.getPositionY()+.2));
+				player.setLinearVelocity(new FVector(player.getLinearVelocity().x,player.getLinearVelocity().y+.5));
 			}
 			if (input.isKeyPressed(37)) {
-				camera.setPosition(new FVector(camera.getPositionX()-.2, camera.getPositionY()));
+				player.setLinearVelocity(new FVector(player.getLinearVelocity().x-.5,player.getLinearVelocity().y));
 			}
 			if (input.isKeyPressed(39)) {
-				camera.setPosition(new FVector(camera.getPositionX()+.2, camera.getPositionY()));
+				player.setLinearVelocity(new FVector(player.getLinearVelocity().x+.5,player.getLinearVelocity().y));
 			}
 			if (input.isKeyPressed(65)) {
 				camera.setZoom(camera.getZoom() * 1.02);
@@ -114,8 +114,9 @@ class Test
 			if (input.isKeyPressed(90)) {
 				camera.setZoom(camera.getZoom() * .98);
 			}
+			camera.setPosition(player.getPosition());
 		} );
-		stage.addEventListener(Event.RESIZE, function(e:Event) { trace('resizing'); } );
+		stage.addEventListener(Event.RESIZE, function(e:Event) { camera.resizeToStage(); } );
 		
 		
 	}

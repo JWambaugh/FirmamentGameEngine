@@ -5,7 +5,8 @@ import com.firmamentengine.firmament.FEntity;
 import com.firmamentengine.firmament.FWorld;
 import nme.display.BitmapData;
 import nme.geom.Rectangle;
-
+import nme.Lib;
+import nme.display.Stage;
 import nme.events.Event;
 /**
  * ...
@@ -39,7 +40,7 @@ class FCamera extends Bitmap ,implements FWorldPositionalInterface
 	
 	public function render(worlds:Array<FWorld>) {
 		
-		this.bitmapData.fillRect(new Rectangle(0, 0, this.width, this.height),0xFFFFFF);
+		this.bitmapData.fillRect(new Rectangle(0, 0, this.displayWidth, this.displayHeight),0xFFFFFF);
 		
 		//this.graphics.drawRect(0,0, this.displayWidth, this.displayHeight);
 		var entityList:Array<FEntity> = new Array<FEntity>();
@@ -103,6 +104,15 @@ class FCamera extends Bitmap ,implements FWorldPositionalInterface
 	
 	public function setZoom(z:Float) {
 			this.zoom = z;
+	}
+	
+	public function resizeToStage() {
+		var stage = Lib.current.stage;
+		this.displayWidth = stage.stageWidth;
+		this.displayHeight = stage.stageHeight;
+		this.width = this.displayWidth;
+		this.height = this.displayHeight;
+		this.calculateTopLeftPosition();
 	}
 	
 }
