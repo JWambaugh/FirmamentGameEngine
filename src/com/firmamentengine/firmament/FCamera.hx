@@ -65,7 +65,7 @@ class FCamera extends Bitmap ,implements FWorldPositionalInterface
 		for (ent in entityList) {
 				ent.getRenderer().render(ent, this);
 			}
-		trace(this.width);
+	//	trace(this.width);
 	}
 	private function calculateTopLeftPosition() {
 		//trace(this.width);
