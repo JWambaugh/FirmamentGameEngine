@@ -2,6 +2,7 @@ package com.firmamentengine.firmament;
 
 import box2D.collision.shapes.B2CircleShape;
 import box2D.collision.shapes.B2PolygonShape;
+import box2D.common.math.B2Vec2;
 import com.firmamentengine.firmament.FEntity;
 import box2D.dynamics.B2Body;
 import box2D.dynamics.B2BodyDef;
@@ -79,8 +80,21 @@ class FPhysicsEntity extends FEntity
 		return this.position;
 	}
 	
+	override function setPosition(pos:FVector) {
+		this.body.setPosition(new B2Vec2(pos.x, pos.y));
+	}
+	
 	override public function getAngle():Float {
 		return this.body.getAngle();
 	}
+	
+	public function setLinearVelocity(vel:FVector) {
+		this.body.setLinearVelocity(new B2Vec2(vel.x, vel.y));
+	}
+	
+	public function getLinearVelocity():FVector {
+		return new FVector(this.body.getLinearVelocity().x, this.body.getLinearVelocity().y);
+	}
+	
 	
 }

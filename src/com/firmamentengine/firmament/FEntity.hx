@@ -24,4 +24,6 @@ class FEntity extends FRenderable
 		return this.currentImage;
 	}
 	
+	
+	
 }
