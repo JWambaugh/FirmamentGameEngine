@@ -2,3 +2,4 @@ bin
 docs
 __chxdoctmp
 *.exe
+*.swp

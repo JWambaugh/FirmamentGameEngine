@@ -93,7 +93,7 @@ class Test
 		stage.addChild(field);
 		var input = new FInput(stage);
 		game.addEventListener(FGame.BEFORE_STEP, function(e:Event) {
-			trace(input.getStageX());
+		//	trace(input.getStageX());
 			} );
 		stage.addEventListener(Event.RESIZE, function(e:Event) { trace('resizing'); } );
 		
