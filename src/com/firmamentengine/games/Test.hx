@@ -44,7 +44,7 @@ class Test
 		// entry point
 		var logo = new Bitmap (Assets.getBitmapData ("assets/sample.png"));
 		var world = new FPhysicsWorld(new FVector(0, 0));
-		for (x in 1...1) {
+		for (x in 1...50) {
 			for(y in 1...30){
 				world.createEntity( {
 					test:'blah'

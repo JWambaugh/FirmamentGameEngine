@@ -8,7 +8,7 @@ import box2D.dynamics.B2Body;
 import box2D.dynamics.B2BodyDef;
 import box2D.dynamics.B2FixtureDef;
 import box2D.dynamics.B2Fixture;
-
+import box2D.collision.shapes.B2Shape;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -22,7 +22,7 @@ class FPhysicsEntity extends FEntity
 	public function new(world:FPhysicsWorld,config:Dynamic) 
 	{
 		super(world,config);
-		this.renderer = new FSpriteRenderer();
+		this.renderer = new FWireframeRenderer();
 		var def:B2BodyDef = new B2BodyDef();
 		var fixtureDef:B2FixtureDef = new B2FixtureDef();
 		
@@ -96,5 +96,16 @@ class FPhysicsEntity extends FEntity
 		return new FVector(this.body.getLinearVelocity().x, this.body.getLinearVelocity().y);
 	}
 	
-	
+	override public function getShapes():Array<B2Shape> {
+		var fixture = this.body.getFixtureList();
+		var shapes = new Array<B2Shape>();
+		while (fixture != null) {
+			shapes.push(fixture.getShape());
+			fixture = fixture.getNext();
+		}
+		return shapes;
+	}
+	override public function hasShapes() {
+		return true;
+	}
 }

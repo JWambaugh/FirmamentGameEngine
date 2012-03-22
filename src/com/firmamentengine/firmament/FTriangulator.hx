@@ -121,15 +121,12 @@ class FTriangulator
 			result.push( contour[a] );
 			result.push( contour[b] );
 			result.push( contour[c] );
-
 			m++;
-
 			/* remove v from remaining polygon */
 			s = v;
 			t = v + 1;
 			while ( t < nv) {
 				V[s] = V[t]; 
-				
 			    s++; t++;
 			}
 			nv--;
