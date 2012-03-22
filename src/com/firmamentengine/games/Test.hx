@@ -1,6 +1,7 @@
 package com.firmamentengine.games;
 
 import com.firmamentengine.firmament.FInput;
+import nice_json.Render;
 import nme.display.Stage;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
@@ -20,6 +21,7 @@ import com.firmamentengine.firmament.FCamera;
 import com.firmamentengine.firmament.FGame;
 import com.firmamentengine.firmament.FVector;
 import com.firmamentengine.firmament.FInput;
+import com.firmamentengine.firmament.FTriangulator;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -42,7 +44,7 @@ class Test
 		// entry point
 		var logo = new Bitmap (Assets.getBitmapData ("assets/sample.png"));
 		var world = new FPhysicsWorld(new FVector(0, 0));
-		for (x in 1...50) {
+		for (x in 1...1) {
 			for(y in 1...30){
 				world.createEntity( {
 					test:'blah'
@@ -118,6 +120,10 @@ class Test
 		} );
 		stage.addEventListener(Event.RESIZE, function(e:Event) { camera.resizeToStage(); } );
 		
+		var poly:Array<FVector> = [new FVector(0,0),new FVector(1,0),new FVector(1,1),new FVector(0,1)];
+		trace(Render.as_json(poly));
+		
+		trace(Render.as_json(FTriangulator.getTriangles(poly)));
 		
 	}
 	

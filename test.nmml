@@ -12,6 +12,8 @@
 	<classpath name="src" />
 	<haxelib name="nme" />
 	<haxelib name="box2d" />
+	<haxelib name="hx_nice_json" />
+	
 	<!-- assets -->
 	<icon name="assets/nme.svg" />
 	<assets path="assets" include="*" />
