@@ -22,7 +22,7 @@ import firmament.core.FGame;
 import firmament.core.FVector;
 import firmament.core.FInput;
 import firmament.core.FTriangulator;
-import firmament.Example;
+
 /**
  * ...
  * @author Jordan Wambaugh
@@ -45,7 +45,7 @@ class Test
 		
 		// entry point
 		var logo = new Bitmap (Assets.getBitmapData ("assets/sample.png"));
-		var world = new FPhysicsWorld(new FVector(0, 0));
+		var world = new FPhysicsWorld(new FVector(0, 5));
 		for (x in 1...50) {
 			for(y in 1...30){
 				world.createEntity( {

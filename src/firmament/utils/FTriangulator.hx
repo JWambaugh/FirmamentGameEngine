@@ -1,4 +1,4 @@
-package firmament.core;
+package firmament.utils;
 
 import firmament.core.FVector;
 
