@@ -1,9 +1,9 @@
-package com.firmamentengine.firmament;
+package firmament.core;
 
 import box2D.collision.shapes.B2CircleShape;
 import box2D.collision.shapes.B2PolygonShape;
 import box2D.common.math.B2Vec2;
-import com.firmamentengine.firmament.FEntity;
+import firmament.core.FEntity;
 import box2D.dynamics.B2Body;
 import box2D.dynamics.B2BodyDef;
 import box2D.dynamics.B2FixtureDef;

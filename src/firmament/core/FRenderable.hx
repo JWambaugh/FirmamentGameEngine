@@ -1,5 +1,5 @@
-package com.firmamentengine.firmament;
-import com.firmamentengine.firmament.FRenderer;
+package firmament.core;
+import firmament.core.FRenderer;
 import box2D.collision.shapes.B2Shape;
 import nme.display.Bitmap;
 /**

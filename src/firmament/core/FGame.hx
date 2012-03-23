@@ -1,4 +1,4 @@
-package com.firmamentengine.firmament;
+package firmament.core;
 
 /**
  * ...
@@ -17,9 +17,9 @@ import nme.Assets;
 import nme.text.TextField;
 import nme.utils.Timer;
 
-import com.firmamentengine.firmament.FPhysicsEntity;
-import com.firmamentengine.firmament.FPhysicsWorld;
-import com.firmamentengine.firmament.FCamera;
+import firmament.core.FPhysicsEntity;
+import firmament.core.FPhysicsWorld;
+import firmament.core.FCamera;
 
 /**
  * Main Game class

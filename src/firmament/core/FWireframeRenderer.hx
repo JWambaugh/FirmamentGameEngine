@@ -1,4 +1,4 @@
-package com.firmamentengine.firmament;
+package firmament.core;
 
 import box2D.common.math.B2Vec2;
 import nme.display.MovieClip;

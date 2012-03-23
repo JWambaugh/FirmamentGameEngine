@@ -1,6 +1,6 @@
-package com.firmamentengine.firmament;
+package firmament.core;
 
-import com.firmamentengine.firmament.FVector;
+import firmament.core.FVector;
 
 class FTriangulator 
 {

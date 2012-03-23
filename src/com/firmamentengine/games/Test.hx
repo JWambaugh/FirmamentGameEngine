@@ -1,6 +1,6 @@
 package com.firmamentengine.games;
 
-import com.firmamentengine.firmament.FInput;
+import firmament.core.FInput;
 import nice_json.Render;
 import nme.display.Stage;
 import nme.display.StageAlign;
@@ -15,13 +15,14 @@ import nme.Assets;
 import nme.text.TextField;
 import nme.utils.Timer;
 
-import com.firmamentengine.firmament.FPhysicsEntity;
-import com.firmamentengine.firmament.FPhysicsWorld;
-import com.firmamentengine.firmament.FCamera;
-import com.firmamentengine.firmament.FGame;
-import com.firmamentengine.firmament.FVector;
-import com.firmamentengine.firmament.FInput;
-import com.firmamentengine.firmament.FTriangulator;
+import firmament.core.FPhysicsEntity;
+import firmament.core.FPhysicsWorld;
+import firmament.core.FCamera;
+import firmament.core.FGame;
+import firmament.core.FVector;
+import firmament.core.FInput;
+import firmament.core.FTriangulator;
+import firmament.Example;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -40,6 +41,7 @@ class Test
 		var stage = Lib.current.stage;
 		stage.align = StageAlign.TOP_LEFT;
 		stage.scaleMode = StageScaleMode.NO_SCALE;
+		
 		
 		// entry point
 		var logo = new Bitmap (Assets.getBitmapData ("assets/sample.png"));

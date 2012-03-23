@@ -1,8 +1,8 @@
-package com.firmamentengine.firmament;
+package firmament.core;
 
 import nme.display.Bitmap;
-import com.firmamentengine.firmament.FEntity;
-import com.firmamentengine.firmament.FWorld;
+import firmament.core.FEntity;
+import firmament.core.FWorld;
 import nme.display.BitmapData;
 import nme.geom.Rectangle;
 import nme.Lib;
