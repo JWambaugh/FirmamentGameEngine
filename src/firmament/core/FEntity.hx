@@ -1,5 +1,5 @@
-package com.firmamentengine.firmament;
-import com.firmamentengine.firmament.FRenderable;
+package firmament.core;
+import firmament.core.FRenderable;
 import nme.display.Bitmap;
 /**
  * ...

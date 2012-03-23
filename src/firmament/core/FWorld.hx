@@ -1,6 +1,6 @@
-package com.firmamentengine.firmament;
+package firmament.core;
 import box2D.dynamics.B2World;
-import com.firmamentengine.firmament.FEntity;
+import firmament.core.FEntity;
 /**
  * ...
  * @author Jordan Wambaugh

@@ -1,4 +1,4 @@
-package com.firmamentengine.firmament;
+package firmament.core;
 import nme.display.BitmapData;
 import nme.geom.Matrix;
 import nme.display.IBitmapDrawable;

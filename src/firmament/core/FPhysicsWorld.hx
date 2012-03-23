@@ -1,7 +1,7 @@
-package com.firmamentengine.firmament;
+package firmament.core;
 
-import com.firmamentengine.firmament.FWorld;
-import com.firmamentengine.firmament.FEntity;
+import firmament.core.FWorld;
+import firmament.core.FEntity;
 import box2D.dynamics.B2World;
 import box2D.collision.B2AABB;
 /**

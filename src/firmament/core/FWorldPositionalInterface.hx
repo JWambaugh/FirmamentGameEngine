@@ -1,4 +1,4 @@
-package com.firmamentengine.firmament;
+package firmament.core;
 
 /**
  * ...

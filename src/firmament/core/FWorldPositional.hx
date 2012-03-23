@@ -1,5 +1,5 @@
-package com.firmamentengine.firmament;
-import com.firmamentengine.firmament.FVector;
+package firmament.core;
+import firmament.core.FVector;
 import nme.events.EventDispatcher;
 
 
