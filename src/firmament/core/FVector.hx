@@ -19,4 +19,6 @@ class FVector extends B2Vec2
 	public function toString() {
 		return this.x + ',' + this.y;
 	}
+	
+	
 }
