@@ -21,8 +21,8 @@ import firmament.core.FCamera;
 import firmament.core.FGame;
 import firmament.core.FVector;
 import firmament.core.FInput;
-import firmament.core.FTriangulator;
-
+import firmament.utils.FTriangulator;
+import firmament.utils.FBitmapTracer;
 /**
  * ...
  * @author Jordan Wambaugh
