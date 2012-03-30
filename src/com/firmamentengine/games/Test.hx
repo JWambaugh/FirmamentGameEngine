@@ -48,7 +48,7 @@ class Test
 		camera.setZoom(70);
 		
 		stage.addChild(camera);
-		var world = new FPhysicsWorld(new FVector(0, 5));
+		var world = new FPhysicsWorld(new FVector(0, 10));
 		var game = new FGame();
 		game.addWorld(world);
 		game.addCamera(camera);
@@ -60,7 +60,7 @@ class Test
 		trace('done. Tracing...');
 		var poly = tracer.getPolys();
 		trace('done Tracing.');
-		
+		trace('Vectors:'+poly.length);
 		var triangles = FTriangulator.getTriangles(poly);
 		
 		var shapes = new Array<Dynamic>() ;
@@ -69,6 +69,7 @@ class Test
 					type:'polygon'
 					,vectors:triangle
 					,density:.5
+					
 					
 					
 					});
@@ -98,7 +99,7 @@ class Test
 					type:'box'
 					,width:10
 					,height:.2
-					,restitution:.8
+					,restitution:.5
 					,density:.5
 					,friction:.5
 				}

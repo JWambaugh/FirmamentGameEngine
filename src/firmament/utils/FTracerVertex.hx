@@ -104,6 +104,10 @@ class FTracerVertex
 			case south:y++;
 			case west:x--;
 			case east:x++;
+			case southEast:x++; y++;
+			case northEast:x++; y--;
+			case southWest:x--; y++;
+			case northWest:x--; y--;
 			default:return null;
 		}
 		return new FTracerVertex(x, y,direction);

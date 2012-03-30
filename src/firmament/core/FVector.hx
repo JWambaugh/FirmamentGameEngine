@@ -20,5 +20,17 @@ class FVector extends B2Vec2
 		return this.x + ',' + this.y;
 	}
 	
+	/**
+	 * Returns the distance between this and another vector.
+	 * Always returns a positive value.
+	 * @param	v
+	 * @return
+	 */
+	public function distanceTo(v:FVector):Float {
+		var d = Math.sqrt(Math.pow(this.x - v.x, 2) + Math.pow(this.y - v.y, 2));
+		if (d < 0) d = -d;
+		return d;
+	}
+	
 	
 }
