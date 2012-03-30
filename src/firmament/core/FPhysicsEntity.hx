@@ -9,6 +9,7 @@ import box2D.dynamics.B2BodyDef;
 import box2D.dynamics.B2FixtureDef;
 import box2D.dynamics.B2Fixture;
 import box2D.collision.shapes.B2Shape;
+import nme.display.Bitmap;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -21,8 +22,12 @@ class FPhysicsEntity extends FEntity
 	
 	public function new(world:FPhysicsWorld,config:Dynamic) 
 	{
-		super(world,config);
-		this.renderer = new FWireframeRenderer();
+		super(world, config);
+		
+		if (Std.is(config.sprite,Bitmap)) {
+			this.renderer = new FSpriteRenderer();
+		}
+		else this.renderer = new FWireframeRenderer();
 		var def:B2BodyDef = new B2BodyDef();
 		var fixtureDef:B2FixtureDef = new B2FixtureDef();
 		
@@ -56,6 +61,13 @@ class FPhysicsEntity extends FEntity
 				if (shape.type == 'box') {
 					var s:B2PolygonShape = new B2PolygonShape();
 					s.setAsBox(shape.width/2, shape.height/2);
+					shapeDef.shape = s;
+				}
+				if (shape.type == 'polygon') {
+					var s:B2PolygonShape = new B2PolygonShape();
+					
+					s.setAsVector(shape.vectors);
+					
 					shapeDef.shape = s;
 				}
 				

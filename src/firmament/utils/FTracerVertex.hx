@@ -15,7 +15,9 @@ import nme.display.BitmapData;
 		frontRight;
 		backLeft;
 		backRight;
-		
+		front;
+		right;
+		left;
 	}
 	enum FVertexCompassDirection {
 		north;
@@ -57,31 +59,43 @@ class FTracerVertex
 				case frontRight:northEast;
 				case backLeft:southWest;
 				case backRight:southEast;
+				case front:north;
+				case right:east;
+				case left:west;
 			};
 			case east: return switch(relDirection) {
 				case frontLeft:northEast;
 				case frontRight:southEast;
 				case backLeft:northWest;
 				case backRight:southWest;
+				case front:east;
+				case right:south;
+				case left:north;
 			};
 			case south: return switch(relDirection) {
 				case frontLeft:southEast;
 				case frontRight:southWest;
 				case backLeft:northEast;
 				case backRight:northWest;
+				case front:south;
+				case right:west;
+				case left:east;
 			};
 			case west: return switch(relDirection) {
 				case frontLeft:southWest;
 				case frontRight:northWest;
 				case backLeft:southEast;
 				case backRight:northEast;
+				case front:west;
+				case right:north;
+				case left:south;
 			};
 		default: return null;
 			
 		}
 	}
 	
-	function getVertexForPosition(direction:FVertexCompassDirection):FTracerVertex {
+	public function getVertexForPosition(direction:FVertexCompassDirection):FTracerVertex {
 		var x = this.x;
 		var y = this.y;
 		
@@ -95,15 +109,18 @@ class FTracerVertex
 		return new FTracerVertex(x, y,direction);
 	}
 	
+	public function getVertexForRelativePosition(direction:FVertexRelativeDirection):FTracerVertex {
+		return this.getVertexForPosition(this.getCompassDirection(direction));
+	}
 	
 	
 	
 	function getPixelCompass(bitmap:BitmapData, direction:FVertexCompassDirection):{x:Int,y:Int} {
 		return switch(direction) {
-			case northWest: return {x:this.x - 1, y:this.y - 1};
-			case northEast: return {x:this.x,y: this.y - 1};
-			case southEast: return {x:this.x, y:this.y};
-			case southWest: return {x:this.x - 1,y: this.y};
+			case northWest:  {x:this.x - 1, y:this.y - 1};
+			case northEast: {x:this.x,y: this.y - 1};
+			case southEast:  {x:this.x, y:this.y};
+			case southWest: {x:this.x - 1,y: this.y};
 			default: throw "Invalid direction";
 		}
 	}
