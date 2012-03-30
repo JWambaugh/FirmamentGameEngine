@@ -42,7 +42,71 @@ class Test
 		stage.align = StageAlign.TOP_LEFT;
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		
+		var camera = new FCamera(stage.stageWidth,stage.stageHeight);
 		
+		var input = new FInput(stage);
+		camera.setZoom(70);
+		
+		stage.addChild(camera);
+		var world = new FPhysicsWorld(new FVector(0, 5));
+		var game = new FGame();
+		game.addWorld(world);
+		game.addCamera(camera);
+		
+		
+		var image = new Bitmap (Assets.getBitmapData ("assets/traceTest.png"));
+		trace('instantiating...');
+		var tracer = new FBitmapTracer(image.bitmapData);
+		trace('done. Tracing...');
+		var poly = tracer.getPolys();
+		trace('done Tracing.');
+		
+		var triangles = FTriangulator.getTriangles(poly);
+		
+		var shapes = new Array<Dynamic>() ;
+		for (triangle in triangles) {
+				shapes.push( {
+					type:'polygon'
+					,vectors:triangle
+					,density:.5
+					
+					
+					});
+		}
+		
+		world.createEntity( {
+					test:'blah'
+					,position:new FVector(0,-3)
+					,type:'dynamic'
+					
+					,sprite:image
+					,angle:0
+					,shapes:shapes
+						
+					
+				});
+		
+				
+		world.createEntity( {
+			test:'blah'
+			,position:new FVector(-2,1)
+			,type:'static'
+		
+			,angle:0
+			,shapes:[
+				{
+					type:'box'
+					,width:10
+					,height:.2
+					,restitution:.8
+					,density:.5
+					,friction:.5
+				}
+				
+			]
+		});
+				
+		/*
 		// entry point
 		var logo = new Bitmap (Assets.getBitmapData ("assets/sample.png"));
 		var world = new FPhysicsWorld(new FVector(0, 5));
@@ -81,25 +145,17 @@ class Test
 				}
 				
 			]
-		});
+		});*/
 		
-		var camera = new FCamera(stage.stageWidth,stage.stageHeight);
 		
-		var input = new FInput(stage);
-		camera.setZoom(90);
-		
-		stage.addChild(camera);
-		
-		var game = new FGame();
-		game.addWorld(world);
-		game.addCamera(camera);
 		
 		var field = new TextField();
 		field.text = 'This is working!?';
 		stage.addChild(field);
 		var input = new FInput(stage);
 		game.addEventListener(FGame.BEFORE_STEP, function(e:Event) {
-		//	trace(input.getStageX());
+			//trace(input.getStageX());
+			/*
 			if (input.isKeyPressed(38)) {
 				player.setLinearVelocity(new FVector(player.getLinearVelocity().x,player.getLinearVelocity().y-.5));
 			}
@@ -111,22 +167,22 @@ class Test
 			}
 			if (input.isKeyPressed(39)) {
 				player.setLinearVelocity(new FVector(player.getLinearVelocity().x+.5,player.getLinearVelocity().y));
-			}
+			}*/
 			if (input.isKeyPressed(65)) {
 				camera.setZoom(camera.getZoom() * 1.02);
 			}
 			if (input.isKeyPressed(90)) {
 				camera.setZoom(camera.getZoom() * .98);
 			}
-			camera.setPosition(player.getPosition());
+			//camera.setPosition(player.getPosition());
 		} );
-		stage.addEventListener(Event.RESIZE, function(e:Event) { camera.resizeToStage(); } );
-		
+		//stage.addEventListener(Event.RESIZE, function(e:Event) { camera.resizeToStage(); } );
+		/*
 		var poly:Array<FVector> = [new FVector(0,0),new FVector(1,0),new FVector(1,1),new FVector(0,1)];
 		trace(Render.as_json(poly));
 		
 		trace(Render.as_json(FTriangulator.getTriangles(poly)));
-		
+		*/
 	}
 	
 	

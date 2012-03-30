@@ -31,6 +31,9 @@ class FWireframeRenderer implements FRenderer
 		sprite.graphics.lineStyle(1,0xFF00FF);
 		var cameraPos = camera.getTopLeftPosition();
 		//trace(cameraPos.y);
+		
+		//draw entity location
+		sprite.graphics.drawCircle((pos.x-cameraPos.x)*camera.getZoom(),(pos.y-cameraPos.y)*camera.getZoom(),5);
 		if (item.hasShapes()) {
 			var shapes:Array<B2Shape> = item.getShapes();
 			//trace(shapes.length);
