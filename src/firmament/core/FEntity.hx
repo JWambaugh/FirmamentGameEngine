@@ -20,7 +20,9 @@ class FEntity extends FRenderable
 			this.currentImage = config.sprite;
 			this.renderer = new FSpriteRenderer();
 		}
-		
+		if (Std.is(config.imageScale, Int) {
+				this.imageScale = config.imageScale;
+		}
 		else this.renderer = new FWireframeRenderer();
 	}
 	

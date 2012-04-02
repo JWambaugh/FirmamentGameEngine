@@ -54,7 +54,7 @@ class Test
 		game.addCamera(camera);
 		
 		
-		var image = new Bitmap (Assets.getBitmapData ("assets/traceTest.png"));
+		var image = new Bitmap(Assets.getBitmapData ("assets/traceTest.png"));
 		trace('instantiating...');
 		var tracer = new FBitmapTracer(image.bitmapData);
 		trace('done. Tracing...');
