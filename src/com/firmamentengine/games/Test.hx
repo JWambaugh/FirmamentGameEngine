@@ -80,7 +80,7 @@ class Test
 					,position:new FVector(0,-3)
 					,type:'dynamic'
 					
-					,sprite:image
+					//,sprite:image
 					,angle:0
 					,shapes:shapes
 						

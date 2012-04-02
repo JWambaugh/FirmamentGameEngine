@@ -46,6 +46,7 @@ class FPhysicsEntity extends FEntity
 			def.angle = config.angle;
 		def.fixedRotation = false;
 		body = physWorld.getB2World().createBody(def);
+		
 		//body.createFixture2(new B2CircleShape(1));
 		
 		if(Std.is(config.shapes,Array))
