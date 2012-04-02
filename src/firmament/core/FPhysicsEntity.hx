@@ -80,6 +80,14 @@ class FPhysicsEntity extends FEntity
 				if (Std.is(shape.restitution, Float))
 					shapeDef.restitution= shape.restitution;
 				
+					
+				if (Std.is(shape.collisionCategory, Int)) {
+						shapeDef.filter.categoryBits = shape.collisionCategory;
+				}
+				
+				if (Std.is(shape.collidesWith, Int)) {
+						shapeDef.filter.maskBits = shape.collisionCategory;
+				}
 				body.createFixture(shapeDef);
 		}
 		
