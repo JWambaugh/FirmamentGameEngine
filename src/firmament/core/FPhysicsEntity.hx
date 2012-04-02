@@ -89,8 +89,8 @@ class FPhysicsEntity extends FEntity
 				
 				if (Std.is(shape.collidesWith, Int)) {
 						shapeDef.filter.maskBits = shape.collisionCategory;
-				}else if (Std.is(config.collisionCategory, Int)) {
-					shapeDef.filter.maskBits = config.collisionCategory;
+				}else if (Std.is(config.collidesWith, Int)) {
+					shapeDef.filter.maskBits = config.collidesWith;
 				}
 				body.createFixture(shapeDef);
 		}
