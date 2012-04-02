@@ -42,7 +42,7 @@ class FPhysicsWorld extends FWorld
 	
 	public function createEntity(config:Dynamic):FPhysicsEntity {
 		var ent:FPhysicsEntity = new FPhysicsEntity(this,config);
-		this.addEntity(ent);
+		//this.addEntity(ent);
 		return ent;
 		
 	}

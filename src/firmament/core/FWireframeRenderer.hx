@@ -52,6 +52,11 @@ class FWireframeRenderer implements FRenderer
 						sprite.graphics.moveTo((pos.x + pvec.x - cameraPos.x) * camera.getZoom(), (pos.y + pvec.y - cameraPos.y) * camera.getZoom());
 						//trace('draw');
 					}
+					
+					if (counter > 0) {
+						var vec = pshape.m_vertices[0];
+						sprite.graphics.lineTo((pos.x+vec.x-cameraPos.x)*camera.getZoom(), (pos.y+vec.y-cameraPos.y)*camera.getZoom());
+					}
 				}else if (shape.getType() == B2Shape.e_circleShape) {
 					var pshape:B2CircleShape = cast(shape, B2CircleShape);
 					sprite.graphics.drawCircle((pos.x+pshape.getLocalPosition().x-cameraPos.x)*camera.getZoom(),(pos.y+pshape.getLocalPosition().y-cameraPos.y)*camera.getZoom(),pshape.m_radius*camera.getZoom());

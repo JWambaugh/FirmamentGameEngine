@@ -65,28 +65,7 @@ class FBitmapTracer
 		}
 			
 		
-		/*
-		var i1:Int, i2:Int, i3:Int;
-		var d1:Float, d2:Float, d3:Float;
-		i1 = 0;
-		var neededVectors:Array<FVector>= new Array<FVector>();
-		//attempt to simplify polygon by identifying straight lines.
-		neededVectors.push(vectors[0]);
-		while (true) {
-			i2 = i1 + 1;
-			i3 = i2 + 1;
-			i3 %= vectors.length;
-			i2 %= vectors.length;
-			if (i1 >= vectors.length) break;
-			d1 = vectors[i1].distanceTo(vectors[i2]);
-			d2 = vectors[i2].distanceTo(vectors[i3]);
-			d3 = vectors[i1].distanceTo(vectors[i3]);
-			var angle:Float = Math.acos((Math.pow(d1, 2) + Math.pow(d2, 2) - Math.pow(d3, 2)) / 2 * d1 * d2);
-			
-			
-			trace(vectors[i1].x+","+vectors[i1].y+" "+vectors[i2].x+","+vectors[i2].y+" "+vectors[i3].x+","+vectors[i3].y+" "+angle);
-			i1++;
-		}*/
+		
 		
 		vectors = FPolySimplifier.simplify(vectors, .3);
 		var min:FVector = new FVector();
