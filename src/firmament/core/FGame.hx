@@ -59,7 +59,7 @@ class FGame extends EventDispatcher
 		this.cameras.push(c);
 	}
 	private function this_step(timer):Void {
-		trace('step');
+		//trace('step');
 		
 		for (world in this.worldArray) {
 			world.step();
