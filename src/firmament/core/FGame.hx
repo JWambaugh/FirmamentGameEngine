@@ -29,6 +29,8 @@ class FGame extends EventDispatcher
 	var cameras:Array<FCamera>;
 	var world:FPhysicsWorld;
 	var worldArray:Array<FWorld>;
+	
+	public static inline var COLLISION_EVENT = 'collision';
 	public static inline var BEFORE_STEP = 'beforeStep';
 	public static inline var AFTER_STEP='afterStep';
 	public function new() 
@@ -57,7 +59,7 @@ class FGame extends EventDispatcher
 		this.cameras.push(c);
 	}
 	private function this_step(timer):Void {
-		//trace('step');
+		trace('step');
 		
 		for (world in this.worldArray) {
 			world.step();

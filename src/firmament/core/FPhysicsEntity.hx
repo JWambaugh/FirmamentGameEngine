@@ -20,6 +20,7 @@ class FPhysicsEntity extends FEntity
 
 	var body:B2Body;
 	
+	
 	public function new(world:FPhysicsWorld,config:Dynamic) 
 	{
 		super(world, config);
