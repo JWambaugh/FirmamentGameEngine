@@ -1,14 +1,30 @@
 package firmament.core;
 
+import box2D.dynamics.B2ContactListener;
 import firmament.core.FWorld;
 import firmament.core.FEntity;
 import box2D.dynamics.B2World;
 import box2D.collision.B2AABB;
+import nme.events.Event;
+
+import box2D.dynamics.contacts.B2Contact;
+import box2D.collision.B2Manifold;
 /**
  * ...
  * @author Jordan Wambaugh
  */
 
+class FPhysicsWorldContactListener extends B2ContactListener {
+	override public function preSolve(contact:B2Contact, oldManifold:B2Manifold):Void {
+		var entA:FPhysicsEntity = cast(contact.getFixtureA().getBody().getUserData());
+		var entB:FPhysicsEntity = cast(contact.getFixtureB().getBody().getUserData());
+		entA.dispatchEvent(new FPhysicsCollisionEvent(contact, oldManifold));
+		entB.dispatchEvent(new FPhysicsCollisionEvent(contact, oldManifold));
+	}
+}
+ 
+
+ 
 class FPhysicsWorld extends FWorld
 {
 
@@ -17,7 +33,8 @@ class FPhysicsWorld extends FWorld
 	public function new(gravity:FVector) 
 	{
 		super();
-		this.b2world = new B2World(gravity,true);
+		this.b2world = new B2World(gravity, true);
+		this.b2world.setContactListener(new FPhysicsWorldContactListener());
 	}
 	override public function getEntitiesInBox(topLeftX:Int,topLeftY:Int,bottomRightX:Int,bottomRightY:Int):Array<FEntity>{
 		var selectEntities:Array<FEntity> = new Array();

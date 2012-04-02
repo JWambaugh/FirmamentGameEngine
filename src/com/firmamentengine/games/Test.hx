@@ -1,6 +1,7 @@
 package com.firmamentengine.games;
 
 import firmament.core.FInput;
+import firmament.core.FPhysicsCollisionEvent;
 import nice_json.Render;
 import nme.display.Stage;
 import nme.display.StageAlign;
@@ -75,7 +76,7 @@ class Test
 					});
 		}
 		
-		world.createEntity( {
+		var chair =world.createEntity( {
 					test:'blah'
 					,position:new FVector(0,-3)
 					,type:'dynamic'
@@ -87,7 +88,9 @@ class Test
 					
 				});
 		
-				
+		chair.addEventListener(FGame.COLLISION_EVENT, function(e:FPhysicsCollisionEvent) {
+				trace("Yowzas: "+ e.getCollisionSpeed());
+			});
 		world.createEntity( {
 			test:'blah'
 			,position:new FVector(-2,1)
