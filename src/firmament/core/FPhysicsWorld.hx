@@ -69,5 +69,10 @@ class FPhysicsWorld extends FWorld
 	}
 	
 	
+	public function removeEntity(ent:FPhysicsEntity) {
+		this.b2world.destroyBody(ent.body);
+		
+	}
+	
 	
 }

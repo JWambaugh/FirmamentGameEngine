@@ -18,7 +18,7 @@ import nme.display.Bitmap;
 class FPhysicsEntity extends FEntity
 {
 
-	var body:B2Body;
+	public var body:B2Body;
 	
 	
 	public function new(world:FPhysicsWorld,config:Dynamic) 
@@ -133,5 +133,9 @@ class FPhysicsEntity extends FEntity
 	}
 	override public function hasShapes() {
 		return true;
+	}
+	
+	public function delete() {
+		cast(this.world,FPhysicsWorld).removeEntity(this);
 	}
 }
