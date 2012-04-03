@@ -15,11 +15,13 @@ import box2D.collision.B2Manifold;
  */
 
 class FPhysicsWorldContactListener extends B2ContactListener {
+	var world:FPhysicsWorld;
+	public function new(world) {
+		this.world = world;
+		super();
+	}
 	override public function preSolve(contact:B2Contact, oldManifold:B2Manifold):Void {
-		var entA:FPhysicsEntity = cast(contact.getFixtureA().getBody().getUserData());
-		var entB:FPhysicsEntity = cast(contact.getFixtureB().getBody().getUserData());
-		entA.dispatchEvent(new FPhysicsCollisionEvent(contact, oldManifold));
-		entB.dispatchEvent(new FPhysicsCollisionEvent(contact, oldManifold));
+		//world.contacts.push(Reflect.copy(contact));
 	}
 }
  
@@ -30,11 +32,14 @@ class FPhysicsWorld extends FWorld
 
 	
 	var b2world:B2World;
+	
+	private var deleteQueue:Array<FPhysicsEntity>;
 	public function new(gravity:FVector) 
 	{
 		super();
 		this.b2world = new B2World(gravity, true);
-		this.b2world.setContactListener(new FPhysicsWorldContactListener());
+		
+		//this.b2world.setContactListener(new FPhysicsWorldContactListener(this));
 	}
 	override public function getEntitiesInBox(topLeftX:Int,topLeftY:Int,bottomRightX:Int,bottomRightY:Int):Array<FEntity>{
 		var selectEntities:Array<FEntity> = new Array();
@@ -65,13 +70,25 @@ class FPhysicsWorld extends FWorld
 	}
 	
 	override public function step():Void {
+		this.deleteQueue = new Array<FPhysicsEntity>();
 		this.b2world.step(1 / 30, 10, 10);
+		var contact = this.b2world.getContactList();
+		while (contact!=null) {
+			var entA:FPhysicsEntity = cast(contact.getFixtureA().getBody().getUserData());
+			var entB:FPhysicsEntity = cast(contact.getFixtureB().getBody().getUserData());
+			entA.dispatchEvent(new FPhysicsCollisionEvent(contact));
+			entB.dispatchEvent(new FPhysicsCollisionEvent(contact));
+			contact = contact.getNext();
+		}
+		for (ent in this.deleteQueue){
+			this.b2world.destroyBody(ent.body);
+		}
 	}
 	
 	
 	public function removeEntity(ent:FPhysicsEntity) {
-		this.b2world.destroyBody(ent.body);
-		
+		this.deleteQueue.push(ent);
+		trace("deleted!");
 	}
 	
 	

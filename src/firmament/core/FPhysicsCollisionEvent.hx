@@ -13,7 +13,7 @@ import box2D.collision.B2Manifold;
 class FPhysicsCollisionEvent extends Event
 {
 	var _contact:B2Contact;
-	public function new(contact:B2Contact, oldManifold:B2Manifold) 
+	public function new(contact:B2Contact) 
 	{
 		this._contact = contact;
 		super(FGame.COLLISION_EVENT);
