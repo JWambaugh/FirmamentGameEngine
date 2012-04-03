@@ -67,7 +67,7 @@ class FBitmapTracer
 		
 		
 		
-		vectors = FPolySimplifier.simplify(vectors, .3);
+		vectors = FPolySimplifier.simplify(vectors, .15);
 		var min:FVector = new FVector();
 		var max:FVector = new FVector();
 		var counter = 0;
