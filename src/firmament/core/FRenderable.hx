@@ -46,7 +46,9 @@ class FRenderable extends FWorldPositional
 		return this.imageScale;
 	}
 	
+
 	public function setZPosition(pos:Float):Void {
+
 		this.zPosition = pos;
 	}
 	public function getZPosition():Float {
