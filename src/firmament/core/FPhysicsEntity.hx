@@ -9,6 +9,7 @@ import box2D.dynamics.B2BodyDef;
 import box2D.dynamics.B2FixtureDef;
 import box2D.dynamics.B2Fixture;
 import box2D.collision.shapes.B2Shape;
+import haxe.Timer;
 import nme.display.Bitmap;
 /**
  * ...
@@ -49,6 +50,12 @@ class FPhysicsEntity extends FEntity
 		body = physWorld.getB2World().createBody(def);
 		
 		//body.createFixture2(new B2CircleShape(1));
+		
+		
+		
+		if (Std.is(config.maxLifeSeconds, Float)) {
+			Timer.delay(function() { this.delete(); }, Math.floor(config.maxLifeSeconds * 1000));
+		}
 		
 		if(Std.is(config.shapes,Array))
 		for (shape in cast(config.shapes, Array<Dynamic>)) {
@@ -135,7 +142,10 @@ class FPhysicsEntity extends FEntity
 		return true;
 	}
 	
+	
+	
 	public function delete() {
+		trace("seppukku!");
 		cast(this.world,FPhysicsWorld).removeEntity(this);
 	}
 }
