@@ -19,9 +19,12 @@ class FSpriteRenderer extends EventDispatcher ,implements FRenderer
 	
 	public function render(item:FRenderable, camera:FCamera):Void {
 		
-		if (item.getCurrentImage() == null) return;
-		var bmData = item.getCurrentImage().bitmapData;
-		if (bmData == null) return;
+		
+		var bmData = item.getCurrentImage();
+		if (bmData == null) {
+			trace('bmdata is null');
+			return;
+		}
 		
 		
 		var cameraPos = camera.getTopLeftPosition();

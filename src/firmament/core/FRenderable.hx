@@ -1,7 +1,7 @@
 package firmament.core;
 import firmament.core.FRenderer;
 import box2D.collision.shapes.B2Shape;
-import nme.display.Bitmap;
+import nme.display.BitmapData;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -39,7 +39,7 @@ class FRenderable extends FWorldPositional
 		return new Array<B2Shape>();
 	}
 	
-	public function getCurrentImage():Bitmap {
+	public function getCurrentImage():BitmapData {
 			return null;
 	}
 	public function getImageScale():Float {

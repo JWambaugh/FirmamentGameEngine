@@ -10,7 +10,7 @@ import box2D.dynamics.B2FixtureDef;
 import box2D.dynamics.B2Fixture;
 import box2D.collision.shapes.B2Shape;
 import haxe.Timer;
-import nme.display.Bitmap;
+import nme.display.BitmapData;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -26,10 +26,7 @@ class FPhysicsEntity extends FEntity
 	{
 		super(world, config);
 		
-		if (Std.is(config.sprite,Bitmap)) {
-			this.renderer = new FSpriteRenderer();
-		}
-		else this.renderer = new FWireframeRenderer();
+		
 		var def:B2BodyDef = new B2BodyDef();
 		var fixtureDef:B2FixtureDef = new B2FixtureDef();
 		
