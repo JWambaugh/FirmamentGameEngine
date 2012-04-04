@@ -1,6 +1,6 @@
 package firmament.core;
 import firmament.core.FRenderable;
-import nme.display.Bitmap;
+import nme.display.BitmapData;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -9,16 +9,18 @@ import nme.display.Bitmap;
 class FEntity extends FRenderable
 {
 	var world:FWorld;
-	var currentImage:Bitmap;
+	var currentImage:BitmapData;
 	
 	public function new(world:FWorld,config:Dynamic) 
 	{
 		super();
 		this.world = world;
 		world.addEntity(this);
-		if (Std.is(config.sprite, Bitmap)) {
+		if (Std.is(config.sprite, BitmapData)) {
 			this.currentImage = config.sprite;
 			this.renderer = new FSpriteRenderer();
+		}else {
+			this.renderer = new FWireframeRenderer();
 		}
 		if (Std.is(config.imageScale, Int)) {
 				this.imageScale = config.imageScale;
@@ -28,7 +30,7 @@ class FEntity extends FRenderable
 		
 	}
 	
-	override public function getCurrentImage():Bitmap {
+	override public function getCurrentImage():BitmapData {
 		return this.currentImage;
 	}
 	
