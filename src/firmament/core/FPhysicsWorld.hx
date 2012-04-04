@@ -38,7 +38,7 @@ class FPhysicsWorld extends FWorld
 	{
 		super();
 		this.b2world = new B2World(gravity, true);
-		
+		this.deleteQueue = new Array<FPhysicsEntity>();
 		//this.b2world.setContactListener(new FPhysicsWorldContactListener(this));
 	}
 	override public function getEntitiesInBox(topLeftX:Int,topLeftY:Int,bottomRightX:Int,bottomRightY:Int):Array<FEntity>{
@@ -70,7 +70,7 @@ class FPhysicsWorld extends FWorld
 	}
 	
 	override public function step():Void {
-		this.deleteQueue = new Array<FPhysicsEntity>();
+		
 		this.b2world.step(1 / 30, 10, 10);
 		var contact = this.b2world.getContactList();
 		while (contact!=null) {
@@ -80,15 +80,21 @@ class FPhysicsWorld extends FWorld
 			entB.dispatchEvent(new FPhysicsCollisionEvent(contact));
 			contact = contact.getNext();
 		}
-		for (ent in this.deleteQueue){
-			this.b2world.destroyBody(ent.body);
+		var ent;
+		while((ent=this.deleteQueue.shift())!=null) {
+			this.deleteEntity(ent);
+			
 		}
+		
 	}
 	
+	private function deleteEntity(ent:FPhysicsEntity) {
+		this.b2world.destroyBody(ent.body);
+	}
 	
 	public function removeEntity(ent:FPhysicsEntity) {
 		this.deleteQueue.push(ent);
-		trace("deleted!");
+		
 	}
 	
 	

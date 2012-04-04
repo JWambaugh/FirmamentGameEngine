@@ -24,6 +24,8 @@ class FEntity extends FRenderable
 				this.imageScale = config.imageScale;
 		}
 		else this.renderer = new FWireframeRenderer();
+		
+		
 	}
 	
 	override public function getCurrentImage():Bitmap {
