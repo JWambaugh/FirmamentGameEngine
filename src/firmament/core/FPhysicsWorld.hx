@@ -79,8 +79,10 @@ class FPhysicsWorld extends FWorld
 			entA.dispatchEvent(new FPhysicsCollisionEvent(contact));
 			entB.dispatchEvent(new FPhysicsCollisionEvent(contact));
 			contact = contact.getNext();
+			//trace('collision');
 		}
 		var ent;
+		//Delete any entities waiting for deletion.
 		while((ent=this.deleteQueue.shift())!=null) {
 			this.deleteEntity(ent);
 			
