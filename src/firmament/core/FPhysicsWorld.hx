@@ -16,10 +16,12 @@ import box2D.collision.B2Manifold;
 
 class FPhysicsWorldContactListener extends B2ContactListener {
 	var world:FPhysicsWorld;
+	
 	public function new(world) {
 		this.world = world;
 		super();
 	}
+	
 	override public function preSolve(contact:B2Contact, oldManifold:B2Manifold):Void {
 		//world.contacts.push(Reflect.copy(contact));
 	}
@@ -41,6 +43,7 @@ class FPhysicsWorld extends FWorld
 		this.deleteQueue = new Array<FPhysicsEntity>();
 		//this.b2world.setContactListener(new FPhysicsWorldContactListener(this));
 	}
+	
 	override public function getEntitiesInBox(topLeftX:Int,topLeftY:Int,bottomRightX:Int,bottomRightY:Int):Array<FEntity>{
 		var selectEntities:Array<FEntity> = new Array();
 		var query = new B2AABB();
@@ -71,7 +74,8 @@ class FPhysicsWorld extends FWorld
 	
 	override public function step():Void {
 		
-		this.b2world.step(1 / 30, 10, 10);
+		this.b2world.step(this.getTimeSinceLastStep(), 10, 10);
+		this.endOfStep();
 		var contact = this.b2world.getContactList();
 		while (contact!=null) {
 			var entA:FPhysicsEntity = cast(contact.getFixtureA().getBody().getUserData());
@@ -85,8 +89,9 @@ class FPhysicsWorld extends FWorld
 		//Delete any entities waiting for deletion.
 		while((ent=this.deleteQueue.shift())!=null) {
 			this.deleteEntity(ent);
-			
 		}
+		
+		
 		
 	}
 	
