@@ -31,9 +31,9 @@ class FPhysicsEntity extends FEntity
 		var fixtureDef:B2FixtureDef = new B2FixtureDef();
 		
 		if(Std.is(config.position,FVector)){
-			def.position = config.position;
+			def.position = cast(config.position,B2Vec2);
 		}else {
-			def.position = new FVector(0, 0);
+			def.position = cast(new FVector(0, 0),B2Vec2);
 		}
 		def.userData = this;
 		
@@ -112,6 +112,7 @@ class FPhysicsEntity extends FEntity
 	
 	override function setPosition(pos:FVector) {
 		this.body.setPosition(new B2Vec2(pos.x, pos.y));
+		super.setPosition(pos);
 	}
 	
 	override public function getAngle():Float {
@@ -142,7 +143,7 @@ class FPhysicsEntity extends FEntity
 	
 	
 	public function delete() {
-		trace("seppukku!");
+		
 		cast(this.world,FPhysicsWorld).removeEntity(this);
 	}
 }

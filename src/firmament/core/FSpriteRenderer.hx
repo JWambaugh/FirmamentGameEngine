@@ -4,8 +4,10 @@ import nme.geom.Matrix;
 import nme.display.IBitmapDrawable;
 import nme.geom.Point;
 import nme.events.EventDispatcher;
+
+
 /**
- * ...
+ * 
  * @author Jordan Wambaugh
  */
 

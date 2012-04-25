@@ -16,7 +16,7 @@ import nme.display.Bitmap;
 import nme.Assets;
 import nme.text.TextField;
 import nme.utils.Timer;
-
+import haxe.Timer;
 import firmament.core.FPhysicsEntity;
 import firmament.core.FPhysicsWorld;
 import firmament.core.FCamera;
@@ -43,10 +43,10 @@ class FGame extends EventDispatcher
 		var stage = Lib.current.stage;
 		stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
 		
-		var timer = new Timer(33);
+		/*var timer = new Timer(33);
 		timer.addEventListener(TimerEvent.TIMER, this_step);
 		timer.start();
-		
+		*/
 		
 		
 	}
@@ -58,7 +58,7 @@ class FGame extends EventDispatcher
 	public function addCamera(c:FCamera) {
 		this.cameras.push(c);
 	}
-	private function this_step(timer):Void {
+	private function doStep():Void {
 		//trace('step');
 		
 		for (world in this.worldArray) {
@@ -69,9 +69,15 @@ class FGame extends EventDispatcher
 	private function this_onEnterFrame (event:Event):Void {
 		//trace('this is called.');
 		this.dispatchEvent(new Event(FGame.BEFORE_STEP));
+		//var start = haxe.Timer.stamp();
+		this.doStep();
+		//trace("step time: "+(haxe.Timer.stamp() - start));
+		this.dispatchEvent(new Event(FGame.AFTER_STEP));
+		//var start = haxe.Timer.stamp();
 		for(camera in cameras){
 			camera.render(worldArray);
 		}
-		this.dispatchEvent(new Event(FGame.AFTER_STEP));
+		//trace("render time: "+(haxe.Timer.stamp() - start));
+		
 	}
 }
