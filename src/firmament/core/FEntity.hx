@@ -20,16 +20,21 @@ class FEntity extends FRenderable
 		super();
 		this.world = world;
 		world.addEntity(this);
+		
+		
+		if (Std.is(config.imageScale, Int)) {
+				this.imageScale = config.imageScale;
+		}
+		
+		
 		if (Std.is(config.sprite, BitmapData)) {
 			this.setCurrentImage(config.sprite);
 			this.renderer = new FTilesheetRenderer();
 		}else {
 			this.renderer = new FWireframeRenderer();
 		}
-		if (Std.is(config.imageScale, Int)) {
-				this.imageScale = config.imageScale;
-		}
-		else this.renderer = new FWireframeRenderer();
+		
+		
 		
 		
 	}
