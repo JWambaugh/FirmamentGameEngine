@@ -37,9 +37,15 @@ class FPhysicsEntity extends FEntity
 		}
 		def.userData = this;
 		
+		
 		if(config.type=='dynamic')
 			def.type = B2Body.b2_dynamicBody;
+		if(config.type == 'kinematic')
+			def.type = B2Body.b2_kinematicBody;
 		else def.type = B2Body.b2_staticBody;
+		
+		
+		
 		var physWorld:FPhysicsWorld = cast world;
 		if(Std.is(config.angle,Float))
 			def.angle = config.angle;
