@@ -50,7 +50,7 @@ class FSpriteRenderer extends EventDispatcher ,implements FRenderer
 		if(ratio!=1)matrix.scale(ratio, ratio);
 		matrix.translate(nx, ny);
 		
-		camera.bitmapData.draw(bmData, matrix,null,null,null,true);
+		//camera.bitmapData.draw(bmData, matrix,null,null,null,true);
 		
 		
 	}
