@@ -1,6 +1,6 @@
 package firmament.core;
 
-import nme.display.Bitmap;
+import nme.display.Sprite;
 import firmament.core.FEntity;
 import firmament.core.FWorld;
 import nme.display.BitmapData;
@@ -13,7 +13,7 @@ import nme.events.Event;
  * @author Jordan Wambaugh
  */
 
-class FCamera extends Bitmap ,implements FWorldPositionalInterface 
+class FCamera extends Sprite ,implements FWorldPositionalInterface 
 {
 	var position:FVector;
 	var topLeftPosition:FVector;
@@ -28,19 +28,17 @@ class FCamera extends Bitmap ,implements FWorldPositionalInterface
 	{
 		super();
 		this.zoom = 100;
-		this.bitmapData = new BitmapData(width, height);
 		this.position = new FVector(0, 0);
 		this.calculatedTopLeft = false;
 		this.topLeftPosition = new FVector(0, 0);
 		this.displayHeight = height;
 		this.displayWidth = width;
-		this.width = width;
-		this.height = height;
+		
 	}
 	
 	public function render(worlds:Array<FWorld>) {
 		
-		this.bitmapData.fillRect(new Rectangle(0, 0, this.displayWidth, this.displayHeight),0xFFFFFF);
+		this.graphics.clear();
 		
 		//this.graphics.drawRect(0,0, this.displayWidth, this.displayHeight);
 		var entityList:Array<FEntity> = new Array<FEntity>();
@@ -110,8 +108,8 @@ class FCamera extends Bitmap ,implements FWorldPositionalInterface
 		var stage = Lib.current.stage;
 		this.displayWidth = stage.stageWidth;
 		this.displayHeight = stage.stageHeight;
-		this.width = this.displayWidth;
-		this.height = this.displayHeight;
+		//this.width = this.displayWidth;
+		//this.height = this.displayHeight;
 		this.calculateTopLeftPosition();
 	}
 	

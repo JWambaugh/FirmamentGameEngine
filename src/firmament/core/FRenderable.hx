@@ -2,6 +2,7 @@ package firmament.core;
 import firmament.core.FRenderer;
 import box2D.collision.shapes.B2Shape;
 import nme.display.BitmapData;
+import nme.display.Tilesheet;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -53,6 +54,9 @@ class FRenderable extends FWorldPositional
 	}
 	public function getZPosition():Float {
 		return this.zPosition;
+	}
+	public function getTilesheet():Tilesheet{
+		return null;
 	}
 	
 }
