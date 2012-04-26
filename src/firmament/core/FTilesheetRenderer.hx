@@ -50,16 +50,7 @@ class FTilesheetRenderer extends EventDispatcher ,implements FRenderer
 		
 		tileSheet.drawTiles(camera.graphics, drawList, true, 
 			Tilesheet.TILE_SCALE | Tilesheet.TILE_ROTATION | Tilesheet.TILE_ALPHA);
-		/*var matrix = new Matrix();
 		
-		
-		matrix.translate( -bmData.width/2, -bmData.height/2);
-		matrix.rotate(item.getAngle());
-		
-		if(ratio!=1)matrix.scale(ratio, ratio);
-		matrix.translate(nx, ny);
-		
-		camera.bitmapData.draw(bmData, matrix,null,null,null,true);*/
 		
 		
 	}
