@@ -2,8 +2,7 @@ package firmament.core;
 import nme.events.EventDispatcher;
 
 /**
- * ...
- * @author Jordan Wambaugh
+ * Class: FRenderer
  */
 
 interface FRenderer 

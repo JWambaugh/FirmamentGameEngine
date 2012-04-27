@@ -1,8 +1,8 @@
 package firmament.core;
 
 /**
- * ...
- * @author Jordan Wambaugh
+ * Class: FGame
+ * Manages the game, including all worlds, cameras, simulation, rendering, etc.
  */
 
 
@@ -30,9 +30,18 @@ class FGame extends EventDispatcher
 	var world:FPhysicsWorld;
 	var worldArray:Array<FWorld>;
 	
+	//Constant: COLLISION_EVENT
 	public static inline var COLLISION_EVENT = 'collision';
+	
+	//CONSTANT: BEFORE_STEP
 	public static inline var BEFORE_STEP = 'beforeStep';
-	public static inline var AFTER_STEP='afterStep';
+	
+	//CONSTANT: AFTER_STEP
+	public static inline var AFTER_STEP = 'afterStep';
+	
+	/**
+	 * Constructor: new
+	 */
 	public function new() 
 	{
 		super();
@@ -50,14 +59,32 @@ class FGame extends EventDispatcher
 		
 		
 	}
-	
+	/**
+	 * Function: addWorld
+	 * 
+	 * Adds a new <FWorld> object to the game.
+	 * 
+	 * Parameters:
+		 * w - <FWorld> The world to add
+	 */
 	public function addWorld(w:FWorld) {
 		this.worldArray.push(w);
 	}
 	
+	/**
+	 * Function: addCamera
+	 * 
+	 * Adds a new <FCamera> object to the game. Cameras must be added to the game in order for them to work.
+	 * 
+	 * Parameters:
+		 * c - <FCamera> The camera to add
+	 */
 	public function addCamera(c:FCamera) {
 		this.cameras.push(c);
 	}
+	
+	
+	
 	private function doStep():Void {
 		//trace('step');
 		

@@ -1,7 +1,8 @@
 package firmament.core;
 
 /**
- * ...
+ * Interface: FWorldPositionalInterface 
+ * 
  * @author Jordan Wambaugh
  */
 

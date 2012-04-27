@@ -5,16 +5,30 @@ import nme.display.Tilesheet;
 import nme.geom.Rectangle;
 import firmament.core.FTilesheetRenderer;
 import nme.geom.Point;
-/**
- * ...
- * @author Jordan Wambaugh
- */
 
+
+ 
+ /**
+  * Class: FEntity 
+  * Base class for all entities in Firmament
+  * 
+  * Extends: <FRenderable>
+  * 
+  * See Also:
+	  * <FPhysicsEntity>
+  */
 class FEntity extends FRenderable
 {
 	var world:FWorld;
 	var currentImage:BitmapData;
 	var tilesheet:Tilesheet;
+	/**
+	 * Constructor: new
+	 * 
+	 * Config Paramers:
+		 * imageScale - [Float] The initial scale value for the sprite.
+		 * sprite  - [BitmapData] The image to use as a sprite for this entity
+	 */
 	public function new(world:FWorld,config:Dynamic) 
 	{
 		super();
@@ -39,17 +53,27 @@ class FEntity extends FRenderable
 		
 	}
 	
+	/**
+	 * Function: getCurrentImage
+	 * Returns a BitmapData object of the current image
+	 */
 	override public function getCurrentImage():BitmapData {
 		return this.currentImage;
 	}
-	
+	/**
+	 * Function: setCurrentImage
+	 * Sets the current image.
+	 */
 	public function setCurrentImage(i:BitmapData){
 			this.currentImage=i;
 			tilesheet = new Tilesheet(i);
-			tilesheet.addTileRect(
-			new Rectangle (0, 0, i.width, i.height),new Point(i.width/2,i.height/2));
+			tilesheet.addTileRect(new Rectangle (0, 0, i.width, i.height),new Point(i.width/2,i.height/2));
 	}
 	
+	/**
+	 * Function: getTilesheet
+	 * returns the current tilesheet for the current image
+	 */
 	override public function getTilesheet():Tilesheet{
 		return this.tilesheet;
 	}

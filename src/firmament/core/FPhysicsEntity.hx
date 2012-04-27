@@ -12,16 +12,40 @@ import box2D.collision.shapes.B2Shape;
 import haxe.Timer;
 import nme.display.BitmapData;
 /**
- * ...
- * @author Jordan Wambaugh
+ * Class: FPhysicsEntity
+ * Entity class for physics-based entities 
+ * 
+ * Extends: <FEntity>
+ * 
+ * 
  */
 
+ 
 class FPhysicsEntity extends FEntity
 {
 
 	public var body:B2Body;
 	
-	
+	/**
+	 * Constructor: new
+	 * 
+	 * Parameters:
+		* world - [<FPhysicsWorld>]
+		* config - [Dynamic] A config object with properties specifying details for this entity. See 'Config Parameters' below.
+	 *
+	 * Config Paramers:
+		 * - All parameters except shapes are optional.
+		 * shapes - [Array<Dynamic>] Array of config objects spicifying the shapes that make up the entity. See 'Shape Config Parameters' below)
+		 * imageScale - [Float] The initial scale value for the sprite. Def: 100
+		 * sprite  - [BitmapData] The image to use as a sprite for this entity. Def: none (wireframe)
+		 * type - [String] The type of entity to create. Possible values: 'dynamic', 'static', 'kinematic'. Def: static
+		 * position - [<FVector>] The starting position for the entity in the world. Def: 0,0
+		 * maxLifSeconds - [Int] number of seconds until the entity should automatically die (only set if desired). Def: 0
+	 * 
+	 * Shape Config Parameters:
+		 * 
+	 * 
+	 */
 	public function new(world:FPhysicsWorld,config:Dynamic) 
 	{
 		super(world, config);

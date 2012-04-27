@@ -2,14 +2,17 @@ package firmament.core;
 
 import box2D.common.math.B2Vec2;
 /**
- * ...
+ * Class: FVector
  * @author Jordan Wambaugh
  */
 
 class FVector extends B2Vec2
 {
 
-	
+	/**
+	 * Constructor: new
+	 * 
+	 */
 	public function new(x:Float =0,y:Float =0) 
 	{
 		super(x, y);

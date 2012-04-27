@@ -8,13 +8,22 @@ import nme.display.Tilesheet;
  * @author Jordan Wambaugh
  */
 
+ /**
+  * Class: FRenderable
+  * 
+  * Extends: 
+	  * 
+	  * <FWorldPositional>
+  */
 class FRenderable extends FWorldPositional
 {
 	var renderer:FRenderer;
 	var imageScale:Float;
 	var zPosition:Float;
 	
-	
+	/**
+	 * Constructor: new
+	 */
 	public function new() 
 	{
 		super();
@@ -23,7 +32,13 @@ class FRenderable extends FWorldPositional
 	}
 	
 	
-	
+	/**
+	 * Function: getRenderer
+	 * 
+	 * Returns: 
+	 * 
+	 * 		<FRenderer> the object's current renderer 
+	 */
 	public function getRenderer():FRenderer {
 		return this.renderer;
 	}
@@ -38,7 +53,7 @@ class FRenderable extends FWorldPositional
 	
 	public function getShapes():Array<B2Shape> {
 		return new Array<B2Shape>();
-	}
+	} 
 	
 	public function getCurrentImage():BitmapData {
 			return null;
@@ -47,14 +62,34 @@ class FRenderable extends FWorldPositional
 		return this.imageScale;
 	}
 	
-
+	/**
+	 * Function: setZPosition
+	 * 
+	 * sets the objet's position on the z axis. This controls which objects display in front or behind. Lesser values are behind Larger values.
+	 * 
+	 */
 	public function setZPosition(pos:Float):Void {
 
 		this.zPosition = pos;
 	}
+	
+	/**
+	 * Function: getZPosition 
+     * 
+	 * Returns:
+		 * Float the object's current position on the z axis.
+	 * 
+	 */
 	public function getZPosition():Float {
 		return this.zPosition;
 	}
+	
+	/**
+	 * Function: getTilesheet
+	 * Returns:
+		 * 
+		 * Tilesheet the current tilesheet
+	 */
 	public function getTilesheet():Tilesheet{
 		return null;
 	}
