@@ -9,7 +9,12 @@ import nme.Lib;
 import nme.display.Stage;
 import nme.events.Event;
 /**
- * ...
+ * Class: FCamera
+ * 
+ * Extends: Sprite
+ * 
+ * Implements: <FWorldPositionalInterface>
+ * 
  * @author Jordan Wambaugh
  */
 
@@ -24,6 +29,14 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	var displayHeight:Int;
 
 	var calculatedTopLeft:Bool;
+	
+	/**
+	 * Constructor: new
+	 * 
+	 * Parameters:
+		 * width - Int The width of the camera
+		 * height - Int The height of the camera
+	 */
 	public function new(width:Int,height:Int) 
 	{
 		super();
@@ -79,27 +92,73 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		return this.topLeftPosition;
 	}
 	
-	public function setPosition(pos:FVector):Void {
+	/**
+	 * Function: setPosition
+	 * 
+	 * Parameters:
+		 * pos - <FVector>
+	 */
+	public function setPosition(pos:FVector) {
 		this.position = pos;
-		this.calculateTopLeftPosition();
 	}
 	
+	/**
+	 * Function: getPosition
+	 * 
+	 * Returns:
+		 * <FVector>
+	 */
 	public function getPosition():FVector {
 		return this.position;
 	}
 	
+	/**
+	 * Function: getPositionX
+	 * 
+	 * Returns:
+		 * Float
+	 */
 	public function getPositionX():Float {
 		return this.position.x;
 	}
 	
+		/**
+	 * Function: getPositionY
+	 * 
+	 * Returns:
+		 * Float
+	 */
 	public function getPositionY():Float {
 		return this.position.y;
 	}
 	
+	/**
+	 * Function: getZoom
+	 * 
+	 * The zoom is 'pixels per meter'. By default, this value is set to 100, meaning we show 100 pixels for each meter in world space.
+	 * 
+	 * Returns: 
+		 * Float - the camera's current zoom value.
+	 * 
+	 * 
+	 * See Also: 
+		 * <setZoom>
+	 */
 	public function getZoom():Float {
 		return this.zoom;
 	}
 	
+	/**
+	 * Function: setZoom
+	 * 
+	 * The zoom is 'pixels per meter'. By default, this value is set to 100, meaning we show 100 pixels for each meter in world space.
+	 * 
+	 * Parameters:
+		 * z - Float
+	 * 
+	 * See Also: 
+		 * <getZoom>
+	 */
 	public function setZoom(z:Float) {
 			this.zoom = z;
 	}
