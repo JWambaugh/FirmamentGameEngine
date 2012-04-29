@@ -50,6 +50,7 @@ class FBitmapTracer
 	 * converts an array of vertexes to an array of FVectors.
 	 */
 	private function vertexesToPolys(vertexes:Array<FTracerVertex>):Array<FVector> {
+		if (vertexes == null)  return null;
 		var vectors:Array<FVector> = new Array<FVector>();
 		var counter:Int = 0;
 		
