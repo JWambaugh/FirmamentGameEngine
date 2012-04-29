@@ -86,9 +86,10 @@ class FGame extends EventDispatcher
 	
 	
 	private function doStep():Void {
-		//trace('step');
+		
 		
 		for (world in this.worldArray) {
+			//trace('step');
 			world.step();
 			
 		}

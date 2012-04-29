@@ -25,9 +25,9 @@ class FWireframeRenderer implements FRenderer
 	}
 	
 	public function render(item:FRenderable, camera:FCamera):Void {
-		//camera.graphics.lineStyle(1, 0);
+	
 		var pos = item.getPosition();
-		//var sprite = new Shape();
+		
 		camera.graphics.lineStyle(1,0xFF00FF);
 		var cameraPos = camera.getTopLeftPosition();
 		//trace(cameraPos.y);
