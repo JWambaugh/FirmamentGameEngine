@@ -145,6 +145,10 @@ class FPhysicsEntity extends FEntity
 		super.setPosition(pos);
 	}
 	
+	override public function setAngle(a:Float):Void {
+		this.body.setAngle(a);
+	}
+	
 	override public function getAngle():Float {
 		return this.body.getAngle();
 	}

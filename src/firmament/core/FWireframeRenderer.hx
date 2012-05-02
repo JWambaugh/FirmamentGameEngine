@@ -45,6 +45,7 @@ class FWireframeRenderer implements FRenderer
 					var counter:Int = 0;
 					var pvec:B2Vec2;
 					for (vec in pshape.m_vertices) {
+						//trace(vec.x+'   '+vec.y);
 						if (counter++ > 0) {
 							camera.graphics.lineTo((pos.x+vec.x-cameraPos.x)*camera.getZoom(), (pos.y+vec.y-cameraPos.y)*camera.getZoom());
 						}

@@ -61,7 +61,7 @@ class FWorldPositional extends EventDispatcher
 		return this.position.y;
 	}
 	
-		/**
+	/**
 	 * Function: getAngle
 	 * 
 	 * Returns:
@@ -69,6 +69,16 @@ class FWorldPositional extends EventDispatcher
 	 */
 	public function getAngle():Float {
 		return this.angle;
+	}
+	
+	/**
+	 * Function: setAngle
+	 * 
+	 * Returns:
+		 * Float
+	 */
+	public function setAngle(a:Float):Void {
+		this.angle=a;
 	}
 	
 }

@@ -89,13 +89,17 @@ class FBitmapTracer
 		}
 		//center all vectors
 		var diff = new FVector();
-		diff.x = (min.x - max.x )/2;
-		diff.y = (min.y - max.y) / 2;
+		trace("min: " + min.x + " " + min.y);
+		trace("max: " + max.x + " " + max.y);
+		diff.x = (min.x - max.x )/2 - min.x;
+		diff.y = (min.y - max.y) / 2 - min.y;
+		trace("diff: " + diff.x + " " + diff.y);
+		trace("before: " + vectors[0].x + " " + vectors[0].y);
 		for (vect in vectors) {
 			vect.x += diff.x;
 			vect.y += diff.y;
 		}
-		
+		trace("after: " + vectors[0].x + " " + vectors[0].y);
 		
 		
 		return vectors;

@@ -24,6 +24,7 @@ class FTilesheetRenderer extends EventDispatcher ,implements FRenderer
 	public function render(item:FRenderable, camera:FCamera):Void {
 		var TILE_FIELDS = 6; // x+y+index+scale+rotation+alpha
 		var bitmap = item.getCurrentImage();
+		camera.graphics.lineStyle(null,0,0);
 		var tileSheet:Tilesheet = item.getTilesheet();
 		if (tileSheet == null) {
 			trace('tileSheet is null');
@@ -45,7 +46,7 @@ class FTilesheetRenderer extends EventDispatcher ,implements FRenderer
 		drawList[index + 1] = ny;
 		//drawList[index + 2] = 0; // sprite index
 		drawList[index + 3] = ratio;
-		drawList[index + 4] = item.getAngle();
+		drawList[index + 4] = -item.getAngle();
 		drawList[index + 5] = 1;
 		
 		tileSheet.drawTiles(camera.graphics, drawList, true, 
