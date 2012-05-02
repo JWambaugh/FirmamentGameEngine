@@ -52,7 +52,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	public function render(worlds:Array<FWorld>) {
 		
 		this.graphics.clear();
-		
+		var wireframe = new FWireframeRenderer();
 		//this.graphics.drawRect(0,0, this.displayWidth, this.displayHeight);
 		var entityList:Array<FEntity> = new Array<FEntity>();
 		var displayPadding = 4; //number of meters to pad in query for entities. Incres this if you have entities popping out at the edges
@@ -76,6 +76,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		});
 		for (ent in entityList) {
 				ent.getRenderer().render(ent, this);
+				//wireframe.render(ent,this);
 			}
 	}
 	private function calculateTopLeftPosition() {

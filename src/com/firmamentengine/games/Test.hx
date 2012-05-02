@@ -54,7 +54,7 @@ class Test
 		var game = new FGame();
 		game.addWorld(world);
 		game.addCamera(camera);
-		
+		/*
 		
 		var image = new Bitmap(Assets.getBitmapData ("assets/traceTest.png"));
 		trace('instantiating...');
@@ -110,7 +110,7 @@ class Test
 				
 			]
 		});
-				
+				*/
 		/*
 		// entry point
 		var logo = new Bitmap (Assets.getBitmapData ("assets/sample.png"));
@@ -153,26 +153,50 @@ class Test
 		});*/
 		
 		
-		
+		var blocks:Array<FPhysicsEntity> = new Array<FPhysicsEntity>();
+		for (i in -5...5){
+			var block:FPhysicsEntity =world.createEntity( {
+						test:'blah'
+						,position:new FVector(i,i)
+						,type:'static'
+						,imageScale:200
+						,sprite:Assets.getBitmapData ("assets/test.jpg")
+						,angle:0
+						,shapes:[
+							{
+									type : 'box'
+									,height:.5
+									,width:.5
+							}
+						
+						]
+							
+						
+					});
+					blocks.push(block);
+		}
 		var field = new TextField();
 		field.text = 'This is working!?';
 		stage.addChild(field);
 		var input = new FInput(stage);
 		game.addEventListener(FGame.BEFORE_STEP, function(e:Event) {
+			for(block in blocks){
+				block.setAngle(block.getAngle() + .02);
+			}
 			//trace(input.getStageX());
-			/*
+			
 			if (input.isKeyPressed(38)) {
-				player.setLinearVelocity(new FVector(player.getLinearVelocity().x,player.getLinearVelocity().y-.5));
+				camera.setPosition(new FVector(camera.getPositionX(),camera.getPositionY()-.5));
 			}
 			if (input.isKeyPressed(40)) {
-				player.setLinearVelocity(new FVector(player.getLinearVelocity().x,player.getLinearVelocity().y+.5));
+				camera.setPosition(new FVector(camera.getPositionX(),camera.getPositionY()+.5));
 			}
 			if (input.isKeyPressed(37)) {
-				player.setLinearVelocity(new FVector(player.getLinearVelocity().x-.5,player.getLinearVelocity().y));
+				camera.setPosition(new FVector(camera.getPositionX()-.5,camera.getPositionY()));
 			}
 			if (input.isKeyPressed(39)) {
-				player.setLinearVelocity(new FVector(player.getLinearVelocity().x+.5,player.getLinearVelocity().y));
-			}*/
+				camera.setPosition(new FVector(camera.getPositionX()+.5,camera.getPositionY()));
+			}
 			if (input.isKeyPressed(65)) {
 				camera.setZoom(camera.getZoom() * 1.02);
 			}
