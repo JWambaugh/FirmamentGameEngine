@@ -6,7 +6,7 @@ import nme.geom.Rectangle;
 import firmament.core.FTilesheetRenderer;
 import nme.geom.Point;
 
-
+import nme.Assets;
  
  /**
   * Class: FEntity 
@@ -43,6 +43,14 @@ class FEntity extends FRenderable
 		
 		if (Std.is(config.sprite, BitmapData)) {
 			this.setCurrentImage(config.sprite);
+			this.renderer = new FTilesheetRenderer();
+		}else if (Std.is(config.sprite, String)){
+			var s=Assets.getBitmapData(config.sprite);
+			if(s==null){
+				throw("Could not load sprite data "+ config.sprite);
+			}
+			config.sprite = s;
+			this.setCurrentImage(s);
 			this.renderer = new FTilesheetRenderer();
 		}else {
 			this.renderer = new FWireframeRenderer();

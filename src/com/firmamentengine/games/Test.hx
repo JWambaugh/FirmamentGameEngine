@@ -24,6 +24,8 @@ import firmament.core.FVector;
 import firmament.core.FInput;
 import firmament.utils.FTriangulator;
 import firmament.utils.FBitmapTracer;
+
+import firmament.utils.loader.FEntityLoader;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -40,6 +42,7 @@ class Test
 		#elseif flash
 		haxe.Log.trace = function(v,?pos) { flash.Lib.trace(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"): "+v); }
 		#end*/
+		
 		var stage = Lib.current.stage;
 		stage.align = StageAlign.TOP_LEFT;
 		stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -54,6 +57,7 @@ class Test
 		var game = new FGame();
 		game.addWorld(world);
 		game.addCamera(camera);
+		
 		/*
 		
 		var image = new Bitmap(Assets.getBitmapData ("assets/traceTest.png"));
