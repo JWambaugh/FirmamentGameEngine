@@ -62,7 +62,6 @@ class FEntityLoader
 				throw "class "+data.className+" could not be found. Did you remember to include the whole package name?";
 			}
 			ent = Type.createInstance(c, [world,data]);
-			trace(ent);
 		}else {
 			ent = new FPhysicsEntity(cast(world), data);
 		}
