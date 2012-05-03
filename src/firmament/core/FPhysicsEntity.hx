@@ -56,7 +56,12 @@ class FPhysicsEntity extends FEntity
 		
 		if(Std.is(config.position,FVector)){
 			def.position = cast(config.position,B2Vec2);
-		}else {
+		}
+		else if(Reflect.isObject(config.position)){
+			def.position = new B2Vec2(config.position.x,config.position.y);
+		
+		}
+		else {
 			def.position = cast(new FVector(0, 0),B2Vec2);
 		}
 		def.userData = this;
