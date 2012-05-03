@@ -1,0 +1,14 @@
+<project name="firmament" url="http://www.firmamentengine.com" license="GPL">
+    <user name="martamius"/>
+    <tag v="flash"/>
+    <tag v="nme"/>
+    <tag v="game"/>
+    <tag v="firmament"/>
+    <tag v="cpp"/>
+    <tag v="box2d"/>
+    <description>2D game engine using NME.</description>
+    <version name="0.0.1">Initial haxelib release</version>
+    <depends name="nme"/>
+    <depends name="box2d"/>
+</project>
+
