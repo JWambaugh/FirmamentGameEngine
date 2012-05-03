@@ -6,7 +6,7 @@ package firmament.utils.loader;
  */
 
 interface FEntitySerializerInterface{
-	function unserialize(identifier:String):Dynamic;
-	function serialize(identifier:String,config:Dynamic):Void;
-	
+	function unserialize(fileName:String):Dynamic;
+	function serialize(fileName:String,config:Dynamic):Void;
+	function canProccessFileName(fileName:String):Bool;
 }
