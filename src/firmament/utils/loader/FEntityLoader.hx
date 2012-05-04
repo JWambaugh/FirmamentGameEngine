@@ -1,7 +1,7 @@
 package firmament.utils.loader;
 import firmament.core.FEntity;
 import firmament.core.FPhysicsEntity;
-import firmament.utils.loader.FEntitySerializerInterface;
+import firmament.utils.loader.FSerializerInterface;
 import firmament.core.FWorld;
 import firmament.utils.loader.serializer.FJsonSerializer;
 import firmament.utils.FMisc;
@@ -18,12 +18,12 @@ import nme.Assets;
 class FEntityLoader 
 {
 
-	static var serializers:Array<FEntitySerializerInterface>;
+	static var serializers:Array<FSerializerInterface>;
 	
 	
-	static function getSerializerForFile(fileName:String):FEntitySerializerInterface {
+	static function getSerializerForFile(fileName:String):FSerializerInterface {
 		if (serializers == null) {
-			serializers = new Array<FEntitySerializerInterface>();
+			serializers = new Array<FSerializerInterface>();
 			//add all supported serializers here
 			serializers.push(new FJsonSerializer());
 		}

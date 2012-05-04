@@ -1,5 +1,5 @@
 package firmament.utils.loader.serializer;
-import firmament.utils.loader.FEntitySerializerInterface;
+import firmament.utils.loader.FSerializerInterface;
 
 import hxjson2.JSON;
 /**
@@ -7,7 +7,7 @@ import hxjson2.JSON;
  * @author Jordan Wambaugh
  */
 
-class FJsonSerializer implements FEntitySerializerInterface
+class FJsonSerializer implements FSerializerInterface
 {
 	public function new() {
 		
