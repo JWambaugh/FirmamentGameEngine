@@ -1,4 +1,4 @@
-package firmament.utils.loader;
+package firmament.utils.loader.serializer;
 
 /**
  * ...

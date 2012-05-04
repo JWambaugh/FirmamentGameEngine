@@ -1,5 +1,5 @@
 package firmament.utils.loader.serializer;
-import firmament.utils.loader.FSerializerInterface;
+import firmament.utils.loader.serializer.FSerializerInterface;
 
 import hxjson2.JSON;
 /**
