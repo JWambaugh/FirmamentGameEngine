@@ -1,10 +1,11 @@
 package firmament.utils.loader;
 import firmament.core.FEntity;
 import firmament.core.FPhysicsEntity;
-import firmament.utils.loader.FSerializerInterface;
+
 import firmament.core.FWorld;
-import firmament.utils.loader.serializer.FJsonSerializer;
+
 import firmament.utils.FMisc;
+import firmament.utils.loader.serializer.FSerializerFactory;
 import nme.Assets;
 /**
  * ...
@@ -18,23 +19,7 @@ import nme.Assets;
 class FEntityLoader 
 {
 
-	static var serializers:Array<FSerializerInterface>;
 	
-	
-	static function getSerializerForFile(fileName:String):FSerializerInterface {
-		if (serializers == null) {
-			serializers = new Array<FSerializerInterface>();
-			//add all supported serializers here
-			serializers.push(new FJsonSerializer());
-		}
-		
-		for (s in serializers) {
-			if (s.canProccessFileName(fileName)) {
-				return s;	
-			}
-		}
-		return null;
-	}
 	
 	
 	
@@ -42,7 +27,7 @@ class FEntityLoader
 	 * Function: loadEntity
 	 */
 	public static function loadEntity(fileName:String, world:FWorld, config:Dynamic):FEntity {
-		var serializer = getSerializerForFile(fileName);
+		var serializer = FSerializerFactory.getSerializerForFile(fileName);
 		if (serializer == null) {
 			throw ("Appropriate serializer for fileName "+fileName+" could not befound.");
 		}
@@ -69,6 +54,8 @@ class FEntityLoader
 		
 	}
 	
-	
+	public static function loadMap(fileName:String, world:FWorld) {
+		
+	}
 	
 }
