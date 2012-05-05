@@ -23,7 +23,8 @@ class ProjectSettings extends FWindow
 	var project:Project;
 	public function new(project:Project) 
 	{
-		super();
+		//no close button
+		super(false);
 		
 		var canvas = new Sprite();
 		

@@ -19,7 +19,7 @@ class FButton extends Sprite
 	 * Constructor: creates a new button. Can optionally take x and y coordinates, and a function to fire when clicked.
 	 * the onclick parameter must be a function that accepts a MouseEvent object and return Void.
 	 */
-	public function new(?text:String="",?x=0,?y=0,?onClick:MouseEvent -> Void=null) 
+	public function new(?text:String="",?x:Int=0,?y:Int=0,?onClick:MouseEvent -> Void=null) 
 	{
 		super();
 		this.x = x;

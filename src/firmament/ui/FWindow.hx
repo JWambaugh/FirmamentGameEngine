@@ -27,7 +27,10 @@ class FWindow extends Sprite
 	var closeButton:FSmallButton;
 	var expandButton:FSmallButton;
 	var expanded:Bool;
-	public function new() 
+	
+	
+	
+	public function new(?hasCloseButton:Bool=true,?hasCollapseButton=true) 
 	{
 		super();
 		trace('does trace work!!!');
@@ -44,21 +47,28 @@ class FWindow extends Sprite
 		this.titleBar.x = 1;
 		this.titleBar.y = 1;
 		
-		closeButton = new FSmallButton("X",2,2);
-		this.titleBar.addChild(closeButton);
 		
-		minimizeButton = new FSmallButton("-",17,2);
-		minimizeButton.addEventListener(MouseEvent.CLICK, collapse);
-		this.titleBar.addChild(minimizeButton);
+		var titleBarOffset = 2;
 		
-		expandButton = new FSmallButton("+",17,2);
-		expandButton.addEventListener(MouseEvent.CLICK, expand);
-		expandButton.visible = false;
-		this.titleBar.addChild(expandButton);
+		if(hasCloseButton){
+			closeButton = new FSmallButton("X", titleBarOffset, 2, close);
+			titleBarOffset += 15;
+			this.titleBar.addChild(closeButton);
+		}
 		
-		
+		if(hasCollapseButton){
+			minimizeButton = new FSmallButton("-",titleBarOffset,2);
+			minimizeButton.addEventListener(MouseEvent.CLICK, collapse);
+			this.titleBar.addChild(minimizeButton);
+			
+			expandButton = new FSmallButton("+",titleBarOffset,2);
+			expandButton.addEventListener(MouseEvent.CLICK, expand);
+			expandButton.visible = false;
+			this.titleBar.addChild(expandButton);
+			titleBarOffset += 15;
+		}
 		this.addChild(this.titleBar);
-		this.titleLabel = new FTextLabel("",30);
+		this.titleLabel = new FTextLabel("",titleBarOffset);
 		this.titleBar.addChild(this.titleLabel);
 		
 		
@@ -76,6 +86,7 @@ class FWindow extends Sprite
 	public function setTitle(t:String) {
 		this.title = t;
 		this.titleLabel.text = t;
+		this.titleLabel.width = this.titleLabel.textWidth + 5;
 	}
 	
 	public function setCanvas(c:DisplayObjectContainer) {
@@ -90,43 +101,6 @@ class FWindow extends Sprite
 		this.canvas.addEventListener(Event.ADDED, this.draw);
 	}
 	
-	public function drawTitleBar() {	
-		this.titleBar.graphics.clear();
-		this.titleBar.graphics.beginFill(this.titleColor);
-		if(this.expanded){
-			this.titleBar.graphics.drawRoundRect(0, 0, this.canvas.width + 13, 20, 10);
-		}else {
-			this.titleBar.graphics.drawRoundRect(0, 0, this.width-4, 20, 10);
-		}
-		this.titleBar.graphics.endFill();
-	}
-	
-	public function drawWindow() {
-		this.graphics.clear();
-		this.graphics.beginFill(this.backgroundColor);
-		this.graphics.lineStyle(2, 0x111111);
-		if(this.expanded){
-			this.graphics.drawRoundRect(0, 0, this.canvas.width+15, this.canvas.height+40,10);
-		}else {
-			this.graphics.drawRoundRect(0, 0, this.width+2, this.height+2,10);
-		}
-		this.graphics.endFill();
-	}
-	
-	public function draw(?e:Event = null) {
-		this.drawWindow();
-		this.drawTitleBar();
-		
-	}
-	
-	public function onMouseDown(e:MouseEvent) {
-		
-		this.startDrag();
-	}
-	public function onMouseUp(e:MouseEvent) {
-		
-		this.stopDrag();
-	}
 	
 	public function collapse(?e:MouseEvent) {
 		this.expanded = false;
@@ -143,6 +117,51 @@ class FWindow extends Sprite
 		this.minimizeButton.visible = true;
 		this.expandButton.visible = false;
 		
+	}
+	
+	
+	private function drawTitleBar() {	
+		this.titleBar.graphics.clear();
+		
+		this.titleBar.graphics.beginFill(this.titleColor);
+		if(this.expanded){
+			this.titleBar.graphics.drawRoundRect(0, 0, this.canvas.width + 13, 20, 10);
+		}else {
+			this.titleBar.graphics.drawRoundRect(0, 0, this.width-4, 20, 10);
+		}
+		this.titleBar.graphics.endFill();
+	}
+	
+	private function drawWindow() {
+		this.graphics.clear();
+		this.graphics.beginFill(this.backgroundColor);
+		this.graphics.lineStyle(2, 0x111111);
+		if(this.expanded){
+			this.graphics.drawRoundRect(0, 0, this.canvas.width+15, this.canvas.height+40,10);
+		}else {
+			this.graphics.drawRoundRect(0, 0, this.width+2, this.height+2,10);
+		}
+		this.graphics.endFill();
+	}
+	
+	private function draw(?e:Event = null) {
+		this.drawWindow();
+		this.drawTitleBar();
+		
+	}
+	
+	private function onMouseDown(e:MouseEvent) {
+		
+		this.startDrag();
+	}
+	private function onMouseUp(e:MouseEvent) {
+		
+		this.stopDrag();
+	}
+	
+	
+	public function close(?e:MouseEvent=null):Void {
+		this.parent.removeChild(this);
 	}
 	
 	
