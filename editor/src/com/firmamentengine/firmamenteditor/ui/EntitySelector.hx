@@ -1,0 +1,55 @@
+package com.firmamentengine.firmamenteditor.ui;
+import firmament.ui.FWindow;
+import firmament.ui.layout.FHBox;
+import nme.display.Sprite;
+import sys.FileSystem;
+import firmament.utils.loader.serializer.FJsonSerializer;
+import firmament.ui.FDialog;
+import sys.io.File;
+
+/**
+ * ...
+ * @author Jordan Wambaugh
+ */
+
+class EntitySelector extends FWindow
+{
+
+	var ents:Array<Dynamic>;
+	var c:Sprite;
+	var layout:FHBox;
+	public function new(entityDir:String) 
+	{
+		super();
+		ents = new Array<Dynamic>();
+		c = new Sprite();
+		layout = new FHBox();
+		this.loadEntities(entityDir);
+		
+		
+		
+		c.addChild(layout);
+		
+		this.setTitle("Entities");
+		//canvas.addChild(new FHBox());
+		this.setCanvas(c);
+	}
+	
+	function loadEntities(entityDir:String) {
+		var files = FileSystem.readDirectory(entityDir);
+		var serializer = new FJsonSerializer();
+		for (file in files) {
+			try{
+				var str = File.getContent(entityDir + "/" + file);
+				var config = serializer.unserialize(str);
+				ents.push(config);
+				layout.addChild(new EntityItem(file,entityDir, config));
+			}catch (e:Dynamic) {
+				FDialog.alert("Error loading entity file " + entityDir + "/" + file);
+				trace(e);
+			}
+			
+		}
+	}
+	
+}

@@ -12,11 +12,11 @@
 	<classpath name="src" />
 	<classpath name="../src" />
 	<haxelib name="nme" />
-
-	
+	<haxelib name="hxJson2" />
+	<haxelib name="box2d" />
 	<!-- assets -->
 	
-	<assets path="assets" include="*" exclude="nme.svg" />
+	<!--<assets path="assets" include="*" exclude="nme.svg" />-->
 	
 	<!-- DLLs -->
 

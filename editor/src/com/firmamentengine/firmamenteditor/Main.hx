@@ -1,6 +1,12 @@
 package com.firmamentengine.firmamenteditor;
 
+import com.firmamentengine.firmamenteditor.ui.EntitySelector;
 import com.firmamentengine.firmamenteditor.ui.ProjectSettings;
+import firmament.core.FCamera;
+import firmament.core.FEntity;
+import firmament.core.FGame;
+import firmament.core.FPhysicsWorld;
+import firmament.core.FVector;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
 import nme.Lib;
@@ -30,11 +36,27 @@ class Main
 		var stage = Lib.current.stage;
 		stage.align = StageAlign.TOP_LEFT;
 		stage.scaleMode = StageScaleMode.NO_SCALE;
+		
+		var camera = new FCamera(stage.stageWidth,stage.stageHeight);
+		var game  = new FGame();
+		var world = new FPhysicsWorld(new FVector(0,0));
+		game.addWorld(world);
+		game.addCamera(camera);
+		stage.addChild(camera);
+		
 	  
 	    var project = new Project();
 		var projectEditor = new ProjectSettings(project);
 		stage.addChild(projectEditor);
 		FDialog.alert("Welcome to the Firmament Editor!\nThis is still a work in progress, so please bear with us!","Welcome to Firmament");
+		
+		projectEditor.addEventListener(ProjectSettings.PROJECT_READY, function(e:Event) {
+			trace("yo");
+			var entitySelector = new EntitySelector(projectEditor.getEntityDir());
+			stage.addChild(entitySelector);
+		});
+		
+		trace(stage.stageWidth);
 		
    }
 }
