@@ -15,7 +15,7 @@
 
 	
 	<!-- assets -->
-	<icon name="assets/nme.svg" />
+	
 	<assets path="assets" include="*" exclude="nme.svg" />
 	
 	<!-- DLLs -->
