@@ -176,4 +176,11 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		this.calculateTopLeftPosition();
 	}
 	
+	public function getWorldPosition(x:Float,y:Float) {
+		return new FVector(
+		(x / this.getZoom()) + (this.getPositionX() - (this.displayWidth / this.getZoom() / 2))
+		,(y / this.getZoom()) + (this.getPositionY() - (this.displayHeight / this.getZoom() / 2)));
+
+	}
+	
 }

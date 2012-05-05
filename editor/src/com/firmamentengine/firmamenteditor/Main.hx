@@ -23,8 +23,8 @@ import firmament.ui.FDialog;
 class Main 
 {
 	
-
-
+	public static var world;
+	public static var camera;
    public static function main()
    {
 	    #if (flash9 || flash10)
@@ -37,9 +37,9 @@ class Main
 		stage.align = StageAlign.TOP_LEFT;
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		
-		var camera = new FCamera(stage.stageWidth,stage.stageHeight);
+		camera = new FCamera(stage.stageWidth,stage.stageHeight);
 		var game  = new FGame();
-		var world = new FPhysicsWorld(new FVector(0,0));
+		world = new FPhysicsWorld(new FVector(0,0));
 		game.addWorld(world);
 		game.addCamera(camera);
 		stage.addChild(camera);
@@ -51,11 +51,13 @@ class Main
 		FDialog.alert("Welcome to the Firmament Editor!\nThis is still a work in progress, so please bear with us!","Welcome to Firmament");
 		
 		projectEditor.addEventListener(ProjectSettings.PROJECT_READY, function(e:Event) {
-			trace("yo");
 			var entitySelector = new EntitySelector(projectEditor.getEntityDir());
 			stage.addChild(entitySelector);
 		});
+		projectEditor.autoLoad();
 		
+		//enable auto resize
+		stage.addEventListener(Event.RESIZE, function(e:Event) { camera.resizeToStage(); } );
 		trace(stage.stageWidth);
 		
    }

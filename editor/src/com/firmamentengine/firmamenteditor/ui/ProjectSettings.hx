@@ -55,6 +55,9 @@ class ProjectSettings extends FWindow
 		
 		this.setCanvas(canvas);
 		
+		
+	}
+	public function autoLoad() {
 		//autoload file if we are passed a project file
 		var args = Sys.args();
 		if (args[0] != null && args[0] != "") {
@@ -62,7 +65,6 @@ class ProjectSettings extends FWindow
 			this.load();
 		}
 	}
-	
 	function load(?e:MouseEvent=null) {
 		if (projectFileTxt.text == "") {
 			FDialog.alert("Project file is blank!");
