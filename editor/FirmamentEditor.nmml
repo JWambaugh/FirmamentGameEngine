@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	<!-- metadata, make sure 'package' is at least 2 segments (ie. com.myproject) -->
+	<app file="FirmamentEditor" title="FirmamentEditor" main="com.firmamentengine.firmamenteditor.Main" package="com.firmamentengine.firmamenteditor" 
+		version="1.0.0" company="Jordan Wambaugh" />
+		
+	<!-- output -->
+	<window width="800" height="480" fps="60" background="0xFFFFFF" orientation="landscape" resizable="true" />
+	<set name="BUILD_DIR" value="bin" />
+	
+	<!-- classpath, haxe libs -->
+	<classpath name="src" />
+	<classpath name="../src" />
+	<haxelib name="nme" />
+
+	
+	<!-- assets -->
+	
+	<assets path="assets" include="*" exclude="nme.svg" />
+	
+	<!-- DLLs -->
+
+	<ndll name="std" />
+	<ndll name="regexp" />
+	<ndll name="zlib" />
+	<ndll name="nme" haxelib="nme" />
+	
+	<!-- Windows app: hide console -->
+	<!--<setenv name="no_console" value="1" />-->
+</project>
