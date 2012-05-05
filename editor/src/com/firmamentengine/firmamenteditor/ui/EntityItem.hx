@@ -77,7 +77,7 @@ class EntityItem extends Sprite
 			this.y = this.startY;
 			var obs = stage.getObjectsUnderPoint(new Point(e.stageX, e.stageY));
 			var ob = obs[0];
-			if (Std.is(ob, FCamera)) {
+			if (Std.is(ob, FCamera)&& obs.length==1) {
 				var world = Main.world;
 				var config = Reflect.copy(this.config);
 				config.sprite = this.sprite;

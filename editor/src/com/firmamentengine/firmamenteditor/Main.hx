@@ -39,6 +39,7 @@ class Main
 		
 		camera = new FCamera(stage.stageWidth,stage.stageHeight);
 		var game  = new FGame();
+		game.enableSimulation = false;
 		world = new FPhysicsWorld(new FVector(0,0));
 		game.addWorld(world);
 		game.addCamera(camera);

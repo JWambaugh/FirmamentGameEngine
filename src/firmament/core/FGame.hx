@@ -29,7 +29,7 @@ class FGame extends EventDispatcher
 	var cameras:Array<FCamera>;
 	var world:FPhysicsWorld;
 	var worldArray:Array<FWorld>;
-	
+	public var enableSimulation:Bool;
 	//Constant: COLLISION_EVENT
 	public static inline var COLLISION_EVENT = 'collision';
 	
@@ -46,7 +46,7 @@ class FGame extends EventDispatcher
 	{
 		super();
 		
-		
+		this.enableSimulation = true;
 		worldArray = new Array<FWorld>();
 		cameras = new Array<FCamera>();
 		var stage = Lib.current.stage;
@@ -86,7 +86,7 @@ class FGame extends EventDispatcher
 	
 	
 	private function doStep():Void {
-		
+		if (!this.enableSimulation) return;
 		
 		for (world in this.worldArray) {
 			//trace('step');
