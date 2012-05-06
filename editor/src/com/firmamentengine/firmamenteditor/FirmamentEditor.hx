@@ -16,6 +16,7 @@ import nme.Lib;
 import nme.events.Event;
 import nme.events.MouseEvent;
 import firmament.ui.FDialog;
+import firmament.core.FInput;
 
 /**
  * ...
@@ -89,6 +90,34 @@ class FirmamentEditor
 		camera.addEventListener(MouseEvent.MOUSE_UP, function(e:MouseEvent) { 
 			dragEnt = null;
 		});
+		
+		
+		var input = new FInput(stage);
+		
+		game.addEventListener(FGame.BEFORE_STEP, function(e:Event) {
+			
+			//trace(input.getStageX());
+			
+			if (input.isKeyPressed(38)) {
+				camera.setPosition(new FVector(camera.getPositionX(),camera.getPositionY()-.5));
+			}
+			if (input.isKeyPressed(40)) {
+				camera.setPosition(new FVector(camera.getPositionX(),camera.getPositionY()+.5));
+			}
+			if (input.isKeyPressed(37)) {
+				camera.setPosition(new FVector(camera.getPositionX()-.5,camera.getPositionY()));
+			}
+			if (input.isKeyPressed(39)) {
+				camera.setPosition(new FVector(camera.getPositionX()+.5,camera.getPositionY()));
+			}
+			if (input.isKeyPressed(65)) {
+				camera.setZoom(camera.getZoom() * 1.02);
+			}
+			if (input.isKeyPressed(90)) {
+				camera.setZoom(camera.getZoom() * .98);
+			}
+			
+		} );
 		
 		//FDialog.prompt("Howdy! please put somthing in here.", function(s) { } ,"Please enter your name","jordan");
     }
