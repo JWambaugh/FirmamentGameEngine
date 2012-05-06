@@ -1,4 +1,5 @@
 package com.firmamentengine.firmamenteditor.ui;
+import com.firmamentengine.firmamenteditor.FEditorEntity;
 import firmament.ui.FTextLabel;
 import firmament.ui.layout.FHBox;
 import firmament.ui.layout.FVBox;
@@ -16,8 +17,9 @@ import firmament.ui.FDialog;
 import sys.io.File;
 import nme.utils.ByteArray;
 import nme.events.MouseEvent;
-import com.firmamentengine.firmamenteditor.Main;
+import com.firmamentengine.firmamenteditor.FirmamentEditor;
 import nme.Lib;
+import com.firmamentengine.firmamenteditor.ResourceLoader;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -32,57 +34,50 @@ class EntityItem extends Sprite
 	var startY:Float;
 	var config:Dynamic;
 	var sprite:BitmapData;
+	var image:Sprite;
+	var filePath:String;
 	public function new(fileName:String,dir:String,config:Dynamic) 
 	{
 		super();
+		this.filePath = dir+"/"+fileName;
 		this.config = config;
 		var entName = fileName.split(".")[0];
 		layout = new FVBox();
-		var loader = new Loader();
 		
-		var data = File.getBytes(config.sprite);
+		var bitmap = new Bitmap(ResourceLoader.loadImage(config.sprite));
 		
-		loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, function(e:IOErrorEvent) { 
-			FDialog.alert("error"+e.toString());
-		});
-		loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(e:Event) { 
-			var scaleFactor = 75 / loader.content.height;
-			loader.content.scaleX = scaleFactor;
-			loader.content.scaleY = scaleFactor;
-			this.sprite = cast(loader.content,Bitmap).bitmapData;
-		} );
-		
-		//copy from haxe bytes to ByteArray. Apparently we cant cast in cpp
-		var bytes = new ByteArray();
-		for (x in 0... data.length) {
-			bytes.writeByte(data.get(x));
-		}
-		loader.loadBytes(bytes);
+		image = new Sprite();
+		var scaleFactor = 75 / bitmap.height;
+		bitmap.scaleX = scaleFactor;
+		bitmap.scaleY = scaleFactor;
+		this.sprite = bitmap.bitmapData;
+		image.addChild(bitmap);
 		n=new FTextLabel(entName);
-		layout.addChild(loader);
+		layout.addChild(image);
 		layout.addChild(n);
 		this.addChild(layout);
 		
 		
 		this.addEventListener(MouseEvent.MOUSE_DOWN, function(e:MouseEvent) { 
-				this.startDrag();
-				this.startX = this.x;
-				this.startY = this.y;
+				this.image.startDrag();
+				this.startX = this.image.x;
+				this.startY = this.image.y;
 		} );
 		
 		this.addEventListener(MouseEvent.MOUSE_UP, function(e:MouseEvent) { 
 			var stage = Lib.current.stage;
-			this.stopDrag();
-			this.x = this.startX;
-			this.y = this.startY;
+			this.image.stopDrag();
+			this.image.x = this.startX;
+			this.image.y = this.startY;
 			var obs = stage.getObjectsUnderPoint(new Point(e.stageX, e.stageY));
 			var ob = obs[0];
 			if (Std.is(ob, FCamera)&& obs.length==1) {
-				var world = Main.world;
+				var world = FirmamentEditor.world;
 				var config = Reflect.copy(this.config);
 				config.sprite = this.sprite;
-				config.position = Main.camera.getWorldPosition(e.stageX,e.stageY);
-				var ent = new FPhysicsEntity(world, config);
+				config.position = FirmamentEditor.camera.getWorldPosition(e.stageX,e.stageY);
+				var ent = new FEditorEntity(world, config);
+				ent.setFileName(this.filePath);
 			}
 			
 		} );

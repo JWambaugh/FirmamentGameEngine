@@ -33,7 +33,7 @@ class FWindow extends Sprite
 	public function new(?hasCloseButton:Bool=true,?hasCollapseButton=true) 
 	{
 		super();
-		trace('does trace work!!!');
+		
 		
 		this.backgroundColor = 0xF0F0F0;
 		this.titleColor = 0xCCDDFF;

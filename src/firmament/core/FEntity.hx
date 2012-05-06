@@ -22,6 +22,8 @@ class FEntity extends FRenderable
 	var world:FWorld;
 	var currentImage:BitmapData;
 	var tilesheet:Tilesheet;
+	var config:Dynamic;
+	
 	/**
 	 * Constructor: new
 	 * 
@@ -33,6 +35,7 @@ class FEntity extends FRenderable
 	{
 		super();
 		this.world = world;
+		this.config = config;
 		world.addEntity(this);
 		
 		
@@ -76,6 +79,10 @@ class FEntity extends FRenderable
 			this.currentImage=i;
 			tilesheet = new Tilesheet(i);
 			tilesheet.addTileRect(new Rectangle (0, 0, i.width, i.height),new Point(i.width/2,i.height/2));
+	}
+	
+	public function getConfig():Dynamic {
+		return this.config;
 	}
 	
 	/**

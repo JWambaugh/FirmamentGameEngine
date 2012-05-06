@@ -20,14 +20,19 @@ class FWorld
 	}
 	public function addEntity(ent:FEntity) {
 		this.entities.push(ent);
-		
-		
 	}
 	
 	public function getAllEntities():Array<FEntity> {
 		return this.entities;
 	}
-	public function getEntitiesInBox(topLeftX:Int, topLeftY:Int, bottomRightX:Int, bottomRightY:Int):Array<FEntity> {
+	
+	public function getEntitiesAtPoint(p:FVector):Array<FEntity> {
+		throw "Not implemented";
+		return null;
+	}
+	
+	
+	public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity> {
 			throw("Not implemented");
 			return null;
 		

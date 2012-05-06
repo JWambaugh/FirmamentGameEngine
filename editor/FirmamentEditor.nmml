@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	<!-- metadata, make sure 'package' is at least 2 segments (ie. com.myproject) -->
-	<app file="FirmamentEditor" title="FirmamentEditor" main="com.firmamentengine.firmamenteditor.Main" package="com.firmamentengine.firmamenteditor" 
+	<app file="FirmamentEditor" title="FirmamentEditor" main="com.firmamentengine.firmamenteditor.FirmamentEditor" package="com.firmamentengine.firmamenteditor" 
 		version="1.0.0" company="Jordan Wambaugh" />
 		
 	<!-- output -->

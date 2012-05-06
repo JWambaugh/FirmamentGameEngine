@@ -1,5 +1,4 @@
 package com.firmamentengine.firmamenteditor.ui;
-import com.firmamentengine.firmamenteditor.Project;
 import firmament.ui.FButton;
 import firmament.ui.FScroller;
 import firmament.ui.layout.FHBox;
@@ -26,10 +25,10 @@ class ProjectSettings extends FWindow
 	var entityDirTxt:FLineEdit;
 	var mapDirTxt:FLineEdit;
 	var projectFileTxt:FLineEdit;
-	var project:Project;
+	
 	
 	public static inline var PROJECT_READY = "projectReady";
-	public function new(project:Project) 
+	public function new() 
 	{
 		//no close button
 		super(false);
@@ -40,7 +39,7 @@ class ProjectSettings extends FWindow
 		var canvas = new Sprite();
 		
 		this.setTitle("Project Settings");
-		this.project = project;
+
 		
 
 		canvas.addChild(new FVBox([
@@ -115,7 +114,11 @@ class ProjectSettings extends FWindow
 	}
 	
 	public function getEntityDir() {
-			return this.entityDirTxt.text;
+		return this.entityDirTxt.text;
+	}
+	
+	public function getMapDir() {
+		return this.mapDirTxt.text;
 	}
 	
 }

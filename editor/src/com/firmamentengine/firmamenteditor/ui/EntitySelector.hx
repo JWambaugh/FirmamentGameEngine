@@ -20,7 +20,7 @@ class EntitySelector extends FWindow
 	var layout:FHBox;
 	public function new(entityDir:String) 
 	{
-		super();
+		super(false);
 		ents = new Array<Dynamic>();
 		c = new Sprite();
 		layout = new FHBox();

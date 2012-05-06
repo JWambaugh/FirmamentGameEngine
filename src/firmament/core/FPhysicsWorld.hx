@@ -44,21 +44,24 @@ class FPhysicsWorld extends FWorld
 		//this.b2world.setContactListener(new FPhysicsWorldContactListener(this));
 	}
 	
-	override public function getEntitiesInBox(topLeftX:Int,topLeftY:Int,bottomRightX:Int,bottomRightY:Int):Array<FEntity>{
-		var selectEntities:Array<FEntity> = new Array();
+	override public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity>{
+		var selectEntities:Array<FEntity> = new Array<FEntity>();
 		var query = new B2AABB();
 		
 		query.upperBound.set(bottomRightX,bottomRightY);
 		query.lowerBound.set(topLeftX,topLeftY);
-		//Firmament.log(query,true);
-		//Firmament.log(query);
+		
 		this.b2world.queryAABB(function(fixture){
-			//Firmament.log("here");
+			
 			selectEntities.push(fixture.getBody().getUserData());
 			return true;
 		},query);
-	   // Firmament.log(selectEntities.length);
+	  
 		return selectEntities;
+	}
+	
+	override public function getEntitiesAtPoint(p:FVector):Array<FEntity> {
+		return this.getEntitiesInBox(p.x,p.y,p.x,p.y);
 	}
 	
 	public function getB2World():B2World {
@@ -94,6 +97,9 @@ class FPhysicsWorld extends FWorld
 		
 		
 	}
+	
+	
+	
 	
 	private function deleteEntity(ent:FPhysicsEntity) {
 		this.b2world.destroyBody(ent.body);
