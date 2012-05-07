@@ -9,11 +9,9 @@
 	<set name="BUILD_DIR" value="bin" />
 	
 	<!-- classpath, haxe libs -->
-	<classpath name="src" />
-	<classpath name="../src" />
+	<classpath name="../lib" />
 	<haxelib name="nme" />
 	<haxelib name="hxJson2" />
-	<haxelib name="box2d" />
 	<!-- assets -->
 	
 	<!--<assets path="assets" include="*" exclude="nme.svg" />-->
