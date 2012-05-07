@@ -1,6 +1,7 @@
 package com.firmamentengine.firmamenteditor;
 
 import com.firmamentengine.firmamenteditor.ui.EntitySelector;
+import com.firmamentengine.firmamenteditor.ui.EntityWindow;
 import com.firmamentengine.firmamenteditor.ui.ToolBar;
 import com.firmamentengine.firmamenteditor.ui.ProjectSettings;
 import firmament.core.FCamera;
@@ -32,6 +33,8 @@ class FirmamentEditor
 	public static var game:FGame;
 	public static var entitySelector:EntitySelector;
 	public static var toolBar:ToolBar;
+	public static var entityWindow:EntityWindow;
+	
 	private static var dragEnt:FEntity;
 	
     public static function main()
@@ -63,10 +66,15 @@ class FirmamentEditor
 		stage.addChild(projectEditor);
 		FDialog.alert("Welcome to the Firmament Editor!\nThis is still a work in progress, so please bear with us!","Welcome to Firmament");
 		
+		
+		entityWindow = new EntityWindow();
+		entityWindow.x = 650;
+		stage.addChild(entityWindow);
+		
 		projectEditor.addEventListener(ProjectSettings.PROJECT_READY, function(e:Event) {
 			if(entitySelector == null){
 				entitySelector = new EntitySelector(projectEditor.getEntityDir());
-				entitySelector.y = 400;
+				entitySelector.y = 350;
 				stage.addChild(entitySelector);
 			}
 		});
@@ -80,6 +88,7 @@ class FirmamentEditor
 			var ents = world.getEntitiesAtPoint(camera.getWorldPosition(e.localX, e.localY));
 			if (ents.length > 0) {
 				dragEnt = cast(ents[0], FPhysicsEntity);
+				entityWindow.setEntity(cast(ents[0]));
 			}
 		} );
 		

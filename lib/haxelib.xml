@@ -13,7 +13,6 @@
     <description>2D game engine using NME. Port of Firmament Game Engine to HaXe.</description>
     <version name="0.0.2">Added support for loading entities from json files.</version>
     <depends name="nme"/>
-    <depends name="box2d"/>
     <depends name="hxJson2"/>
 
 </project>

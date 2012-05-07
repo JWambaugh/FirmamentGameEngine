@@ -8,9 +8,9 @@ import nme.text.TextFieldType;
 class FLineEdit extends FTextField
 {
 
-	public function new(?text:String="",?x:Int=0,?y:Int=0) 
+	public function new(?text:String="",?x:Int=0,?y:Int=0,?width:Int=100) 
 	{
-		super(text,x,y);
+		super(text,x,y,width);
 		this.height = 20;
 		this.type = TextFieldType.INPUT;
 		this.border = true;

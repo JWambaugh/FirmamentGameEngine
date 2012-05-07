@@ -30,7 +30,9 @@ class FEditorEntity extends FPhysicsEntity
 	public function setFileName(n:String) {
 		this.fileName = n;
 	}
-	
+	public function getFileName() {
+		return this.fileName;
+	}
 	public function getMapConfig():Dynamic {
 		return { 
 			entityFile:this.fileName

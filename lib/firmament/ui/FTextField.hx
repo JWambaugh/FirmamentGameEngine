@@ -10,7 +10,7 @@ import nme.text.TextFormat;
 class FTextField extends TextField
 {
 
-	public function new(?text:String="",?x:Int=0,?y:Int=0) 
+	public function new(?text:String="",?x:Int=0,?y:Int=0,?width:Int=100) 
 	{
 		super();
 		this.text = text;
@@ -19,6 +19,7 @@ class FTextField extends TextField
 		var format = new TextFormat();
 		format.font = 'helvetica';
 		this.setTextFormat(format);
+		this.width = width;
 	}
 	
 }
