@@ -50,7 +50,6 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	}
 	
 	public function render(worlds:Array<FWorld>) {
-		trace('render');
 		this.graphics.clear();
 		this.graphics.beginFill(0);
 		this.graphics.drawRect(0, 0, this.displayWidth, this.displayHeight);
