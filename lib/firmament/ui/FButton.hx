@@ -1,6 +1,8 @@
 package firmament.ui;
 import nme.display.Sprite;
 import nme.events.MouseEvent;
+import nme.events.Event;
+import nme.Lib;
 /**
  * @author Jordan Wambaugh
  */
@@ -42,10 +44,11 @@ class FButton extends Sprite
 		}
 	}
 	
-	public function draw() {
+	public function draw(?e:Event) {
 		this.graphics.clear();
 		this.graphics.beginFill(this.currentColor);
 		this.graphics.lineStyle(2, 0x555555);
+		trace("width: "+this.text.width);
 		this.graphics.drawRoundRect(0, 0, this.text.width+2, this.text.height+2,5);
 		this.graphics.endFill();
 	}

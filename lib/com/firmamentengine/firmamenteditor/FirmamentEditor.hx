@@ -13,10 +13,13 @@ import firmament.core.FVector;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
 import nme.Lib;
+import nme.Assets;
 
 import nme.events.Event;
 import nme.events.MouseEvent;
 import firmament.ui.FDialog;
+import firmament.ui.FStyle;
+
 import firmament.core.FInput;
 
 /**
@@ -44,6 +47,16 @@ class FirmamentEditor
 		#elseif flash
 		haxe.Log.trace = function(v,?pos) { flash.Lib.trace(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"): "+v); }
 		#end
+
+		//set styles
+		var font = Assets.getFont ("assets/MILF____.TTF");
+		FStyle.setStyleObj("",{
+			fontName:font.fontName
+			,fontSize:15
+			,fontHeightMultiplier:2.5
+			,fontLeading:50			
+			
+		});
 	   
 		var stage = Lib.current.stage;
 		stage.align = StageAlign.TOP_LEFT;

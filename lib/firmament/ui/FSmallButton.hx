@@ -1,5 +1,6 @@
 package firmament.ui;
 import nme.events.MouseEvent;
+import nme.events.Event;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -18,7 +19,7 @@ class FSmallButton extends FButton
 		this.draw();
 	}
 	
-	override public function draw() {
+	override public function draw(?e:Event) {
 		this.graphics.clear();
 		this.graphics.beginFill(this.currentColor);
 		this.graphics.lineStyle(1, 0x555555);

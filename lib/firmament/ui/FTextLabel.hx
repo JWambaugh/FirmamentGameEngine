@@ -11,11 +11,11 @@ class FTextLabel extends FTextField
 	public function new(?text:String="",?x:Int=0,?y:Int=0) 
 	{
 		super(text, x, y);
-		this.height = 20;
+	//	this.height = 20;
 		this.selectable = false;
 		if(text!=""){
 			this.width = this.textWidth + 5;
-			this.height = this.textHeight + 5;
+			//this.height = this.textHeight + 5;
 		}
 	}
 	

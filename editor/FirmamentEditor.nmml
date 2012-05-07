@@ -14,7 +14,7 @@
 	<haxelib name="hxJson2" />
 	<!-- assets -->
 	
-	<!--<assets path="assets" include="*" exclude="nme.svg" />-->
+	<assets path="assets" include="*" exclude="nme.svg" />
 	
 	<!-- DLLs -->
 
