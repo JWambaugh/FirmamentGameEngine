@@ -18,7 +18,6 @@ class FTextField extends TextField
 		super();
 		var style =  FStyle.getStyleObj(classes);
 		
-		
 		var format = new TextFormat (style.fontName,style.fontSize,style.fontColor,style.fontBold,style.fontItalic,style.fontUnderline,style.fontUrl,style.fontTarget,style.fontAlign,style.fontLeftMargin,style.fontRightMargin,style.fontIndent,style.fontLeading); 
 		this.defaultTextFormat = format;
 		
@@ -26,7 +25,7 @@ class FTextField extends TextField
 		this.x = x;
 		this.y = y;
 		this.width = width;
-		this.height = this.textHeight*FStyleHelper.get(style,'fontHeightMultiplier',1);
+		this.height = this.textHeight*FStyleHelper.get(style,'fontHeightMultiplier',1)+FStyleHelper.get(style,'fontHeightAdd',1);
 				
 	}
 	

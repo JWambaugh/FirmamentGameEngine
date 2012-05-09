@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   width="32px"
+   height="32px"
+   viewBox="0 0 32 32"
+   enable-background="new 0 0 32 32"
+   xml:space="preserve"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="firmamentLogo.svg"
+   inkscape:export-filename="C:\devprojects\Firmament.hx\editor\icons\firmamentLogo512.png"
+   inkscape:export-xdpi="1440"
+   inkscape:export-ydpi="1440"><metadata
+   id="metadata3051"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs3049"><linearGradient
+     inkscape:collect="always"
+     id="linearGradient4607"><stop
+       style="stop-color:#f9f9f9;stop-opacity:1"
+       offset="0"
+       id="stop4609" /><stop
+       style="stop-color:#000000;stop-opacity:1"
+       offset="1"
+       id="stop4611" /></linearGradient><marker
+     inkscape:stockid="Arrow1Lstart"
+     orient="auto"
+     refY="0.0"
+     refX="0.0"
+     id="Arrow1Lstart"
+     style="overflow:visible"><path
+       id="path3976"
+       d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+       style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+       transform="scale(0.8) translate(12.5,0)" /></marker><linearGradient
+     inkscape:collect="always"
+     id="linearGradient3763"><stop
+       style="stop-color:#000000;stop-opacity:1"
+       offset="0"
+       id="stop3765" /><stop
+       style="stop-color:#ffffff;stop-opacity:1"
+       offset="1"
+       id="stop3767" /></linearGradient><linearGradient
+     inkscape:collect="always"
+     xlink:href="#linearGradient3763"
+     id="linearGradient3769"
+     x1="15.53124"
+     y1="38.12912"
+     x2="15.760123"
+     y2="-0.26636985"
+     gradientUnits="userSpaceOnUse"
+     gradientTransform="matrix(1.0224106,0,0,1.011852,-0.26259692,-0.26243472)" /><linearGradient
+     inkscape:collect="always"
+     xlink:href="#linearGradient4607"
+     id="linearGradient4613"
+     x1="16.503641"
+     y1="32.835281"
+     x2="16.435455"
+     y2="24.726967"
+     gradientUnits="userSpaceOnUse" /></defs><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1366"
+   inkscape:window-height="706"
+   id="namedview3047"
+   showgrid="false"
+   inkscape:zoom="11.424194"
+   inkscape:cx="27.074988"
+   inkscape:cy="9.465968"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1" />
+<linearGradient
+   id="SVGID_1_"
+   gradientUnits="userSpaceOnUse"
+   x1="15.9995"
+   y1="0.1724"
+   x2="15.9995"
+   y2="32.0005"
+   gradientTransform="matrix(0.99806577,0,0,1.0077788,-7.1245052e-8,-0.1870246)">
+	<stop
+   offset="0"
+   style="stop-color:#FFFFFF"
+   id="stop3021" />
+	<stop
+   offset="0.1639"
+   style="stop-color:#FCFCFC"
+   id="stop3023" />
+	<stop
+   offset="0.2946"
+   style="stop-color:#F2F2F2"
+   id="stop3025" />
+	<stop
+   offset="0.4137"
+   style="stop-color:#E1E1E1"
+   id="stop3027" />
+	<stop
+   offset="0.5261"
+   style="stop-color:#C9C9C9"
+   id="stop3029" />
+	<stop
+   offset="0.6338"
+   style="stop-color:#ABABAB"
+   id="stop3031" />
+	<stop
+   offset="0.7378"
+   style="stop-color:#858585"
+   id="stop3033" />
+	<stop
+   offset="0.839"
+   style="stop-color:#585858"
+   id="stop3035" />
+	<stop
+   offset="0.9355"
+   style="stop-color:#262626"
+   id="stop3037" />
+	<stop
+   offset="1"
+   style="stop-color:#000000"
+   id="stop3039" />
+</linearGradient>
+<rect
+   y="-0.27628356"
+   width="32.653862"
+   height="32.45575"
+   id="rect3041"
+   style="fill:url(#linearGradient3769);fill-opacity:1;stroke:none"
+   x="-0.26259625" />
+<g
+   id="g3043"
+   transform="matrix(0.88214479,0,0,0.86609115,4.9620134,1.8249548)">
+	<path
+   d="M 7.8036243,3.7477994 V 29.054412 c -1.5692381,0 -3.440875,0.09611 -5.6149106,0.288338 V 28.911361 C 3.4182198,28.574968 4.3005274,27.896593 4.8356363,26.87065 5.3707452,25.862587 5.6382997,24.214148 5.6382997,21.924215 V 10.063277 c 0,-2.1770569 -0.3210653,-3.6980917 -0.9619516,-4.5619856 C 4.0167952,4.6530439 3.1879985,4.1255434 2.1899582,3.9165548 V 3.4605798 C 4.0964393,3.6047484 5.9668317,3.7008607 7.8036243,3.7477994 z M 10.932145,29.05553 H 9.8631711 V 3.7477994 h 6.6303739 c 1.925148,0 4.465048,-0.096112 7.619703,-0.2883371 -0.01867,0.4168594 -0.02613,0.9600062 -0.02613,1.6327928 0,0.3844495 0.02613,1.1041747 0.07964,2.1614109 0.05351,1.1689953 0.07964,1.7769619 0.07964,1.825018 V 9.7034145 H 23.685161 C 23.18614,6.8222779 21.670413,5.3817098 19.140468,5.3817098 h -5.186823 c -0.588621,0 -1.115019,0.071525 -1.57795,0.215694 -0.232711,1.2651071 -0.347198,2.9537798 -0.347198,5.0660172 v 4.969904 h 4.679091 c 2.013503,0 3.484431,-0.223518 4.411539,-0.672787 0.90844,-0.432506 1.49706,-1.208111 1.764614,-2.329049 h 0.588621 c -0.125689,1.728905 -0.186667,2.92137 -0.186667,3.577393 0,0.400095 0.02613,1.080704 0.07964,2.040711 0.07094,0.91195 0.107023,1.56909 0.107023,1.969186 v 0.792368 h -0.588621 c -0.0896,-2.527979 -1.595371,-3.793086 -4.518559,-3.793086 h -6.336685 v 5.570048 c 0,3.618742 1.229506,5.659454 3.689763,6.123252 v 0.432506 C 13.185825,29.150524 11.590453,29.05553 10.932145,29.05553 z"
+   id="path3045"
+   inkscape:connector-curvature="0" />
+</g>
+</svg>

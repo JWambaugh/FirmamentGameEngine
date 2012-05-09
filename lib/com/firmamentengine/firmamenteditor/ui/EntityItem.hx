@@ -1,5 +1,6 @@
 package com.firmamentengine.firmamenteditor.ui;
 import com.firmamentengine.firmamenteditor.FEditorEntity;
+import firmament.core.FVector;
 import firmament.ui.FTextLabel;
 import firmament.ui.layout.FHBox;
 import firmament.ui.layout.FVBox;
@@ -36,6 +37,7 @@ class EntityItem extends Sprite
 	var sprite:BitmapData;
 	var image:Sprite;
 	var filePath:String;
+	var dragging:Bool;
 	public function new(fileName:String,dir:String,config:Dynamic) 
 	{
 		super();
@@ -43,7 +45,7 @@ class EntityItem extends Sprite
 		this.config = config;
 		var entName = fileName.split(".")[0];
 		layout = new FVBox();
-		
+		this.dragging = false;
 		var bitmap = new Bitmap(ResourceLoader.loadImage(config.sprite));
 		
 		image = new Sprite();
@@ -62,6 +64,7 @@ class EntityItem extends Sprite
 				this.image.startDrag();
 				this.startX = this.image.x;
 				this.startY = this.image.y;
+				this.dragging = true;
 		} );
 		
 		this.addEventListener(MouseEvent.MOUSE_UP, function(e:MouseEvent) { 
@@ -69,15 +72,32 @@ class EntityItem extends Sprite
 			this.image.stopDrag();
 			this.image.x = this.startX;
 			this.image.y = this.startY;
+		} );
+		
+		this.addEventListener(MouseEvent.MOUSE_MOVE, function(e:MouseEvent) { 
+			if (!dragging) return;
+			var stage = Lib.current.stage;
+			
 			var obs = stage.getObjectsUnderPoint(new Point(e.stageX, e.stageY));
 			var ob = obs[0];
-			if (Std.is(ob, FCamera)&& obs.length==1) {
+			var overSelector:Bool = false;
+			for (object in obs) {
+				if (Std.is(object, EntitySelector)) overSelector = true;
+			}
+			if (Std.is(ob, FCamera)&& overSelector==false) {
+				this.dragging = false;
+				this.image.stopDrag();
+				this.image.x = this.startX;
+				this.image.y = this.startY;
 				var world = FirmamentEditor.world;
 				var config = Reflect.copy(this.config);
 				config.sprite = this.sprite;
 				config.position = FirmamentEditor.camera.getWorldPosition(e.stageX,e.stageY);
 				var ent = new FEditorEntity(world, config);
 				ent.setFileName(this.filePath);
+				FirmamentEditor.entityWindow.setEntity(ent);
+				FirmamentEditor.dragEnt = ent;
+				FirmamentEditor.dragOffset = new FVector(0, 0);
 			}
 			
 		} );

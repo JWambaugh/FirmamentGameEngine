@@ -19,14 +19,14 @@ import nme.events.Event;
 import nme.events.MouseEvent;
 import firmament.ui.FDialog;
 import firmament.ui.FStyle;
-
+import nme.display.StageQuality;
 import firmament.core.FInput;
 
 /**
  * ...
  * @author Jordan Wambaugh
  */
-
+using StringTools;
 class FirmamentEditor
 {
 	
@@ -38,8 +38,9 @@ class FirmamentEditor
 	public static var toolBar:ToolBar;
 	public static var entityWindow:EntityWindow;
 	
-	private static var dragEnt:FEntity;
-	
+	public static var dragEnt:FEntity;
+
+	public static var dragOffset:FVector;
     public static function main()
     {
 	    #if (flash9 || flash10)
@@ -48,7 +49,17 @@ class FirmamentEditor
 		haxe.Log.trace = function(v,?pos) { flash.Lib.trace(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"): "+v); }
 		#end
 
+		var executableDir:String = Sys.executablePath();
+		trace(executableDir);
+		executableDir=executableDir.replace("\\","/");
+		var arr:Array<String>=executableDir.split('/');
+		arr.pop();
+		executableDir = arr.join("/");
+		//Sys.setCwd(executableDir);
+		trace(executableDir);
 		//set styles
+		
+		#if (mac)
 		var font = Assets.getFont ("assets/MILF____.TTF");
 		FStyle.setStyleObj("",{
 			fontName:font.fontName
@@ -57,11 +68,19 @@ class FirmamentEditor
 			,fontLeading:50			
 			
 		});
-	   
+		#else
+		FStyle.setStyleObj("",{
+			
+			fontHeightMultiplier:1
+			,fontHeightAdd:4
+					
+			
+		});
+	   #end
 		var stage = Lib.current.stage;
 		stage.align = StageAlign.TOP_LEFT;
 		stage.scaleMode = StageScaleMode.NO_SCALE;
-		
+		stage.quality = StageQuality.BEST;
 		camera = new FCamera(stage.stageWidth,stage.stageHeight);
 		game  = new FGame();
 		game.enableSimulation = false;
@@ -98,16 +117,21 @@ class FirmamentEditor
 		trace(stage.stageWidth);
 		
 		camera.addEventListener(MouseEvent.MOUSE_DOWN, function(e:MouseEvent) { 
-			var ents = world.getEntitiesAtPoint(camera.getWorldPosition(e.localX, e.localY));
+			var point:FVector = camera.getWorldPosition(e.localX, e.localY);
+			var ents = world.getEntitiesAtPoint(point);
 			if (ents.length > 0) {
 				dragEnt = cast(ents[0], FPhysicsEntity);
 				entityWindow.setEntity(cast(ents[0]));
+				point.subtract(dragEnt.getPosition());
+				dragOffset = point;
 			}
 		} );
 		
 		camera.addEventListener(MouseEvent.MOUSE_MOVE, function(e:MouseEvent) { 
 			if (dragEnt == null) return;
-			dragEnt.setPosition(camera.getWorldPosition(e.localX, e.localY));
+			var point = camera.getWorldPosition(e.localX, e.localY);
+			point.subtract(dragOffset);
+			dragEnt.setPosition(point);
 		});
 		camera.addEventListener(MouseEvent.MOUSE_UP, function(e:MouseEvent) { 
 			dragEnt = null;
@@ -121,21 +145,21 @@ class FirmamentEditor
 			//trace(input.getStageX());
 			
 			if (input.isKeyPressed(38)) {
-				camera.setPosition(new FVector(camera.getPositionX(),camera.getPositionY()-.5));
+				camera.setPosition(new FVector(camera.getPositionX(),camera.getPositionY()-.2));
 			}
 			if (input.isKeyPressed(40)) {
-				camera.setPosition(new FVector(camera.getPositionX(),camera.getPositionY()+.5));
+				camera.setPosition(new FVector(camera.getPositionX(),camera.getPositionY()+.2));
 			}
 			if (input.isKeyPressed(37)) {
-				camera.setPosition(new FVector(camera.getPositionX()-.5,camera.getPositionY()));
+				camera.setPosition(new FVector(camera.getPositionX()-.2,camera.getPositionY()));
 			}
 			if (input.isKeyPressed(39)) {
-				camera.setPosition(new FVector(camera.getPositionX()+.5,camera.getPositionY()));
+				camera.setPosition(new FVector(camera.getPositionX()+.2,camera.getPositionY()));
 			}
-			if (input.isKeyPressed(65)) {
+			if (input.isKeyPressed(270)) {
 				camera.setZoom(camera.getZoom() * 1.02);
 			}
-			if (input.isKeyPressed(90)) {
+			if (input.isKeyPressed(269)) {
 				camera.setZoom(camera.getZoom() * .98);
 			}
 			

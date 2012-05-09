@@ -35,7 +35,7 @@ class ToolBar extends FWindow
 	}
 	
 	private function save(e:MouseEvent) {
-		FDialog.prompt("Please enter the name of the map you wish to load.", function(fileName) { 
+		FDialog.prompt("Please enter the name of the map you wish to save.", function(fileName) { 
 			lastFileName = fileName;
 			//get all entities
 			var ents = FirmamentEditor.world.getAllEntities();

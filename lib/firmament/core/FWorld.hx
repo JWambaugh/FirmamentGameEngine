@@ -56,6 +56,8 @@ class FWorld
 		
 	}
 	
-	
+	public function deleteEntity(ent:FEntity) {
+		this.entities.remove(ent);
+	}
 	
 }

@@ -5,17 +5,23 @@
 		version="1.0.0" company="Jordan Wambaugh" />
 		
 	<!-- output -->
-	<window width="800" height="480" fps="60" background="0xFFFFFF" orientation="landscape" resizable="true" />
+	<window width="800" height="600" fps="60" background="0xFFFFFF" orientation="landscape" resizable="true" hardware="true" />
 	<set name="BUILD_DIR" value="bin" />
 	
 	<!-- classpath, haxe libs -->
 	<classpath name="../lib" />
 	<haxelib name="nme" />
 	<haxelib name="hxJson2" />
-	<!-- assets -->
+	<!-- icons -->
 	
-	<assets path="assets" include="*" exclude="nme.svg" />
-	
+	<assets path="assets" include="*" exclude="" />
+	<icon name="icons/firmamentLogo512.png" width="512" height="512" />
+	<icon name="icons/firmamentLogo256.png" width="256" height="256" />
+	<icon name="icons/firmamentLogo128.png" width="128" height="128" />
+	<icon name="icons/firmamentLogo64.png" width="64" height="64" />
+	<icon name="icons/firmamentLogo32.png" width="32" height="32" />
+	<icon name="icons/firmamentLogo16.png" width="16" height="16" />
+	<icon name="icons/firmamentLogo24.png" width="24" height="24" />
 	<!-- DLLs -->
 
 	<ndll name="std" />

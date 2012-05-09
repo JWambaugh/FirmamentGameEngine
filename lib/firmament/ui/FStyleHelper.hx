@@ -7,7 +7,7 @@ package firmament.ui;
 class FStyleHelper {
 	public static function get(o:Dynamic, key:String, ?def:Dynamic=null){
 		var val = Reflect.field(o,key);
-		if(val == null) val = def;
+		if(Std.is(val,null)) val = def;
 		return val;
 	}
 

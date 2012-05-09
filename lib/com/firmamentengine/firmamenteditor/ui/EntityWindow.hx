@@ -31,13 +31,14 @@ class EntityWindow extends FWindow
 			entName = new FTextLabel("(No Entity Selected")
 			,new FHBox([
 				new FTextLabel("Rotation:")
-				,rotationEdit = new FFloatEntry(0.0,0.1)
+				,rotationEdit = new FFloatEntry(0.0,1)
 			])
-		
+			,new FButton("Delete", 0, 0, deleteEntity)
 		]);
 		
 		rotationEdit.addEventListener(FFloatEntry.VALUE_CHANGED, function(e:Event) { 
-			this.selectedEntity.setAngle(rotationEdit.getValue());
+			if(this.selectedEntity!=null)
+				this.selectedEntity.setAngle(rotationEdit.getValue()*0.0174532925);
 		} );
 		
 		this.setCanvas(layout);
@@ -51,7 +52,14 @@ class EntityWindow extends FWindow
 		name = name.split(".")[0];
 		entName.text = name;
 		
-		rotationEdit.setValue(e.getAngle());
+		rotationEdit.setValue(cast(Math.round(e.getAngle()*57.2957795)));
+	}
+	
+	public function deleteEntity(e:MouseEvent) {
+		if (this.selectedEntity == null) return;
+		FirmamentEditor.world.deleteEntity(this.selectedEntity);
+		this.selectedEntity = null;
+		
 	}
 	
 	
