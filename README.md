@@ -3,6 +3,7 @@ Firmament Game Engine
 
 Copyright (C) 2012 Jordan CM Wambaugh
 
+
 Firmament is an open-source, 2 dimensional game engine developed for the easy creation of video games. 
 It is currently under heavy development, so its feature list is constantly expanding. Its main features are:
 
@@ -11,6 +12,9 @@ It is currently under heavy development, so its feature list is constantly expan
 * Haxe NME based - runs on virtually any platform - Flash, PC, Mac, iOS, android, HTM5, and more
 * Open source - Firmament is licensed under the GPL version 3. Download the engine and use it in your open source project for free.
 * To get started with Firmament, download it, and start playing today!
+
+**Firmament is currently in a Pre-Alpha state. It may not yet completely stable, and its features and APIs are subject to refactoring**
+
 
 ##Website
 For more information, please check out the website at [www.FirmamentEngine.com](http://www.FirmamentEngine.com)
@@ -33,5 +37,5 @@ along with this program.  If not, see [http://www.gnu.org/licenses/](http://www.
 
 Commercial licensing options may be available. Please contact Jordan Wambbugh at [jordan@wambaugh.org](mailto:jordan@wambaugh.org) for more information.
 
-#Box2d
+###Box2d
 This software uses and includes a port Erin Catto's excellent Box2D physics engine. Some small changes have been made for compilation or performance reasons from his original work. For more information on Box2d, or to download the original work, please see the [website](http://box2d.org/).
