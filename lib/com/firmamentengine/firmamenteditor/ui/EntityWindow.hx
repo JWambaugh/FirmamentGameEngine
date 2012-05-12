@@ -1,5 +1,6 @@
 package com.firmamentengine.firmamenteditor.ui;
 import com.firmamentengine.firmamenteditor.FEditorEntity;
+import firmament.core.FVector;
 import firmament.ui.FButton;
 import firmament.ui.FFloatEntry;
 import firmament.ui.FLineEdit;
@@ -11,6 +12,7 @@ import firmament.ui.layout.FVBox;
 import nme.display.Sprite;
 import nme.events.MouseEvent;
 import nme.events.Event;
+import nme.Lib;
 
 /**
  * ...
@@ -22,6 +24,8 @@ class EntityWindow extends FWindow
 
 	var selectedEntity:FEditorEntity;
 	var rotationEdit:FFloatEntry;
+	var positionXEdit:FFloatEntry;
+	var positionYEdit:FFloatEntry;
 	var entName:FTextLabel;
 	public function new() 
 	{
@@ -33,12 +37,37 @@ class EntityWindow extends FWindow
 				new FTextLabel("Rotation:")
 				,rotationEdit = new FFloatEntry(0.0,1)
 			])
+			,new FHBox([
+				new FTextLabel("Position X:")
+				,positionXEdit = new FFloatEntry(0.0,0.01)
+			])
+			,new FHBox([
+				new FTextLabel("Position Y:")
+				,positionYEdit = new FFloatEntry(0.0,0.01)
+			])
 			,new FButton("Delete", 0, 0, deleteEntity)
 		]);
 		
 		rotationEdit.addEventListener(FFloatEntry.VALUE_CHANGED, function(e:Event) { 
 			if(this.selectedEntity!=null)
 				this.selectedEntity.setAngle(rotationEdit.getValue()*0.0174532925);
+		} );
+		
+		positionXEdit.addEventListener(FFloatEntry.VALUE_CHANGED, function(e:Event) { 
+			if(this.selectedEntity!=null)
+				this.selectedEntity.setPosition(new FVector(positionXEdit.getValue(), this.selectedEntity.getPositionY()));
+		} );
+		
+		positionYEdit.addEventListener(FFloatEntry.VALUE_CHANGED, function(e:Event) { 
+			if(this.selectedEntity!=null)
+				this.selectedEntity.setPosition(new FVector( this.selectedEntity.getPositionX() , positionYEdit.getValue()));
+		} );
+		
+		
+		var stage = Lib.current.stage;
+		stage.addEventListener("entityMove", function(e:Event) {
+			positionXEdit.setValue(selectedEntity.getPositionX());
+			positionYEdit.setValue(selectedEntity.getPositionY());
 		} );
 		
 		this.setCanvas(layout);
@@ -52,7 +81,9 @@ class EntityWindow extends FWindow
 		name = name.split(".")[0];
 		entName.text = name;
 		
-		rotationEdit.setValue(cast(Math.round(e.getAngle()*57.2957795)));
+		rotationEdit.setValue(cast(Math.round(e.getAngle() * 57.2957795)));
+		positionXEdit.setValue(e.getPositionX());
+		positionYEdit.setValue(e.getPositionY());
 	}
 	
 	public function deleteEntity(e:MouseEvent) {

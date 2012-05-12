@@ -9,7 +9,7 @@ import nme.events.MouseEvent;
  * @author Jordan Wambaugh
  */
 
-class FFloatEntry extends Sprite
+class FFloatEntry extends FWidget
 {
 
 	var valEdit:FLineEdit;
@@ -22,7 +22,7 @@ class FFloatEntry extends Sprite
 		this.increment = increment;
 		this.addChild(new FHBox([
 				new FSmallButton("<", 0, 0, function(e:MouseEvent) { this.valEdit.text = Std.string(Std.parseFloat(this.valEdit.text)-increment); this.dispatchEvent(new Event(VALUE_CHANGED)); } )
-				,valEdit = new FLineEdit(Std.string(v),0,0,30)
+				,valEdit = new FLineEdit(Std.string(v),0,0,40)
 				,new FSmallButton(">", 0, 0, function(e:MouseEvent) { this.valEdit.text =Std.string(Std.parseFloat(this.valEdit.text)+increment); this.dispatchEvent(new Event(VALUE_CHANGED));})
 			]));
 		valEdit.addEventListener(Event.CHANGE, function(e:Event) {this.dispatchEvent(new Event(VALUE_CHANGED)); } );

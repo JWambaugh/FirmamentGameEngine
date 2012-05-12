@@ -8,7 +8,7 @@ import nme.events.MouseEvent;
  * @author Jordan Wambaugh
  */
 
-class FWindow extends Sprite
+class FWindow extends FWidget
 {
 
 	var canvas:DisplayObjectContainer;

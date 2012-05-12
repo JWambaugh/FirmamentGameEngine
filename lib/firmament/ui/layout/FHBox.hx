@@ -17,14 +17,18 @@ class FHBox extends FLayout
 		
 	}
 	
-	override public function addChild(child:DisplayObject):DisplayObject {
-		this.contentWidth += this.padding;
-		child.x =  this.contentWidth;
-		this.contentWidth += cast(child.width);
-		child.y = 0;
-		return super.addChild(child);
-	}
 	
+	
+	override public function layoutChildren() {
+		this.contentWidth = 0;
+		for (x in 0 ... this.numChildren) {
+			var child = this.getChildAt(x);
+			this.contentWidth += this.padding;
+			child.x =  this.contentWidth;
+			this.contentWidth += cast(child.width);
+			child.y = 0;
+		}
+	}
 	
 	
 }

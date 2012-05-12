@@ -7,7 +7,7 @@ import nme.Lib;
  * @author Jordan Wambaugh
  */
 
-class FButton extends Sprite
+class FButton extends FWidget
 {
 
 	var text:FTextLabel;
