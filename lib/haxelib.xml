@@ -11,7 +11,7 @@
     <tag v="2D"/>
     <tag v="physics"/>
     <description>2D game engine using NME. Port of Firmament Game Engine to HaXe.</description>
-    <version name="0.0.3">Added initial UI libraries, added new Firmament Editor. Project no longer depends on box2d packacge since it includes its own custom version. </version>
+    <version name="0.0.4">Minor bug fixes.</version>
     <depends name="nme"/>
     <depends name="hxJson2"/>
 
