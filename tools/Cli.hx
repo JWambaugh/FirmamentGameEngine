@@ -1,30 +1,39 @@
 
 import neko.FileSystem;
 import neko.io.Path;
+import Sys;
+import neko.Lib;
+
 import sys.FileSystem;
 import sys.io.File;
-
+import StringTools;
+using StringTools;
 class Cli {
+	
+	static var firmamentPath:String;
 	public static function main() {
 		var args:Array<String> = Sys.args();
 		var last:String = (new neko.io.Path(args.pop())).toString();
-		var slash = last.substr(-1);
+		var slash = last.substr( -1);
+		
+		firmamentPath = Sys.getCwd();
+		
 		if (slash=="/"|| slash=="\\") 
 			last = last.substr(0,last.length-1);
 		if (neko.FileSystem.exists(last) && neko.FileSystem.isDirectory(last)) {
-			neko.Sys.setCwd(last);
+			Sys.setCwd(last);
 		}
 		
 		
 		if (args.length == 0) {
-				trace("possible commands: setup");
+				Lib.println("possible commands: setup");
 				return;
 		}
 		
 		switch(args[0]) {
 			case "setup": {
 				if (args.length < 2) {
-					trace("setup requires project name.");
+					Lib.println("setup requires project name.");
 					return;
 				}
 				doSetup(args[1]);
@@ -36,55 +45,116 @@ class Cli {
 		
 	}
 	
-	static function doSetup(projectName:String) {
-		trace("Creating new project...");
+	static function doSetup(projectName:String, ?packageName:String = "com.firmamentengine.example", ?template:String = "SimpleProject") {
+		projectName = ucFirst(projectName);
+		Lib.println("Creating new project...");
 		if (FileSystem.exists(projectName)) {
-			trace("Directory '" + projectName + "' already exists.");
+			Lib.println("Directory '" + projectName + "' already exists.");
 			return;
 		}
-		FileSystem.createDirectory(projectName);
-		neko.Sys.setCwd(projectName);
-		FileSystem.createDirectory("assets");
-		FileSystem.createDirectory("src");
-		FileSystem.createDirectory("assets/images");
-		FileSystem.createDirectory("assets/entities");
-		FileSystem.createDirectory("assets/maps");
-		File.saveContent(projectName + ".fprj", "{\"baseDir\":\".\",\"entityDir\":\"assets\\/entities\",\"mapDir\":\"assets\\/maps\" } ");
 		
-		var nmml="<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"+
-			"<project>\n"+
-			"<!-- metadata, make sure 'package' is at least 2 segments (ie. com.myproject) -->\n"+
-			"<app file=\""+projectName+"\" title=\""+projectName+"\" main=\"com.firmamentengine.example.Main\" package=\"com.firmamentengine.example\" \n"+
-			"	version=\"1.0.0\" company=\"\" />\n"+
-			"<!-- output -->"+
-			"<window width=\"800\" height=\"480\" fps=\"30\" background=\"0xFFFFFF\" orientation=\"landscape\" resizable=\"true\" />\n"+
-			"<set name=\"BUILD_DIR\" value=\"bin\" />\n"+
-			"\n"+
-			"<!-- classpath, haxe libs -->\n"+
-			"<classpath name=\"src\" />\n"+
-			"\n"+
-			"<haxelib name=\"nme\" /><haxelib name=\"hxJson2\" />\n" +
-			"<haxelib name=\"Firmament.hx\" />\n"+	
-			"\n"+
-			"<!-- assets -->\n"+
-			"<assets path=\"assets\" include=\"*\"  />\n"+
-			"\n"+
-			"<!-- DLLs -->\n"+
-			"<ndll name=\"std\" />\n"+
-			"<ndll name=\"regexp\" />\n"+
-			"<ndll name=\"zlib\" />\n"+
-			"<ndll name=\"nme\" haxelib=\"nme\" />\n"+
-			"\n"+
-			"</project>\n";
-			File.saveContent(projectName + ".nmml", nmml);
+		var templatePath = firmamentPath + "/templates/" + template;
+		if (!FileSystem.exists(templatePath)) {
+			Lib.println("Template '"+template+"' cannot be found.");
+			return;
+		}
+		
+		Lib.println("Creating project '"+projectName+"' ...");
+		
+		var vars = { 
+			PROJECT_NAME:projectName
+			,PACKAGE_NAME:packageName
+		
+		};
+		
+		processTemplateDir(templatePath, projectName,vars,projectName,"__SRC__");
+		
+		var sourceCodeDir = projectName + "/src/" + packageName.replace(".", "/");
+		makeDirRecursive(sourceCodeDir);
+		processTemplateDir(templatePath+"/__SRC__", sourceCodeDir,vars,projectName);
 			
 			
-			
-			
-			
-			
-			neko.Sys.setCwd("..");
+		
+		Lib.println("Project '" + projectName + "' Created! Run the following to try it out:");
+		Lib.println("cd " + projectName);
+		Lib.println("nme test "+projectName+".nmml flash");
 	}
 	
+	static function makeDirRecursive(path:String) {
+		var dirs = path.split("/");
+		var workingPath = "";
+		for (dir in dirs) {
+			if (workingPath != '') dir = workingPath + '/' + dir;
+			if (!FileSystem.exists(dir)) {
+				FileSystem.createDirectory(dir);
+			}
+			workingPath = dir;
+			
+		}
+	}
+	
+	static function processTemplateDir(srcDir:String, destDir:String, vars:Dynamic, projectName:String,?skipDir:String='') {
+		if (!FileSystem.isDirectory(srcDir)) {
+			Lib.println(srcDir + " is not a directory!");
+			return;
+		}
+		if (!FileSystem.exists(destDir)) {
+			FileSystem.createDirectory(destDir);
+		}
+		
+		
+		
+		var entries = FileSystem.readDirectory(srcDir);
+		
+		for (entry in entries) {
+			var sdir = srcDir + "/" + entry;
+			if (FileSystem.isDirectory(sdir)) {
+				
+				//only process if we aren't in our skip directory.
+				if (skipDir == '' || sdir.indexOf(skipDir) == -1) {
+					processTemplateDir(sdir, destDir+'/'+entry, vars, projectName, skipDir);
+				}
+			}
+			else {
+				smartCopy(entry,srcDir, destDir , vars, projectName);
+			}
+		}
+		
+		
+	}
+	
+	static function smartCopy(fileName:String,srcDir:String, destDir:String, vars:Dynamic, projectName:String) {
+		var data = File.getContent(srcDir+"/"+fileName);
+		
+		var destFile = fileName.replace("__PROJECT_NAME__", projectName);
+		
+		//do interpolation if the filename is any of these types
+		if (stringContainsAny(fileName, [".hx", ".nmml", ".xml", ".md", ".htm", ".html", ".txt",".fprj"])){
+			data = interpolateVarsIntoString(data, vars);
+		}
+		File.saveContent(destDir + "/" + destFile,data);
+			
+	}
+	
+	static function interpolateVarsIntoString(str:String, vars:Dynamic):String {
+		var fields = Reflect.fields(vars);
+		for (field in fields) {
+			str=str.replace("[*" + field + "*]", Reflect.field(vars, field));
+		}
+		return str;
+	}
+	
+	static function stringContainsAny(str:String, substrs:Array<String>) {
+		for (substr in substrs) {
+			if (str.indexOf(substr) != -1) return true;
+		}
+		return false;
+	}
+	
+	static function ucFirst(str:String) {
+		var first = str.charAt(0);
+		first = first.toUpperCase();
+		return first + str.substr(1);
+	}
 	
 }
