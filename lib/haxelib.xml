@@ -11,7 +11,7 @@
     <tag v="2D"/>
     <tag v="physics"/>
     <description>2D game engine using NME. Port of Firmament Game Engine to HaXe.</description>
-    <version name="0.0.4">Minor bug fixes.</version>
+    <version name="0.0.5">New command-line project creation. Try "haxelib run firmament setup MyProject"</version>
     <depends name="nme"/>
     <depends name="hxJson2"/>
 
