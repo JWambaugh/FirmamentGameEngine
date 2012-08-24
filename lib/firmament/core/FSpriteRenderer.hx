@@ -11,7 +11,7 @@ import nme.events.EventDispatcher;
  * @author Jordan Wambaugh
  */
 
-class FSpriteRenderer extends EventDispatcher ,implements FRenderer 
+class FSpriteRenderer extends FEntityComponent ,implements FRendererComponentInterface
 {
 
 	public function new() 
@@ -53,6 +53,9 @@ class FSpriteRenderer extends EventDispatcher ,implements FRenderer
 		//camera.bitmapData.draw(bmData, matrix,null,null,null,true);
 		
 		
+	}
+	override public function getType():String {
+		return "render";
 	}
 	
 }

@@ -5,10 +5,11 @@ import nme.events.EventDispatcher;
  * Class: FRenderer
  */
 
-interface FRenderer 
+interface FRendererComponentInterface
 {
 
 	function render(item:FRenderable,camera:FCamera):Void;
+	
 	
 	
 }

@@ -5,6 +5,7 @@ import nme.display.Tilesheet;
 import nme.geom.Rectangle;
 import firmament.core.FTilesheetRenderer;
 import nme.geom.Point;
+import firmament.core.FEntityComponent;
 
 import nme.Assets;
  
@@ -23,7 +24,7 @@ class FEntity extends FRenderable
 	var currentImage:BitmapData;
 	var tilesheet:Tilesheet;
 	var config:Dynamic;
-	
+	var components:Hash<FEntityComponent>;
 	/**
 	 * Constructor: new
 	 * 
@@ -58,9 +59,18 @@ class FEntity extends FRenderable
 		}else {
 			this.renderer = new FWireframeRenderer();
 		}
-		
-		
-		
+	}
+	
+	
+	/**
+	 * Function: getComponent
+	 * @return
+	 */
+	public function getComponent(type:String):FEntityComponent {
+		return this.components.get(type);
+	}
+	
+	public function setComponent(component:FEntityComponent) {
 		
 	}
 	

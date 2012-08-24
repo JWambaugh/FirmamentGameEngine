@@ -16,11 +16,12 @@ import nme.geom.Rectangle;
  * @author Jordan Wambaugh
  */
 
-class FWireframeRenderer implements FRenderer
+class FWireframeRenderer extends FEntityComponent, implements FRendererComponentInterface
 {
 
 	public function new() 
 	{
+		super();
 		
 	}
 	
@@ -72,5 +73,7 @@ class FWireframeRenderer implements FRenderer
 	}
 	
 	
-	
+	override public function getType():String {
+		return "render";
+	}
 }

@@ -10,7 +10,7 @@ import nme.geom.Rectangle;
  * ...
  * @author jordan
  */
-class FTilesheetRenderer extends EventDispatcher ,implements FRenderer 
+class FTilesheetRenderer extends FEntityComponent ,implements FRendererComponentInterface 
 {
 	var drawList:Array<Float>;
 		
@@ -55,5 +55,10 @@ class FTilesheetRenderer extends EventDispatcher ,implements FRenderer
 		
 		
 	}
+	
+	override public function getType():String {
+		return "render";
+	}
+	
 	
 }

@@ -1,5 +1,5 @@
 package firmament.core;
-import firmament.core.FRenderer;
+import firmament.core.FRendererComponentInterface;
 import box2D.collision.shapes.B2Shape;
 import nme.display.BitmapData;
 import nme.display.Tilesheet;
@@ -17,7 +17,7 @@ import nme.display.Tilesheet;
   */
 class FRenderable extends FWorldPositional
 {
-	var renderer:FRenderer;
+	var renderer:FRendererComponentInterface;
 	var imageScale:Float;
 	var zPosition:Float;
 	
@@ -39,11 +39,11 @@ class FRenderable extends FWorldPositional
 	 * 
 	 * 		<FRenderer> the object's current renderer 
 	 */
-	public function getRenderer():FRenderer {
+	public function getRenderer():FRendererComponentInterface {
 		return this.renderer;
 	}
 	
-	public function setRenderer(r:FRenderer) {
+	public function setRenderer(r:FRendererComponentInterface) {
 		this.renderer = r;
 	}
 	
