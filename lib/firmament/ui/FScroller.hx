@@ -8,7 +8,7 @@ import nme.events.MouseEvent;
  * @author Jordan Wambaugh
  */
 
-class FScroller extends Sprite
+class FScroller extends FWidget
 {
 
 	var canvas:DisplayObject;

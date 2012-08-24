@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+<!-- metadata, make sure 'package' is at least 2 segments (ie. com.myproject) -->
+<app file="[*PROJECT_NAME*]" title="[*PROJECT_NAME*]" main="[*PACKAGE_NAME*].[*PROJECT_NAME*]" package="[*PACKAGE_NAME*]" version="1.0.0" company="" />
+<!-- output --><window width="800" height="480" fps="30" background="0xFFFFFF" orientation="landscape" resizable="true" />
+<set name="BUILD_DIR" value="bin" />
+
+<!-- classpath, haxe libs -->
+<classpath name="src" />
+
+<haxelib name="nme" /><haxelib name="hxJson2" />
+<haxelib name="firmament" />
+
+<!-- assets -->
+<assets path="assets" include="*"  />
+
+<!-- DLLs -->
+<ndll name="std" />
+<ndll name="regexp" />
+<ndll name="zlib" />
+<ndll name="nme" haxelib="nme" />
+
+</project>

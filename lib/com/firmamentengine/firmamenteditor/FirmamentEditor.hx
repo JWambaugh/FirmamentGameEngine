@@ -132,6 +132,7 @@ class FirmamentEditor
 			var point = camera.getWorldPosition(e.localX, e.localY);
 			point.subtract(dragOffset);
 			dragEnt.setPosition(point);
+			stage.dispatchEvent(new Event('entityMove'));
 		});
 		camera.addEventListener(MouseEvent.MOUSE_UP, function(e:MouseEvent) { 
 			dragEnt = null;

@@ -17,14 +17,15 @@ class FVBox extends FLayout
 		
 	}
 	
-	override public function addChild(child:DisplayObject):DisplayObject {
-		this.contentHeight += this.padding;
-		child.y =  this.contentHeight;
-		this.contentHeight += cast(child.height);
-		child.x = 0;
-		return super.addChild(child);
+	
+	override public function layoutChildren() {
+		this.contentHeight = 0;
+		for (x in 0 ... this.numChildren) {
+			var child = this.getChildAt(x);
+			this.contentHeight += this.padding;
+			child.y =  this.contentHeight;
+			this.contentHeight += cast(child.height);
+			child.x = 0;
+		}
 	}
-	
-	
-	
 }

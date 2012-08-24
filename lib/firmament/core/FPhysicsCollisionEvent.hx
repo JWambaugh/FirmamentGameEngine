@@ -32,4 +32,12 @@ class FPhysicsCollisionEvent extends Event
 		return velocity;
 	}
 	
+	public function getEntityA():FPhysicsEntity {
+		return _contact.getFixtureA().getBody().getUserData();
+	}
+	
+	public function getEntityB():FPhysicsEntity {
+		return _contact.getFixtureB().getBody().getUserData();
+	}
+	
 }

@@ -74,7 +74,7 @@ class FEntityLoader extends EventDispatcher
 			className = overrideClass;
 		}
 		if (className!=null) {
-			trace("Classname is set!");
+			//trace("Classname is set!");
 			var c =Type.resolveClass(className);
 			if(c==null){
 				throw "class "+data.className+" could not be found. Did you remember to include the whole package name?";

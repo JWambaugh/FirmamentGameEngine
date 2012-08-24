@@ -12,9 +12,9 @@ class FTextLabel extends FTextField
 	{
 		super(text, x, y);
 	//	this.height = 20;
-		this.selectable = false;
+		this.textField.selectable = false;
 		if(text!=""){
-			this.width = this.textWidth + 5;
+			this.textField.width = this.textField.textWidth + 5;
 			//this.height = this.textHeight + 5;
 		}
 	}
