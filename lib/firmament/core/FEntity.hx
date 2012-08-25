@@ -18,11 +18,8 @@ import nme.Assets;
   * See Also:
 	  * <FPhysicsEntity>
   */
-class FEntity extends FRenderable
+class FEntity 
 {
-	var world:FWorld;
-	var currentImage:BitmapData;
-	var tilesheet:Tilesheet;
 	var config:Dynamic;
 	var components:Hash<FEntityComponent>;
 	/**

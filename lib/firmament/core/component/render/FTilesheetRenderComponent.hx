@@ -1,4 +1,4 @@
-package firmament.core;
+package firmament.core.component.render;
 import nme.display.BitmapData;
 import nme.geom.Matrix;
 import nme.display.IBitmapDrawable;
@@ -10,7 +10,7 @@ import nme.geom.Rectangle;
  * ...
  * @author jordan
  */
-class FTilesheetRenderer extends FEntityComponent ,implements FRendererComponentInterface 
+class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComponentInterface 
 {
 	var drawList:Array<Float>;
 		

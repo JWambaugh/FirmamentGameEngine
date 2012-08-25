@@ -1,4 +1,4 @@
-package firmament.core;
+package firmament.core.component.render;
 
 import box2D.common.math.B2Vec2;
 import nme.display.MovieClip;
@@ -16,7 +16,7 @@ import nme.geom.Rectangle;
  * @author Jordan Wambaugh
  */
 
-class FWireframeRenderer extends FEntityComponent, implements FRendererComponentInterface
+class FWireframeRenderComponent extends FEntityComponent, implements FRenderComponentInterface
 {
 
 	public function new() 
