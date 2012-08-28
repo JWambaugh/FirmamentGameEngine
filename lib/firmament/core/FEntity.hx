@@ -13,10 +13,7 @@ import nme.Assets;
   * Class: FEntity 
   * Base class for all entities in Firmament
   * 
-  * Extends: <FRenderable>
   * 
-  * See Also:
-	  * <FPhysicsEntity>
   */
 class FEntity 
 {

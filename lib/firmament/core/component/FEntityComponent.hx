@@ -27,4 +27,6 @@ class FEntityComponent extends EventDispatcher
 		return "";
 	}
 	
+	public function destruct(){}
+	
 }
