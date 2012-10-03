@@ -17,7 +17,7 @@ class FEntityComponent extends EventDispatcher
 		super();
 	}
 	
-	public function init(config:Dynamic) {
+	public function init(config:Dynamic):Void {
 		throw "This needs to be overridden in a subclass.";
 	}
 	

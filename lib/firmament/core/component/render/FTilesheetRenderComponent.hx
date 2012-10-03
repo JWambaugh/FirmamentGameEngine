@@ -10,7 +10,7 @@ import nme.geom.Rectangle;
  * ...
  * @author jordan
  */
-class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComponentInterface 
+class FTilesheetRenderComponent extends firmament.core.component.FEntityComponent ,implements FRenderComponentInterface 
 {
 	var drawList:Array<Float>;
 		
