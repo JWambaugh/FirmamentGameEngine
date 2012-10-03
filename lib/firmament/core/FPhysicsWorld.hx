@@ -1,6 +1,7 @@
 package firmament.core;
 
 import box2D.dynamics.B2ContactListener;
+import firmament.core.component.physics.FBox2DComponent;
 import firmament.core.FWorld;
 import firmament.core.FEntity;
 import box2D.dynamics.B2World;
@@ -38,12 +39,12 @@ class FPhysicsWorld extends FWorld
 	
 	var b2world:B2World;
 	
-	private var deleteQueue:Array<FPhysicsEntity>;
+	private var deleteQueue:Array<FEntity>;
 	public function new(gravity:FVector) 
 	{
 		super();
 		this.b2world = new B2World(gravity, true);
-		this.deleteQueue = new Array<FPhysicsEntity>();
+		this.deleteQueue = new Array<FEntity>();
 		//this.b2world.setContactListener(new FPhysicsWorldContactListener(this));
 	}
 	
@@ -83,9 +84,9 @@ class FPhysicsWorld extends FWorld
 		var filtered:Array<FEntity> = new Array<FEntity>();
 		
 		//loop through each fixture in each entity, and see if its an actual match.
-		for (en in ents) {
-			var ent:FPhysicsEntity = cast(en, FPhysicsEntity);
-			var fixture = ent.body.getFixtureList();
+		for (ent in ents) {
+			var component = cast(ent.getPhysicsComponent, FBox2DComponent);
+			var fixture = component.body.getFixtureList();
 			while (fixture!=null) {
 				if (fixture.testPoint(p)) {
 					//match!
@@ -108,8 +109,8 @@ class FPhysicsWorld extends FWorld
 		return this.b2world;
 	}
 	
-	public function createEntity(config:Dynamic):FPhysicsEntity {
-		var ent:FPhysicsEntity = new FPhysicsEntity(this,config);
+	public function createEntity(config:Dynamic):FEntity {
+		var ent:FEntity = new FEntity(this,config);
 		//this.addEntity(ent);
 		return ent;
 		
@@ -121,8 +122,8 @@ class FPhysicsWorld extends FWorld
 		this.endOfStep();
 		var contact = this.b2world.getContactList();
 		while (contact!=null) {
-			var entA:FPhysicsEntity = cast(contact.getFixtureA().getBody().getUserData());
-			var entB:FPhysicsEntity = cast(contact.getFixtureB().getBody().getUserData());
+			var entA:FEntity = cast(contact.getFixtureA().getBody().getUserData());
+			var entB:FEntity = cast(contact.getFixtureB().getBody().getUserData());
 			entA.dispatchEvent(new FPhysicsCollisionEvent(contact));
 			entB.dispatchEvent(new FPhysicsCollisionEvent(contact));
 			contact = contact.getNext();
@@ -144,11 +145,11 @@ class FPhysicsWorld extends FWorld
 	 * NOT SAFE for fphysics entities. call removeEntity instead
 	 */
 	override public function deleteEntity(ent:FEntity) {
-		this.b2world.destroyBody(cast(ent,FPhysicsEntity).body);
+		
 		super.deleteEntity(ent);
 	}
 	
-	public function removeEntity(ent:FPhysicsEntity) {
+	public function removeEntity(ent:FEntity) {
 		this.deleteQueue.push(ent);
 		
 	}

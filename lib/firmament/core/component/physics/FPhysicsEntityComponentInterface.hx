@@ -16,7 +16,7 @@ interface FPhysicsEntityComponentInterface{
 	 * Parameters:
 		 * pos - <FVector>
 	 */
-	public function setPosition(pos:FVector);
+	public function setPosition(pos:FVector):Void;
 	
 	/**
 	 * Function: getPosition
@@ -58,5 +58,6 @@ interface FPhysicsEntityComponentInterface{
 	 */
 	public function setAngle(a:Float):Void ;
 	
-	
+	public function getZPosition():Float;
+	public function setZPosition(p:Float):Void;
 }

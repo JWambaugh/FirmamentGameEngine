@@ -1,6 +1,5 @@
 package firmament.utils.loader;
 import firmament.core.FEntity;
-import firmament.core.FPhysicsEntity;
 import nme.events.EventDispatcher;
 #if(cpp)
 import sys.io.File;
@@ -81,7 +80,7 @@ class FEntityLoader extends EventDispatcher
 			}
 			ent = Type.createInstance(c, [world,data]);
 		}else {
-			ent = new FPhysicsEntity(cast(world), data);
+			ent = new FEntity(data);
 		}
 		this.dispatchEvent(new FEntityLoadEvent(ENTITY_LOADED,ent));
 		return ent;

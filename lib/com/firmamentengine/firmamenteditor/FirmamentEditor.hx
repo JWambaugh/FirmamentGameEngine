@@ -8,7 +8,7 @@ import firmament.core.FCamera;
 import firmament.core.FEntity;
 import firmament.core.FGame;
 import firmament.core.FPhysicsWorld;
-import firmament.core.FPhysicsEntity;
+import firmament.core.FEntity;
 import firmament.core.FVector;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
@@ -120,7 +120,7 @@ class FirmamentEditor
 			var point:FVector = camera.getWorldPosition(e.localX, e.localY);
 			var ents = world.getEntitiesAtPoint(point);
 			if (ents.length > 0) {
-				dragEnt = cast(ents[0], FPhysicsEntity);
+				dragEnt = cast(ents[0], FEntity);
 				entityWindow.setEntity(cast(ents[0]));
 				point.subtract(dragEnt.getPosition());
 				dragOffset = point;

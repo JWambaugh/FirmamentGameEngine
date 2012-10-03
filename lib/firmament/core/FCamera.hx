@@ -1,5 +1,6 @@
 package firmament.core;
-
+import firmament.core.component.physics.FPhysicsEntityComponentInterface;
+import firmament.core.component.render.FRenderComponentInterface;
 import nme.display.Sprite;
 import firmament.core.FEntity;
 import firmament.core.FWorld;
@@ -54,7 +55,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		this.graphics.beginFill(0);
 		this.graphics.drawRect(0, 0, this.displayWidth, this.displayHeight);
 		this.graphics.endFill();
-		var wireframe = new FWireframeRenderer();
+		
 		//this.graphics.drawRect(0,0, this.displayWidth, this.displayHeight);
 		var entityList:Array<FEntity> = new Array<FEntity>();
 		var displayPadding = 4; //number of meters to pad in query for entities. Incres this if you have entities popping out at the edges
@@ -70,14 +71,14 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 			
 		}
 		entityList.sort(function(a:FEntity,b:FEntity):Int{
-			var cmp = a.getZPosition() - b.getZPosition();
+			var cmp = cast(a.getComponent("physics"),FPhysicsEntityComponentInterface).getZPosition() - cast(b.getComponent("physics"),FPhysicsEntityComponentInterface).getZPosition();
 			if (cmp==0) {
 				return 0;	
 			} else if (cmp > 0) return 1;
 			return -1;
 		});
 		for (ent in entityList) {
-				ent.getRenderer().render(ent, this);
+				cast(ent.getComponent("render"),FRenderComponentInterface).render(ent, this);
 				//wireframe.render(ent,this);
 			}
 	}

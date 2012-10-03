@@ -1,5 +1,5 @@
 package firmament.core.component.physics;
-import firmament.core.FEntityComponent;
+import firmament.core.component.FEntityComponent;
 import firmament.core.component.physics.FPhysicsEntityComponentInterface;
 
 import box2D.collision.shapes.B2CircleShape;
@@ -22,6 +22,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsEntityCompone
 {
 	
 	public var body:B2Body;
+	private var zPosition:Float;
 
 	public function new() 
 	{
@@ -144,4 +145,10 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsEntityCompone
 		return new FVector(this.body.getLinearVelocity().x, this.body.getLinearVelocity().y);
 	}
 	
+	public function getZPosition():Float {
+		return zPosition;
+	}
+	public function setZPosition(p:Float):Void {
+		zPosition = p;
+	}
 }

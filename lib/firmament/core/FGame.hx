@@ -17,7 +17,7 @@ import nme.Assets;
 import nme.text.TextField;
 import nme.utils.Timer;
 import haxe.Timer;
-import firmament.core.FPhysicsEntity;
+import firmament.core.FEntity;
 import firmament.core.FPhysicsWorld;
 import firmament.core.FCamera;
 

@@ -5,7 +5,7 @@ import firmament.ui.FTextLabel;
 import firmament.ui.layout.FHBox;
 import firmament.ui.layout.FVBox;
 import firmament.core.FCamera;
-import firmament.core.FPhysicsEntity;
+import firmament.core.FEntity;
 import nme.display.Bitmap;
 import nme.display.BitmapData;
 import nme.display.Loader;

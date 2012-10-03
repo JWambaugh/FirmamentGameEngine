@@ -139,13 +139,13 @@ class FPhysicsEntity extends FEntity
 		
 	}
 	
-	override function  getPosition() {
+	function  getPosition() {
 		this.position.x = this.body.getPosition().x;
 		this.position.y = this.body.getPosition().y;
 		return this.position;
 	}
 	
-	override function setPosition(pos:FVector) {
+	function setPosition(pos:FVector) {
 		this.body.setPosition(new B2Vec2(pos.x, pos.y));
 		super.setPosition(pos);
 	}
