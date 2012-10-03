@@ -1,5 +1,5 @@
 package com.firmamentengine.firmamenteditor;
-import firmament.core.FPhysicsEntity;
+import firmament.core.FEntity;
 import firmament.core.FSpriteRenderer;
 import firmament.core.FPhysicsWorld;
 import firmament.ui.FDialog;
@@ -8,7 +8,7 @@ import firmament.ui.FDialog;
  * @author Jordan Wambaugh
  */
 
-class FEditorEntity extends FPhysicsEntity
+class FEditorEntity extends FEntity
 {
 
 	var originalSprite:Dynamic;
