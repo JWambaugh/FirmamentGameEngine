@@ -18,19 +18,20 @@ import haxe.Timer;
  * @author Jordan Wambaugh
  */
 
-class FBox2DComponent extends FEntityComponent, implements FPhysicsEntityComponentInterface
+class FBox2DComponent extends FEntityComponent, implements FPhysicsEntityComponentInterface, implements FWorldPositionalInterface 
 {
 	
 	public var body:B2Body;
 	private var zPosition:Float;
-
+	private var position:FVector;
+	private var world:FWorld;
 	public function new() 
 	{
-		
+		super();
 	}
 	
-	override public function init(config:Dynamic) {
-		
+	override public function init(config:Dynamic):Void {
+		super.init(config);
 		var def:B2BodyDef = new B2BodyDef();
 		var fixtureDef:B2FixtureDef = new B2FixtureDef();
 		
@@ -55,18 +56,16 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsEntityCompone
 		
 		
 		
-		var physWorld:FPhysicsWorld = cast world;
+		var physWorld:FBox2DWorld = cast world;
 		if(Std.is(config.angle,Float))
 			def.angle = config.angle;
 		def.fixedRotation = false;
 		body = physWorld.getB2World().createBody(def);
 		
-		//body.createFixture2(new B2CircleShape(1));
-		
 		
 		
 		if (Std.is(config.maxLifeSeconds, Float)) {
-			Timer.delay(function() { this.delete(); }, Math.floor(config.maxLifeSeconds * 1000));
+			Timer.delay(function() { this._entity.delete(); }, Math.floor(config.maxLifeSeconds * 1000));
 		}
 		
 		if(Std.is(config.shapes,Array))
@@ -118,22 +117,30 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsEntityCompone
 	}
 		
 	
-	override function  getPosition() {
+	public function  getPosition() {
 		this.position.x = this.body.getPosition().x;
 		this.position.y = this.body.getPosition().y;
 		return this.position;
 	}
 	
-	override function setPosition(pos:FVector) {
+	public function setPosition(pos:FVector) {
 		this.body.setPosition(new B2Vec2(pos.x, pos.y));
-		super.setPosition(pos);
+		this.position=pos;
+	}
+
+	public function getPositionX():Float{
+		return this.getPosition().x;
+	}
+
+	public function getPositionY():Float{
+		return this.getPosition().y;
 	}
 	
-	override public function setAngle(a:Float):Void {
+	public function setAngle(a:Float):Void {
 		this.body.setAngle(a);
 	}
 	
-	override public function getAngle():Float {
+	public function getAngle():Float {
 		return this.body.getAngle();
 	}
 	
@@ -150,5 +157,8 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsEntityCompone
 	}
 	public function setZPosition(p:Float):Void {
 		zPosition = p;
+	}
+	public function setWorld(world:FWorld):Void{
+		this.world = world;
 	}
 }

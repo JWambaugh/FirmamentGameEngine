@@ -1,4 +1,7 @@
 package firmament.core.component.render;
+
+import firmament.core.component.FEntityComponent;
+import firmament.core.component.render.FRenderComponentInterface;
 import nme.display.BitmapData;
 import nme.geom.Matrix;
 import nme.display.IBitmapDrawable;
@@ -10,7 +13,7 @@ import nme.geom.Rectangle;
  * ...
  * @author jordan
  */
-class FTilesheetRenderComponent extends firmament.core.component.FEntityComponent ,implements FRenderComponentInterface 
+class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComponentInterface 
 {
 	var drawList:Array<Float>;
 		
@@ -21,7 +24,7 @@ class FTilesheetRenderComponent extends firmament.core.component.FEntityComponen
 		super();
 	}
 	
-	public function render(item:FRenderable, camera:FCamera):Void {
+	public function render(camera:FCamera):Void {
 		var TILE_FIELDS = 6; // x+y+index+scale+rotation+alpha
 		var bitmap = item.getCurrentImage();
 		camera.graphics.lineStyle(null,0,0);

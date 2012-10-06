@@ -1,5 +1,5 @@
 package firmament.core.component.render;
-import nme.events.EventDispatcher;
+
 
 /**
  * Class: FRenderer
@@ -8,7 +8,7 @@ import nme.events.EventDispatcher;
 interface FRenderComponentInterface
 {
 
-	function render(item:FEntity,camera:FCamera):Void;
+	function render(camera:FCamera):Void;
 	
 	
 	

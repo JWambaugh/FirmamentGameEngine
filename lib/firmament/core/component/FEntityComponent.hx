@@ -27,6 +27,11 @@ class FEntityComponent extends EventDispatcher
 		return "";
 	}
 	
+	public function setEntity(entity:FEntity){
+		this._entity = entity;
+	}
+
+	
 	public function destruct(){}
 	
 }

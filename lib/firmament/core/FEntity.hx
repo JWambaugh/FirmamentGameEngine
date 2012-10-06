@@ -1,6 +1,5 @@
 package firmament.core;
 import firmament.core.component.physics.FPhysicsEntityComponentInterface;
-import firmament.core.FRenderable;
 import nme.display.BitmapData;
 import nme.display.Tilesheet;
 import nme.geom.Rectangle;
@@ -16,7 +15,7 @@ import nme.Assets;
   * 
   * 
   */
-class FEntity 
+class FEntity extends flash.events.EventDispatcher
 {
 	var config:Dynamic;
 	var components:Hash<FEntityComponent>;
@@ -29,6 +28,7 @@ class FEntity
 	 */
 	public function new(config:Dynamic) 
 	{
+		super();
 		this.config = config;
 		
 		
@@ -54,6 +54,14 @@ class FEntity
 	
 	public function getConfig():Dynamic {
 		return this.config;
+	}
+
+	/**
+	 * Function: delete
+	 * Will handle deletion of itself
+	**/
+	public function delete():Void{
+
 	}
 	
 	

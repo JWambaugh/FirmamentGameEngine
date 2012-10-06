@@ -19,7 +19,7 @@ import box2D.common.math.B2Vec2;
  */
 
 class FPhysicsWorldContactListener extends B2ContactListener {
-	var world:FPhysicsWorld;
+	var world:FBox2DWorld;
 	
 	public function new(world) {
 		this.world = world;
@@ -33,7 +33,7 @@ class FPhysicsWorldContactListener extends B2ContactListener {
  
 
  
-class FPhysicsWorld extends FWorld
+class FBox2DWorld extends FWorld
 {
 
 	
@@ -96,7 +96,7 @@ class FPhysicsWorld extends FWorld
 						contains = true;
 					}
 					if (!contains) {
-						filtered.push(en);
+						filtered.push(ent);
 					}
 				}
 				fixture = fixture.getNext();
@@ -110,7 +110,7 @@ class FPhysicsWorld extends FWorld
 	}
 	
 	public function createEntity(config:Dynamic):FEntity {
-		var ent:FEntity = new FEntity(this,config);
+		var ent:FEntity = new FEntity(config);
 		//this.addEntity(ent);
 		return ent;
 		

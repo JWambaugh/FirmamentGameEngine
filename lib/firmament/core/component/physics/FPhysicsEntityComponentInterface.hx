@@ -1,6 +1,6 @@
 package firmament.core.component.physics;
 import firmament.core.FVector;
-
+import firmament.core.FWorld;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -8,7 +8,7 @@ import firmament.core.FVector;
 
 interface FPhysicsEntityComponentInterface{
 
-	
+	public function init(config:Dynamic):Void;
 	
 	/**
 	 * Function: setPosition
@@ -60,4 +60,5 @@ interface FPhysicsEntityComponentInterface{
 	
 	public function getZPosition():Float;
 	public function setZPosition(p:Float):Void;
+	public function setWorld(world:FWorld):Void;
 }

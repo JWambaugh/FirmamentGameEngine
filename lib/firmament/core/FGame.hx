@@ -18,7 +18,7 @@ import nme.text.TextField;
 import nme.utils.Timer;
 import haxe.Timer;
 import firmament.core.FEntity;
-import firmament.core.FPhysicsWorld;
+
 import firmament.core.FCamera;
 
 /**
@@ -27,7 +27,6 @@ import firmament.core.FCamera;
 class FGame extends EventDispatcher
 {
 	var cameras:Array<FCamera>;
-	var world:FPhysicsWorld;
 	var worldArray:Array<FWorld>;
 	public var enableSimulation:Bool;
 	//Constant: COLLISION_EVENT
@@ -108,4 +107,6 @@ class FGame extends EventDispatcher
 		//trace("render time: "+(haxe.Timer.stamp() - start));
 		
 	}
+
+
 }
