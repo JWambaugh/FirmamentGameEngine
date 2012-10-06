@@ -18,6 +18,7 @@ import nme.text.TextField;
 import nme.utils.Timer;
 import haxe.Timer;
 import firmament.core.FEntity;
+import firmament.core.FWorldFactory;
 
 import firmament.core.FCamera;
 
@@ -27,8 +28,8 @@ import firmament.core.FCamera;
 class FGame extends EventDispatcher
 {
 	var cameras:Array<FCamera>;
-	var worldArray:Array<FWorld>;
-	public var enableSimulation:Bool;
+	var worldHash:Hash<FWorld>; 
+	var enableSimulation:Bool;
 	//Constant: COLLISION_EVENT
 	public static inline var COLLISION_EVENT = 'collision';
 	
@@ -46,7 +47,7 @@ class FGame extends EventDispatcher
 		super();
 		
 		this.enableSimulation = true;
-		worldArray = new Array<FWorld>();
+		worldHash = new Hash<FWorld>();
 		cameras = new Array<FCamera>();
 		var stage = Lib.current.stage;
 		stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
@@ -58,18 +59,21 @@ class FGame extends EventDispatcher
 		
 		
 	}
-	/**
-	 * Function: addWorld
-	 * 
-	 * Adds a new <FWorld> object to the game.
-	 * 
-	 * Parameters:
-		 * w - <FWorld> The world to add
-	 */
-	public function addWorld(w:FWorld) {
-		this.worldArray.push(w);
-	}
 	
+	/**
+	 * Function: getWorld
+	 *
+	 * Returns: an FWorld objecto of the type provided
+	 */
+	public function getWorld(type:String):FWorld{
+		if(worldHash.exists(type)){
+			return worldHash.get(type);
+		}
+		var w = FWorldFactory.createWorld(type);
+		worldHash.set(type, w);
+		return w;
+	}
+
 	/**
 	 * Function: addCamera
 	 * 
@@ -87,8 +91,7 @@ class FGame extends EventDispatcher
 	private function doStep():Void {
 		if (!this.enableSimulation) return;
 		
-		for (world in this.worldArray) {
-			//trace('step');
+		for (world in this.worldHash) {
 			world.step();
 			
 		}
@@ -102,9 +105,8 @@ class FGame extends EventDispatcher
 		this.dispatchEvent(new Event(FGame.AFTER_STEP));
 		//var start = haxe.Timer.stamp();
 		for(camera in cameras){
-			camera.render(worldArray);
+			camera.render(worldHash);
 		}
-		//trace("render time: "+(haxe.Timer.stamp() - start));
 		
 	}
 

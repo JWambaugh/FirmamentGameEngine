@@ -154,5 +154,8 @@ class FBox2DWorld extends FWorld
 		
 	}
 	
+	override public function getType():String{
+		return "box2d";
+	}
 	
 }

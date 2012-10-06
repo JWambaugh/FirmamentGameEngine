@@ -45,7 +45,7 @@ class FEntityLoader extends EventDispatcher
 	/**
 	 * Function: loadEntity
 	 */
-	public function loadEntity(fileName:String, world:FWorld, config:Dynamic,?overrideClass=null):FEntity {
+	public function loadEntity(fileName:String, config:Dynamic,?overrideClass=null):FEntity {
 		var serializer = FSerializerFactory.getSerializerForFile(fileName);
 		if (serializer == null) {
 			throw ("Appropriate serializer for fileName "+fileName+" could not befound.");
@@ -78,7 +78,7 @@ class FEntityLoader extends EventDispatcher
 			if(c==null){
 				throw "class "+data.className+" could not be found. Did you remember to include the whole package name?";
 			}
-			ent = Type.createInstance(c, [world,data]);
+			ent = Type.createInstance(c, [data]);
 		}else {
 			ent = new FEntity(data);
 		}
@@ -93,7 +93,7 @@ class FEntityLoader extends EventDispatcher
 	 * 
 	 * 
 	 **/
-	public function loadMap(fileName:String, world:FWorld, ?overrideClass=null) {
+	public function loadMap(fileName:String, ?overrideClass=null) {
 		var serializer = FSerializerFactory.getSerializerForFile(fileName);
 		if (serializer == null) {
 			throw ("Appropriate serializer for fileName "+fileName+" could not befound.");
@@ -126,7 +126,7 @@ class FEntityLoader extends EventDispatcher
 					config = { };
 				}
 				
-				loadEntity(ent.entityFile, world, config,overrideClass);
+				loadEntity(ent.entityFile, config,overrideClass);
 		}
 		
 		
