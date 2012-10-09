@@ -1,5 +1,5 @@
 package firmament.core;
-import firmament.core.component.physics.FPhysicsEntityComponentInterface;
+import firmament.core.component.physics.FPhysicsComponentInterface;
 import firmament.core.component.render.FRenderComponentInterface;
 import nme.display.Sprite;
 import firmament.core.FEntity;
@@ -71,7 +71,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 			
 		}
 		entityList.sort(function(a:FEntity,b:FEntity):Int{
-			var cmp = cast(a.getComponent("physics"),FPhysicsEntityComponentInterface).getZPosition() - cast(b.getComponent("physics"),FPhysicsEntityComponentInterface).getZPosition();
+			var cmp = cast(a.getComponent("physics"),FPhysicsComponentInterface).getZPosition() - cast(b.getComponent("physics"),FPhysicsComponentInterface).getZPosition();
 			if (cmp==0) {
 				return 0;	
 			} else if (cmp > 0) return 1;

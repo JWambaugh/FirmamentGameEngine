@@ -1,6 +1,6 @@
 package firmament.core.component.physics;
 import firmament.core.component.FEntityComponent;
-import firmament.core.component.physics.FPhysicsEntityComponentInterface;
+import firmament.core.component.physics.FPhysicsComponentInterface;
 
 import box2D.collision.shapes.B2CircleShape;
 import box2D.collision.shapes.B2PolygonShape;
@@ -18,7 +18,7 @@ import haxe.Timer;
  * @author Jordan Wambaugh
  */
 
-class FBox2DComponent extends FEntityComponent, implements FPhysicsEntityComponentInterface, implements FWorldPositionalInterface 
+class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInterface, implements FWorldPositionalInterface 
 {
 	
 	public var body:B2Body;

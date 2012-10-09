@@ -1,5 +1,5 @@
 package firmament.core;
-import firmament.core.component.physics.FPhysicsEntityComponentInterface;
+import firmament.core.component.physics.FPhysicsComponentInterface;
 import nme.display.BitmapData;
 import nme.display.Tilesheet;
 import nme.geom.Rectangle;
@@ -43,8 +43,8 @@ class FEntity extends flash.events.EventDispatcher
 		return this.components.get(type);
 	}
 	
-	public function getPhysicsComponent():FPhysicsEntityComponentInterface {
-		return cast(this.getComponent('physics'), FPhysicsEntityComponentInterface);
+	public function getPhysicsComponent():FPhysicsComponentInterface {
+		return cast(this.getComponent('physics'), FPhysicsComponentInterface);
 	}
 	
 	public function setComponent(component:FEntityComponent) {
