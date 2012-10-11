@@ -1,7 +1,7 @@
 package firmament.core;
 
 import box2D.dynamics.B2ContactListener;
-import firmament.core.component.physics.FBox2DComponent;
+import firmament.component.physics.FBox2DComponent;
 import firmament.core.FWorld;
 import firmament.core.FEntity;
 import box2D.dynamics.B2World;

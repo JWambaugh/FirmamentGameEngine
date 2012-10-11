@@ -1,4 +1,4 @@
-package firmament.core.component.physics;
+package firmament.component.physics;
 import firmament.core.FVector;
 import firmament.core.FWorld;
 /**

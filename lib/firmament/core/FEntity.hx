@@ -1,11 +1,11 @@
 package firmament.core;
-import firmament.core.component.physics.FPhysicsComponentInterface;
+import firmament.component.physics.FPhysicsComponentInterface;
 import nme.display.BitmapData;
 import nme.display.Tilesheet;
 import nme.geom.Rectangle;
-import firmament.core.component.render.FTilesheetRenderComponent;
+import firmament.component.render.FTilesheetRenderComponent;
 import nme.geom.Point;
-import firmament.core.component.FEntityComponent;
+import firmament.component.base.FEntityComponent;
 
 import nme.Assets;
  

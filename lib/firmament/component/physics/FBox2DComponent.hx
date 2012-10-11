@@ -1,6 +1,6 @@
-package firmament.core.component.physics;
-import firmament.core.component.FEntityComponent;
-import firmament.core.component.physics.FPhysicsComponentInterface;
+package firmament.component.physics;
+import firmament.component.base.FEntityComponent;
+import firmament.component.physics.FPhysicsComponentInterface;
 
 import box2D.collision.shapes.B2CircleShape;
 import box2D.collision.shapes.B2PolygonShape;

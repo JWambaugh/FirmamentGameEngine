@@ -1,7 +1,8 @@
-package firmament.core.component.render;
-import firmament.core.component.FEntityComponent;
-import firmament.core.component.render.FRenderComponentInterface;
-import firmament.core.component.physics.FPhysicsComponentInterface;
+package firmament.component.render;
+import firmament.component.base.FEntityComponent;
+import firmament.component.render.FRenderComponentInterface;
+import firmament.component.physics.FPhysicsComponentInterface;
+import firmament.core.FCamera;
 import nme.display.BitmapData;
 import nme.geom.Matrix;
 import nme.display.IBitmapDrawable;

@@ -1,6 +1,6 @@
 package firmament.core;
-import firmament.core.component.physics.FPhysicsComponentInterface;
-import firmament.core.component.render.FRenderComponentInterface;
+import firmament.component.physics.FPhysicsComponentInterface;
+import firmament.component.render.FRenderComponentInterface;
 import nme.display.Sprite;
 import firmament.core.FEntity;
 import firmament.core.FWorld;
