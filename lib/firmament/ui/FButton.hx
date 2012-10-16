@@ -4,6 +4,7 @@ import nme.events.MouseEvent;
 import nme.events.Event;
 import nme.Lib;
 /**
+ * Class: FButton
  * @author Jordan Wambaugh
  */
 
@@ -18,7 +19,8 @@ class FButton extends FWidget
 	
 	
 	/**
-	 * Constructor: creates a new button. Can optionally take x and y coordinates, and a function to fire when clicked.
+	 * Constructor: new
+	 * creates a new button. Can optionally take x and y coordinates, and a function to fire when clicked.
 	 * the onclick parameter must be a function that accepts a MouseEvent object and return Void.
 	 */
 	public function new(?text:String="",?x:Int=0,?y:Int=0,?onClick:MouseEvent -> Void=null) 

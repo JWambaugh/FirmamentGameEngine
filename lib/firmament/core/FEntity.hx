@@ -6,6 +6,7 @@ import nme.geom.Rectangle;
 import firmament.component.render.FTilesheetRenderComponent;
 import nme.geom.Point;
 import firmament.component.base.FEntityComponent;
+import firmament.component.render.FRenderComponentInterface;
 
 import nme.Assets;
  
@@ -15,7 +16,7 @@ import nme.Assets;
   * 
   * 
   */
-class FEntity extends flash.events.EventDispatcher
+class FEntity extends nme.events.EventDispatcher
 {
 	var config:Dynamic;
 	var components:Hash<FEntityComponent>;
@@ -37,18 +38,37 @@ class FEntity extends flash.events.EventDispatcher
 	
 	/**
 	 * Function: getComponent
-	 * @return
+	 * 
+	 * Returns:
+	 * 	<FentityComponent>
 	 */
 	public function getComponent(type:String):FEntityComponent {
 		return this.components.get(type);
 	}
-	
+
+
+
+	/**
+	 * Function: getPhysicsComponent()
+	 *	returns a physics component
+	 * 
+	 * Parameters: 
+	 *	none
+	 *
+	 * Returns:
+	 *	<FPysicsComponentInterface>
+	 */
 	public function getPhysicsComponent():FPhysicsComponentInterface {
 		return cast(this.getComponent('physics'), FPhysicsComponentInterface);
 	}
+
+	public function getRenderComponent():FRenderComponentInterface {
+		return cast(this.getComponent('render'), FRenderComponentInterface);
+	}
+	
 	
 	public function setComponent(component:FEntityComponent) {
-		
+		this.components.set(component.getType(),component);
 	}
 	
 	

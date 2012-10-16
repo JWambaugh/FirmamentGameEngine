@@ -1,9 +1,13 @@
 package firmament.component.base;
 import firmament.core.FEntity;
 import nme.events.EventDispatcher;
-/**
- * FEntityComponents are the components that make up an entity.
- * @author Jordan Wambaugh
+
+/*
+	Class: FEntity Component
+
+
+	FEntityComponents are the components that make up an entity.
+	@author Jordan Wambaugh
  */
 
 class FEntityComponent extends EventDispatcher

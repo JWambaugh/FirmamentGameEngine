@@ -1,6 +1,9 @@
 package firmament.component.physics;
 import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
+import firmament.core.FVector;
+import firmament.core.FWorld;
+import firmament.core.FBox2DWorld;
 
 import box2D.collision.shapes.B2CircleShape;
 import box2D.collision.shapes.B2PolygonShape;
@@ -14,11 +17,11 @@ import box2D.collision.shapes.B2Shape;
 import haxe.Timer;
 
 /**
- * ...
+ * Class: FBox2DComponent
  * @author Jordan Wambaugh
  */
 
-class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInterface, implements FWorldPositionalInterface 
+class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInterface
 {
 	
 	public var body:B2Body;
@@ -161,4 +164,10 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	public function setWorld(world:FWorld):Void{
 		this.world = world;
 	}
+
+
+	override public function getType():String {
+		return "physics";
+	}
+
 }

@@ -1,0 +1,1 @@
+naturaldocs -i lib/firmament -o html docs/api -p docs/project

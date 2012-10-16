@@ -1,9 +1,11 @@
 package firmament.component.physics;
 import firmament.core.FVector;
 import firmament.core.FWorld;
+
+
 /**
- * ...
- * @author Jordan Wambaugh
+ * Interface: FPhysicsComponentInterface
+ * Author: Jordan Wambaugh
  */
 
 interface FPhysicsComponentInterface{

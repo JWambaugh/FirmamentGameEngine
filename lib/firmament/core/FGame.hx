@@ -6,8 +6,7 @@ package firmament.core;
  */
 
 
-import nme.display.StageAlign;
-import nme.display.StageScaleMode;
+
 import nme.events.EventDispatcher;
 import nme.events.TimerEvent;
 import nme.Lib;
@@ -80,7 +79,7 @@ class FGame extends EventDispatcher
 	 * Adds a new <FCamera> object to the game. Cameras must be added to the game in order for them to work.
 	 * 
 	 * Parameters:
-		 * c - <FCamera> The camera to add
+	 *	c - <FCamera> The camera to add
 	 */
 	public function addCamera(c:FCamera) {
 		this.cameras.push(c);
