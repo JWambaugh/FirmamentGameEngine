@@ -31,7 +31,7 @@ class FEntity extends nme.events.EventDispatcher
 	{
 		super();
 		this.config = config;
-		
+		this.components = new Hash<FEntityComponent>();
 		
 	}
 	
@@ -69,6 +69,7 @@ class FEntity extends nme.events.EventDispatcher
 	
 	public function setComponent(component:FEntityComponent) {
 		this.components.set(component.getType(),component);
+		component.setEntity(this);
 	}
 	
 	
