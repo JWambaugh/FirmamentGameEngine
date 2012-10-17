@@ -40,10 +40,10 @@ class FBox2DWorld extends FWorld
 	var b2world:B2World;
 	
 	private var deleteQueue:Array<FEntity>;
-	public function new(gravity:FVector) 
+	public function new() 
 	{
 		super();
-		this.b2world = new B2World(gravity, true);
+		this.b2world = new B2World(new B2Vec2(0,0), true);
 		this.deleteQueue = new Array<FEntity>();
 		//this.b2world.setContactListener(new FPhysicsWorldContactListener(this));
 	}

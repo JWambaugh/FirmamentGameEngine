@@ -67,8 +67,6 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 			
 			//Firmament.log(entities);
 			entityList=entityList.concat(entities);
-			
-			
 		}
 		entityList.sort(function(a:FEntity,b:FEntity):Int{
 			var cmp = cast(a.getComponent("physics"),FPhysicsComponentInterface).getZPosition() - cast(b.getComponent("physics"),FPhysicsComponentInterface).getZPosition();
@@ -78,9 +76,8 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 			return -1;
 		});
 		for (ent in entityList) {
-				cast(ent.getComponent("render"),FRenderComponentInterface).render(this);
-				//wireframe.render(ent,this);
-			}
+			cast(ent.getComponent("render"),FRenderComponentInterface).render(this);
+		}
 	}
 	private function calculateTopLeftPosition() {
 		//trace(this.width);

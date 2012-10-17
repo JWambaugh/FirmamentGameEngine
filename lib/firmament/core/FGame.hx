@@ -38,10 +38,12 @@ class FGame extends EventDispatcher
 	//CONSTANT: AFTER_STEP
 	public static inline var AFTER_STEP = 'afterStep';
 	
+	private static var _instance:FGame;
+
 	/**
 	 * Constructor: new
 	 */
-	public function new() 
+	private function new() 
 	{
 		super();
 		
@@ -57,6 +59,17 @@ class FGame extends EventDispatcher
 		*/
 		
 		
+	}
+
+	/*
+		Function: instance
+		returns the singleton instance of FGame.
+	*/
+	public static function instance():FGame{
+		if(_instance == null){
+			_instance = new FGame();
+		}
+		return _instance;
 	}
 	
 	/**

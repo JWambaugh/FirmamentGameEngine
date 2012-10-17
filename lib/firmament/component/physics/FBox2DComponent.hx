@@ -15,6 +15,7 @@ import box2D.dynamics.B2FixtureDef;
 import box2D.dynamics.B2Fixture;
 import box2D.collision.shapes.B2Shape;
 import haxe.Timer;
+import firmament.core.FGame;
 
 /**
  * Class: FBox2DComponent
@@ -31,10 +32,11 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	public function new() 
 	{
 		super();
+		this.world = FGame.instance().getWorld("box2d");
 	}
 	
 	override public function init(config:Dynamic):Void {
-		super.init(config);
+		
 		var def:B2BodyDef = new B2BodyDef();
 		var fixtureDef:B2FixtureDef = new B2FixtureDef();
 		
@@ -43,7 +45,6 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		}
 		else if(Reflect.isObject(config.position)){
 			def.position = new B2Vec2(config.position.x,config.position.y);
-		
 		}
 		else {
 			def.position = cast(new FVector(0, 0),B2Vec2);
@@ -169,5 +170,22 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	override public function getType():String {
 		return "physics";
 	}
+
+	public function hasShapes():Bool{
+		return true;
+	}
+
+	//TODO: Cache the response from this for speed
+	public function getShapes():Array<B2Shape>{
+		var fixture = this.body.getFixtureList();
+		var shapes = new Array<B2Shape>();
+		while (fixture != null) {
+			shapes.push(fixture.getShape());
+			fixture = fixture.getNext();
+		}
+		return shapes;
+	}
+
+
 
 }
