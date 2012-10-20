@@ -2,6 +2,7 @@ package firmament.utils.loader.serializer;
 import firmament.utils.loader.serializer.FSerializerInterface;
 
 import hxjson2.JSON;
+import tjson.TJSON;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -14,7 +15,7 @@ class FJsonSerializer implements FSerializerInterface
 	}
 	public function unserialize(data:String):Dynamic {
 		
-		return JSON.decode(data);
+		return TJSON.parse(data);
 		
 	}
 	
