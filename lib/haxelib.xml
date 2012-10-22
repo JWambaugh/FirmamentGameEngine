@@ -11,7 +11,7 @@
     <tag v="2D"/>
     <tag v="physics"/>
     <description>2D game engine using NME. Port of Firmament Game Engine to HaXe.</description>
-    <version name="1.0.0">Promoting to version 1.0.0</version>
+    <version name="1.0.1">Using TJSON for json parsing so we can support comments in json files.</version>
     <depends name="nme"/>
     <depends name="hxJson2"/>
     <depends name="tjson"/>
