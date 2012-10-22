@@ -20,9 +20,12 @@ import firmament.core.FEntity;
 import firmament.core.FWorldFactory;
 import firmament.utils.loader.serializer.FSerializerFactory;
 import firmament.core.FCamera;
+import firmament.core.FProcessManager;
+
+
 
 /**
- * Main Game class
+ * Class: FGame
  */
 class FGame extends EventDispatcher
 {

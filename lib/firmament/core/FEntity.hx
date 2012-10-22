@@ -24,8 +24,8 @@ class FEntity extends nme.events.EventDispatcher
 	 * Constructor: new
 	 * 
 	 * Config Paramers:
-		 * imageScale - [Float] The initial scale value for the sprite.
-		 * sprite  - [BitmapData] The image to use as a sprite for this entity
+	 * 	imageScale - [Float] The initial scale value for the sprite.
+	 * 	sprite  - [BitmapData] The image to use as a sprite for this entity
 	 */
 	public function new(config:Dynamic) 
 	{
