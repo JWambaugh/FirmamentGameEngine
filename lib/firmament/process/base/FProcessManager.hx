@@ -1,4 +1,4 @@
-package firmament.core;
+package firmament.process.base;
 
 /**
  * ...
@@ -49,7 +49,7 @@ class FProcessManager
 	 * @param	p
 	 */
 	public function abortProcess(p:FProcessInterface) {
-		if (p.isRunning ) {
+		if (p.isRunning() ) {
 			if (!p.beforeAbort()) {
 				throw "Cannot abort process";
 			}

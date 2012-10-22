@@ -1,5 +1,5 @@
-package firmament.core;
-
+package firmament.process.base;
+import firmament.process.base.FProcessManager;
 /**
  * Basic process implementation that does nothing. Extend for easy process implementation.
  * @author Jordan Wambaugh
@@ -9,6 +9,7 @@ class FProcess implements FProcessInterface
 {
 	var _isComplete:Bool;
 	var _isRunning:Bool;
+	var _manager:FProcessManager;
 
 	public function new() 
 	{
@@ -20,7 +21,7 @@ class FProcess implements FProcessInterface
 	/**
 	 * Called when the process is added to the manager queue, before the process is started.
 	 */
-	public function beforeStart():Void {
+	public function beforeStart(processManager:FProcessManager):Void{
 		_isRunning = true;
 	}
 	
@@ -50,7 +51,7 @@ class FProcess implements FProcessInterface
 	/**
 	 * Should return true if the process is currently running.
 	 */
-	public function isRunning():Void {
+	public function isRunning():Bool {
 		return _isRunning;
 	}
 	

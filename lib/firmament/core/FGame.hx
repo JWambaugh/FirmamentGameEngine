@@ -20,9 +20,9 @@ import firmament.core.FEntity;
 import firmament.core.FWorldFactory;
 import firmament.utils.loader.serializer.FSerializerFactory;
 import firmament.core.FCamera;
-import firmament.core.FProcessManager;
-
-
+import firmament.process.base.FProcessManager;
+import firmament.process.engine.FWorldStepProcess;
+import firmament.process.engine.FCameraRenderProcess;
 
 /**
  * Class: FGame
@@ -32,6 +32,7 @@ class FGame extends EventDispatcher
 	var cameras:Hash<FCamera>;
 	var worldHash:Hash<FWorld>; 
 	var enableSimulation:Bool;
+	var processManager:FProcessManager;
 	//Constant: COLLISION_EVENT
 	public static inline var COLLISION_EVENT = 'collision';
 	
@@ -54,6 +55,7 @@ class FGame extends EventDispatcher
 		worldHash = new Hash<FWorld>();
 		cameras = new Hash<FCamera>();
 		var stage = Lib.current.stage;
+		this.processManager = new FProcessManager();
 		stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
 		
 		/*var timer = new Timer(33);
@@ -89,7 +91,7 @@ class FGame extends EventDispatcher
 	/**
 	 * Function: getWorld
 	 *
-	 * Returns: an FWorld objecto of the type provided
+	 * Returns: an FWorld object of the type provided
 	 */
 	public function getWorld(type:String):FWorld{
 		if(worldHash.exists(type)){
@@ -97,7 +99,16 @@ class FGame extends EventDispatcher
 		}
 		var w = FWorldFactory.createWorld(type);
 		worldHash.set(type, w);
+
+		//set up process for it
+		var p = new FWorldStepProcess(w);
+		this.processManager.addProcess(p);
+
 		return w;
+	}
+
+	public function getWorlds():Hash<FWorld>{
+		return this.worldHash;
 	}
 
 	/**
@@ -111,6 +122,7 @@ class FGame extends EventDispatcher
 	 */
 	public function addCamera(name:String,c:FCamera):Void {
 		this.cameras.set(name,c);
+		this.processManager.addProcess(new FCameraRenderProcess(c));
 	}
 
 
@@ -129,10 +141,7 @@ class FGame extends EventDispatcher
 	private function doStep():Void {
 		if (!this.enableSimulation) return;
 		this.dispatchEvent(new Event(FGame.BEFORE_STEP));
-		for (world in this.worldHash) {
-			world.step();
-			
-		}
+		this.processManager.step();
 		this.dispatchEvent(new Event(FGame.AFTER_STEP));
 	}
 
@@ -145,12 +154,9 @@ class FGame extends EventDispatcher
 		this.doStep();
 		//trace("step time: "+(haxe.Timer.stamp() - start));
 		
-		//var start = haxe.Timer.stamp();
-		for(camera in cameras){
-			camera.render(worldHash);
-		}
+	
 		
-	}
+	} 
 
 
 }
