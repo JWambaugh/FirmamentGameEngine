@@ -18,7 +18,7 @@ import nme.utils.Timer;
 import haxe.Timer;
 import firmament.core.FEntity;
 import firmament.core.FWorldFactory;
-
+import firmament.utils.loader.serializer.FSerializerFactory;
 import firmament.core.FCamera;
 
 /**
@@ -26,7 +26,7 @@ import firmament.core.FCamera;
  */
 class FGame extends EventDispatcher
 {
-	var cameras:Array<FCamera>;
+	var cameras:Hash<FCamera>;
 	var worldHash:Hash<FWorld>; 
 	var enableSimulation:Bool;
 	//Constant: COLLISION_EVENT
@@ -49,7 +49,7 @@ class FGame extends EventDispatcher
 		
 		this.enableSimulation = true;
 		worldHash = new Hash<FWorld>();
-		cameras = new Array<FCamera>();
+		cameras = new Hash<FCamera>();
 		var stage = Lib.current.stage;
 		stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
 		
@@ -57,9 +57,20 @@ class FGame extends EventDispatcher
 		timer.addEventListener(TimerEvent.TIMER, this_step);
 		timer.start();
 		*/
-		
-		
 	}
+
+
+
+	public function loadGameConfig(fileName:String){
+		var serializer = FSerializerFactory.getSerializerForFile(fileName);
+		if (serializer == null) {
+			throw ("Appropriate serializer for fileName "+fileName+" could not befound.");
+		}
+		var string = Assets.getText(fileName);
+		var config = serializer.unserialize(string);
+	}
+
+
 
 	/*
 		Function: instance
@@ -92,29 +103,45 @@ class FGame extends EventDispatcher
 	 * Adds a new <FCamera> object to the game. Cameras must be added to the game in order for them to work.
 	 * 
 	 * Parameters:
+	 *	name - String the name to call the camera. Used for getting the right camera.
 	 *	c - <FCamera> The camera to add
 	 */
-	public function addCamera(c:FCamera) {
-		this.cameras.push(c);
+	public function addCamera(name:String,c:FCamera):Void {
+		this.cameras.set(name,c);
+	}
+
+
+	/**
+	 *	Function: getCamera
+	 *	Parameters:
+	 *		name - String the name of the camera to retrieve
+	 *	Returns: <FCamera>
+	*/
+	public function getCamera(name:String):FCamera{
+		return this.cameras.get(name);
 	}
 	
 	
 	
 	private function doStep():Void {
 		if (!this.enableSimulation) return;
-		
+		this.dispatchEvent(new Event(FGame.BEFORE_STEP));
 		for (world in this.worldHash) {
 			world.step();
 			
 		}
+		this.dispatchEvent(new Event(FGame.AFTER_STEP));
 	}
+
+
+
 	private function this_onEnterFrame (event:Event):Void {
 		//trace('this is called.');
-		this.dispatchEvent(new Event(FGame.BEFORE_STEP));
+		
 		//var start = haxe.Timer.stamp();
 		this.doStep();
 		//trace("step time: "+(haxe.Timer.stamp() - start));
-		this.dispatchEvent(new Event(FGame.AFTER_STEP));
+		
 		//var start = haxe.Timer.stamp();
 		for(camera in cameras){
 			camera.render(worldHash);
