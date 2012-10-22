@@ -11,11 +11,13 @@ using StringTools;
 class Cli {
 	
 	static var firmamentPath:String;
+	static var projectHomeDir:String;
 	public static function main() {
 		var args:Array<String> = Sys.args();
 		var last:String = (new neko.io.Path(args.pop())).toString();
 		var slash = last.substr( -1);
-		
+
+	
 		firmamentPath = Sys.getCwd();
 		
 		if (slash=="/"|| slash=="\\") 
@@ -67,6 +69,8 @@ class Cli {
 		
 		};
 		
+		projectHomeDir = Sys.getCwd()+projectName;
+
 		processTemplateDir(templatePath, projectName,vars,projectName,"__SRC__");
 		
 		var sourceCodeDir = projectName + "/src/" + packageName.replace(".", "/");
@@ -129,7 +133,7 @@ class Cli {
 		var destFile = fileName.replace("__PROJECT_NAME__", projectName);
 		
 		//do interpolation if the filename is any of these types
-		if (stringContainsAny(fileName, [".hx", ".nmml", ".xml", ".md", ".htm", ".html", ".txt",".fprj"])){
+		if (stringContainsAny(fileName, [".hx", ".nmml", ".xml", ".md", ".htm", ".html", ".txt",".fprj",".sublime"])){
 			data = interpolateVarsIntoString(data, vars);
 		}
 		File.saveContent(destDir + "/" + destFile,data);
@@ -137,6 +141,12 @@ class Cli {
 	}
 	
 	static function interpolateVarsIntoString(str:String, vars:Dynamic):String {
+		vars.HAXE_PATH = Sys.getEnv("HAXEPATH");
+		vars.FIRMAMENT_PATH = firmamentPath.replace("\\","/");
+		vars.PROJECT_HOME_PATH = projectHomeDir.replace("\\","/");
+		//no colon varieties
+		vars.PROJECT_HOME_PATH_NC = projectHomeDir.replace("\\","/").replace(":","");
+		vars.FIRMAMENT_PATH_NC = firmamentPath.replace("\\","/").replace(":","");
 		var fields = Reflect.fields(vars);
 		for (field in fields) {
 			str=str.replace("[*" + field + "*]", Reflect.field(vars, field));
@@ -156,5 +166,7 @@ class Cli {
 		first = first.toUpperCase();
 		return first + str.substr(1);
 	}
+
+
 	
 }

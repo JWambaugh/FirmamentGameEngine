@@ -80,6 +80,15 @@ class FPhysicsEntity extends FEntity
 		if(Std.is(config.angle,Float))
 			def.angle = config.angle;
 		def.fixedRotation = false;
+		
+		if (Std.is(config.fixedRotation, Bool)) {
+			def.fixedRotation = config.fixedRotation;
+		}
+		if (Std.is(config.allowSleep, Bool)) {
+			def.allowSleep= config.allowSleep;
+		}
+		
+		
 		body = physWorld.getB2World().createBody(def);
 		
 		//body.createFixture2(new B2CircleShape(1));
