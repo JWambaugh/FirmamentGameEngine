@@ -58,7 +58,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		
 		//this.graphics.drawRect(0,0, this.displayWidth, this.displayHeight);
 		var entityList:Array<FEntity> = new Array<FEntity>();
-		var displayPadding = 4; //number of meters to pad in query for entities. Incres this if you have entities popping out at the edges
+		var displayPadding = 4; //number of meters to pad in query for entities. Increase this if you have entities popping out at the edges
 		for (world in worlds) {
 			var entities = world.getEntitiesInBox(Math.floor(this.position.x - (this.displayWidth / 2 / this.zoom+displayPadding))
 				,Math.floor(this.position.y - (this.displayHeight / 2 / this.zoom+displayPadding))

@@ -57,7 +57,7 @@ class FBox2DWorld extends FWorld
 		
 		this.b2world.queryAABB(function(fixture){
 			
-			selectEntities.push(fixture.getBody().getUserData());
+			selectEntities.push(cast(fixture.getBody().getUserData(),FBox2DComponent).getEntity());
 			return true;
 		},query);
 	  

@@ -16,6 +16,7 @@ class FEntityComponent extends EventDispatcher
 	private var _config:Dynamic;
 	private var _entity:FEntity;
 	
+	
 	public function new() 
 	{
 		super();
@@ -33,6 +34,10 @@ class FEntityComponent extends EventDispatcher
 	
 	public function setEntity(entity:FEntity){
 		this._entity = entity;
+	}
+
+	public function getEntity():FEntity{
+		return this._entity;
 	}
 
 	
