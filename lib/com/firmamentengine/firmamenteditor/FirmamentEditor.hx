@@ -58,25 +58,16 @@ class FirmamentEditor
 		//Sys.setCwd(executableDir);
 		trace(executableDir);
 		//set styles
-		
-		#if (mac)
-		var font = Assets.getFont ("assets/MILF____.TTF");
+	
+		var font = Assets.getFont ("assets/fonts/Ubuntu-R.ttf");
 		FStyle.setStyleObj("",{
 			fontName:font.fontName
-			,fontSize:15
-			,fontHeightMultiplier:2.5
-			,fontLeading:50			
-			
-		});
-		#else
-		FStyle.setStyleObj("",{
-			
-			fontHeightMultiplier:1
+			,fontHeightMultiplier:1
 			,fontHeightAdd:4
 					
 			
 		});
-	   #end
+	   
 		var stage = Lib.current.stage;
 		stage.align = StageAlign.TOP_LEFT;
 		stage.scaleMode = StageScaleMode.NO_SCALE;

@@ -26,6 +26,10 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		drawList = new Array<Float>();
 		super();
 	}
+
+	override public function init(config:Dynamic){
+
+	}
 	
 	public function render(camera:FCamera):Void {
 		var TILE_FIELDS = 6; // x+y+index+scale+rotation+alpha
