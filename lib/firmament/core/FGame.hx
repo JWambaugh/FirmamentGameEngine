@@ -139,7 +139,6 @@ class FGame extends EventDispatcher
 	
 	
 	private function doStep():Void {
-		if (!this.enableSimulation) return;
 		this.dispatchEvent(new Event(FGame.BEFORE_STEP));
 		this.processManager.step();
 		this.dispatchEvent(new Event(FGame.AFTER_STEP));

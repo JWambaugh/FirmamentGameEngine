@@ -84,7 +84,7 @@ class FBox2DWorld extends FWorld
 		
 		//loop through each fixture in each entity, and see if its an actual match.
 		for (ent in ents) {
-			var component = cast(ent.getPhysicsComponent, FBox2DComponent);
+			var component = cast(ent.getPhysicsComponent(), FBox2DComponent);
 			var fixture = component.body.getFixtureList();
 			while (fixture!=null) {
 				if (fixture.testPoint(p)) {

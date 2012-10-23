@@ -2,6 +2,7 @@
 package firmament.process.engine;
 import firmament.process.base.FProcess;
 import firmament.core.FWorld;
+import firmament.core.FGame;
 class FWorldStepProcess extends FProcess {
 
 	private var world:FWorld;
@@ -11,7 +12,9 @@ class FWorldStepProcess extends FProcess {
 	}
 
 	override public function step(){
-		this.world.step();
+		if(FGame.instance().enableSimulation){
+			this.world.step();
+		}
 	}
 	
 
