@@ -12,6 +12,7 @@
 	<classpath name="../lib" />
 	<haxelib name="nme" />
 	<haxelib name="hxJson2" />
+	<haxelib name="tjson" />
 	<!-- icons -->
 	
 	<assets path="assets" include="*" exclude="" />

@@ -8,7 +8,7 @@ package firmament.process.base;
 class FProcessManager 
 {
 	var processQueue:Array<FProcessInterface>;
-	var iteration:UInt;
+	var iteration:Int;
 	
 	public function new() 
 	{

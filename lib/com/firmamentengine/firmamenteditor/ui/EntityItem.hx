@@ -93,7 +93,7 @@ class EntityItem extends Sprite
 				var config = Reflect.copy(this.config);
 				config.sprite = this.sprite;
 				config.position = FirmamentEditor.camera.getWorldPosition(e.stageX,e.stageY);
-				var ent = new FEditorEntity(world, config);
+				var ent = new FEditorEntity(config);
 				ent.setFileName(this.filePath);
 				FirmamentEditor.entityWindow.setEntity(ent);
 				FirmamentEditor.dragEnt = ent;

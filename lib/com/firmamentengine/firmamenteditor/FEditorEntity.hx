@@ -1,19 +1,18 @@
 package com.firmamentengine.firmamenteditor;
 import firmament.core.FEntity;
-import firmament.core.FSpriteRenderer;
-import firmament.core.FPhysicsWorld;
+import firmament.utils.FEntityCompat;
 import firmament.ui.FDialog;
 /**
  * ...
  * @author Jordan Wambaugh
  */
-
+using firmament.utils.FEntityCompat;
 class FEditorEntity extends FEntity
 {
 
 	var originalSprite:Dynamic;
 	var fileName:String;
-	public function new(world:FPhysicsWorld,config:Dynamic) 
+	public function new(config:Dynamic) 
 	{
 		//must preserve original config for editor
 		this.originalSprite = config.sprite;
@@ -22,7 +21,7 @@ class FEditorEntity extends FEntity
 		if(Std.is(config.sprite,String)){
 			config.sprite = ResourceLoader.loadImage(config.sprite);
 		}
-		super(world, config);
+		super(config);
 		
 		this.config.sprite = originalSprite;
 	}

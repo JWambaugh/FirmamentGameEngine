@@ -7,7 +7,6 @@ import com.firmamentengine.firmamenteditor.ui.ProjectSettings;
 import firmament.core.FCamera;
 import firmament.core.FEntity;
 import firmament.core.FGame;
-import firmament.core.FPhysicsWorld;
 import firmament.core.FEntity;
 import firmament.core.FVector;
 import nme.display.StageAlign;
@@ -21,23 +20,24 @@ import firmament.ui.FDialog;
 import firmament.ui.FStyle;
 import nme.display.StageQuality;
 import firmament.core.FInput;
+import firmament.core.FBox2DWorld;
 
 /**
  * ...
  * @author Jordan Wambaugh
  */
 using StringTools;
+using firmament.utils.FEntityCompat;
 class FirmamentEditor
 {
 	
-	public static var world:FPhysicsWorld;
 	public static var camera:FCamera;
 	public static var projectEditor:ProjectSettings;
 	public static var game:FGame;
 	public static var entitySelector:EntitySelector;
 	public static var toolBar:ToolBar;
 	public static var entityWindow:EntityWindow;
-	
+	public static var world:FBox2DWorld;
 	public static var dragEnt:FEntity;
 
 	public static var dragOffset:FVector;
@@ -82,11 +82,10 @@ class FirmamentEditor
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.quality = StageQuality.BEST;
 		camera = new FCamera(stage.stageWidth,stage.stageHeight);
-		game  = new FGame();
+		game  = FGame.instance();
+		world = cast(game.getWorld("box2d"));
 		game.enableSimulation = false;
-		world = new FPhysicsWorld(new FVector(0,0));
-		game.addWorld(world);
-		game.addCamera(camera);
+		game.addCamera("main",camera);
 		stage.addChild(camera);
 		
 		toolBar = new ToolBar();

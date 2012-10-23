@@ -56,7 +56,6 @@ class FBox2DWorld extends FWorld
 		query.lowerBound.set(topLeftX,topLeftY);
 		
 		this.b2world.queryAABB(function(fixture){
-			
 			selectEntities.push(cast(fixture.getBody().getUserData(),FBox2DComponent).getEntity());
 			return true;
 		},query);

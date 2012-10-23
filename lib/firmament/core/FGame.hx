@@ -31,7 +31,7 @@ class FGame extends EventDispatcher
 {
 	var cameras:Hash<FCamera>;
 	var worldHash:Hash<FWorld>; 
-	var enableSimulation:Bool;
+	public var enableSimulation:Bool;
 	var processManager:FProcessManager;
 	//Constant: COLLISION_EVENT
 	public static inline var COLLISION_EVENT = 'collision';

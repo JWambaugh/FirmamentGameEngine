@@ -63,7 +63,7 @@ class ToolBar extends FWindow
 			var path = FirmamentEditor.projectEditor.getMapDir() + "/" + fileName;
 			//FDialog.alert(path);
 			
-			FEntityLoader.getInstance().loadMap(path, FirmamentEditor.world,"com.firmamentengine.firmamenteditor.FEditorEntity");
+			FEntityLoader.getInstance().loadMap(path, "com.firmamentengine.firmamenteditor.FEditorEntity");
 		},"Load Map",lastFileName );
 	}
 	
