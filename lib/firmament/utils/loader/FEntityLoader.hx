@@ -10,6 +10,7 @@ import firmament.utils.FMisc;
 import firmament.utils.loader.serializer.FSerializerFactory;
 import nme.Assets;
 import firmament.ui.FDialog;
+import firmament.core.FEntityFactory;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -56,32 +57,24 @@ class FEntityLoader extends EventDispatcher
 			string = File.getContent(fileName);
 		}
 		#end
+		if(string==null){
+			throw("Error reading data from "+fileName);
+		}
 		var data = serializer.unserialize(string);
 		if (data == null) {
 			throw("entity data could not be unserialized for "+fileName);
 		}
 		data.entityFile = fileName;
-		FMisc.cloneInto(config,data);
+		FMisc.mergeInto(config,data);
 		
 		var ent:FEntity;
 		
-		var className = null;
-		if(Std.is(data.className, String)){
-			className = data.className;
-		}
+		
 		if (overrideClass != null) {
-			className = overrideClass;
+			data.className = overrideClass;
 		}
-		if (className!=null) {
-			//trace("Classname is set!");
-			var c =Type.resolveClass(className);
-			if(c==null){
-				throw "class "+data.className+" could not be found. Did you remember to include the whole package name?";
-			}
-			ent = Type.createInstance(c, [data]);
-		}else {
-			ent = new FEntity(data);
-		}
+		
+		ent = FEntityFactory.createEntity(data);
 		this.dispatchEvent(new FEntityLoadEvent(ENTITY_LOADED,ent));
 		return ent;
 		

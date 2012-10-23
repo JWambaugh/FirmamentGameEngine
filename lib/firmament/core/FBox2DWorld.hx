@@ -122,8 +122,8 @@ class FBox2DWorld extends FWorld
 		this.endOfStep();
 		var contact = this.b2world.getContactList();
 		while (contact!=null) {
-			var entA:FEntity = cast(contact.getFixtureA().getBody().getUserData());
-			var entB:FEntity = cast(contact.getFixtureB().getBody().getUserData());
+			var entA:FEntity = cast(contact.getFixtureA().getBody().getUserData().getEntity());
+			var entB:FEntity = cast(contact.getFixtureB().getBody().getUserData().getEntity());
 			entA.dispatchEvent(new FPhysicsCollisionEvent(contact));
 			entB.dispatchEvent(new FPhysicsCollisionEvent(contact));
 			contact = contact.getNext();

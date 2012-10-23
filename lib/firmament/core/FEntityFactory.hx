@@ -7,7 +7,16 @@ import firmament.component.base.FEntityComponentFactory;
 class FEntityFactory{
 
 	public static function createEntity(config:Dynamic):FEntity{
-		var entity:FEntity = new FEntity(config);
+		var entity:FEntity;
+		if(Std.is(config.className, String)){
+			var c =Type.resolveClass(config.className);
+			if(c==null){
+				throw "class "+config.className+" could not be found. Did you remember to include the whole package name?";
+			}
+			entity = Type.createInstance(c,[config]);
+		} else {
+			entity = new FEntity(config);
+		}
 		applyComponents(entity,config);
 		return entity;
 	}
@@ -17,10 +26,11 @@ class FEntityFactory{
 		if(!Std.is(config.components,Dynamic)){
 			throw("no components specified in entity config.");
 		}
-		for(componentName in Reflect.fields(config.components)){
-			var component = FEntityComponentFactory.createComponent(componentName);
+		for(componentType in Reflect.fields(config.components)){
+			var cConfig= Reflect.field(config.components,componentType);
+			var component = FEntityComponentFactory.createComponent(cConfig.componentName);
 			entity.setComponent(component);
-			component.init(Reflect.field(config.components,componentName));
+			component.init(cConfig);
 		}
 	}
 
