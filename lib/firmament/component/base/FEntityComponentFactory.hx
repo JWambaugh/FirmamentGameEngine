@@ -4,7 +4,7 @@ import firmament.component.base.FEntityComponent;
 
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.render.FWireframeRenderComponent;
-
+import firmament.component.render.FTilesheetRenderComponent;
 
 class FEntityComponentFactory{
 	public static function createComponent(type:String):FEntityComponent {
@@ -24,7 +24,7 @@ class FEntityComponentFactory{
 		return switch(type){
 			case "box2d":"firmament.component.physics.FBox2DComponent";
 			case "wireframe":"firmament.component.render.FWireframeRenderComponent";
-			
+			case "tileSheet":"firmament.component.render.FTilesheetRenderComponent";
 			default: throw "World type '"+type+"' not found";
 		}
 	}

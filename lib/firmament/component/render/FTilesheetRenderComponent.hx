@@ -10,6 +10,7 @@ import nme.geom.Point;
 import nme.events.EventDispatcher;
 import nme.display.Tilesheet;
 import nme.geom.Rectangle;
+import nme.Assets;
 /**
  * ...
  * @author jordan
@@ -23,12 +24,17 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 	public function new() 
 	
 	{
-		drawList = new Array<Float>();
 		super();
+		drawList = new Array<Float>();
+		
 	}
 
 	override public function init(config:Dynamic){
-
+		var fileName = config.tileSheetImage;
+		var i:nme.display.BitmapData = Assets.getBitmapData(fileName);
+		tileSheet = new Tilesheet(i);
+		tileSheet.addTileRect(new Rectangle (0, 0, i.width, i.height),new Point(i.width/2,i.height/2));
+		imageScale = 100;
 	}
 	
 	public function render(camera:FCamera):Void {
@@ -60,9 +66,6 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		
 		tileSheet.drawTiles(camera.graphics, drawList, true, 
 			Tilesheet.TILE_SCALE | Tilesheet.TILE_ROTATION | Tilesheet.TILE_ALPHA);
-		
-		
-		
 	}
 	
 	override public function getType():String {

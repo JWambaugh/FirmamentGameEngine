@@ -63,9 +63,8 @@ class FirmamentEditor
 		FStyle.setStyleObj("",{
 			fontName:font.fontName
 			,fontHeightMultiplier:1
-			,fontHeightAdd:4
+			,fontHeightAdd:5
 					
-			
 		});
 	   
 		var stage = Lib.current.stage;
