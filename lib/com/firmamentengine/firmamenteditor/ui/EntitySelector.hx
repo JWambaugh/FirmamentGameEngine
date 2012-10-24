@@ -36,6 +36,8 @@ class EntitySelector extends FWindow
 	}
 	
 	function loadEntities(entityDir:String) {
+		var exeDir = Sys.getCwd();
+		Sys.setCwd(FirmamentEditor.cwd);
 		var files = FileSystem.readDirectory(entityDir);
 		var serializer = new FJsonSerializer();
 		for (file in files) {
@@ -50,6 +52,7 @@ class EntitySelector extends FWindow
 			}
 			
 		}
+		Sys.setCwd(exeDir);
 	}
 	
 }

@@ -158,6 +158,7 @@ class FirmamentEditor
 			
 		} );
 		
+		Sys.setCwd(cwd);
 		//FDialog.prompt("Howdy! please put somthing in here.", function(s) { } ,"Please enter your name","jordan");
     }
 }

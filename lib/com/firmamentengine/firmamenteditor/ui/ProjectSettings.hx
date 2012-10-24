@@ -72,8 +72,6 @@ class ProjectSettings extends FWindow
 		var data;
 		try{
 			var exeDir = Sys.getCwd();
-			trace(FirmamentEditor.cwd);
-			trace(exeDir);
 			Sys.setCwd(FirmamentEditor.cwd);
 			data = File.getContent(projectFileTxt.text);
 			Sys.setCwd(exeDir);
