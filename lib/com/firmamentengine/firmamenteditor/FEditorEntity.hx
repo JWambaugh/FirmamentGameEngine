@@ -15,15 +15,15 @@ class FEditorEntity extends FEntity
 	public function new(config:Dynamic) 
 	{
 		//must preserve original config for editor
-		this.originalSprite = config.sprite;
+		this.originalSprite = config.components.render.tileSheetImage;
 		this.fileName = config.entityFile;
 		//need to use our own image loader here since we don't have compiled assets
-		if(Std.is(config.sprite,String)){
-			config.sprite = ResourceLoader.loadImage(config.sprite);
+		if(Std.is(config.components.render.tileSheetImage,String)){
+			config.components.render.tileSheetImage = ResourceLoader.loadImage(config.components.render.tileSheetImage);
 		}
 		super(config);
 		
-		this.config.sprite = originalSprite;
+		
 	}
 	
 	public function setFileName(n:String) {
@@ -36,8 +36,12 @@ class FEditorEntity extends FEntity
 		return { 
 			entityFile:this.fileName
 			,config: {
-				position: this.getPosition()
-				,angle: this.getAngle()
+				components:{
+					physics:{
+						position: this.getPosition()
+						,angle: this.getAngle()
+						}
+					}
 				}
 			};
 		

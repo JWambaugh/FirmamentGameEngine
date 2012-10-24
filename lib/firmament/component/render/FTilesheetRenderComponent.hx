@@ -34,6 +34,7 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		
 		var i:Dynamic=null;
 		if(Std.is(fileName,String)){
+			trace("Filename: " + Std.string(fileName));
 			i = Assets.getBitmapData(cast(fileName,String));
 			tileSheet = new Tilesheet(i);
 			tileSheet.addTileRect(new Rectangle (0, 0, i.width, i.height),new Point(i.width/2,i.height/2));
