@@ -39,7 +39,7 @@ class FirmamentEditor
 	public static var entityWindow:EntityWindow;
 	public static var world:FBox2DWorld;
 	public static var dragEnt:FEntity;
-
+	public static var cwd:String;
 	public static var dragOffset:FVector;
     public static function main()
     {
@@ -56,8 +56,11 @@ class FirmamentEditor
 		arr.pop();
 		executableDir = arr.join("/");
 		//Sys.setCwd(executableDir);
-		trace(executableDir);
 		//set styles
+
+		cwd = Sys.getCwd();
+		//temporarily changeworking directory while we load our font
+		Sys.setCwd(executableDir);
 	
 		var font = Assets.getFont ("assets/fonts/Ubuntu-R.ttf");
 		FStyle.setStyleObj("",{
@@ -66,7 +69,7 @@ class FirmamentEditor
 			,fontHeightAdd:5
 					
 		});
-	   
+	   	
 		var stage = Lib.current.stage;
 		stage.align = StageAlign.TOP_LEFT;
 		stage.scaleMode = StageScaleMode.NO_SCALE;

@@ -71,7 +71,12 @@ class ProjectSettings extends FWindow
 		}
 		var data;
 		try{
+			var exeDir = Sys.getCwd();
+			trace(FirmamentEditor.cwd);
+			trace(exeDir);
+			Sys.setCwd(FirmamentEditor.cwd);
 			data = File.getContent(projectFileTxt.text);
+			Sys.setCwd(exeDir);
 			var serializer = new FJsonSerializer();
 			var settings = serializer.unserialize(data);
 			this.entityDirTxt.text = settings.entityDir;

@@ -39,9 +39,11 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 			tileSheet.addTileRect(new Rectangle (0, 0, i.width, i.height),new Point(i.width/2,i.height/2));
 		}
 		else if(Std.is(fileName,BitmapData)){
-			i = new Tilesheet(cast(fileName,BitmapData));
+			i = cast(fileName,BitmapData);
 			tileSheet = new Tilesheet(i);
+
 			tileSheet.addTileRect(new Rectangle (0, 0, i.width, i.height),new Point(i.width/2,i.height/2));
+
 		}
 		else if(Std.is(fileName,Tilesheet)){
 			tileSheet = cast(fileName);
