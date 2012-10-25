@@ -47,10 +47,10 @@ class ToolBar extends FWindow
 			var c = {
 				entities:entC
 				};
-			
+			trace(c);
 			var serializer = new FJsonSerializer();
 			var data:String = serializer.serialize(c).replace("\\/","/");
-			
+			trace(data);
 			File.saveContent(FirmamentEditor.projectEditor.getMapDir() + "/" +fileName, data);
 		},"Save Map", lastFileName);
 		

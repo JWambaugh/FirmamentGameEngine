@@ -33,13 +33,15 @@ class FEditorEntity extends FEntity
 		return this.fileName;
 	}
 	public function getMapConfig():Dynamic {
+		var p = this.getPhysicsComponent();
+
 		return { 
 			entityFile:this.fileName
 			,config: {
 				components:{
 					physics:{
-						position: this.getPosition()
-						,angle: this.getAngle()
+						position: {x:p.getPositionX(),y:getPositionY()}
+						,angle: p.getAngle()
 						}
 					}
 				}

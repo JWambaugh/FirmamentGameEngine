@@ -11,7 +11,7 @@
 	<!-- classpath, haxe libs -->
 	<classpath name="../lib" />
 	<haxelib name="nme" />
-	<haxelib name="hxJson2" />
+	<haxelib name="hx_nice_json" />
 	<haxelib name="tjson" />
 	<!-- icons -->
 	
