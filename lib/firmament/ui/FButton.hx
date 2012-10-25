@@ -50,7 +50,7 @@ class FButton extends FWidget
 		this.graphics.clear();
 		this.graphics.beginFill(this.currentColor);
 		this.graphics.lineStyle(2, 0x555555);
-		trace("width: "+this.text.width);
+		//trace("width: "+this.text.width);
 		this.graphics.drawRoundRect(0, 0, this.text.width+2, this.text.height+2,5);
 		this.graphics.endFill();
 	}
