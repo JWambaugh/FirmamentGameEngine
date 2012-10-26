@@ -1,7 +1,7 @@
 package firmament.process.helper;
 
-import firmament.process.base.FProcess.hx;
-
+import firmament.process.base.FProcess;
+import firmament.process.base.FProcessManager;
 class FCallbackProcess extends FProcess{
 
 	private var config:Dynamic;
@@ -21,13 +21,13 @@ class FCallbackProcess extends FProcess{
 	}
 
 	override public function beforeStart(pm:FProcessManager){
-		if(Std.is(this.config.beforeStart,FProcessManager->Void)){
+		if(Reflect.isFunction(this.config.beforeStart)){
 			this.config.beforeStart(pm);
 		}
 	}
 
 	override public function step(){
-		if(Std.is(this.config.step,Void->Bool)){
+		if(Reflect.isFunction(this.config.step)){
 			var res=this.config.step();
 			if(res == false){
 				this._isComplete=true ;
@@ -36,7 +36,9 @@ class FCallbackProcess extends FProcess{
 	}
 
 	override public function afterFinish(){
-		
+		if(Reflect.isFunction(this.config.afterStart)){
+			this.config.afterStart();
+		}
 	}
 
 }
