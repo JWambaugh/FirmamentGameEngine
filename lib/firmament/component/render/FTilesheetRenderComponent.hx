@@ -30,36 +30,38 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 	}
 
 	override public function init(config:Dynamic){
+		this._config = config;
 		var fileName = config.tileSheetImage;
 		
-		var i:Dynamic=null;
-		if(Std.is(fileName,String)){
-			trace("Filename: " + Std.string(fileName));
-			i = Assets.getBitmapData(cast(fileName,String));
-			tileSheet = new Tilesheet(i);
-			tileSheet.addTileRect(new Rectangle (0, 0, i.width, i.height),new Point(i.width/2,i.height/2));
-		}
-		else if(Std.is(fileName,BitmapData)){
-			i = cast(fileName,BitmapData);
-			tileSheet = new Tilesheet(i);
-
-			tileSheet.addTileRect(new Rectangle (0, 0, i.width, i.height),new Point(i.width/2,i.height/2));
-
-		}
-		else if(Std.is(fileName,Tilesheet)){
+		if(Std.is(fileName,Tilesheet)){
 			tileSheet = cast(fileName);
-		}
-		else{
-			throw("invalid tileSheetImage");
+		}else{
+			var bd:BitmapData;
+			if(Std.is(fileName,String)){
+				trace("Filename: " + Std.string(fileName));
+				bd = Assets.getBitmapData(cast(fileName,String));
+			}
+			else if(Std.is(fileName,BitmapData)){
+				bd = cast(fileName,BitmapData);
+			}
+			else{
+				throw("invalid tileSheetImage");
+			}
+			tileSheet = new Tilesheet(bd);
+			tileSheet.addTileRect(new Rectangle (0, 0, bd.width, bd.height),new Point(bd.width/2,bd.height/2));
 		}
 
-		
-		
-
+		this.setupTileSheet();
 		
 		imageScale = 100;
 	}
 	
+
+	public function setupTileSheet(){
+
+				
+	}
+
 	public function render(camera:FCamera):Void {
 		var TILE_FIELDS = 6; // x+y+index+scale+rotation+alpha
 		
