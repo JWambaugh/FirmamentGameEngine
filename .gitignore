@@ -7,3 +7,4 @@ __chxdoctmp
 /haxelib
 _site
 *.n
+.DS_Store
