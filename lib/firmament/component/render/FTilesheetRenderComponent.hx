@@ -31,7 +31,7 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 
 	override public function init(config:Dynamic){
 		this._config = config;
-		var fileName = config.tileSheetImage;
+		var fileName = config.image;
 		
 		if(Std.is(fileName,Tilesheet)){
 			tileSheet = cast(fileName);

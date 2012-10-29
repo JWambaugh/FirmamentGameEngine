@@ -15,11 +15,11 @@ class FEditorEntity extends FEntity
 	public function new(config:Dynamic) 
 	{
 		//must preserve original config for editor
-		this.originalSprite = config.components.render.tileSheetImage;
+		this.originalSprite = config.components.render.image;
 		this.fileName = config.entityFile;
 		//need to use our own image loader here since we don't have compiled assets
-		if(Std.is(config.components.render.tileSheetImage,String)){
-			config.components.render.tileSheetImage = ResourceLoader.loadImage(config.components.render.tileSheetImage);
+		if(Std.is(config.components.render.image,String)){
+			config.components.render.image = ResourceLoader.loadImage(config.components.render.image);
 		}
 		super(config);
 		

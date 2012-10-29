@@ -11,6 +11,7 @@ import firmament.utils.loader.serializer.FSerializerFactory;
 import nme.Assets;
 import firmament.ui.FDialog;
 import firmament.core.FEntityFactory;
+import firmament.utils.loader.FDataLoader;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -47,24 +48,7 @@ class FEntityLoader extends EventDispatcher
 	 * Function: loadEntity
 	 */
 	public function loadEntity(fileName:String, config:Dynamic,?overrideClass=null):FEntity {
-		var serializer = FSerializerFactory.getSerializerForFile(fileName);
-		if (serializer == null) {
-			throw ("Appropriate serializer for fileName "+fileName+" could not befound.");
-		}
-		var string = Assets.getText(fileName);
-		#if cpp
-		if (string == null || string == '') {
-			string = File.getContent(fileName);
-		}
-		#end
-		if(string==null){
-			throw("Error reading data from "+fileName);
-		}
-		var data = serializer.unserialize(string);
-		if (data == null) {
-			throw("entity data could not be unserialized for "+fileName);
-		}
-		data.entityFile = fileName;
+		var data = FDataLoader.loadData(fileName);
 		FMisc.mergeInto(config,data);
 		
 		var ent:FEntity;
@@ -87,21 +71,7 @@ class FEntityLoader extends EventDispatcher
 	 * 
 	 **/
 	public function loadMap(fileName:String, ?overrideClass=null) {
-		var serializer = FSerializerFactory.getSerializerForFile(fileName);
-		if (serializer == null) {
-			throw ("Appropriate serializer for fileName "+fileName+" could not befound.");
-		}
-		var string = Assets.getText(fileName);
-		#if(cpp)
-		if (string == null || string == '') {
-			string = File.getContent(fileName);
-		}
-		#end
-		
-		var data = serializer.unserialize(string);
-		if (data == null) {
-			throw("entity data could not be unserialized for "+fileName);
-		}
+		var data = FDataLoader.loadData(fileName);
 		
 		
 		if (!Std.is(data.entities, Array)) {
