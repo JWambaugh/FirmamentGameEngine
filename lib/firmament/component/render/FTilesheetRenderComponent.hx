@@ -1,16 +1,21 @@
 package firmament.component.render;
+
+
 import firmament.component.base.FEntityComponent;
 import firmament.component.render.FRenderComponentInterface;
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.core.FCamera;
+import firmament.core.FTilesheet;
+import firmament.core.FTilesheetRenderHelper;
+
 import nme.display.BitmapData;
 import nme.geom.Matrix;
 import nme.display.IBitmapDrawable;
 import nme.geom.Point;
 import nme.events.EventDispatcher;
-import nme.display.Tilesheet;
 import nme.geom.Rectangle;
 import nme.Assets;
+import nme.display.Tilesheet;
 /**
  * ...
  * @author jordan
@@ -18,12 +23,10 @@ import nme.Assets;
 class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComponentInterface 
 {
 	var drawList:Array<Float>;
-	var tileSheet:Tilesheet;
+	var tileSheet:FTilesheet;
 	var imageScale:Int;
 		
-	public function new() 
-	
-	{
+	public function new() {
 		super();
 		drawList = new Array<Float>();
 		
@@ -33,38 +36,34 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		this._config = config;
 		var fileName = config.image;
 		
-		if(Std.is(fileName,Tilesheet)){
-			tileSheet = cast(fileName);
-		}else{
-			var bd:BitmapData;
-			if(Std.is(fileName,String)){
-				trace("Filename: " + Std.string(fileName));
-				bd = Assets.getBitmapData(cast(fileName,String));
+		if(fileName !=null){
+			if(Std.is(fileName,FTilesheet)){
+				tileSheet = cast(fileName);
+			}else{
+				var bd:BitmapData;
+				if(Std.is(fileName,String)){
+					trace("Filename: " + Std.string(fileName));
+					bd = Assets.getBitmapData(cast(fileName,String));
+				}
+				else if(Std.is(fileName,BitmapData)){
+					bd = cast(fileName,BitmapData);
+				}
+				else{
+					throw("invalid tileSheetImage");
+				}
+				tileSheet = new FTilesheet(bd);
+				tileSheet.addTileRect(new Rectangle (0, 0, bd.width, bd.height),new Point(bd.width/2,bd.height/2));
 			}
-			else if(Std.is(fileName,BitmapData)){
-				bd = cast(fileName,BitmapData);
-			}
-			else{
-				throw("invalid tileSheetImage");
-			}
-			tileSheet = new Tilesheet(bd);
-			tileSheet.addTileRect(new Rectangle (0, 0, bd.width, bd.height),new Point(bd.width/2,bd.height/2));
 		}
 
-		this.setupTileSheet();
 		
 		imageScale = 100;
 	}
 	
 
-	public function setupTileSheet(){
-
-				
-	}
-
 	public function render(camera:FCamera):Void {
 		var TILE_FIELDS = 6; // x+y+index+scale+rotation+alpha
-		
+		FTilesheetRenderHelper.getInstance().initCamera(camera);
 		camera.graphics.lineStyle(null,0,0);
 		if (tileSheet == null) {
 			trace('tileSheet is null');

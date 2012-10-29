@@ -21,6 +21,9 @@ import nme.events.Event;
 
 class FCamera extends Sprite ,implements FWorldPositionalInterface 
 {
+	inline static var BEFORE_RENDER_EVENT = "beforeRenderEvent";
+	inline static var AFTER_RENDER_EVENT = "afterRenderEvent";
+
 	var position:FVector;
 	var topLeftPosition:FVector;
 	var positionBase:String;
@@ -51,6 +54,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	}
 	
 	public function render(worlds:Hash<FWorld>) {
+		this.dispatchEvent(new Event(FCamera.BEFORE_RENDER_EVENT));
 		this.graphics.clear();
 		this.graphics.beginFill(0);
 		this.graphics.drawRect(0, 0, this.displayWidth, this.displayHeight);
@@ -78,7 +82,10 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		for (ent in entityList) {
 			cast(ent.getComponent("render"),FRenderComponentInterface).render(this);
 		}
+		this.dispatchEvent(new Event(FCamera.AFTER_RENDER_EVENT));
+
 	}
+
 	private function calculateTopLeftPosition() {
 		//trace(this.width);
 		this.topLeftPosition.x=this.position.x-(this.displayWidth/this.zoom)/2;
