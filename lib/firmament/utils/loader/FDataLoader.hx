@@ -5,7 +5,9 @@ import firmament.utils.FMisc;
 import firmament.utils.loader.serializer.FSerializerFactory;
 import nme.Assets;
 import nme.events.EventDispatcher;
-
+#if(cpp)
+import sys.io.File;
+#end
 
 /*
 	Class: FDataLoader

@@ -40,7 +40,7 @@ class FTilesheetManager {
 
 	public function getTilesheetFromDifinitionFile(fileName:String){
 		for(tilesheet in this.tilesheets){
-			if(tilesheet.getFileName() == fileName){
+			if(tilesheet.getDefinitionFileName() == fileName){
 				return tilesheet;
 			}
 		}
@@ -57,7 +57,7 @@ class FTilesheetManager {
 			bitmap = nme.Assets.getBitmapData(image);
 		}
 		else if(Std.is(image,BitmapData)){
-			bitmap = cast(image);
+			bitmap = cast(image,BitmapData);
 		}
 		else {
 			throw "image property is not a file name";

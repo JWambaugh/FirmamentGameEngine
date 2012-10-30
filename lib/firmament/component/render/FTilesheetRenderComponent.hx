@@ -16,6 +16,7 @@ import nme.events.EventDispatcher;
 import nme.geom.Rectangle;
 import nme.Assets;
 import nme.display.Tilesheet;
+import firmament.core.FTilesheetManager;
 /**
  * ...
  * @author jordan
@@ -23,7 +24,7 @@ import nme.display.Tilesheet;
 class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComponentInterface 
 {
 	var drawList:Array<Float>;
-	var tileSheet:FTilesheet;
+	var tilesheet:FTilesheet;
 	var imageScale:Int;
 		
 	public function new() {
@@ -34,29 +35,31 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 
 	override public function init(config:Dynamic){
 		this._config = config;
-		var fileName = config.image;
+		var image = config.image;
 		
-		if(fileName !=null){
-			if(Std.is(fileName,FTilesheet)){
-				tileSheet = cast(fileName);
+		if(Std.is(config.tilesheetFile,String)){
+			tilesheet = FTilesheetManager.getInstance().getTilesheetFromDifinitionFile(config.tilesheet);
+
+		}
+		else if(image !=null){
+			if(Std.is(image,FTilesheet)){
+				tilesheet = cast(image);
 			}else{
 				var bd:BitmapData;
-				if(Std.is(fileName,String)){
-					trace("Filename: " + Std.string(fileName));
-					bd = Assets.getBitmapData(cast(fileName,String));
+				if(Std.is(image,String)){
+					trace("image: " + Std.string(image));
+					bd = Assets.getBitmapData(cast(image,String));
 				}
-				else if(Std.is(fileName,BitmapData)){
-					bd = cast(fileName,BitmapData);
+				else if(Std.is(image,BitmapData)){
+					bd = cast(image,BitmapData);
 				}
 				else{
 					throw("invalid tileSheetImage");
 				}
-				tileSheet = new FTilesheet(bd);
-				tileSheet.addTileRect(new Rectangle (0, 0, bd.width, bd.height),new Point(bd.width/2,bd.height/2));
+				tilesheet = new FTilesheet(bd);
+				tilesheet.addTileRect(new Rectangle (0, 0, bd.width, bd.height),new Point(bd.width/2,bd.height/2));
 			}
 		}
-
-		
 		imageScale = 100;
 	}
 	
@@ -64,9 +67,8 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 	public function render(camera:FCamera):Void {
 		var TILE_FIELDS = 6; // x+y+index+scale+rotation+alpha
 		FTilesheetRenderHelper.getInstance().initCamera(camera);
-		camera.graphics.lineStyle(null,0,0);
-		if (tileSheet == null) {
-			trace('tileSheet is null');
+		if (tilesheet == null) {
+			trace('tilesheet is null');
 			return;
 		}
 		
@@ -88,7 +90,7 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		drawList[index + 4] = -physicsComponent.getAngle();
 		drawList[index + 5] = 1;
 		
-		tileSheet.drawTiles(camera.graphics, drawList, true, 
+		tilesheet.drawTiles(camera.graphics, drawList, true, 
 			Tilesheet.TILE_SCALE | Tilesheet.TILE_ROTATION | Tilesheet.TILE_ALPHA);
 	}
 	

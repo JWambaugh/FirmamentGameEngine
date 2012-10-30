@@ -29,8 +29,20 @@ class FTilesheet extends Tilesheet {
 	}
 
 
-	public function getFileName():String{
+	public function getDefinitionFileName():String{
 		return this.definitionFileName;
+	}
+
+	public function getImageFileName():String{
+		return this.imageFileName;
+	}
+
+	public function setImageFileName(name:String){
+		this.imageFileName = name;
+	}
+
+	public function setDefinitionFileName(name:String){
+		this.definitionFileName = name;
 	}
 
 
