@@ -93,6 +93,7 @@ class FTilesheetManager {
 			}
 		}else {
 			//no tile definition! assume whole image is single tile
+			trace("No tile definition");
 			t.addTileRect(new Rectangle (0, 0, bitmap.width, bitmap.height),new Point(bitmap.width/2,bitmap.height/2));
 		}
 		return t;

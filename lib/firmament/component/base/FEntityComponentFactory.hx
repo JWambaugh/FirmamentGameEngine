@@ -24,7 +24,7 @@ class FEntityComponentFactory{
 		return switch(type){
 			case "box2d":"firmament.component.physics.FBox2DComponent";
 			case "wireframe":"firmament.component.render.FWireframeRenderComponent";
-			case "tileSheet":"firmament.component.render.FTilesheetRenderComponent";
+			case "tilesheet":"firmament.component.render.FTilesheetRenderComponent";
 			default: throw "World type '"+type+"' not found";
 		}
 	}

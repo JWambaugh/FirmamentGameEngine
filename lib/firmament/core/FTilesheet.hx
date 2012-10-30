@@ -22,7 +22,7 @@ class FTilesheet extends Tilesheet {
 		var tm = FTilesheetManager.getInstance();
 		this.id = tm.genTilesheetId();
 		tm.addTileSheet(this);
-
+		
 	}
 
 

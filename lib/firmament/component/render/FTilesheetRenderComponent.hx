@@ -26,10 +26,12 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 	var drawList:Array<Float>;
 	var tilesheet:FTilesheet;
 	var imageScale:Int;
+	var tile:Int;
 		
 	public function new() {
 		super();
 		drawList = new Array<Float>();
+		tile = 0;
 		
 	}
 
@@ -38,7 +40,7 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		var image = config.image;
 		var imageIsFileName = false;
 		if(Std.is(config.tilesheetFile,String)){
-			tilesheet = FTilesheetManager.getInstance().getTilesheetFromDifinitionFile(config.tilesheet);
+			tilesheet = FTilesheetManager.getInstance().getTilesheetFromDifinitionFile(config.tilesheetFile);
 
 		}
 		else if(image !=null){
@@ -64,6 +66,10 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 				tilesheet.addTileRect(new Rectangle (0, 0, bd.width, bd.height),new Point(bd.width/2,bd.height/2));
 			}
 		}
+		if(Std.is(config.tile,Int)){
+			this.tile = config.tile;
+		}
+
 		imageScale = 100;
 	}
 	
@@ -89,7 +95,7 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		var index =0;
 		drawList[index] = nx;
 		drawList[index + 1] = ny;
-		//drawList[index + 2] = 0; // sprite index
+		drawList[index + 2] = this.tile; // sprite index
 		drawList[index + 3] = ratio;
 		drawList[index + 4] = -physicsComponent.getAngle();
 		drawList[index + 5] = 1;
