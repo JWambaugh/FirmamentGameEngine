@@ -21,8 +21,8 @@ import nme.events.Event;
 
 class FCamera extends Sprite ,implements FWorldPositionalInterface 
 {
-	inline static var BEFORE_RENDER_EVENT = "beforeRenderEvent";
-	inline static var AFTER_RENDER_EVENT = "afterRenderEvent";
+	public inline static var BEFORE_RENDER_EVENT = "beforeRenderEvent";
+	public inline static var AFTER_RENDER_EVENT = "afterRenderEvent";
 
 	var position:FVector;
 	var topLeftPosition:FVector;

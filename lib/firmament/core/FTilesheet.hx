@@ -15,7 +15,8 @@ class FTilesheet extends Tilesheet {
 	
 
 	private var id:Int;
-
+	private var definitionFileName:String;
+	private var imageFileName:String;
 	public function new (inImage:BitmapData) {
 		super(inImage);
 		this.id = FTilesheetManager.getInstance().genTilesheetId();
@@ -25,6 +26,11 @@ class FTilesheet extends Tilesheet {
 
 	public function getId(){
 		return this.id;
+	}
+
+
+	public function getFileName():String{
+		return this.definitionFileName;
 	}
 
 

@@ -3,7 +3,7 @@ package firmament.core;
 
 import firmament.core.FTilesheet;
 import firmament.core.FCamera;
-
+import nme.events.Event;
 class FTilesheetRenderHelper {
 	private static var _instance;
 
@@ -33,7 +33,22 @@ class FTilesheetRenderHelper {
 		if(isCameraInitialized(camera)){
 			return;
 		}
+		camera.addEventListener(FCamera.BEFORE_RENDER_EVENT,this.preRender);
+		camera.addEventListener(FCamera.AFTER_RENDER_EVENT,this.postRender);
 
+	}
+
+	public function preRender(e:Event){
+		this.drawList = new IntHash<Array<Float>>();
+	}
+
+	public function postRender(e:Event){
+		for(id in Reflect.fields(this.drawList)){
+			var list = Reflect.field(this.drawList,id);
+			tileSheet.drawTiles(e.currentTarget.graphics, drawList, true, 
+			Tilesheet.TILE_SCALE | Tilesheet.TILE_ROTATION | Tilesheet.TILE_ALPHA);
+		}
+		
 	}
 
 
