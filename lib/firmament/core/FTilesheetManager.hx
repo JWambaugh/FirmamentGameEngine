@@ -1,6 +1,10 @@
 package firmament.core;
 
 import firmament.core.FTilesheet;
+import firmament.utils.loader.FDataLoader;
+import nme.display.BitmapData;
+import nme.geom.Rectangle;
+import nme.geom.Point;
 /**
  * ...
  * @author jordan wambaugh
@@ -30,6 +34,10 @@ class FTilesheetManager {
 	}
 
 
+	public function getTilesheetWithId(id:Int){
+		return tilesheets.get(id);
+	}
+
 	public function getTilesheetFromDifinitionFile(fileName:String){
 		for(tilesheet in this.tilesheets){
 			if(tilesheet.getFileName() == fileName){
@@ -37,7 +45,8 @@ class FTilesheetManager {
 			}
 		}
 		//didn't find one
-
+		var data = FDataLoader.loadData(fileName);
+		return createTilesheet(data);
 	}
 
 
@@ -47,8 +56,8 @@ class FTilesheetManager {
 		if (Std.is(image,String) && image != ''){
 			bitmap = nme.Assets.getBitmapData(image);
 		}
-		else if(Std.is(image,bitmapData)){
-			bitmap = image;
+		else if(Std.is(image,BitmapData)){
+			bitmap = cast(image);
 		}
 		else {
 			throw "image property is not a file name";
@@ -59,15 +68,15 @@ class FTilesheetManager {
 
 		var t = new FTilesheet(bitmap);
 
-		if(Std.is(config.tiles,Array<Dynamic>)){
-			for(tile in config.tiles){
+		if(Std.is(config.tiles,Array)) {
+			for(tile in cast(config.tiles,Array<Dynamic>)){
 				if(Reflect.isObject(tile.topLeft) && Reflect.isObject(tile.bottomRight)){
-					var center={};
+					var center:Dynamic = {};
 					if(Reflect.isObject(tile.center)){
 						center = tile.center;
 					}else{
 						center.x = Math.floor((tile.bottomRight.x - tile.topLeft.x)/2);
-						center.y = Math.floor(tile.bottomRight.y - tile.topLeft.y)/2);
+						center.y = Math.floor((tile.bottomRight.y - tile.topLeft.y)/2);
 					}
 					t.addTileRect(new Rectangle (tile.topLeft.x, tile.topLeft.y, tile.bottomRight.x, tile.bottomRight.y)
 						,new Point(center.x,center.y));
@@ -77,8 +86,9 @@ class FTilesheetManager {
 			}
 		}else {
 			//no tile definition! assume whole image is single tile
-			t.addTileRect(new Rectangle (0, 0, bd.width, bd.height),new Point(bd.width/2,bd.height/2));
+			t.addTileRect(new Rectangle (0, 0, bitmap.width, bitmap.height),new Point(bitmap.width/2,bitmap.height/2));
 		}
+		return t;
 
 	}
 	

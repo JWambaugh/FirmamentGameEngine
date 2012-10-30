@@ -4,6 +4,8 @@ package firmament.core;
 import firmament.core.FTilesheet;
 import firmament.core.FCamera;
 import nme.events.Event;
+import nme.display.Tilesheet;
+
 class FTilesheetRenderHelper {
 	private static var _instance;
 
@@ -43,9 +45,10 @@ class FTilesheetRenderHelper {
 	}
 
 	public function postRender(e:Event){
-		for(id in Reflect.fields(this.drawList)){
-			var list = Reflect.field(this.drawList,id);
-			tileSheet.drawTiles(e.currentTarget.graphics, drawList, true, 
+		for(id in this.drawList.keys()){
+			var list = this.drawList.get(id);
+			var tilesheet = FTilesheetManager.getInstance().getTilesheetWithId(id);
+			tilesheet.drawTiles(e.currentTarget.graphics, list, true, 
 			Tilesheet.TILE_SCALE | Tilesheet.TILE_ROTATION | Tilesheet.TILE_ALPHA);
 		}
 		
