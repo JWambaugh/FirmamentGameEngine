@@ -19,7 +19,9 @@ class FTilesheet extends Tilesheet {
 	private var imageFileName:String;
 	public function new (inImage:BitmapData) {
 		super(inImage);
-		this.id = FTilesheetManager.getInstance().genTilesheetId();
+		var tm = FTilesheetManager.getInstance();
+		this.id = tm.genTilesheetId();
+		tm.addTileSheet(this);
 
 	}
 

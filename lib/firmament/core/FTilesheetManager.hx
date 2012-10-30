@@ -46,13 +46,20 @@ class FTilesheetManager {
 		}
 		//didn't find one
 		var data = FDataLoader.loadData(fileName);
-		return createTilesheet(data);
+		var t = createTilesheet(data);
+		t.setDefinitionFileName(fileName);
+		return t;
+	}
+
+	public function addTileSheet(tilesheet:FTilesheet){
+		this.tilesheets.set(tilesheet.getId(),tilesheet);
 	}
 
 
 	public function createTilesheet(config:Dynamic){
 		var image = config.image;
 		var bitmap:BitmapData;
+		var imageIsFileName = false;
 		if (Std.is(image,String) && image != ''){
 			bitmap = nme.Assets.getBitmapData(image);
 		}
@@ -67,7 +74,7 @@ class FTilesheetManager {
 		}
 
 		var t = new FTilesheet(bitmap);
-
+		if(imageIsFileName)t.setImageFileName(image);
 		if(Std.is(config.tiles,Array)) {
 			for(tile in cast(config.tiles,Array<Dynamic>)){
 				if(Reflect.isObject(tile.topLeft) && Reflect.isObject(tile.bottomRight)){

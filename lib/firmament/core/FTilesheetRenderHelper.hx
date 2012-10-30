@@ -26,6 +26,13 @@ class FTilesheetRenderHelper {
 	}
 
 
+	public function addToDrawList(tilesheet:FTilesheet, list:Array<Float>){
+		var id = tilesheet.getId();
+		if(!drawList.exists(id)){
+			drawList.set(id,new Array<Float>());
+		}
+		drawList.set(id,drawList.get(id).concat(list));
+	}
 
 	/*
 		Function: initCamera
@@ -47,8 +54,11 @@ class FTilesheetRenderHelper {
 	public function postRender(e:Event){
 		for(id in this.drawList.keys()){
 			var list = this.drawList.get(id);
+
 			var tilesheet = FTilesheetManager.getInstance().getTilesheetWithId(id);
-			tilesheet.drawTiles(e.currentTarget.graphics, list, true, 
+			var camera = cast(e.currentTarget,FCamera);
+			
+			tilesheet.drawTiles(camera.graphics, list, true, 
 			Tilesheet.TILE_SCALE | Tilesheet.TILE_ROTATION | Tilesheet.TILE_ALPHA);
 		}
 		

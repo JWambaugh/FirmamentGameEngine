@@ -36,7 +36,7 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 	override public function init(config:Dynamic){
 		this._config = config;
 		var image = config.image;
-		
+		var imageIsFileName = false;
 		if(Std.is(config.tilesheetFile,String)){
 			tilesheet = FTilesheetManager.getInstance().getTilesheetFromDifinitionFile(config.tilesheet);
 
@@ -47,8 +47,9 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 			}else{
 				var bd:BitmapData;
 				if(Std.is(image,String)){
-					trace("image: " + Std.string(image));
+					//trace("image: " + Std.string(image));
 					bd = Assets.getBitmapData(cast(image,String));
+					
 				}
 				else if(Std.is(image,BitmapData)){
 					bd = cast(image,BitmapData);
@@ -57,6 +58,9 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 					throw("invalid tileSheetImage");
 				}
 				tilesheet = new FTilesheet(bd);
+				if(imageIsFileName){
+					tilesheet.setImageFileName(cast(image,String));
+				}
 				tilesheet.addTileRect(new Rectangle (0, 0, bd.width, bd.height),new Point(bd.width/2,bd.height/2));
 			}
 		}
@@ -90,8 +94,9 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		drawList[index + 4] = -physicsComponent.getAngle();
 		drawList[index + 5] = 1;
 		
-		tilesheet.drawTiles(camera.graphics, drawList, true, 
-			Tilesheet.TILE_SCALE | Tilesheet.TILE_ROTATION | Tilesheet.TILE_ALPHA);
+		FTilesheetRenderHelper.getInstance().addToDrawList(tilesheet, drawList);
+		/*tilesheet.drawTiles(camera.graphics, drawList, true, 
+			Tilesheet.TILE_SCALE | Tilesheet.TILE_ROTATION | Tilesheet.TILE_ALPHA);*/
 	}
 	
 	override public function getType():String {
