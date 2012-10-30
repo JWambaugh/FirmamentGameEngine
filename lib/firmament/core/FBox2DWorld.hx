@@ -116,7 +116,6 @@ class FBox2DWorld extends FWorld
 	}
 	
 	override public function step():Void {
-		
 		this.b2world.step(this.getTimeSinceLastStep(), 10, 10);
 		this.endOfStep();
 		var contact = this.b2world.getContactList();

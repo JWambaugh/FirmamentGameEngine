@@ -17,12 +17,14 @@ class FTilesheet extends Tilesheet {
 	private var id:Int;
 	private var definitionFileName:String;
 	private var imageFileName:String;
+	
+
 	public function new (inImage:BitmapData) {
 		super(inImage);
 		var tm = FTilesheetManager.getInstance();
 		this.id = tm.genTilesheetId();
 		tm.addTileSheet(this);
-		
+
 	}
 
 

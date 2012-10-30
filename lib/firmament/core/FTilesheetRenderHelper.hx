@@ -42,6 +42,7 @@ class FTilesheetRenderHelper {
 		if(isCameraInitialized(camera)){
 			return;
 		}
+		this.initializedCameras.push(camera);
 		camera.addEventListener(FCamera.BEFORE_RENDER_EVENT,this.preRender);
 		camera.addEventListener(FCamera.AFTER_RENDER_EVENT,this.postRender);
 
