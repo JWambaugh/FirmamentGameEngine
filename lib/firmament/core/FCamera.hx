@@ -186,5 +186,13 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		,(y / this.getZoom()) + (this.getPositionY() - (this.displayHeight / this.getZoom() / 2)));
 
 	}
+
+
+	public function getAngle():Float{
+		return 0;
+	}
+	public function setAngle(a:Float){
+		//noop
+	}
 	
 }

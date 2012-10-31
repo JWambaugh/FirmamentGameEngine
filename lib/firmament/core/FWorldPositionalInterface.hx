@@ -15,6 +15,8 @@ interface FWorldPositionalInterface
 	public function getPositionX():Float;
 	
 	public function getPositionY():Float ;
+	public function getAngle():Float;
+	public function setAngle(a:Float):Void;
 	
 	
 }

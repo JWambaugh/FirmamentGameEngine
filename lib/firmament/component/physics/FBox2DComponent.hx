@@ -4,6 +4,8 @@ import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.core.FVector;
 import firmament.core.FWorld;
 import firmament.core.FBox2DWorld;
+import firmament.core.FWorldPositionalInterface;
+
 
 import box2D.collision.shapes.B2CircleShape;
 import box2D.collision.shapes.B2PolygonShape;
@@ -22,7 +24,7 @@ import firmament.core.FGame;
  * @author Jordan Wambaugh
  */
 
-class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInterface
+class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInterface, implements FWorldPositionalInterface 
 {
 	
 	public var body:B2Body;
