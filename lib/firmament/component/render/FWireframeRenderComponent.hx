@@ -80,7 +80,9 @@ class FWireframeRenderComponent extends FEntityComponent, implements FRenderComp
 		}
 		
 	}
-	
+	public function getBitmapData():BitmapData{
+		return new BitmapData(0,0);
+	}
 	
 	override public function getType():String {
 		return "render";

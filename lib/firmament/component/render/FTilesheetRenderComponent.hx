@@ -17,6 +17,7 @@ import nme.geom.Rectangle;
 import nme.Assets;
 import nme.display.Tilesheet;
 import firmament.core.FTilesheetManager;
+import nme.display.Sprite;
 /**
  * ...
  * @author jordan
@@ -103,6 +104,17 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		FTilesheetRenderHelper.getInstance().addToDrawList(tilesheet, drawList);
 		/*tilesheet.drawTiles(camera.graphics, drawList, true, 
 			Tilesheet.TILE_SCALE | Tilesheet.TILE_ROTATION | Tilesheet.TILE_ALPHA);*/
+	}
+
+	public function getBitmapData():BitmapData{
+		var sprite:Sprite = new Sprite();
+		var index =0;
+		drawList[index] = 0;
+		drawList[index + 1] = 0;
+		drawList[index + 2] = this.tile; // sprite index
+		drawList[index + 3] = 1;
+		tilesheet.drawTiles(sprite.graphics, drawList, true, Tilesheet.TILE_ALPHA);
+		return new BitmapData(0,0);
 	}
 	
 	override public function getType():String {
