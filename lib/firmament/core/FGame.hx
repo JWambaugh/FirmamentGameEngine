@@ -6,23 +6,24 @@ package firmament.core;
  */
 
 
-
+import firmament.core.FCamera;
+import firmament.core.FEntity;
+import firmament.core.FWorldFactory;
+import firmament.process.base.FProcess;
+import firmament.process.base.FProcessManager;
+import firmament.process.engine.FCameraRenderProcess;
+import firmament.process.engine.FWorldStepProcess;
+import firmament.utils.loader.serializer.FSerializerFactory;
+import haxe.Timer;
+import nme.Assets;
+import nme.display.Bitmap;
+import nme.display.Sprite;
+import nme.events.Event;
 import nme.events.EventDispatcher;
 import nme.events.TimerEvent;
 import nme.Lib;
-import nme.events.Event;
-import nme.display.Bitmap;
-import nme.Assets;
 import nme.text.TextField;
 import nme.utils.Timer;
-import haxe.Timer;
-import firmament.core.FEntity;
-import firmament.core.FWorldFactory;
-import firmament.utils.loader.serializer.FSerializerFactory;
-import firmament.core.FCamera;
-import firmament.process.base.FProcessManager;
-import firmament.process.engine.FWorldStepProcess;
-import firmament.process.engine.FCameraRenderProcess;
 
 /**
  * Class: FGame
@@ -110,6 +111,17 @@ class FGame extends EventDispatcher
 
 	public function getWorlds():Hash<FWorld>{
 		return this.worldHash;
+	}
+
+	/**
+	 * Function: addProcess
+	 *
+	 * Parameters: 
+	 *  name - String identifier for object, for retrieval
+	 *  p - Process object
+	 */
+	public function addProcess(?type:String,p:FProcess):Void {
+		this.processManager.addProcess(p);
 	}
 
 	/**
