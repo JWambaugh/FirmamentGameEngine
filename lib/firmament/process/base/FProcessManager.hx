@@ -1,5 +1,7 @@
 package firmament.process.base;
 
+import haxe.Timer;
+
 /**
  * ...
  * @author Jordan Wambaugh
@@ -9,11 +11,19 @@ class FProcessManager
 {
 	var processQueue:Array<FProcessInterface>;
 	var iteration:Int;
+	var frameDelta:Float; // in seconds
+	var lastTime:Float; // in seconds
 	
 	public function new() 
 	{
 		processQueue = new Array<FProcessInterface>();
 		iteration = 0;
+		lastTime = 0; // Timer.stamp();
+		frameDelta = .03;
+	}
+
+	public function getFrameDelta():Float {
+		return frameDelta;
 	}
 	
 	public function addProcess(p:FProcessInterface) {
@@ -25,6 +35,13 @@ class FProcessManager
 	 * Runs a step for each registered process.
 	 */
 	public function step() {
+		if(lastTime == 0) {
+		    lastTime = Timer.stamp();
+		} else {
+			var ctime = Timer.stamp();
+			frameDelta = ctime - lastTime;
+			lastTime = ctime;
+		}
 		iteration++;
 		for (p in processQueue) {
 			p.step();

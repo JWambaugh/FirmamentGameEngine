@@ -22,6 +22,7 @@ class FProcess implements FProcessInterface
 	 * Called when the process is added to the manager queue, before the process is started.
 	 */
 	public function beforeStart(processManager:FProcessManager):Void{
+		_manager = processManager;
 		_isRunning = true;
 	}
 	

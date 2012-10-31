@@ -114,6 +114,13 @@ class FGame extends EventDispatcher
 	}
 
 	/**
+	 * Function: getProcessManager
+	 */
+	public function getProcessManager():FProcessManager {
+		return this.processManager;
+	}
+
+	/**
 	 * Function: addProcess
 	 *
 	 * Parameters: 
