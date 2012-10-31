@@ -1,0 +1,17 @@
+{"entities":
+  [{"config":
+     {"components":
+       {"physics":
+         {"angle": 0,
+          "position":
+           {"y": 2.43,
+            "x": -1.44}}}},
+    "entityFile": "config/entities/exampleFloor.json"},
+   {"config":
+     {"components":
+       {"physics":
+         {"angle": 0,
+          "position":
+           {"y": -1.09,
+            "x": 0.54}}}},
+    "entityFile": "config/entities/exampleBouncyBall.json"}]}
