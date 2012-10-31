@@ -81,6 +81,7 @@ class FGame extends EventDispatcher
 		Function: instance
 		returns the singleton instance of FGame.
 	*/
+	// TODO: Refactor to getInstance
 	public static function instance():FGame{
 		if(_instance == null){
 			_instance = new FGame();
