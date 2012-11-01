@@ -96,7 +96,9 @@ class FLinearTweener extends FProcess {
            	_currentStep += timeDelta;
 		} else {
 		    _isComplete = true;	
+
 		}
+		super.step();
 	}
 	
 }
