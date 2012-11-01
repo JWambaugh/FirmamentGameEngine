@@ -44,7 +44,9 @@ class FProcessManager
 		}
 		iteration++;
 		for (p in processQueue) {
-			p.step();
+			if(!p.isComplete()){
+				p.step();
+			}
 		}
 		//clean up left over processes every 10 steps
 		if (iteration % 10 == 0) {
