@@ -22,13 +22,20 @@ class FLinearTweener extends FProcess {
 	private var _duration:Float; 
 	private var _infinite:Bool;
 
+	private function getCopyOfFVector(pos:FVector):FVector {
+        var coords = new FVector(0.0,0.0);
+        coords.add(pos);
+        return coords;
+	}
+
 	public function new(object:FWorldPositionalInterface,parameters:Dynamic,infinite:Bool=false) {
-     	_start = new FVector(0.0,0.0);
-     	_end = new FVector(0.0,0.0);
 		_step = new FVector(0.0,0.0);
      	_duration = 0.0;
 		_object = object;
-
+     	_start = getCopyOfFVector(_object.getPosition());
+     	_startAngle = _object.getAngle();
+     	_end = getCopyOfFVector(_start);
+     	_endAngle = _object.getAngle();
 		_infinite = infinite;
 
         if( parameters.start != null) {
@@ -84,19 +91,22 @@ class FLinearTweener extends FProcess {
 		if( _isRunning == false ) { return; } 
 		if( _isComplete == true ) { return; }
 		// TODO: Parent needs to handle these
-		if( _infinite || _currentStep < _duration) {
-			var timeDelta = this._manager.getFrameDelta();
-            var pos = _object.getPosition();
+		var timeDelta = this._manager.getFrameDelta();
+		if( _infinite || (_currentStep + timeDelta) < _duration) {
+            var pos = getCopyOfFVector(_object.getPosition());
             var angle = _object.getAngle();
 			var stepDelta:FVector = new FVector(_step.x*timeDelta,_step.y*timeDelta);
             pos.add(stepDelta);
             angle += _stepAngle * timeDelta;
             _object.setPosition(pos);
             _object.setAngle(angle);
-           	_currentStep += timeDelta;
 		} else {
+			_object.setPosition(_end);
+			_object.setAngle(_endAngle);
 		    _isComplete = true;	
 		}
+        _currentStep += timeDelta;
+		super.step();
 	}
 	
 }
