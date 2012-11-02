@@ -26,7 +26,7 @@ class FAnimation {
 		}
 
 		if(Std.is(config.frames,Array)){
-			for(el in config.frames){
+			for(el in cast(config.frames,Array<Dynamic>)){
 				_frames.push(el);
 			}
 		}else{
@@ -41,7 +41,7 @@ class FAnimation {
 	}
 
 	public function getTilesheet():FTilesheet{
-		returh _tilesheet;
+		return _tilesheet;
 	}
 
 	public function setTilesheet(t:FTilesheet){

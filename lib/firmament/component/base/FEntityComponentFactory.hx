@@ -5,6 +5,7 @@ import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.render.FWireframeRenderComponent;
 import firmament.component.render.FTilesheetRenderComponent;
+import firmament.component.animation.FAnimationComponent;
 
 class FEntityComponentFactory{
 	public static function createComponent(type:String):FEntityComponent {

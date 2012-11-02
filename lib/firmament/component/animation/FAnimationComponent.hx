@@ -14,7 +14,7 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 	public function new(){
 		super();
 		_currentFrame = 0;
-		_timeSinceLastFrameChange=0;
+		_timeSinceLastFrameChange = 0;
 	}
 
 	override public function init(config:Dynamic){

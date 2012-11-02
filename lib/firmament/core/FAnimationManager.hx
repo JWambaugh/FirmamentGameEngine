@@ -6,7 +6,7 @@ import firmament.utils.loader.FDataLoader;
 
 class FAnimationManager {
 
-	private var _instance:FAnimationManager;
+	private static  var _instance:FAnimationManager;
 
 	private var _animationsHash:Hash<FAnimation>;
 
@@ -15,7 +15,7 @@ class FAnimationManager {
 
 	}
 
-	public function getInstance():FAnimationManager{
+	public static function getInstance():FAnimationManager{
 		if(_instance == null){
 			_instance = new FAnimationManager();
 		}
@@ -24,7 +24,7 @@ class FAnimationManager {
 
 
 	public function addAnimation(fileName:String,animation:FAnimation){
-		_animationsHash.set(fileName,animaiton);
+		_animationsHash.set(fileName,animation);
 	}
 
 	/**
