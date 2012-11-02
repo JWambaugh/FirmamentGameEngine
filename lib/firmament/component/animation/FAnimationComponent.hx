@@ -14,12 +14,12 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 	
 	var _currentAnimation:FAnimation;
 	var _currentFrame:Int;
-	var _timeSinceLastFrameChange:Float;
+	var _timeOfLastFrameChange:Float;
 
 	public function new(){
 		super();
 		_currentFrame = 0;
-		_timeSinceLastFrameChange = Timer.stamp();
+		_timeOfLastFrameChange = Timer.stamp();
 	}
 
 	override public function init(config:Dynamic){
@@ -37,7 +37,8 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 	public function beforeRender(e:Event){
 		//see if enough time has elapsed to change frames
 		var stamp = Timer.stamp(); 
-		if(stamp - _timeSinceLastFrameChange >= _currentAnimation.getTimeBetweenFrames()){
+		if(stamp - _timeOfLastFrameChange >= _currentAnimation.getTimeBetweenFrames()){
+			_timeOfLastFrameChange = stamp;
 			jumpToFrame(_currentAnimation.getNextFrame(_currentFrame));
 		}
 
@@ -52,7 +53,9 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 		//update render component
 		var rc:FRenderComponentInterface = _entity.getRenderComponent();
 		if(Std.is(rc,FTilesheetRenderComponent)){
-			cast(rc,FTilesheetRenderComponent).setTile(_currentAnimation.getTileIndexForFrame(_currentFrame));
+			var tsc:FTilesheetRenderComponent = cast(rc,FTilesheetRenderComponent);
+			tsc.setTile(_currentAnimation.getTileIndexForFrame(_currentFrame));
+			tsc.setTilesheet(_currentAnimation.getTilesheet());
 		}else{
 			throw "Animations are only work with FTilesheet render components";
 		}
