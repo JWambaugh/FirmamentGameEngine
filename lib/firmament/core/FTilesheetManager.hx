@@ -77,7 +77,7 @@ class FTilesheetManager {
 		if(imageIsFileName)t.setImageFileName(image);
 		if(Std.is(config.tiles,Array)) {
 			for(tile in cast(config.tiles,Array<Dynamic>)){
-				if(Reflect.isObject(tile.topLeft)){
+				if(Reflect.isObject(tile.topLeft) && Std.is(tile.width,Float) && Std.is(tile.height,Float)){
 					var center:Dynamic = {};
 					if(Reflect.isObject(tile.center)){
 						center = tile.center;
@@ -88,7 +88,7 @@ class FTilesheetManager {
 					t.addTileRect(new Rectangle (tile.topLeft.x, tile.topLeft.y, tile.width, tile.height)
 						,new Point(center.x,center.y));
 				}else{
-					throw "Found a tile that doesn't have a topLeft and/or bottomRight!";
+					throw "Found a tile that doesn't have a topLeft and/or height and width";
 				}
 			}
 		}else {
