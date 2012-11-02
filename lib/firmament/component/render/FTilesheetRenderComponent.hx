@@ -87,7 +87,7 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 			return;
 		}
 
-		this.dispatchEvent(new Event(FGame.BEFORE_RENDER));
+		this._entity.dispatchEvent(new Event(FGame.BEFORE_RENDER));
 		
 		var physicsComponent:FPhysicsComponentInterface = cast(this._entity.getComponent("physics"));
 		var cameraPos = camera.getTopLeftPosition();
@@ -105,6 +105,10 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		drawList[index + 5] = 1;
 		
 		FTilesheetRenderHelper.getInstance().addToDrawList(tilesheet, drawList);
+	}
+
+	public function setTile(t:Int){
+		this.tile = t;
 	}
 
 	public function getBitmapData():BitmapData{
