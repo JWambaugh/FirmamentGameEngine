@@ -17,7 +17,10 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 	}
 
 	override public function init(config:Dynamic){
-
+		if(Std.is(config.animationFile,String)){
+			var animationFile:String = config.animationFile;
+			
+		}
 	}
 
 	override public function getType(){
