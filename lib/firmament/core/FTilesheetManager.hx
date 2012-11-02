@@ -77,15 +77,15 @@ class FTilesheetManager {
 		if(imageIsFileName)t.setImageFileName(image);
 		if(Std.is(config.tiles,Array)) {
 			for(tile in cast(config.tiles,Array<Dynamic>)){
-				if(Reflect.isObject(tile.topLeft) && Reflect.isObject(tile.bottomRight)){
+				if(Reflect.isObject(tile.topLeft)){
 					var center:Dynamic = {};
 					if(Reflect.isObject(tile.center)){
 						center = tile.center;
 					}else{
-						center.x = Math.floor((tile.bottomRight.x - tile.topLeft.x)/2);
-						center.y = Math.floor((tile.bottomRight.y - tile.topLeft.y)/2);
+						center.x = Math.floor(( tile.width)/2);
+						center.y = Math.floor((tile.height)/2);
 					}
-					t.addTileRect(new Rectangle (tile.topLeft.x, tile.topLeft.y, tile.bottomRight.x, tile.bottomRight.y)
+					t.addTileRect(new Rectangle (tile.topLeft.x, tile.topLeft.y, tile.width, tile.height)
 						,new Point(center.x,center.y));
 				}else{
 					throw "Found a tile that doesn't have a topLeft and/or bottomRight!";
