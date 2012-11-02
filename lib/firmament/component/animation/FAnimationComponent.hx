@@ -1,8 +1,9 @@
 package firmament.component.animation;
 
-import frimament.core.FAnimation;
+import firmament.core.FAnimation;
 import firmament.component.animation.FAnimationComponentInterface;
 import firmament.component.base.FEntityComponent;
+import firmament.core.FAnimationManager;
 
 class FAnimationComponent extends FEntityComponent, implements FAnimationComponentInterface{
 	
@@ -19,7 +20,7 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 	override public function init(config:Dynamic){
 		if(Std.is(config.animationFile,String)){
 			var animationFile:String = config.animationFile;
-			
+			_currentAnimation = FAnimationManager.getInstance().getAnimationByFileName(animationFile);
 		}
 	}
 

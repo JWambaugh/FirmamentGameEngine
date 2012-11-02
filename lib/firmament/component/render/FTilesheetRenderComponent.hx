@@ -1,23 +1,27 @@
 package firmament.component.render;
 
 
-import firmament.component.base.FEntityComponent;
-import firmament.component.render.FRenderComponentInterface;
-import firmament.component.physics.FPhysicsComponentInterface;
-import firmament.core.FCamera;
-import firmament.core.FTilesheet;
-import firmament.core.FTilesheetRenderHelper;
 
-import nme.display.BitmapData;
-import nme.geom.Matrix;
-import nme.display.IBitmapDrawable;
-import nme.geom.Point;
-import nme.events.EventDispatcher;
-import nme.geom.Rectangle;
-import nme.Assets;
-import nme.display.Tilesheet;
+import firmament.component.base.FEntityComponent;
+import firmament.component.physics.FPhysicsComponentInterface;
+import firmament.component.render.FRenderComponentInterface;
+import firmament.core.FCamera;
+import firmament.core.FGame;
+import firmament.core.FTilesheet;
 import firmament.core.FTilesheetManager;
+import firmament.core.FTilesheetRenderHelper;
+import nme.Assets;
+import nme.display.BitmapData;
+import nme.display.IBitmapDrawable;
 import nme.display.Sprite;
+import nme.display.Tilesheet;
+import nme.events.Event;
+import nme.events.EventDispatcher;
+import nme.geom.Point;
+import nme.geom.Rectangle;
+
+
+
 /**
  * ...
  * @author jordan
@@ -82,17 +86,16 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 			trace('tilesheet is null');
 			return;
 		}
+
+		this.dispatchEvent(new Event(FGame.BEFORE_RENDER));
 		
 		var physicsComponent:FPhysicsComponentInterface = cast(this._entity.getComponent("physics"));
 		var cameraPos = camera.getTopLeftPosition();
-		//var matrix = new Matrix();
 		var ratio = camera.getZoom() / imageScale;
 		var pos = physicsComponent.getPosition();
 		var nx = ((pos.x - cameraPos.x) * camera.getZoom());
 		var ny = ((pos.y - cameraPos.y) * camera.getZoom());
-		//matrix.scale(ratio,ratio);
 		
-		//trace(cameraPos.y);
 		var index =0;
 		drawList[index] = nx;
 		drawList[index + 1] = ny;
@@ -102,8 +105,6 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		drawList[index + 5] = 1;
 		
 		FTilesheetRenderHelper.getInstance().addToDrawList(tilesheet, drawList);
-		/*tilesheet.drawTiles(camera.graphics, drawList, true, 
-			Tilesheet.TILE_SCALE | Tilesheet.TILE_ROTATION | Tilesheet.TILE_ALPHA);*/
 	}
 
 	public function getBitmapData():BitmapData{

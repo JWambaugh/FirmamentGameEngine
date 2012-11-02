@@ -42,7 +42,14 @@ class FGame extends EventDispatcher
 	
 	//CONSTANT: AFTER_STEP
 	public static inline var AFTER_STEP = 'afterStep';
+
+	//CONSTANT: BEFORE_RENDER
+	public static inline var BEFORE_RENDER = 'beforeRender';
 	
+
+	//CONSTANT: AFTER_RENDER
+	public static inline var AFTER_RENDER = 'afterRender';
+
 	private static var _instance:FGame;
 
 	/**
