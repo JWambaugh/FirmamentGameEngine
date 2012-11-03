@@ -12,7 +12,7 @@ class FAnimation {
 	private var _config:Dynamic;
 	
 	public function new(){
-
+		_frames = new Array<Int>();
 	}
 
 	public function init(config:Dynamic){
@@ -33,8 +33,8 @@ class FAnimation {
 			throw "Frames not provided";
 		}
 
-		if(Std.is(config.timeBeweenFrames,Float)){
-			_timeBetweenFrames = config.timeBeweenFrames;
+		if(Std.is(config.timeBetweenFrames,Float)){
+			_timeBetweenFrames = config.timeBetweenFrames;
 		}else {
 			_timeBetweenFrames = 0.03;
 		}
@@ -63,7 +63,7 @@ class FAnimation {
 
 	/**
 	 * Function: getNextFrame
-	 * Given the provided fram index, it returns the next one in the animation sequence.
+	 * Given the provided frame index, it returns the next one in the animation sequence.
 	 */
 	public function getNextFrame(currentFrame:Int):Int{
 		return (currentFrame+1)%_frames.length;

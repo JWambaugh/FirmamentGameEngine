@@ -128,7 +128,9 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		drawList[index + 2] = this._tile; // sprite index
 		drawList[index + 3] = 1;
 		_tilesheet.drawTiles(sprite.graphics, drawList, true, Tilesheet.TILE_ALPHA);
-		return new BitmapData(0,0);
+		var bd:BitmapData = new BitmapData(Std.int(sprite.width),Std.int(sprite.height));
+		bd.draw(sprite);
+		return bd;
 	}
 	
 	override public function getType():String {
