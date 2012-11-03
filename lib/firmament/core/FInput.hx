@@ -6,7 +6,7 @@ import nme.events.EventDispatcher;
 import nme.events.Event;
 import nme.events.MouseEvent;
 import nme.events.KeyboardEvent;
-
+import nme.events.TouchEvent;
 
 
 
@@ -20,6 +20,8 @@ class FInput{
 	var stageY:Float;
 	var keyStatus:Array<Bool>;
 	var _keyMap:Dynamic;
+	var _touching:Bool;
+
 
 	public function new(o:EventDispatcher){
 		this.observable = o;
@@ -28,6 +30,7 @@ class FInput{
 		this.stageX = 0;
 		this.stageY = 0;
 		this.keyStatus = new Array<Bool>();
+		this._touching = false;
 		this.defineKeyMap();
 		//initialize our array. there must be a better way to do this.
 		for(i in 0...256){
@@ -38,6 +41,12 @@ class FInput{
 		o.addEventListener(MouseEvent.MOUSE_MOVE, this.mouseEvent);
 		o.addEventListener(KeyboardEvent.KEY_DOWN,this.keyboardEventDown);
 		o.addEventListener(KeyboardEvent.KEY_UP,this.keyboardEventUp);
+
+
+		o.addEventListener(TouchEvent.TOUCH_BEGIN,this.touchBegin);
+		o.addEventListener(TouchEvent.TOUCH_END,this.touchEnd);
+		o.addEventListener(MouseEvent.MOUSE_DOWN,this.mouseDown);
+		o.addEventListener(MouseEvent.MOUSE_UP,this.mouseUp);
 		
 	}
 	
@@ -46,6 +55,20 @@ class FInput{
 		this.localY = e.localY;
 		this.stageX = e.stageX;
 		this.stageY = e.stageY;
+	}
+	public function mouseDown(e:MouseEvent){
+		this.localX = e.localX;
+		this.localY = e.localY;
+		this.stageX = e.stageX;
+		this.stageY = e.stageY;
+		this._touching = true;
+	}
+	public function mouseUp(e:MouseEvent){
+		this.localX = e.localX;
+		this.localY = e.localY;
+		this.stageX = e.stageX;
+		this.stageY = e.stageY;
+		this._touching = false;
 	}
 
 
@@ -57,6 +80,26 @@ class FInput{
 		this.keyStatus[e.keyCode]=false;
 	}
 
+	public function touchBegin(e:TouchEvent){
+		this.localX = e.localX;
+		this.localY = e.localY;
+		this.stageX = e.stageX;
+		this.stageY = e.stageY;
+		this._touching = true;
+	}
+	public function touchEnd(e:TouchEvent){
+		this.localX = e.localX;
+		this.localY = e.localY;
+		this.stageX = e.stageX;
+		this.stageY = e.stageY;
+		this._touching = false;
+	}
+
+
+
+	public function isTouching(){
+		return _touching;
+	}
 	
 	public function getLocalX() {
 		return localX;

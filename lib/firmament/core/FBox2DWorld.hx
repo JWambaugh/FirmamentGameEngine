@@ -43,7 +43,7 @@ class FBox2DWorld extends FWorld
 	public function new() 
 	{
 		super();
-		this.b2world = new B2World(new B2Vec2(0,0), true);
+		this.b2world = new B2World(new B2Vec2(0,9), true);
 		this.deleteQueue = new Array<FEntity>();
 		//this.b2world.setContactListener(new FPhysicsWorldContactListener(this));
 	}
