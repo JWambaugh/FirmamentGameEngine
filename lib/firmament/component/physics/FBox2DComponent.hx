@@ -67,6 +67,16 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		if(Std.is(config.angle,Float))
 			def.angle = config.angle;
 		def.fixedRotation = false;
+
+		if(Std.is(config.fixedRotation,Bool)){
+			def.fixedRotation = config.fixedRotation;
+		}
+
+		if (Std.is(config.allowSleep, Bool)) {
+			def.allowSleep= config.allowSleep;
+		}
+
+
 		body = physWorld.getB2World().createBody(def);
 		
 		
@@ -153,11 +163,18 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	}
 	
 	public function setLinearVelocity(vel:FVector) {
+		this.body.setAwake(true);
 		this.body.setLinearVelocity(new B2Vec2(vel.x, vel.y));
 	}
 	
 	public function getLinearVelocity():FVector {
 		return new FVector(this.body.getLinearVelocity().x, this.body.getLinearVelocity().y);
+	}
+
+	public function addLinearVelocity(velocity:FVector){
+		this.body.setAwake(true);
+		var vel = this.body.getLinearVelocity();
+		vel.add(velocity);
 	}
 	
 	public function getZPosition():Float {

@@ -92,7 +92,7 @@ class FInput{
 	//Flash keymap. 
 	//from http://people.uncw.edu/tompkinsj/112/FlashActionScript/keyCodes.htm
 	#if(flash)
-	public function defineKeyMap(){
+	private function defineKeyMap(){
 		_keyMap = {
 			"backspace"		:	8,
 			"enter"			:	13,
@@ -250,7 +250,7 @@ class FInput{
 	}
 	#else
 	//TODO: define CPP keymap
-	public function defineKeyMap(){
+	private function defineKeyMap(){
 		_keyMap = {};
 	}
 	#end
