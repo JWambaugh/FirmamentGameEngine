@@ -27,7 +27,7 @@ class FEntityComponentFactory{
 			case "wireframe":"firmament.component.render.FWireframeRenderComponent";
 			case "tilesheet":"firmament.component.render.FTilesheetRenderComponent";
 			case "animation":"firmament.component.animation.FAnimationComponent";
-			default: throw "Component type '"+type+"' not found";
+			default: type;
 		}
 	}
 

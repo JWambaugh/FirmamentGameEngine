@@ -12,7 +12,7 @@ class FWorldStepProcess extends FProcess {
 	}
 
 	override public function step(){
-		if(FGame.instance().enableSimulation){
+		if(FGame.getInstance().enableSimulation){
 			this.world.step();
 		}
 	}

@@ -12,7 +12,7 @@ class FCameraRenderProcess extends FProcess {
 	}
 
 	override public function step(){
-		this.camera.render(FGame.instance().getWorlds());
+		this.camera.render(FGame.getInstance().getWorlds());
 	}
 	
 

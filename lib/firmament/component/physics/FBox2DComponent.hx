@@ -34,7 +34,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	public function new() 
 	{
 		super();
-		this.world = FGame.instance().getWorld("box2d");
+		this.world = FGame.getInstance().getWorld("box2d");
 		this.position = new FVector(0,0);
 
 	}
