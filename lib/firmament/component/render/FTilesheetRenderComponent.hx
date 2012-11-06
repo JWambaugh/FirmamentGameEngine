@@ -10,6 +10,7 @@ import firmament.core.FGame;
 import firmament.core.FTilesheet;
 import firmament.core.FTilesheetManager;
 import firmament.core.FTilesheetRenderHelper;
+import firmament.component.animation.FAnimationComponent;
 import nme.Assets;
 import nme.display.BitmapData;
 import nme.display.IBitmapDrawable;
@@ -42,10 +43,22 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 
 	override public function init(config:Dynamic){
 		this._config = config;
-		var image = config.image;
+		
+		initTilesheet();
+
+		if(Std.is(config.tile,Int)){
+			this._tile = config.tile;
+		}
+
+		imageScale = 100;
+	}
+	
+
+	public function initTilesheet(){
+		var image = _config.image;
 		var imageIsFileName = false;
-		if(Std.is(config.tilesheetFile,String)){
-			_tilesheet = FTilesheetManager.getInstance().getTilesheetFromDifinitionFile(config.tilesheetFile);
+		if(Std.is(_config.tilesheetFile,String)){
+			_tilesheet = FTilesheetManager.getInstance().getTilesheetFromDifinitionFile(_config.tilesheetFile);
 
 		}
 		else if(image !=null){
@@ -70,14 +83,15 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 				}
 				_tilesheet.addTileRect(new Rectangle (0, 0, bd.width, bd.height),new Point(bd.width/2,bd.height/2));
 			}
+		}else{
+			//try to get a tilesheet from the animation
+			var animationC = _entity.getComponent("animation");
+			if(animationC!=null){
+				var c = cast(animationC,FAnimationComponent);
+				c.jumpToFrame(0);
+			}
 		}
-		if(Std.is(config.tile,Int)){
-			this._tile = config.tile;
-		}
-
-		imageScale = 100;
 	}
-	
 
 	public function render(camera:FCamera):Void {
 		var TILE_FIELDS = 6; // x+y+index+scale+rotation+alpha

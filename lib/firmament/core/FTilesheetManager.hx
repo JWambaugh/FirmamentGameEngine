@@ -5,6 +5,10 @@ import firmament.utils.loader.FDataLoader;
 import nme.display.BitmapData;
 import nme.geom.Rectangle;
 import nme.geom.Point;
+#if(cpp)
+import com.firmamentengine.firmamenteditor.ResourceLoader;
+#end
+
 /**
  * ...
  * @author jordan wambaugh
@@ -61,7 +65,11 @@ class FTilesheetManager {
 		var bitmap:BitmapData;
 		var imageIsFileName = false;
 		if (Std.is(image,String) && image != ''){
+			#if(cpp)
+			bitmap = ResourceLoader.loadImage(image);
+			#else
 			bitmap = nme.Assets.getBitmapData(image);
+			#end
 		}
 		else if(Std.is(image,BitmapData)){
 			bitmap = cast(image,BitmapData);

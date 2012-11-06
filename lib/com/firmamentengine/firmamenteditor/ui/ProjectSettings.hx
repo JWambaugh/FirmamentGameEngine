@@ -11,6 +11,7 @@ import nme.events.MouseEvent;
 
 import firmament.ui.FDialog;
 import sys.io.File;
+import sys.FileSystem;
 import firmament.utils.loader.serializer.FJsonSerializer;
 import nme.events.Event;
 
@@ -70,9 +71,14 @@ class ProjectSettings extends FWindow
 			return;
 		}
 		var data;
+
 		try{
 			var exeDir = Sys.getCwd();
 			Sys.setCwd(FirmamentEditor.cwd);
+			if(!FileSystem.exists(projectFileTxt.text)){
+				throw "File doesn't exist";
+			}
+
 			data = File.getContent(projectFileTxt.text);
 			Sys.setCwd(exeDir);
 			var serializer = new FJsonSerializer();

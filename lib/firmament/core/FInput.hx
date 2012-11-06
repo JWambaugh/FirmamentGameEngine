@@ -33,7 +33,7 @@ class FInput{
 		this._touching = false;
 		this.defineKeyMap();
 		//initialize our array. there must be a better way to do this.
-		for(i in 0...256){
+		for(i in 0...300){
 			keyStatus.push(false);
 		}
 
@@ -119,7 +119,7 @@ class FInput{
 
 
 	public function isKeyPressed(keyCode:Int):Bool{
-		if(keyCode<256 && keyCode >=0)
+		if(keyCode<300 && keyCode >=0)
 			return this.keyStatus[keyCode];
 		throw "Invalid keycode";
 	}
