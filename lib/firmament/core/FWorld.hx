@@ -63,5 +63,9 @@ class FWorld
 	public function getType():String{
 		return "base";
 	}
+
+	public function setGravity(gravity:FVector){
+		throw('not implemented');
+	}
 	
 }
