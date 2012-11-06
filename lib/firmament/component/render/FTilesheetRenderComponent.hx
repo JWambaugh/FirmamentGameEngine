@@ -31,7 +31,7 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 {
 	var drawList:Array<Float>;
 	var _tilesheet:FTilesheet;
-	var imageScale:Int;
+	var imageScale:Int = 100;
 	var _tile:Int;
 		
 	public function new() {
@@ -50,7 +50,9 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 			this._tile = config.tile;
 		}
 
-		imageScale = 100;
+        if(Std.is(config.imageScale,Int)) {
+			imageScale = config.imageScale;
+		}
 	}
 	
 
