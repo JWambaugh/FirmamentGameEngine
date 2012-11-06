@@ -130,7 +130,8 @@ class FBox2DWorld extends FWorld
 		var ent;
 		//Delete any entities waiting for deletion.
 		while((ent=this.deleteQueue.shift())!=null) {
-			this.deleteEntity(ent);
+			super.deleteEntity(ent);
+			this.b2world.destroyBody(cast(ent.getPhysicsComponent(),FBox2DComponent).body);
 		}
 		
 		
@@ -143,8 +144,9 @@ class FBox2DWorld extends FWorld
 	 * NOT SAFE for fphysics entities. call removeEntity instead
 	 */
 	override public function deleteEntity(ent:FEntity) {
-		
 		super.deleteEntity(ent);
+		this.b2world.destroyBody(cast(ent.getPhysicsComponent(),FBox2DComponent).body);
+		
 	}
 	
 	public function removeEntity(ent:FEntity) {
