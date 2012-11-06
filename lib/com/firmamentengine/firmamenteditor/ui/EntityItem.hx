@@ -71,9 +71,7 @@ class EntityItem extends Sprite
 
 
 
-		trace("here 1");
 		var bitmap = new Bitmap(renderComponent.getBitmapData());
-		trace("here 2");
 		
 		image = new Sprite();
 		var scaleFactor = 75 / bitmap.height;
@@ -86,7 +84,6 @@ class EntityItem extends Sprite
 		layout.addChild(n);
 		this.addChild(layout);
 		
-		trace("here 3");
 		
 		this.addEventListener(MouseEvent.MOUSE_DOWN, function(e:MouseEvent) { 
 				this.image.startDrag();
@@ -129,7 +126,6 @@ class EntityItem extends Sprite
 			}
 			
 		} );
-		trace("End of constructor");	
 	}
 	
 }
