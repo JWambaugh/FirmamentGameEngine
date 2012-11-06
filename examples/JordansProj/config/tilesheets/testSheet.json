@@ -1,0 +1,14 @@
+{
+	image:"assets/images/sheet1.png"
+	,tiles:[
+		{
+			topLeft:{x:0,y:0}
+			,bottomRight:{x:99,y:99}
+		}
+		{
+			topLeft:{x:0,y:100}
+			,bottomRight:{x:999,y:150}
+		}
+
+	]
+}

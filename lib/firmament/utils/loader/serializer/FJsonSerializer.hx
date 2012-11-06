@@ -1,7 +1,7 @@
 package firmament.utils.loader.serializer;
 import firmament.utils.loader.serializer.FSerializerInterface;
 
-import hxjson2.JSON;
+import nice_json.Render;
 import tjson.TJSON;
 
 /**
@@ -21,7 +21,7 @@ class FJsonSerializer implements FSerializerInterface
 	}
 	
 	public function serialize( object:Dynamic):String {
-		return JSON.encode(object);
+		return Render.as_json(object);
 	}
 	
 	public function canProccessFileName(fileName:String):Bool {

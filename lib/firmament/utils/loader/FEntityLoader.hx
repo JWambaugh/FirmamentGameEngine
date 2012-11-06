@@ -1,6 +1,5 @@
 package firmament.utils.loader;
 import firmament.core.FEntity;
-import firmament.core.FPhysicsEntity;
 import nme.events.EventDispatcher;
 #if(cpp)
 import sys.io.File;
@@ -11,6 +10,8 @@ import firmament.utils.FMisc;
 import firmament.utils.loader.serializer.FSerializerFactory;
 import nme.Assets;
 import firmament.ui.FDialog;
+import firmament.core.FEntityFactory;
+import firmament.utils.loader.FDataLoader;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -46,43 +47,18 @@ class FEntityLoader extends EventDispatcher
 	/**
 	 * Function: loadEntity
 	 */
-	public function loadEntity(fileName:String, world:FWorld, config:Dynamic,?overrideClass=null):FEntity {
-		var serializer = FSerializerFactory.getSerializerForFile(fileName);
-		if (serializer == null) {
-			throw ("Appropriate serializer for fileName "+fileName+" could not befound.");
-		}
-		var string = Assets.getText(fileName);
-		#if cpp
-		if (string == null || string == '') {
-			string = File.getContent(fileName);
-		}
-		#end
-		var data = serializer.unserialize(string);
-		if (data == null) {
-			throw("entity data could not be unserialized for "+fileName);
-		}
-		data.entityFile = fileName;
-		FMisc.cloneInto(config,data);
+	public function loadEntity(fileName:String, config:Dynamic,?overrideClass=null):FEntity {
+		var data = FDataLoader.loadData(fileName);
+		FMisc.mergeInto(config,data);
 		
 		var ent:FEntity;
 		
-		var className = null;
-		if(Std.is(data.className, String)){
-			className = data.className;
-		}
+		
 		if (overrideClass != null) {
-			className = overrideClass;
+			data.className = overrideClass;
 		}
-		if (className!=null) {
-			//trace("Classname is set!");
-			var c =Type.resolveClass(className);
-			if(c==null){
-				throw "class "+data.className+" could not be found. Did you remember to include the whole package name?";
-			}
-			ent = Type.createInstance(c, [world,data]);
-		}else {
-			ent = new FPhysicsEntity(cast(world), data);
-		}
+		
+		ent = FEntityFactory.createEntity(data);
 		this.dispatchEvent(new FEntityLoadEvent(ENTITY_LOADED,ent));
 		return ent;
 		
@@ -94,22 +70,8 @@ class FEntityLoader extends EventDispatcher
 	 * 
 	 * 
 	 **/
-	public function loadMap(fileName:String, world:FWorld, ?overrideClass=null) {
-		var serializer = FSerializerFactory.getSerializerForFile(fileName);
-		if (serializer == null) {
-			throw ("Appropriate serializer for fileName "+fileName+" could not befound.");
-		}
-		var string = Assets.getText(fileName);
-		#if(cpp)
-		if (string == null || string == '') {
-			string = File.getContent(fileName);
-		}
-		#end
-		
-		var data = serializer.unserialize(string);
-		if (data == null) {
-			throw("entity data could not be unserialized for "+fileName);
-		}
+	public function loadMap(fileName:String, ?overrideClass=null) {
+		var data = FDataLoader.loadData(fileName);
 		
 		
 		if (!Std.is(data.entities, Array)) {
@@ -127,7 +89,7 @@ class FEntityLoader extends EventDispatcher
 					config = { };
 				}
 				
-				loadEntity(ent.entityFile, world, config,overrideClass);
+				loadEntity(ent.entityFile, config,overrideClass);
 		}
 		
 		

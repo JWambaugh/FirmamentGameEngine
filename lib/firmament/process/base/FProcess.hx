@@ -1,17 +1,23 @@
-package firmament.core;
-
+package firmament.process.base;
+import firmament.process.base.FProcessManager;
+import nme.events.Event;
 /**
  * Basic process implementation that does nothing. Extend for easy process implementation.
  * @author Jordan Wambaugh
  */
 
-class FProcess implements FProcessInterface
+class FProcess extends nme.events.EventDispatcher, implements FProcessInterface
 {
+
+	public static inline var COMPLETE:String = "FProcess.COMPLETE";
+
 	var _isComplete:Bool;
 	var _isRunning:Bool;
+	var _manager:FProcessManager;
 
 	public function new() 
 	{
+		super();
 		_isComplete = false;
 		_isRunning = false;
 	}
@@ -20,7 +26,8 @@ class FProcess implements FProcessInterface
 	/**
 	 * Called when the process is added to the manager queue, before the process is started.
 	 */
-	public function beforeStart():Void {
+	public function beforeStart(processManager:FProcessManager):Void{
+		_manager = processManager;
 		_isRunning = true;
 	}
 	
@@ -28,7 +35,9 @@ class FProcess implements FProcessInterface
 	 * Called after each step. This method should do a bit of work and then finish. Each step should not be too long.
 	 */
 	public function step():Void {
-		
+		if(_isComplete){
+			this.dispatchEvent(new Event(FProcess.COMPLETE));
+		}
 	}
 	
 	
@@ -50,7 +59,7 @@ class FProcess implements FProcessInterface
 	/**
 	 * Should return true if the process is currently running.
 	 */
-	public function isRunning():Void {
+	public function isRunning():Bool {
 		return _isRunning;
 	}
 	

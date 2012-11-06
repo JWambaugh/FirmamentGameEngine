@@ -241,7 +241,9 @@ class B2Math {
 	// that recursively "folds" the upper bits into the lower bits. This process yields a bit vector with
 	// the same most significant 1 as x, but all 1's below it. Adding 1 to that value yields the next
 	// largest power of 2. For a 32-bit value:"
-	/*static public function nextPowerOfTwo(x:Int):Int
+	
+	/* BREAKS COMPILATION IN NEKO
+	static public function nextPowerOfTwo(x:Int):Int
 	{
 		x |= (x >> 1) & 0x7FFFFFFF;
 		x |= (x >> 2) & 0x3FFFFFFF;

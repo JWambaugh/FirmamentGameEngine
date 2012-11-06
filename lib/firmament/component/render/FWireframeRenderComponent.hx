@@ -1,4 +1,4 @@
-package firmament.core;
+package firmament.component.render;
 
 import box2D.common.math.B2Vec2;
 import nme.display.MovieClip;
@@ -11,22 +11,32 @@ import box2D.collision.shapes.B2CircleShape;
 //import these two classes
 import nme.display.BitmapData;
 import nme.geom.Rectangle;
+import firmament.component.base.FEntityComponent;
+import firmament.core.FEntity;
+import firmament.core.FCamera;
+import firmament.component.physics.FBox2DComponent;
+
 /**
  * ...
  * @author Jordan Wambaugh
  */
 
-class FWireframeRenderer implements FRenderer
+class FWireframeRenderComponent extends FEntityComponent, implements FRenderComponentInterface
 {
 
 	public function new() 
 	{
+		super();
 		
 	}
+
+	override public function init(config:Dynamic){
+
+	}
 	
-	public function render(item:FRenderable, camera:FCamera):Void {
-	
-		var pos = item.getPosition();
+	public function render(camera:FCamera):Void {
+		var physicsComponent:FBox2DComponent = cast(this._entity.getComponent("physics"));
+		var pos = physicsComponent.getPosition();
 		
 		camera.graphics.lineStyle(1,0xFF00FF);
 		var cameraPos = camera.getTopLeftPosition();
@@ -34,8 +44,8 @@ class FWireframeRenderer implements FRenderer
 		
 		//draw entity location
 		camera.graphics.drawCircle((pos.x-cameraPos.x)*camera.getZoom(),(pos.y-cameraPos.y)*camera.getZoom(),5);
-		if (item.hasShapes()) {
-			var shapes:Array<B2Shape> = item.getShapes();
+		if (physicsComponent.hasShapes()) {
+			var shapes:Array<B2Shape> = physicsComponent.getShapes();
 			//trace(shapes.length);
 			for (shape in shapes) {
 				//trace(shape.getType());
@@ -70,7 +80,11 @@ class FWireframeRenderer implements FRenderer
 		}
 		
 	}
+	public function getBitmapData():BitmapData{
+		return new BitmapData(0,0);
+	}
 	
-	
-	
+	override public function getType():String {
+		return "render";
+	}
 }

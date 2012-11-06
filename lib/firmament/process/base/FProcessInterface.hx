@@ -1,4 +1,4 @@
-package firmament.core;
+package firmament.process.base;
 
 /**
  * Interface for a process. A process performs a job over a length of time.
@@ -28,7 +28,7 @@ interface FProcessInterface
 	/**
 	 * Should return true if the process is currently running.
 	 */
-	public function isRunning():Void;
+	public function isRunning():Bool;
 	
 	
 	/**

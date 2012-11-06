@@ -4,6 +4,7 @@ import nme.events.MouseEvent;
 import nme.events.Event;
 import nme.Lib;
 /**
+ * Class: FButton
  * @author Jordan Wambaugh
  */
 
@@ -18,7 +19,8 @@ class FButton extends FWidget
 	
 	
 	/**
-	 * Constructor: creates a new button. Can optionally take x and y coordinates, and a function to fire when clicked.
+	 * Constructor: new
+	 * creates a new button. Can optionally take x and y coordinates, and a function to fire when clicked.
 	 * the onclick parameter must be a function that accepts a MouseEvent object and return Void.
 	 */
 	public function new(?text:String="",?x:Int=0,?y:Int=0,?onClick:MouseEvent -> Void=null) 
@@ -48,7 +50,7 @@ class FButton extends FWidget
 		this.graphics.clear();
 		this.graphics.beginFill(this.currentColor);
 		this.graphics.lineStyle(2, 0x555555);
-		trace("width: "+this.text.width);
+		//trace("width: "+this.text.width);
 		this.graphics.drawRoundRect(0, 0, this.text.width+2, this.text.height+2,5);
 		this.graphics.endFill();
 	}

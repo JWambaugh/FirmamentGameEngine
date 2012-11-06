@@ -47,10 +47,10 @@ class ToolBar extends FWindow
 			var c = {
 				entities:entC
 				};
-			
+			trace(c);
 			var serializer = new FJsonSerializer();
 			var data:String = serializer.serialize(c).replace("\\/","/");
-			
+			trace(data);
 			File.saveContent(FirmamentEditor.projectEditor.getMapDir() + "/" +fileName, data);
 		},"Save Map", lastFileName);
 		
@@ -63,7 +63,7 @@ class ToolBar extends FWindow
 			var path = FirmamentEditor.projectEditor.getMapDir() + "/" + fileName;
 			//FDialog.alert(path);
 			
-			FEntityLoader.getInstance().loadMap(path, FirmamentEditor.world,"com.firmamentengine.firmamenteditor.FEditorEntity");
+			FEntityLoader.getInstance().loadMap(path, "com.firmamentengine.firmamenteditor.FEditorEntity");
 		},"Load Map",lastFileName );
 	}
 	

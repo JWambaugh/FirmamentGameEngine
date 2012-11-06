@@ -1,4 +1,4 @@
-package firmament.core;
+package firmament.component.render;
 import nme.display.BitmapData;
 import nme.geom.Matrix;
 import nme.display.IBitmapDrawable;
@@ -11,7 +11,7 @@ import nme.events.EventDispatcher;
  * @author Jordan Wambaugh
  */
 
-class FSpriteRenderer extends EventDispatcher ,implements FRenderer 
+class FSpriteRenderComponent extends FEntityComponent ,implements FRenderComponentInterface
 {
 
 	public function new() 
@@ -19,7 +19,7 @@ class FSpriteRenderer extends EventDispatcher ,implements FRenderer
 		super();
 	}
 	
-	public function render(item:FRenderable, camera:FCamera):Void {
+	public function render(item:FEntity, camera:FCamera):Void {
 		
 		
 		var bmData = item.getCurrentImage();
@@ -53,6 +53,9 @@ class FSpriteRenderer extends EventDispatcher ,implements FRenderer
 		//camera.bitmapData.draw(bmData, matrix,null,null,null,true);
 		
 		
+	}
+	override public function getType():String {
+		return "render";
 	}
 	
 }

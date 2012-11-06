@@ -1,0 +1,41 @@
+{"entities":
+  [{"config":
+     {"components":
+       {"physics":
+         {"angle": -0.523598775,
+          "position":
+           {"y": 0.22,
+            "x": 4.12}}}},
+    "entityFile": "config/entities/exampleFloor.json"},
+   {"config":
+     {"components":
+       {"physics":
+         {"angle": 0.523598775,
+          "position":
+           {"y": 0.22,
+            "x": -4.26}}}},
+    "entityFile": "config/entities/exampleFloor.json"},
+   {"config":
+     {"components":
+       {"physics":
+         {"angle": 0,
+          "position":
+           {"y": -0.59,
+            "x": -1.6}}}},
+    "entityFile": "config/entities/exampleBouncyBall.json"},
+    {"config":
+     {"components":
+       {"physics":
+         {"angle": 0,
+          "position":
+           {"y": -0.59,
+            "x": -1.6}}}},
+    "entityFile": "config/entities/exampleBouncyBall.json"},
+   {"config":
+     {"components":
+       {"physics":
+         {"angle": 0,
+          "position":
+           {"y": -0.65,
+            "x": 2.08}}}},
+    "entityFile": "config/entities/exampleBouncyBall.json"}]}

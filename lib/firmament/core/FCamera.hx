@@ -1,5 +1,6 @@
 package firmament.core;
-
+import firmament.component.physics.FPhysicsComponentInterface;
+import firmament.component.render.FRenderComponentInterface;
 import nme.display.Sprite;
 import firmament.core.FEntity;
 import firmament.core.FWorld;
@@ -20,6 +21,9 @@ import nme.events.Event;
 
 class FCamera extends Sprite ,implements FWorldPositionalInterface 
 {
+	public inline static var BEFORE_RENDER_EVENT = "beforeRenderEvent";
+	public inline static var AFTER_RENDER_EVENT = "afterRenderEvent";
+
 	var position:FVector;
 	var topLeftPosition:FVector;
 	var positionBase:String;
@@ -49,15 +53,16 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		
 	}
 	
-	public function render(worlds:Array<FWorld>) {
+	public function render(worlds:Hash<FWorld>) {
+		this.dispatchEvent(new Event(FCamera.BEFORE_RENDER_EVENT));
 		this.graphics.clear();
 		this.graphics.beginFill(0);
 		this.graphics.drawRect(0, 0, this.displayWidth, this.displayHeight);
 		this.graphics.endFill();
-		var wireframe = new FWireframeRenderer();
+		
 		//this.graphics.drawRect(0,0, this.displayWidth, this.displayHeight);
 		var entityList:Array<FEntity> = new Array<FEntity>();
-		var displayPadding = 4; //number of meters to pad in query for entities. Incres this if you have entities popping out at the edges
+		var displayPadding = 4; //number of meters to pad in query for entities. Increase this if you have entities popping out at the edges
 		for (world in worlds) {
 			var entities = world.getEntitiesInBox(Math.floor(this.position.x - (this.displayWidth / 2 / this.zoom+displayPadding))
 				,Math.floor(this.position.y - (this.displayHeight / 2 / this.zoom+displayPadding))
@@ -66,21 +71,21 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 			
 			//Firmament.log(entities);
 			entityList=entityList.concat(entities);
-			
-			
 		}
 		entityList.sort(function(a:FEntity,b:FEntity):Int{
-			var cmp = a.getZPosition() - b.getZPosition();
+			var cmp = cast(a.getComponent("physics"),FPhysicsComponentInterface).getZPosition() - cast(b.getComponent("physics"),FPhysicsComponentInterface).getZPosition();
 			if (cmp==0) {
 				return 0;	
 			} else if (cmp > 0) return 1;
 			return -1;
 		});
 		for (ent in entityList) {
-				ent.getRenderer().render(ent, this);
-				//wireframe.render(ent,this);
-			}
+			cast(ent.getComponent("render"),FRenderComponentInterface).render(this);
+		}
+		this.dispatchEvent(new Event(FCamera.AFTER_RENDER_EVENT));
+
 	}
+
 	private function calculateTopLeftPosition() {
 		//trace(this.width);
 		this.topLeftPosition.x=this.position.x-(this.displayWidth/this.zoom)/2;
@@ -180,6 +185,14 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		(x / this.getZoom()) + (this.getPositionX() - (this.displayWidth / this.getZoom() / 2))
 		,(y / this.getZoom()) + (this.getPositionY() - (this.displayHeight / this.getZoom() / 2)));
 
+	}
+
+
+	public function getAngle():Float{
+		return 0;
+	}
+	public function setAngle(a:Float){
+		//noop
 	}
 	
 }

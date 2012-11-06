@@ -1,5 +1,6 @@
 bin
-docs
+docs/api
+docs/project/data
 __chxdoctmp
 *.exe
 *.swp

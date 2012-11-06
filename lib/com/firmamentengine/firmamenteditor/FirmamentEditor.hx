@@ -7,8 +7,7 @@ import com.firmamentengine.firmamenteditor.ui.ProjectSettings;
 import firmament.core.FCamera;
 import firmament.core.FEntity;
 import firmament.core.FGame;
-import firmament.core.FPhysicsWorld;
-import firmament.core.FPhysicsEntity;
+import firmament.core.FEntity;
 import firmament.core.FVector;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
@@ -21,25 +20,26 @@ import firmament.ui.FDialog;
 import firmament.ui.FStyle;
 import nme.display.StageQuality;
 import firmament.core.FInput;
+import firmament.core.FBox2DWorld;
 
 /**
  * ...
  * @author Jordan Wambaugh
  */
 using StringTools;
+using firmament.utils.FEntityCompat;
 class FirmamentEditor
 {
 	
-	public static var world:FPhysicsWorld;
 	public static var camera:FCamera;
 	public static var projectEditor:ProjectSettings;
 	public static var game:FGame;
 	public static var entitySelector:EntitySelector;
 	public static var toolBar:ToolBar;
 	public static var entityWindow:EntityWindow;
-	
+	public static var world:FBox2DWorld;
 	public static var dragEnt:FEntity;
-
+	public static var cwd:String;
 	public static var dragOffset:FVector;
     public static function main()
     {
@@ -56,37 +56,29 @@ class FirmamentEditor
 		arr.pop();
 		executableDir = arr.join("/");
 		//Sys.setCwd(executableDir);
-		trace(executableDir);
 		//set styles
-		
-		#if (mac)
-		var font = Assets.getFont ("assets/MILF____.TTF");
+
+		cwd = Sys.getCwd();
+		//temporarily changeworking directory while we load our font
+		Sys.setCwd(executableDir);
+	
+		var font = Assets.getFont ("assets/fonts/Ubuntu-R.ttf");
 		FStyle.setStyleObj("",{
 			fontName:font.fontName
-			,fontSize:15
-			,fontHeightMultiplier:2.5
-			,fontLeading:50			
-			
-		});
-		#else
-		FStyle.setStyleObj("",{
-			
-			fontHeightMultiplier:1
-			,fontHeightAdd:4
+			,fontHeightMultiplier:1
+			,fontHeightAdd:5
 					
-			
 		});
-	   #end
+	   	
 		var stage = Lib.current.stage;
 		stage.align = StageAlign.TOP_LEFT;
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.quality = StageQuality.BEST;
 		camera = new FCamera(stage.stageWidth,stage.stageHeight);
-		game  = new FGame();
+		game  = FGame.getInstance();
+		world = cast(game.getWorld("box2d"));
 		game.enableSimulation = false;
-		world = new FPhysicsWorld(new FVector(0,0));
-		game.addWorld(world);
-		game.addCamera(camera);
+		game.addCamera("main",camera);
 		stage.addChild(camera);
 		
 		toolBar = new ToolBar();
@@ -120,7 +112,7 @@ class FirmamentEditor
 			var point:FVector = camera.getWorldPosition(e.localX, e.localY);
 			var ents = world.getEntitiesAtPoint(point);
 			if (ents.length > 0) {
-				dragEnt = cast(ents[0], FPhysicsEntity);
+				dragEnt = cast(ents[0], FEntity);
 				entityWindow.setEntity(cast(ents[0]));
 				point.subtract(dragEnt.getPosition());
 				dragOffset = point;
@@ -166,6 +158,7 @@ class FirmamentEditor
 			
 		} );
 		
+		Sys.setCwd(cwd);
 		//FDialog.prompt("Howdy! please put somthing in here.", function(s) { } ,"Please enter your name","jordan");
     }
 }

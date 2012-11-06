@@ -1,4 +1,11 @@
-package firmament.core;
+package firmament.component.physics;
+import firmament.component.base.FEntityComponent;
+import firmament.component.physics.FPhysicsComponentInterface;
+import firmament.core.FVector;
+import firmament.core.FWorld;
+import firmament.core.FBox2DWorld;
+import firmament.core.FWorldPositionalInterface;
+
 
 import box2D.collision.shapes.B2CircleShape;
 import box2D.collision.shapes.B2PolygonShape;
@@ -10,47 +17,29 @@ import box2D.dynamics.B2FixtureDef;
 import box2D.dynamics.B2Fixture;
 import box2D.collision.shapes.B2Shape;
 import haxe.Timer;
-import nme.display.BitmapData;
+import firmament.core.FGame;
+
 /**
- * Class: FPhysicsEntity
- * Entity class for physics-based entities 
- * 
- * Extends: <FEntity>
- * 
- * 
+ * Class: FBox2DComponent
+ * @author Jordan Wambaugh
  */
 
- 
-class FPhysicsEntity extends FEntity
+class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInterface, implements FWorldPositionalInterface 
 {
-
-	public var body:B2Body;
 	
-	/**
-	 * Constructor: new
-	 * 
-	 * Parameters:
-		* world - [<FPhysicsWorld>]
-		* config - [Dynamic] A config object with properties specifying details for this entity. See 'Config Parameters' below.
-	 *
-	 * Config Paramers:
-		 * - All parameters except shapes are optional.
-		 * shapes - [Array<Dynamic>] Array of config objects spicifying the shapes that make up the entity. See 'Shape Config Parameters' below)
-		 * imageScale - [Float] The initial scale value for the sprite. Def: 100
-		 * sprite  - [BitmapData] The image to use as a sprite for this entity. Def: none (wireframe)
-		 * type - [String] The type of entity to create. Possible values: 'dynamic', 'static', 'kinematic'. Def: static
-		 * position - [<FVector>] The starting position for the entity in the world. Def: 0,0
-		 * maxLifSeconds - [Int] number of seconds until the entity should automatically die (only set if desired). Def: 0
-	 * 
-	 * Shape Config Parameters:
-		 * 
-	 * 
-	 */
-	public function new(world:FPhysicsWorld,config:Dynamic) 
+	public var body:B2Body;
+	private var zPosition:Float;
+	private var position:FVector;
+	private var world:FWorld;
+	public function new() 
 	{
-		super(world, config);
-		
-		
+		super();
+		this.world = FGame.getInstance().getWorld("box2d");
+		this.position = new FVector(0,0);
+
+	}
+	
+	override public function init(config:Dynamic):Void {
 		var def:B2BodyDef = new B2BodyDef();
 		var fixtureDef:B2FixtureDef = new B2FixtureDef();
 		
@@ -59,7 +48,6 @@ class FPhysicsEntity extends FEntity
 		}
 		else if(Reflect.isObject(config.position)){
 			def.position = new B2Vec2(config.position.x,config.position.y);
-		
 		}
 		else {
 			def.position = cast(new FVector(0, 0),B2Vec2);
@@ -75,27 +63,26 @@ class FPhysicsEntity extends FEntity
 		
 		
 		
-		var physWorld:FPhysicsWorld = cast world;
+		var physWorld:FBox2DWorld = cast world;
 		if(Std.is(config.angle,Float))
 			def.angle = config.angle;
 		def.fixedRotation = false;
-		
-		if (Std.is(config.fixedRotation, Bool)) {
+
+		if(Std.is(config.fixedRotation,Bool)){
 			def.fixedRotation = config.fixedRotation;
 		}
+
 		if (Std.is(config.allowSleep, Bool)) {
 			def.allowSleep= config.allowSleep;
 		}
-		
-		
+
+
 		body = physWorld.getB2World().createBody(def);
-		
-		//body.createFixture2(new B2CircleShape(1));
 		
 		
 		
 		if (Std.is(config.maxLifeSeconds, Float)) {
-			Timer.delay(function() { this.delete(); }, Math.floor(config.maxLifeSeconds * 1000));
+			Timer.delay(function() { this._entity.delete(); }, Math.floor(config.maxLifeSeconds * 1000));
 		}
 		
 		if(Std.is(config.shapes,Array))
@@ -144,38 +131,73 @@ class FPhysicsEntity extends FEntity
 		}
 		
 		
-		
-		
+		this.world.addEntity(this._entity);
 	}
+		
 	
-	override function  getPosition() {
+	public function  getPosition() {
 		this.position.x = this.body.getPosition().x;
 		this.position.y = this.body.getPosition().y;
 		return this.position;
 	}
 	
-	override function setPosition(pos:FVector) {
+	public function setPosition(pos:FVector) {
 		this.body.setPosition(new B2Vec2(pos.x, pos.y));
-		super.setPosition(pos);
+		this.position=pos;
+	}
+
+	public function getPositionX():Float{
+		return this.getPosition().x;
+	}
+
+	public function getPositionY():Float{
+		return this.getPosition().y;
 	}
 	
-	override public function setAngle(a:Float):Void {
+	public function setAngle(a:Float):Void {
 		this.body.setAngle(a);
 	}
 	
-	override public function getAngle():Float {
+	public function getAngle():Float {
 		return this.body.getAngle();
 	}
 	
 	public function setLinearVelocity(vel:FVector) {
+		this.body.setAwake(true);
 		this.body.setLinearVelocity(new B2Vec2(vel.x, vel.y));
 	}
 	
 	public function getLinearVelocity():FVector {
 		return new FVector(this.body.getLinearVelocity().x, this.body.getLinearVelocity().y);
 	}
+
+	public function addLinearVelocity(velocity:FVector){
+		this.body.setAwake(true);
+		var vel = this.body.getLinearVelocity();
+		vel.add(velocity);
+	}
 	
-	override public function getShapes():Array<B2Shape> {
+	public function getZPosition():Float {
+		return zPosition;
+	}
+	public function setZPosition(p:Float):Void {
+		zPosition = p;
+	}
+	public function setWorld(world:FWorld):Void{
+		this.world = world;
+	}
+
+
+	override public function getType():String {
+		return "physics";
+	}
+
+	public function hasShapes():Bool{
+		return true;
+	}
+
+	//TODO: Cache the response from this for speed
+	public function getShapes():Array<B2Shape>{
 		var fixture = this.body.getFixtureList();
 		var shapes = new Array<B2Shape>();
 		while (fixture != null) {
@@ -184,14 +206,7 @@ class FPhysicsEntity extends FEntity
 		}
 		return shapes;
 	}
-	override public function hasShapes() {
-		return true;
-	}
-	
-	
-	
-	public function delete() {
-		
-		cast(this.world,FPhysicsWorld).removeEntity(this);
-	}
+
+
+
 }

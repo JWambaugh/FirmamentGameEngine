@@ -1,30 +1,35 @@
 package com.firmamentengine.firmamenteditor;
-import firmament.core.FPhysicsEntity;
-import firmament.core.FSpriteRenderer;
-import firmament.core.FPhysicsWorld;
+import firmament.core.FEntity;
+import firmament.utils.FEntityCompat;
 import firmament.ui.FDialog;
 /**
  * ...
  * @author Jordan Wambaugh
  */
-
-class FEditorEntity extends FPhysicsEntity
+using firmament.utils.FEntityCompat;
+class FEditorEntity extends FEntity
 {
 
 	var originalSprite:Dynamic;
 	var fileName:String;
-	public function new(world:FPhysicsWorld,config:Dynamic) 
+	public function new(config:Dynamic) 
 	{
+		//filter out any custom components
+		for(key in Reflect.fields(config.components)){
+			if(key!='animation' && key!='render' && key!='physics'){
+				Reflect.deleteField(config.components,key);
+			}
+		}
 		//must preserve original config for editor
-		this.originalSprite = config.sprite;
+		this.originalSprite = config.components.render.image;
 		this.fileName = config.entityFile;
 		//need to use our own image loader here since we don't have compiled assets
-		if(Std.is(config.sprite,String)){
-			config.sprite = ResourceLoader.loadImage(config.sprite);
+		if(Std.is(config.components.render.image,String)){
+			config.components.render.image = ResourceLoader.loadImage(config.components.render.image);
 		}
-		super(world, config);
+		super(config);
 		
-		this.config.sprite = originalSprite;
+		
 	}
 	
 	public function setFileName(n:String) {
@@ -34,11 +39,17 @@ class FEditorEntity extends FPhysicsEntity
 		return this.fileName;
 	}
 	public function getMapConfig():Dynamic {
+		var p = this.getPhysicsComponent();
+
 		return { 
 			entityFile:this.fileName
 			,config: {
-				position: this.getPosition()
-				,angle: this.getAngle()
+				components:{
+					physics:{
+						position: {x:p.getPositionX(),y:getPositionY()}
+						,angle: p.getAngle()
+						}
+					}
 				}
 			};
 		

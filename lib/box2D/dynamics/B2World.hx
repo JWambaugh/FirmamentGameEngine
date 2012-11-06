@@ -85,7 +85,7 @@ class B2World
 		m_inv_dt0 = 0.0;
 		
 		m_contactManager.m_world = this;
-		m_flags = 0;
+		
 		var bd:B2BodyDef = new B2BodyDef();
 		m_groundBody = createBody(bd);
 	}

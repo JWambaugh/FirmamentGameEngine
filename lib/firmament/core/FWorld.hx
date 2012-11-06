@@ -50,7 +50,7 @@ class FWorld
 	/**
 	 * returns the elapsed time since the last step in seconds.
 	 **/
-	private function getTimeSinceLastStep():Float {
+	public function getTimeSinceLastStep():Float {
 			//trace(Timer.stamp() - this.lastStep);
 		return Timer.stamp() - this.lastStep;
 		
@@ -58,6 +58,10 @@ class FWorld
 	
 	public function deleteEntity(ent:FEntity) {
 		this.entities.remove(ent);
+	}
+
+	public function getType():String{
+		return "base";
 	}
 	
 }

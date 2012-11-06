@@ -5,7 +5,7 @@ import firmament.ui.FTextLabel;
 import firmament.ui.layout.FHBox;
 import firmament.ui.layout.FVBox;
 import firmament.core.FCamera;
-import firmament.core.FPhysicsEntity;
+import firmament.core.FEntity;
 import nme.display.Bitmap;
 import nme.display.BitmapData;
 import nme.display.Loader;
@@ -21,6 +21,10 @@ import nme.events.MouseEvent;
 import com.firmamentengine.firmamenteditor.FirmamentEditor;
 import nme.Lib;
 import com.firmamentengine.firmamenteditor.ResourceLoader;
+import firmament.core.FEntityFactory;
+import sys.FileSystem;
+import firmament.component.base.FEntityComponentFactory;
+import firmament.component.render.FRenderComponentInterface;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -40,16 +44,38 @@ class EntityItem extends Sprite
 	var dragging:Bool;
 	public function new(fileName:String,dir:String,config:Dynamic) 
 	{
+		trace("intityItem constructor");
 		super();
 		this.filePath = dir+"/"+fileName;
 		this.config = config;
 		var entName = fileName.split(".")[0];
 		layout = new FVBox();
 		this.dragging = false;
-		var bitmap = new Bitmap(ResourceLoader.loadImage(config.sprite));
+
+		var tempEntity:FEntity = new FEntity(config);
+
+		var component = FEntityComponentFactory.createComponent(config.components.render.componentName);
+		var renderComponent = cast(component,FRenderComponentInterface);
+		component.setEntity(tempEntity);
+		
+
+		if(Reflect.isObject(config.components.animation)){
+			var animationComponent = FEntityComponentFactory.createComponent(config.components.animation.componentName);
+			animationComponent.setEntity(tempEntity);
+			animationComponent.init(config.components.animation);
+		}
+
+		//init render component
+		component.init(config.components.render);
+
+
+
+
+		var bitmap = new Bitmap(renderComponent.getBitmapData());
 		
 		image = new Sprite();
 		var scaleFactor = 75 / bitmap.height;
+		if(bitmap.width > 200 && bitmap.width > bitmap.height)scaleFactor = 200/bitmap.width;
 		bitmap.scaleX = scaleFactor;
 		bitmap.scaleY = scaleFactor;
 		this.sprite = bitmap.bitmapData;
@@ -89,11 +115,14 @@ class EntityItem extends Sprite
 				this.image.stopDrag();
 				this.image.x = this.startX;
 				this.image.y = this.startY;
-				var world = FirmamentEditor.world;
 				var config = Reflect.copy(this.config);
-				config.sprite = this.sprite;
-				config.position = FirmamentEditor.camera.getWorldPosition(e.stageX,e.stageY);
-				var ent = new FEditorEntity(world, config);
+				config.components.render.tileSheetImage = this.sprite;
+				config.components.physics.position = FirmamentEditor.camera.getWorldPosition(e.stageX,e.stageY);
+
+				
+
+				var ent = new FEditorEntity(config);
+				FEntityFactory.applyComponents(ent,config);
 				ent.setFileName(this.filePath);
 				FirmamentEditor.entityWindow.setEntity(ent);
 				FirmamentEditor.dragEnt = ent;
@@ -101,7 +130,6 @@ class EntityItem extends Sprite
 			}
 			
 		} );
-		
 	}
 	
 }

@@ -34,6 +34,7 @@ Source: "C:\devprojects\Firmament.hx\editor\bin\cpp\windows\bin\regexp.dll"; Des
 Source: "C:\devprojects\Firmament.hx\editor\bin\cpp\windows\bin\std.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\devprojects\Firmament.hx\editor\bin\cpp\windows\bin\zlib.dll"; DestDir: "{app}"; Flags: ignoreversion     
 Source: "C:\devprojects\Firmament.hx\editor\bin\cpp\windows\bin\icon.png"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\devprojects\Firmament.hx\editor\bin\cpp\windows\bin\assets\fonts\Ubuntu-R.ttf"; DestDir: "{app}\assets\fonts"; Flags: ignoreversion
 ;Source: "C:\Users\jordan.wambaugh\Downloads\vcredist_x86.exe"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

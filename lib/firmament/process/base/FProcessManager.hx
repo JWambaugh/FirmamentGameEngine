@@ -1,4 +1,6 @@
-package firmament.core;
+package firmament.process.base;
+
+import haxe.Timer;
 
 /**
  * ...
@@ -8,12 +10,20 @@ package firmament.core;
 class FProcessManager 
 {
 	var processQueue:Array<FProcessInterface>;
-	var iteration:UInt;
+	var iteration:Int;
+	var frameDelta:Float; // in seconds
+	var lastTime:Float; // in seconds
 	
 	public function new() 
 	{
 		processQueue = new Array<FProcessInterface>();
 		iteration = 0;
+		lastTime = 0; // Timer.stamp();
+		frameDelta = .03;
+	}
+
+	public function getFrameDelta():Float {
+		return frameDelta;
 	}
 	
 	public function addProcess(p:FProcessInterface) {
@@ -25,9 +35,18 @@ class FProcessManager
 	 * Runs a step for each registered process.
 	 */
 	public function step() {
+		if(lastTime == 0) {
+		    lastTime = Timer.stamp();
+		} else {
+			var ctime = Timer.stamp();
+			frameDelta = ctime - lastTime;
+			lastTime = ctime;
+		}
 		iteration++;
 		for (p in processQueue) {
-			p.step();
+			if(!p.isComplete()){
+				p.step();
+			}
 		}
 		//clean up left over processes every 10 steps
 		if (iteration % 10 == 0) {
@@ -49,7 +68,7 @@ class FProcessManager
 	 * @param	p
 	 */
 	public function abortProcess(p:FProcessInterface) {
-		if (p.isRunning ) {
+		if (p.isRunning() ) {
 			if (!p.beforeAbort()) {
 				throw "Cannot abort process";
 			}

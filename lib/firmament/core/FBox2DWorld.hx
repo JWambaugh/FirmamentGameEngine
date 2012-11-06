@@ -1,6 +1,7 @@
 package firmament.core;
 
 import box2D.dynamics.B2ContactListener;
+import firmament.component.physics.FBox2DComponent;
 import firmament.core.FWorld;
 import firmament.core.FEntity;
 import box2D.dynamics.B2World;
@@ -18,7 +19,7 @@ import box2D.common.math.B2Vec2;
  */
 
 class FPhysicsWorldContactListener extends B2ContactListener {
-	var world:FPhysicsWorld;
+	var world:FBox2DWorld;
 	
 	public function new(world) {
 		this.world = world;
@@ -32,18 +33,18 @@ class FPhysicsWorldContactListener extends B2ContactListener {
  
 
  
-class FPhysicsWorld extends FWorld
+class FBox2DWorld extends FWorld
 {
 
 	
 	var b2world:B2World;
 	
-	private var deleteQueue:Array<FPhysicsEntity>;
-	public function new(gravity:FVector) 
+	private var deleteQueue:Array<FEntity>;
+	public function new() 
 	{
 		super();
-		this.b2world = new B2World(gravity, true);
-		this.deleteQueue = new Array<FPhysicsEntity>();
+		this.b2world = new B2World(new B2Vec2(0,9), true);
+		this.deleteQueue = new Array<FEntity>();
 		//this.b2world.setContactListener(new FPhysicsWorldContactListener(this));
 	}
 	
@@ -55,8 +56,7 @@ class FPhysicsWorld extends FWorld
 		query.lowerBound.set(topLeftX,topLeftY);
 		
 		this.b2world.queryAABB(function(fixture){
-			
-			selectEntities.push(fixture.getBody().getUserData());
+			selectEntities.push(cast(fixture.getBody().getUserData(),FBox2DComponent).getEntity());
 			return true;
 		},query);
 	  
@@ -83,9 +83,9 @@ class FPhysicsWorld extends FWorld
 		var filtered:Array<FEntity> = new Array<FEntity>();
 		
 		//loop through each fixture in each entity, and see if its an actual match.
-		for (en in ents) {
-			var ent:FPhysicsEntity = cast(en, FPhysicsEntity);
-			var fixture = ent.body.getFixtureList();
+		for (ent in ents) {
+			var component = cast(ent.getPhysicsComponent(), FBox2DComponent);
+			var fixture = component.body.getFixtureList();
 			while (fixture!=null) {
 				if (fixture.testPoint(p)) {
 					//match!
@@ -95,7 +95,7 @@ class FPhysicsWorld extends FWorld
 						contains = true;
 					}
 					if (!contains) {
-						filtered.push(en);
+						filtered.push(ent);
 					}
 				}
 				fixture = fixture.getNext();
@@ -108,21 +108,20 @@ class FPhysicsWorld extends FWorld
 		return this.b2world;
 	}
 	
-	public function createEntity(config:Dynamic):FPhysicsEntity {
-		var ent:FPhysicsEntity = new FPhysicsEntity(this,config);
+	public function createEntity(config:Dynamic):FEntity {
+		var ent:FEntity = new FEntity(config);
 		//this.addEntity(ent);
 		return ent;
 		
 	}
 	
 	override public function step():Void {
-		
 		this.b2world.step(this.getTimeSinceLastStep(), 10, 10);
 		this.endOfStep();
 		var contact = this.b2world.getContactList();
 		while (contact!=null) {
-			var entA:FPhysicsEntity = cast(contact.getFixtureA().getBody().getUserData());
-			var entB:FPhysicsEntity = cast(contact.getFixtureB().getBody().getUserData());
+			var entA:FEntity = cast(contact.getFixtureA().getBody().getUserData().getEntity());
+			var entB:FEntity = cast(contact.getFixtureB().getBody().getUserData().getEntity());
 			entA.dispatchEvent(new FPhysicsCollisionEvent(contact));
 			entB.dispatchEvent(new FPhysicsCollisionEvent(contact));
 			contact = contact.getNext();
@@ -131,7 +130,8 @@ class FPhysicsWorld extends FWorld
 		var ent;
 		//Delete any entities waiting for deletion.
 		while((ent=this.deleteQueue.shift())!=null) {
-			this.deleteEntity(ent);
+			super.deleteEntity(ent);
+			this.b2world.destroyBody(cast(ent.getPhysicsComponent(),FBox2DComponent).body);
 		}
 		
 		
@@ -144,14 +144,18 @@ class FPhysicsWorld extends FWorld
 	 * NOT SAFE for fphysics entities. call removeEntity instead
 	 */
 	override public function deleteEntity(ent:FEntity) {
-		this.b2world.destroyBody(cast(ent,FPhysicsEntity).body);
 		super.deleteEntity(ent);
+		this.b2world.destroyBody(cast(ent.getPhysicsComponent(),FBox2DComponent).body);
+		
 	}
 	
-	public function removeEntity(ent:FPhysicsEntity) {
+	public function removeEntity(ent:FEntity) {
 		this.deleteQueue.push(ent);
 		
 	}
 	
+	override public function getType():String{
+		return "box2d";
+	}
 	
 }
