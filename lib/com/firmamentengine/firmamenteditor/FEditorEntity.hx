@@ -14,6 +14,12 @@ class FEditorEntity extends FEntity
 	var fileName:String;
 	public function new(config:Dynamic) 
 	{
+		//filter out any custom components
+		for(key in Reflect.fields(config.components)){
+			if(key!='animation' && key!='render' && key!='physics'){
+				Reflect.deleteField(config.components,key);
+			}
+		}
 		//must preserve original config for editor
 		this.originalSprite = config.components.render.image;
 		this.fileName = config.entityFile;

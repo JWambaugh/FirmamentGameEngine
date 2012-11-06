@@ -18,13 +18,13 @@ class FTilesheet extends Tilesheet {
 	private var definitionFileName:String;
 	private var imageFileName:String;
 	
-
+	private var _rects:Array<Rectangle>;
 	public function new (inImage:BitmapData) {
 		super(inImage);
 		var tm = FTilesheetManager.getInstance();
 		this.id = tm.genTilesheetId();
 		tm.addTileSheet(this);
-
+		_rects = new Array<Rectangle>();
 	}
 
 
@@ -62,9 +62,12 @@ class FTilesheet extends Tilesheet {
 	 */
 	override public function addTileRect(rectangle:Rectangle,centerPoint:Point = null){
 		super.addTileRect(rectangle,centerPoint);
+		_rects.push(rectangle);
 	}
 	
-	
+	public function getRectangle(i:Int){
+		return _rects[i];
+	}
 	
 
 }

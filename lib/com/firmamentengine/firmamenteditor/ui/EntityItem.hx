@@ -75,6 +75,7 @@ class EntityItem extends Sprite
 		
 		image = new Sprite();
 		var scaleFactor = 75 / bitmap.height;
+		if(bitmap.width > 200 && bitmap.width > bitmap.height)scaleFactor = 200/bitmap.width;
 		bitmap.scaleX = scaleFactor;
 		bitmap.scaleY = scaleFactor;
 		this.sprite = bitmap.bitmapData;
@@ -117,6 +118,9 @@ class EntityItem extends Sprite
 				var config = Reflect.copy(this.config);
 				config.components.render.tileSheetImage = this.sprite;
 				config.components.physics.position = FirmamentEditor.camera.getWorldPosition(e.stageX,e.stageY);
+
+				
+
 				var ent = new FEditorEntity(config);
 				FEntityFactory.applyComponents(ent,config);
 				ent.setFileName(this.filePath);
