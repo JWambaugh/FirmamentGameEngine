@@ -8,6 +8,7 @@ package firmament.core;
 
 import firmament.core.FCamera;
 import firmament.core.FEntity;
+import firmament.core.FEntityPoolManager;
 import firmament.core.FInput;
 import firmament.core.FWorldFactory;
 import firmament.process.base.FProcess;
@@ -37,6 +38,8 @@ class FGame extends EventDispatcher
 	var processManager:FProcessManager;
 
 	var _mainInput:FInput;
+
+	var _poolManager:FEntityPoolManager;
 
 	//Constant: COLLISION_EVENT
 	public static inline var COLLISION_EVENT = 'collision';
@@ -71,7 +74,7 @@ class FGame extends EventDispatcher
 		stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
 		
 		_mainInput = new FInput(stage);
-
+		_poolManager = new FEntityPoolManager();
 		/*var timer = new Timer(33);
 		timer.addEventListener(TimerEvent.TIMER, this_step);
 		timer.start();
@@ -196,6 +199,10 @@ class FGame extends EventDispatcher
 		//trace("step time: "+(haxe.Timer.stamp() - start));
 		
 	} 
+
+	public function getPoolManager(){
+		return _poolManager;
+	}
 
 
 }

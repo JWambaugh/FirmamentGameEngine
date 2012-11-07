@@ -12,6 +12,8 @@ import nme.Assets;
 import firmament.ui.FDialog;
 import firmament.core.FEntityFactory;
 import firmament.utils.loader.FDataLoader;
+import firmament.core.FGame;
+import firmament.core.FEntityPool;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -95,8 +97,13 @@ class FEntityLoader extends EventDispatcher
 				
 				loadEntity(ent.entityFile, config,overrideClass);
 		}
-		
-		
 	}
 	
+
+	public function loadPool(fileName,?preAllocate=0){
+		var data = FDataLoader.loadData(fileName);
+		var pool = new FEntityPool(data,preAllocate);
+		FGame.getInstance().getPoolManager().addPool(pool);
+		return pool;
+	}
 }

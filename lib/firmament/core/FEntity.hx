@@ -42,9 +42,10 @@ class FEntity extends nme.events.EventDispatcher
 		this._components = new Hash<FEntityComponent>();
 		_active = true;
 		if(!Std.is(config.typeId,String)){
-			config.typeId = "unnamed!!!!";
+			config.typeId = "Entity_"+Math.floor(Math.random()*10000000);
 			_typeId = config.typeId;
 		}
+
 	}
 
 

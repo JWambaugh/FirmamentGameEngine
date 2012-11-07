@@ -26,6 +26,10 @@ class FProcessManager
 		return frameDelta;
 	}
 	
+	public function getIteration(){
+		return iteration;
+	}
+
 	public function addProcess(p:FProcessInterface) {
 		processQueue.push(p);
 		p.beforeStart(this);

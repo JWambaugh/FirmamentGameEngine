@@ -63,4 +63,6 @@ interface FPhysicsComponentInterface{
 	public function getZPosition():Float;
 	public function setZPosition(p:Float):Void;
 	public function setWorld(world:FWorld):Void;
+
+	public function setLinearVelocity(v:FVector):Void;
 }
