@@ -57,6 +57,10 @@ class FEntityLoader extends EventDispatcher
 		if (overrideClass != null) {
 			data.className = overrideClass;
 		}
+
+		if(!Std.is(data.typeId,String)){
+			data.typeId = fileName;
+		}
 		
 		ent = FEntityFactory.createEntity(data);
 		this.dispatchEvent(new FEntityLoadEvent(ENTITY_LOADED,ent));

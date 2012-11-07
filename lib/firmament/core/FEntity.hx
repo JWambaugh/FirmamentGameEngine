@@ -1,12 +1,14 @@
 package firmament.core;
+import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
+import firmament.component.render.FRenderComponentInterface;
+import firmament.component.render.FTilesheetRenderComponent;
+import firmament.core.FEntityPool;
 import nme.display.BitmapData;
 import nme.display.Tilesheet;
-import nme.geom.Rectangle;
-import firmament.component.render.FTilesheetRenderComponent;
+import nme.events.Event;
 import nme.geom.Point;
-import firmament.component.base.FEntityComponent;
-import firmament.component.render.FRenderComponentInterface;
+import nme.geom.Rectangle;
 
 import nme.Assets;
  
@@ -18,8 +20,14 @@ import nme.Assets;
   */
 class FEntity extends nme.events.EventDispatcher
 {
-	var config:Dynamic;
-	var components:Hash<FEntityComponent>;
+	var _config:Dynamic;
+	var _components:Hash<FEntityComponent>;
+	var _pool:FEntityPool;
+	var _active:Bool;
+	var _typeId:String;
+
+	public static inline var ACTIVE_STATE_CHANGE = "activeChange";
+
 	/**
 	 * Constructor: new
 	 * 
@@ -30,9 +38,18 @@ class FEntity extends nme.events.EventDispatcher
 	public function new(config:Dynamic) 
 	{
 		super();
-		this.config = config;
-		this.components = new Hash<FEntityComponent>();
-		
+		this._config = config;
+		this._components = new Hash<FEntityComponent>();
+		_active = true;
+		if(!Std.is(config.typeId,String)){
+			config.typeId = "unnamed!!!!";
+			_typeId = config.typeId;
+		}
+	}
+
+
+	public function getTypeId():String{
+		return _typeId;
 	}
 	
 	
@@ -43,7 +60,7 @@ class FEntity extends nme.events.EventDispatcher
 	 * 	<FentityComponent>
 	 */
 	public function getComponent(type:String):FEntityComponent {
-		return this.components.get(type);
+		return this._components.get(type);
 	}
 
 
@@ -68,13 +85,13 @@ class FEntity extends nme.events.EventDispatcher
 	
 	
 	public function setComponent(component:FEntityComponent) {
-		this.components.set(component.getType(),component);
+		this._components.set(component.getType(),component);
 		component.setEntity(this);
 	}
 	
 	
 	public function getConfig():Dynamic {
-		return this.config;
+		return this._config;
 	}
 
 	/**
@@ -84,7 +101,32 @@ class FEntity extends nme.events.EventDispatcher
 	public function delete():Void{
 
 	}
+
+	public function setActive(active:Bool){
+		if(active!=_active){
+			_active = active;
+			this.dispatchEvent(new Event(ACTIVE_STATE_CHANGE));
+		}
+	}
+
+	public function isActive():Bool{
+		return _active;
+	}
+
+	public function setPool(pool:FEntityPool){
+		_pool = pool;
+	}
+	public function getPool(){
+		return _pool;
+	}
 	
+	public function returnToPool(){
+		this.setActive(false);
+		if(_pool == null){
+			throw "Can't return to pool. Pool is null";
+		}
+
+	}
 	
 	
 }

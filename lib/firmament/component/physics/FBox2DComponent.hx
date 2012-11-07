@@ -1,23 +1,23 @@
 package firmament.component.physics;
-import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
-import firmament.core.FVector;
-import firmament.core.FWorld;
-import firmament.core.FBox2DWorld;
-import firmament.core.FWorldPositionalInterface;
-
 
 import box2D.collision.shapes.B2CircleShape;
 import box2D.collision.shapes.B2PolygonShape;
+import box2D.collision.shapes.B2Shape;
 import box2D.common.math.B2Vec2;
-import firmament.core.FEntity;
 import box2D.dynamics.B2Body;
 import box2D.dynamics.B2BodyDef;
-import box2D.dynamics.B2FixtureDef;
 import box2D.dynamics.B2Fixture;
-import box2D.collision.shapes.B2Shape;
-import haxe.Timer;
+import box2D.dynamics.B2FixtureDef;
+import firmament.component.base.FEntityComponent;
+import firmament.component.physics.FPhysicsComponentInterface;
+import firmament.core.FBox2DWorld;
+import firmament.core.FEntity;
 import firmament.core.FGame;
+import firmament.core.FVector;
+import firmament.core.FWorld;
+import firmament.core.FWorldPositionalInterface;
+import haxe.Timer;
+import nme.events.Event;
 
 /**
  * Class: FBox2DComponent
@@ -40,6 +40,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	}
 	
 	override public function init(config:Dynamic):Void {
+		registerEventHandlers();
 		var def:B2BodyDef = new B2BodyDef();
 		var fixtureDef:B2FixtureDef = new B2FixtureDef();
 		
@@ -134,7 +135,14 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		this.world.addEntity(this._entity);
 	}
 		
+	private function registerEventHandlers(){
+		_entity.addEventListener(FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
+	}
 	
+	public function onActiveStateChange(e:Event){
+		this.body.setActive(_entity.isActive());
+	}
+
 	public function  getPosition() {
 		this.position.x = this.body.getPosition().x;
 		this.position.y = this.body.getPosition().y;
