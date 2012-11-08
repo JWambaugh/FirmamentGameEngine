@@ -29,9 +29,12 @@ class FPhysicsWorldContactListener extends B2ContactListener {
 	}
 	
 	override public function preSolve(contact:B2Contact, oldManifold:B2Manifold):Void {
+		//preSolve is called when just bounding boxes collide, which we aren't interested in.
+		//only care if they are actually touching.
 		if(!contact.isTouching()){
 			return;
 		}
+		
 		var bodyA:FBox2DComponent = contact.getFixtureA().getBody().getUserData();
 		var bodyB:FBox2DComponent = contact.getFixtureB().getBody().getUserData();
 		bodyA.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.preSolve,contact));

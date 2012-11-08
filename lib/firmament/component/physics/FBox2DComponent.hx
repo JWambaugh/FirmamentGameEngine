@@ -154,7 +154,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	function deactivate(?e:Event=null){
 			this.body.setActive(_entity.isActive());
 			FGame.getInstance().removeEventListener(FGame.AFTER_STEP,deactivate);
-			trace("deactivated:"+_entity.isActive());
+			//trace("deactivated:"+_entity.isActive());
 		}
 
 	public function  getPosition() {

@@ -62,7 +62,7 @@ class FPhysicsCollisionEvent extends Event
 		return _collisionType;
 	}
 
-	public function setCollide(c:Bool){
+	public function allowCollision(c:Bool){
 
 	}
 	

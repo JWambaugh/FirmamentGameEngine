@@ -46,7 +46,7 @@ class FBox2DCollisionEvent extends FPhysicsCollisionEvent
 		return cast(_contact.getFixtureB().getBody().getUserData(),FBox2DComponent).getEntity();
 	}
 
-	override public function setCollide(c:Bool){
+	override public function allowCollision(c:Bool){
 		_contact.setEnabled(c);
 	}
 }

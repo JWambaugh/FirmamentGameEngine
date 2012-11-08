@@ -65,10 +65,12 @@ class FTilesheetManager {
 		var bitmap:BitmapData;
 		var imageIsFileName = false;
 		if (Std.is(image,String) && image != ''){
-			#if(cpp)
-			bitmap = ResourceLoader.loadImage(image);
-			#else
+			
 			bitmap = nme.Assets.getBitmapData(image);
+			
+			#if(cpp)
+			if(bitmap==null)
+				bitmap = ResourceLoader.loadImage(image);
 			#end
 		}
 		else if(Std.is(image,BitmapData)){
