@@ -26,7 +26,9 @@ class FEntityPool {
 
 	private function preAllocate(number:Int){
 		for(n in 0...number){
-			this.getEntity().setActive(false);
+			var ent:FEntity = FEntityFactory.createEntity(_entityConfig);
+			ent.setPool(this);
+			ent.setActive(false);
 		}
 	}
 

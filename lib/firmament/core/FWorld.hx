@@ -1,5 +1,6 @@
 package firmament.core;
 import box2D.dynamics.B2World;
+import nme.events.Event;
 import firmament.core.FEntity;
 import haxe.Timer;
 /**
@@ -57,6 +58,7 @@ class FWorld
 	}
 	
 	public function deleteEntity(ent:FEntity) {
+		ent.dispatchEvent(new Event(FGame.DELETE_ENTITY));
 		this.entities.remove(ent);
 	}
 
@@ -68,4 +70,7 @@ class FWorld
 		throw('not implemented');
 	}
 	
+	public function insideStep():Bool{
+		return false;
+	}
 }

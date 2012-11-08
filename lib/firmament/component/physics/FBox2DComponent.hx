@@ -140,8 +140,22 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	}
 	
 	public function onActiveStateChange(e:Event){
-		this.body.setActive(_entity.isActive());
+
+		//we need to do this after the step to be safe.
+		if(world.insideStep()){
+			FGame.getInstance().addEventListener(FGame.AFTER_STEP,deactivate);
+		}else{
+			deactivate();
+		}
+		
+
 	}
+
+	function deactivate(?e:Event=null){
+			this.body.setActive(_entity.isActive());
+			FGame.getInstance().removeEventListener(FGame.AFTER_STEP,deactivate);
+			trace("deactivated:"+_entity.isActive());
+		}
 
 	public function  getPosition() {
 		this.position.x = this.body.getPosition().x;
@@ -195,6 +209,9 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		this.world = world;
 	}
 
+	public function getWorld(){
+		return this.world;
+	}
 
 	override public function getType():String {
 		return "physics";

@@ -53,9 +53,11 @@ class FGame extends EventDispatcher
 	//CONSTANT: BEFORE_RENDER
 	public static inline var BEFORE_RENDER = 'beforeRender';
 	
-
 	//CONSTANT: AFTER_RENDER
 	public static inline var AFTER_RENDER = 'afterRender';
+
+	//CONCSTANT: DELETE_ENTITY
+	public static inline var DELETE_ENTITY = 'deleteEntity';
 
 	private static var _instance:FGame;
 

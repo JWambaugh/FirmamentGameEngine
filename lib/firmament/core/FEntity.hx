@@ -3,6 +3,7 @@ import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.component.render.FRenderComponentInterface;
 import firmament.component.render.FTilesheetRenderComponent;
+import firmament.core.FWorld;
 import firmament.core.FEntityPool;
 import nme.display.BitmapData;
 import nme.display.Tilesheet;
@@ -43,8 +44,9 @@ class FEntity extends nme.events.EventDispatcher
 		_active = true;
 		if(!Std.is(config.typeId,String)){
 			config.typeId = "Entity_"+Math.floor(Math.random()*10000000);
-			_typeId = config.typeId;
+			
 		}
+		_typeId = config.typeId;
 
 	}
 
@@ -100,7 +102,10 @@ class FEntity extends nme.events.EventDispatcher
 	 * Will handle deletion of itself
 	**/
 	public function delete():Void{
-
+		var p = this.getPhysicsComponent();
+		if(p!=null){
+			p.getWorld().deleteEntity(this);
+		}
 	}
 
 	public function setActive(active:Bool){
@@ -125,9 +130,12 @@ class FEntity extends nme.events.EventDispatcher
 		this.setActive(false);
 		if(_pool == null){
 			throw "Can't return to pool. Pool is null";
+		}else{
+			_pool.addEntity(this);
 		}
-
 	}
+
+
 	
 	
 }

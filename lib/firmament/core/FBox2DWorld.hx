@@ -1,18 +1,20 @@
 package firmament.core;
 
-import box2D.dynamics.B2ContactListener;
-import firmament.component.physics.FBox2DComponent;
-import firmament.core.FWorld;
-import firmament.core.FEntity;
-import box2D.dynamics.B2World;
+
 import box2D.collision.B2AABB;
+import box2D.collision.B2Manifold;
+import box2D.common.math.B2Vec2;
+import box2D.dynamics.B2ContactListener;
+import box2D.dynamics.B2Fixture;
+import box2D.dynamics.B2World;
+import box2D.dynamics.contacts.B2Contact;
+import firmament.component.physics.FBox2DComponent;
+import firmament.core.FEntity;
+import firmament.core.FWorld;
+import firmament.events.FBox2DCollisionEvent;
+import firmament.events.FPhysicsCollisionEvent;
 import firmament.ui.FDialog;
 import nme.events.Event;
-
-import box2D.dynamics.contacts.B2Contact;
-import box2D.collision.B2Manifold;
-import box2D.dynamics.B2Fixture;
-import box2D.common.math.B2Vec2;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -27,7 +29,13 @@ class FPhysicsWorldContactListener extends B2ContactListener {
 	}
 	
 	override public function preSolve(contact:B2Contact, oldManifold:B2Manifold):Void {
-		//world.contacts.push(Reflect.copy(contact));
+		if(!contact.isTouching()){
+			return;
+		}
+		var bodyA:FBox2DComponent = contact.getFixtureA().getBody().getUserData();
+		var bodyB:FBox2DComponent = contact.getFixtureB().getBody().getUserData();
+		bodyA.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.preSolve,contact));
+		bodyB.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.preSolve,contact));
 	}
 }
  
@@ -37,15 +45,17 @@ class FBox2DWorld extends FWorld
 {
 
 	
-	var b2world:B2World;
+	var _b2world:B2World;
+	var _inStep:Bool;
 	
 	private var deleteQueue:Array<FEntity>;
 	public function new() 
 	{
 		super();
-		this.b2world = new B2World(new B2Vec2(0,0), true);
+		_inStep=false;
+		this._b2world = new B2World(new B2Vec2(0,0), true);
 		this.deleteQueue = new Array<FEntity>();
-		//this.b2world.setContactListener(new FPhysicsWorldContactListener(this));
+		this._b2world.setContactListener(new FPhysicsWorldContactListener(this));
 	}
 	
 	override public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity>{
@@ -55,7 +65,7 @@ class FBox2DWorld extends FWorld
 		query.upperBound.set(bottomRightX,bottomRightY);
 		query.lowerBound.set(topLeftX,topLeftY);
 		
-		this.b2world.queryAABB(function(fixture){
+		this._b2world.queryAABB(function(fixture){
 			selectEntities.push(cast(fixture.getBody().getUserData(),FBox2DComponent).getEntity());
 			return true;
 		},query);
@@ -74,7 +84,7 @@ class FBox2DWorld extends FWorld
 	}
 	
 	public function rayCast(a:FVector, b:FVector, callbackMethod:B2Fixture -> B2Vec2 -> B2Vec2 -> Float -> Dynamic) {
-		this.b2world.rayCast(callbackMethod, a, b);
+		this._b2world.rayCast(callbackMethod, a, b);
 	}
 	
 	override public function getEntitiesAtPoint(p:FVector):Array<FEntity> {
@@ -105,7 +115,7 @@ class FBox2DWorld extends FWorld
 	}
 	
 	public function getB2World():B2World {
-		return this.b2world;
+		return this._b2world;
 	}
 	
 	public function createEntity(config:Dynamic):FEntity {
@@ -116,22 +126,25 @@ class FBox2DWorld extends FWorld
 	}
 	
 	override public function step():Void {
-		this.b2world.step(this.getTimeSinceLastStep(), 10, 10);
+		_inStep = true;
+		this._b2world.step(this.getTimeSinceLastStep(), 10, 10);
+		this._b2world.clearForces();
+		_inStep = false;
 		this.endOfStep();
-		var contact = this.b2world.getContactList();
+		/*
+		var contact = this._b2world.getContactList();
 		while (contact!=null) {
 			var entA:FEntity = cast(contact.getFixtureA().getBody().getUserData().getEntity());
 			var entB:FEntity = cast(contact.getFixtureB().getBody().getUserData().getEntity());
-			entA.dispatchEvent(new FPhysicsCollisionEvent(contact));
-			entB.dispatchEvent(new FPhysicsCollisionEvent(contact));
+			entA.dispatchEvent(new FBox2DCollisionEvent(this,contact));
+			entB.dispatchEvent(new FBox2DCollisionEvent(this,contact));
 			contact = contact.getNext();
 			//trace('collision');
-		}
+		}*/
 		var ent;
 		//Delete any entities waiting for deletion.
 		while((ent=this.deleteQueue.shift())!=null) {
-			super.deleteEntity(ent);
-			this.b2world.destroyBody(cast(ent.getPhysicsComponent(),FBox2DComponent).body);
+			this.deleteEntity(ent);
 		}
 		
 		
@@ -140,26 +153,30 @@ class FBox2DWorld extends FWorld
 	
 	
 	
-	/*
-	 * NOT SAFE for fphysics entities. call removeEntity instead
-	 */
+	
 	override public function deleteEntity(ent:FEntity) {
-		super.deleteEntity(ent);
-		this.b2world.destroyBody(cast(ent.getPhysicsComponent(),FBox2DComponent).body);
+		//can't delete while world is simulating so queue it up if we are.
+		if(_inStep){
+			this.deleteQueue.push(ent);
+		} 
+		else {
+			super.deleteEntity(ent);
+			this._b2world.destroyBody(cast(ent.getPhysicsComponent(),FBox2DComponent).body);
+		}
 		
 	}
 	
-	public function removeEntity(ent:FEntity) {
-		this.deleteQueue.push(ent);
-		
-	}
 	
 	override public function getType():String{
 		return "box2d";
 	}
 
 	override public function setGravity(gravity){
-		this.b2world.setGravity(gravity);
+		this._b2world.setGravity(gravity);
+	}
+
+	override public function insideStep():Bool{
+		return _inStep;
 	}
 	
 }
