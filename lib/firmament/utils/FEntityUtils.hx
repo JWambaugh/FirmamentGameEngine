@@ -21,7 +21,6 @@ class FEntityUtils {
 	static public function emitEntity(sourceEntity:FEntity, entity:FEntity, ?speed:Float=10, ?angleOffset:Float=0, ?positionOffset:Float=0){
 	    var p = entity.getPhysicsComponent();
 	    var sp = sourceEntity.getPhysicsComponent();
-	    trace("angle: "+(sp.getAngle()+angleOffset));
 	    var cos = Math.cos(sp.getAngle()+angleOffset);
 	    var sin = Math.sin(sp.getAngle()+angleOffset);
 	    var posMult = 1+positionOffset;
