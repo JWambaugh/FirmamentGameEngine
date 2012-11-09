@@ -40,7 +40,7 @@ class FStyle
 		return o;
 	}
 
-	public static function getStyleObj(?classes:Array<String>=null){
+	public static function getStyleObj(?classes:Array<String>=null):Dynamic{
 		init();
 		if(classes == null)classes = [];
 		var o = Reflect.copy(global);
