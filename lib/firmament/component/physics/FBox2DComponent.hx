@@ -1,5 +1,6 @@
 package firmament.component.physics;
 
+
 import box2D.collision.shapes.B2CircleShape;
 import box2D.collision.shapes.B2PolygonShape;
 import box2D.collision.shapes.B2Shape;
@@ -128,6 +129,11 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 				}else if (Std.is(config.collidesWith, Int)) {
 					shapeDef.filter.maskBits = config.collidesWith;
 				}
+
+				if(Std.is(shape.isSensor,Bool)){
+					shapeDef.isSensor=shape.isSensor;
+				}
+
 				body.createFixture(shapeDef);
 		}
 		

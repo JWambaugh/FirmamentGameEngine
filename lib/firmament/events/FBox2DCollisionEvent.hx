@@ -37,6 +37,8 @@ class FBox2DCollisionEvent extends FPhysicsCollisionEvent
 		var velocity = B2Math.dot(va, manifold.m_normal);
 		return velocity;
 	}
+
+
 	
 	override public function getEntityA():FEntity {
 		return cast(_contact.getFixtureA().getBody().getUserData(),FBox2DComponent).getEntity();
@@ -49,4 +51,8 @@ class FBox2DCollisionEvent extends FPhysicsCollisionEvent
 	override public function allowCollision(c:Bool){
 		_contact.setEnabled(c);
 	}
+
+	
+
+
 }
