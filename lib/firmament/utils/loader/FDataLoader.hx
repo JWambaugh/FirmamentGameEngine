@@ -16,6 +16,7 @@ class FDataLoader
 {
 
 	public static function loadData(fileName:String, ?allowEmpty:Bool=false):Dynamic{
+		trace("Processing: " + fileName);
 		var serializer = FSerializerFactory.getSerializerForFile(fileName);
 		if (serializer == null) {
 			throw ("Appropriate serializer for fileName "+fileName+" could not befound.");
