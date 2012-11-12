@@ -204,6 +204,20 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		var vel = this.body.getLinearVelocity();
 		vel.add(velocity);
 	}
+
+	public function setAngularVelocity(omega:Float):Void {
+	    this.body.setAngularVelocity(omega);	
+	}
+
+	public function getAngularVelocity():Float {
+	    return this.body.getAngularVelocity();	
+	}
+
+	public function addAngularVelocity(omega:Float) {
+		this.body.setAwake(true);
+		var ome = this.body.getAngularVelocity();
+	    this.body.setAngularVelocity(ome+omega);	
+	}
 	
 	public function getZPosition():Float {
 		return zPosition;
