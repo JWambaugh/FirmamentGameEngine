@@ -3,6 +3,8 @@ package firmament.component.base;
 import firmament.component.base.FEntityComponent;
 
 import firmament.component.physics.FBox2DComponent;
+import firmament.component.physics.FNoPhysicsComponent;
+
 import firmament.component.render.FWireframeRenderComponent;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.component.animation.FAnimationComponent;
@@ -24,6 +26,7 @@ class FEntityComponentFactory{
 	public static function getClassFromType(type:String){
 		return switch(type){
 			case "box2d":"firmament.component.physics.FBox2DComponent";
+			case "noPhysics":"firmament.component.physics.FNoPhysicsComponent";
 			case "wireframe":"firmament.component.render.FWireframeRenderComponent";
 			case "tilesheet":"firmament.component.render.FTilesheetRenderComponent";
 			case "animation":"firmament.component.animation.FAnimationComponent";

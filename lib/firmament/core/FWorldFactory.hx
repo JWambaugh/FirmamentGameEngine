@@ -15,8 +15,8 @@ class FWorldFactory{
 
 	public static function getClassFromType(type:String){
 		return switch(type){
-			case "box2d":"firmament.core.FBox2DWorld";
-			case "noPhysics":"firmament.core.FNoPhysicsWorld";
+			case "box2d" : "firmament.core.FBox2DWorld";
+			case "noPhysics" : "firmament.core.FNoPhysicsWorld";
 			default: throw "World type '"+type+"' not found";
 		}
 	}

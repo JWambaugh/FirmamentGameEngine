@@ -9,6 +9,7 @@ import firmament.core.FGame;
 import firmament.core.FVector;
 import firmament.core.FNoPhysicsWorld;
 import firmament.core.FWorldPositionalInterface;
+import firmament.core.FWorld;
 import haxe.Timer;
 import nme.events.Event;
 
@@ -29,7 +30,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	private var _allowSleep:Bool;
 	private var _isSleeping:Bool;
 	private var _isActive:Bool;
-	private var _angularVelocity:FVector;
+	private var _angularVelocity:Float;
 	private var _linearVelocity:FVector;
 	public function new() 
 	{
@@ -39,7 +40,6 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 		_isSleeping = false;
 		_isActive = true;
 		_linearVelocity = new FVector(0,0);
-		_angularVelocity = new FVector(0,0);
 	}
 	
 	override public function init(config:Dynamic):Void {
@@ -68,14 +68,11 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 		}
 
 
-		if(Std.is(config.angularVelocity,FVector)){
-			this._angularVelocity = config.angularVelocity;
-		}
-		else if(Reflect.isObject(config.angularVelocity)){
-			this._angularVelocity = new FVector(config.angularVelocity.x,config.angularVelocity.y);
+		if(Std.is(config.angularVelocity,Float)){
+			this._angularVelocity =  config.angularVelocity;
 		}
 		else {
-			this._angularVelocity = new FVector(0, 0);
+			this._angularVelocity = 0;
 		}
 		
 	
@@ -108,7 +105,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 
 	function deactivate(?e:Event=null){
-			this._isActive_ = _entity.isActive();
+			this._isActive = _entity.isActive();
 		}
 
 	public function  getPosition() {
@@ -146,7 +143,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 
 	public function addLinearVelocity(velocity:FVector){
 		_isSleeping = true;
-		vel.add(_linearVelocity);
+		_linearVelocity.add(velocity);
 	}
 
 	public function setAngularVelocity(omega:Float):Void {
@@ -154,7 +151,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 
 	public function getAngularVelocity():Float {
-	    return _angularVelocity
+	    return _angularVelocity;
 	}
 
 	public function addAngularVelocity(omega:Float) {
@@ -170,7 +167,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 		zPosition = p;
 	}
 	public function setWorld(world:FWorld):Void{
-		this.world = world;
+		this.world = cast(world);
 	}
 
 	public function getWorld(){
@@ -183,12 +180,6 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 
 	public function hasShapes():Bool{
 		return true;
-	}
-
-	//TODO: Cache the response from this for speed
-	public function getShapes():Array<B2Shape>{
-		
-		return null;
 	}
 
 
