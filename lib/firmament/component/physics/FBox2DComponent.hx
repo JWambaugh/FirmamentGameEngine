@@ -37,7 +37,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		super();
 		this.world = FGame.getInstance().getWorld("box2d");
 		this.position = new FVector(0,0);
-
+		zPosition = 0;
 	}
 	
 	override public function init(config:Dynamic):Void {
@@ -57,6 +57,10 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		def.userData = this;
 		
 		
+		if(Std.is(config.zPosition,Float)){
+			this.setZPosition(config.zPosition);
+		}
+
 		if(config.type == 'dynamic')
 			def.type = B2Body.b2_dynamicBody;
 		else if(config.type == 'kinematic')
@@ -139,6 +143,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		
 		
 		this.world.addEntity(this._entity);
+		trace("zPOsition: " +zPosition);
 	}
 		
 	private function registerEventHandlers(){

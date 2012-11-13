@@ -67,6 +67,7 @@ interface FPhysicsComponentInterface{
 
 	public function setLinearVelocity(v:FVector):Void;
 
+	public function getLinearVelocity():FVector;
 
 	public function setAngularVelocity(omega:Float):Void ;
 
