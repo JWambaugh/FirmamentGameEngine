@@ -121,12 +121,7 @@ class FBox2DWorld extends FWorld
 		return this._b2world;
 	}
 	
-	public function createEntity(config:Dynamic):FEntity {
-		var ent:FEntity = new FEntity(config);
-		//this.addEntity(ent);
-		return ent;
-		
-	}
+	
 	
 	override public function step():Void {
 		_inStep = true;
