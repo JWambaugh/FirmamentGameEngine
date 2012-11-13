@@ -31,10 +31,11 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 {
 	var drawList:Array<Float>;
 	var _tilesheet:FTilesheet;
-	var imageScale:Int = 100;
+	var imageScale:Int;
 	var _tile:Int;
 		
 	public function new() {
+		imageScale=100;
 		super();
 		drawList = new Array<Float>();
 		_tile = 0;
@@ -138,6 +139,11 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 
 	public function setTilesheet(t:FTilesheet){
 		_tilesheet = t;
+	}
+
+
+	public function setImageScale(scale:Float){
+		imageScale = scale;
 	}
 	
 	public function getBitmapData():BitmapData{
