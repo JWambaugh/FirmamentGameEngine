@@ -22,7 +22,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 {
 	
 	
-	private var zPosition:Float;
+	private var _zPosition:Float;
 	private var position:FVector;
 	private var world:FNoPhysicsWorld;
 	private var _angle:Float;
@@ -40,6 +40,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 		_isSleeping = false;
 		_isActive = true;
 		_linearVelocity = new FVector(0,0);
+		_zPosition = 0;
 	}
 	
 	override public function init(config:Dynamic):Void {
@@ -88,6 +89,9 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 			_allowSleep = config.allowSleep;
 		}
 
+		if(Std.is(config.zPosition,Float)){
+			_zPosition = config.zPosition;
+		}
 
 		if (Std.is(config.maxLifeSeconds, Float)) {
 			Timer.delay(function() { this._entity.delete(); }, Math.floor(config.maxLifeSeconds * 1000));
@@ -164,11 +168,11 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 	
 	public function getZPosition():Float {
-		return zPosition;
+		return _zPosition;
 	}
 
 	public function setZPosition(p:Float):Void {
-		zPosition = p;
+		_zPosition = p;
 	}
 
 	public function setWorld(world:FWorld):Void{
