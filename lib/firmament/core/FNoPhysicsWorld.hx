@@ -10,6 +10,7 @@ import firmament.ui.FDialog;
 import nme.events.Event;
 import firmament.core.FGame;
 import firmament.process.base.FProcessManager;
+import firmament.component.physics.FNoPhysicsComponent;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -38,6 +39,7 @@ class FNoPhysicsWorld extends FWorld
 	override public function step():Void {
 		_inStep = true;
 		var elapsedTime = FGame.getInstance().getProcessManager().getFrameDelta();
+		trace(_activeAwakeEntities.length);
 		for(ent in _activeAwakeEntities){
 			var pc = ent.getPhysicsComponent();
 			var lv = pc.getLinearVelocity();
@@ -59,6 +61,15 @@ class FNoPhysicsWorld extends FWorld
 		
 	}
 	
+	public function checkSleepingState(component:FNoPhysicsComponent){
+		if(component.isSleeping()){
+			_activeAwakeEntities.remove(component.getEntity());
+		} else{
+			trace("not sleeping");
+			_activeAwakeEntities.remove(component.getEntity());
+			_activeAwakeEntities.push(component.getEntity());
+		}
+	}
 	
 	override public function getType():String{
 		return "noPhysics";
@@ -78,6 +89,10 @@ class FNoPhysicsWorld extends FWorld
 		return null;
 	}
 	
+	override public function addEntity(ent:FEntity) {
+		super.addEntity(ent);
+		checkSleepingState(cast(ent.getPhysicsComponent()));
+	}
 	
 	override public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity> {
 		//right now just returning all entities

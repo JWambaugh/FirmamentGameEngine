@@ -66,6 +66,9 @@ class FEntity extends nme.events.EventDispatcher
 		return this._components.get(type);
 	}
 
+	public function getAllComponents():Hash<FEntityComponent>{
+		return _components;
+	}
 
 
 	/**

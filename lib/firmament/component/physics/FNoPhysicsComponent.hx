@@ -134,6 +134,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	
 	public function setLinearVelocity(vel:FVector) {
 		_isSleeping = true;
+		world.checkSleepingState(this);
 		_linearVelocity = vel;
 	}
 	
@@ -147,6 +148,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 
 	public function setAngularVelocity(omega:Float):Void {
+		world.checkSleepingState(this);
 	    _angularVelocity = omega;
 	}
 
@@ -163,9 +165,11 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	public function getZPosition():Float {
 		return zPosition;
 	}
+
 	public function setZPosition(p:Float):Void {
 		zPosition = p;
 	}
+
 	public function setWorld(world:FWorld):Void{
 		this.world = cast(world);
 	}
@@ -179,7 +183,11 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 
 	public function hasShapes():Bool{
-		return true;
+		return false;
+	}
+
+	public function isSleeping(){
+		return _isSleeping;
 	}
 
 

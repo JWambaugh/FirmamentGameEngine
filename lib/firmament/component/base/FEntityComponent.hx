@@ -40,6 +40,14 @@ class FEntityComponent extends EventDispatcher
 		return this._entity;
 	}
 
+	public function setConfig(c:Dynamic){
+		_config = c;
+	}
+
+	public function getConfig(){
+		return _config;
+	}
+
 	
 	public function destruct(){}
 	

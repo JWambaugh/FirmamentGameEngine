@@ -18,19 +18,28 @@ class FEntityFactory{
 			entity = new FEntity(config);
 		}
 		applyComponents(entity,config);
+		initComponents(entity,config);
 		return entity;
 	}
 
 
-	public static function applyComponents(entity:FEntity, config:Dynamic){
+	private static function applyComponents(entity:FEntity, config:Dynamic){
 		if(!Std.is(config.components,Dynamic)){
 			throw("no components specified in entity config.");
 		}
 		for(componentType in Reflect.fields(config.components)){
 			var cConfig= Reflect.field(config.components,componentType);
 			var component = FEntityComponentFactory.createComponent(cConfig.componentName);
+			component.setConfig(cConfig);
 			entity.setComponent(component);
-			component.init(cConfig);
+		}
+	}
+
+
+	private static function initComponents(entity:FEntity, config:Dynamic){
+		for(component in entity.getAllComponents()){
+			
+			component.init(component.getConfig());
 		}
 	}
 
