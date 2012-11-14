@@ -133,7 +133,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 	
 	public function setLinearVelocity(vel:FVector) {
-		_isSleeping = true;
+		_isSleeping = false;
 		world.checkSleepingState(this);
 		_linearVelocity = vel;
 	}
@@ -143,7 +143,8 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 
 	public function addLinearVelocity(velocity:FVector){
-		_isSleeping = true;
+		_isSleeping = false;
+		world.checkSleepingState(this);
 		_linearVelocity.add(velocity);
 	}
 

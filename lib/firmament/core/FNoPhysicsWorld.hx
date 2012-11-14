@@ -39,7 +39,6 @@ class FNoPhysicsWorld extends FWorld
 	override public function step():Void {
 		_inStep = true;
 		var elapsedTime = FGame.getInstance().getProcessManager().getFrameDelta();
-		trace(_activeAwakeEntities.length);
 		for(ent in _activeAwakeEntities){
 			var pc = ent.getPhysicsComponent();
 			var lv = pc.getLinearVelocity();
@@ -65,7 +64,6 @@ class FNoPhysicsWorld extends FWorld
 		if(component.isSleeping()){
 			_activeAwakeEntities.remove(component.getEntity());
 		} else{
-			trace("not sleeping");
 			_activeAwakeEntities.remove(component.getEntity());
 			_activeAwakeEntities.push(component.getEntity());
 		}

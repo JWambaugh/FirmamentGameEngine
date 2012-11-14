@@ -143,7 +143,6 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		
 		
 		this.world.addEntity(this._entity);
-		trace("zPOsition: " +zPosition);
 	}
 		
 	private function registerEventHandlers(){
