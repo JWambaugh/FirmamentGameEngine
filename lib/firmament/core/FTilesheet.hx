@@ -17,6 +17,7 @@ class FTilesheet extends Tilesheet {
 	private var id:Int;
 	private var definitionFileName:String;
 	private var imageFileName:String;
+	private var _renderPriority:Float;
 	
 	private var _rects:Array<Rectangle>;
 	public function new (inImage:BitmapData) {
@@ -25,6 +26,7 @@ class FTilesheet extends Tilesheet {
 		this.id = tm.genTilesheetId();
 		tm.addTileSheet(this);
 		_rects = new Array<Rectangle>();
+		_renderPriority = 0;
 	}
 
 
@@ -68,6 +70,13 @@ class FTilesheet extends Tilesheet {
 	public function getRectangle(i:Int){
 		return _rects[i];
 	}
+
+	public function getRenderPriority(){
+		return _renderPriority;
+	}
 	
+	public function setRenderPriority(priority:Float){
+		_renderPriority = priority;
+	}
 
 }

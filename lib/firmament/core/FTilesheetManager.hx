@@ -19,10 +19,12 @@ class FTilesheetManager {
 	static var _instance:FTilesheetManager;
 	var idCounter:Int;
 	var tilesheets:IntHash<FTilesheet>;
+	var _orderedTilesheets:Array<FTilesheet>;
 
 	private function new () {
 		idCounter = 0;
 		tilesheets = new IntHash<FTilesheet>();
+		_orderedTilesheets = new Array<FTilesheet>();
 		
 	}
 	
@@ -59,6 +61,24 @@ class FTilesheetManager {
 		this.tilesheets.set(tilesheet.getId(),tilesheet);
 	}
 
+	public function getOrderedTilesheets():Array<FTilesheet>{
+		if(idCounter > _orderedTilesheets.length){
+			trace("building ordered tilesheet list");
+			_orderedTilesheets = new Array<FTilesheet>();
+			for(tilesheet in tilesheets){
+				_orderedTilesheets.push(tilesheet);
+			}
+			this._orderedTilesheets.sort(function(a:FTilesheet,b:FTilesheet):Int{
+				var cmp = a.getRenderPriority()- b.getRenderPriority();
+				if (cmp==0) {
+					return 0;	
+				} else if (cmp > 0) return 1;
+				return -1;
+			});
+		}
+		return _orderedTilesheets;
+	}
+
 
 	public function createTilesheet(config:Dynamic){
 		var image = config.image;
@@ -85,6 +105,12 @@ class FTilesheetManager {
 
 		var t = new FTilesheet(bitmap);
 		if(imageIsFileName)t.setImageFileName(image);
+
+		if(Std.is(config.renderPriority,Float)){
+			t.setRenderPriority(config.renderPriority);
+		}
+		trace("Render priority: "+t.getRenderPriority());
+
 		if(Std.is(config.tiles,Array)) {
 			for(tile in cast(config.tiles,Array<Dynamic>)){
 				if(Reflect.isObject(tile.topLeft) && Std.is(tile.width,Float) && Std.is(tile.height,Float)){
