@@ -17,7 +17,7 @@ import firmament.ui.FDialog;
 import nme.events.Event;
 /**
  * ...
- * @author Jordan Wambaugh
+ * @author Jordan Wambaughz
  */
 
 class FPhysicsWorldContactListener extends B2ContactListener {
@@ -27,7 +27,20 @@ class FPhysicsWorldContactListener extends B2ContactListener {
 		this.world = world;
 		super();
 	}
-	
+	override public function beginContact(contact:B2Contact):Void {
+		var bodyA:FBox2DComponent = contact.getFixtureA().getBody().getUserData();
+		var bodyB:FBox2DComponent = contact.getFixtureB().getBody().getUserData();
+		bodyA.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact));
+		bodyB.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact));
+	}
+
+	override public function endContact(contact:B2Contact):Void {
+		var bodyA:FBox2DComponent = contact.getFixtureA().getBody().getUserData();
+		var bodyB:FBox2DComponent = contact.getFixtureB().getBody().getUserData();
+		bodyA.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.endContact,contact));
+		bodyB.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.endContact,contact));
+	}
+
 	override public function preSolve(contact:B2Contact, oldManifold:B2Manifold):Void {
 		//preSolve is called when just bounding boxes collide, which we aren't interested in.
 		//only care if they are actually touching.
