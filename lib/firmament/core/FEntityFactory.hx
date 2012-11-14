@@ -23,7 +23,7 @@ class FEntityFactory{
 	}
 
 
-	private static function applyComponents(entity:FEntity, config:Dynamic){
+	public static function applyComponents(entity:FEntity, config:Dynamic){
 		if(!Std.is(config.components,Dynamic)){
 			throw("no components specified in entity config.");
 		}
@@ -36,7 +36,7 @@ class FEntityFactory{
 	}
 
 
-	private static function initComponents(entity:FEntity, config:Dynamic){
+	public static function initComponents(entity:FEntity, config:Dynamic){
 		for(component in entity.getAllComponents()){
 			
 			component.init(component.getConfig());

@@ -123,6 +123,7 @@ class EntityItem extends Sprite
 
 				var ent = new FEditorEntity(config);
 				FEntityFactory.applyComponents(ent,config);
+				FEntityFactory.initComponents(ent,config);
 				ent.setFileName(this.filePath);
 				FirmamentEditor.entityWindow.setEntity(ent);
 				FirmamentEditor.dragEnt = ent;
