@@ -32,6 +32,8 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	private var _isActive:Bool;
 	private var _angularVelocity:Float;
 	private var _linearVelocity:FVector;
+	private var _width:Float;
+	private var _height:Float;
 	public function new() 
 	{
 		super();
@@ -56,7 +58,18 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 		else {
 			this.position = new FVector(0, 0);
 		}
+
+		if(Std.is(config.width,Float)){
+			_width = config.width;
+		}else{
+			throw "no width specified.";
+		}
 		
+		if(Std.is(config.height,Float)){
+			_height = config.height;
+		}else{
+			throw "no height specified.";
+		}
 
 		if(Std.is(config.linearVelocity,FVector)){
 			this._linearVelocity = config.linearVelocity;
@@ -117,7 +130,11 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 	
 	public function setPosition(pos:FVector) {
+		var oldTopX = position.x - _width/2;
+		var oldTopY = position.y - _height/2;
+		
 		this.position=pos;
+		world.updatePositionState(this,oldTopX,oldTopY);
 	}
 
 	public function getPositionX():Float{
@@ -138,7 +155,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	
 	public function setLinearVelocity(vel:FVector) {
 		_isSleeping = false;
-		world.checkSleepingState(this);
+		world.updateSleepState(this);
 		_linearVelocity = vel;
 	}
 	
@@ -148,12 +165,12 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 
 	public function addLinearVelocity(velocity:FVector){
 		_isSleeping = false;
-		world.checkSleepingState(this);
+		world.updateSleepState(this);
 		_linearVelocity.add(velocity);
 	}
 
 	public function setAngularVelocity(omega:Float):Void {
-		world.checkSleepingState(this);
+		world.updateSleepState(this);
 	    _angularVelocity = omega;
 	}
 
@@ -195,6 +212,29 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 		return _isSleeping;
 	}
 
+	public function getWidth():Float{
+		return _width;
+	}
+
+	public function getHeight():Float{
+		return _height;
+	}
+
+	public function getTopX(){
+		return this.position.x - _width/2;
+	}
+
+	public function getTopY(){
+		return this.position.y - _height/2;
+	}
+
+	public function getBottomX(){
+		return this.position.x + _width/2;
+	}
+
+	public function getBottomY(){
+		return this.position.y + _height/2;
+	}
 
 
 }

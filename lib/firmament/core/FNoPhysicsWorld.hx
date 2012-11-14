@@ -11,6 +11,8 @@ import nme.events.Event;
 import firmament.core.FGame;
 import firmament.process.base.FProcessManager;
 import firmament.component.physics.FNoPhysicsComponent;
+import firmament.utils.rtree.RTree;
+
 /**
  * ...
  * @author Jordan Wambaugh
@@ -27,12 +29,13 @@ class FNoPhysicsWorld extends FWorld
 	var _inStep:Bool;
 	
 	var _activeAwakeEntities:Array<FEntity>;
-	
+	var _rtree:RTree<FEntity>;
 	public function new() 
 	{
 		super();
 		_inStep=false;
 		_activeAwakeEntities = new Array<FEntity>();
+		_rtree = new RTree<FEntity>(Math.NEGATIVE_INFINITY, Math.NEGATIVE_INFINITY, Math.POSITIVE_INFINITY, Math.POSITIVE_INFINITY, 25, 1e-10, -1e6, -1e6, 1e6, 1e6);
 	}
 	
 	
@@ -43,6 +46,7 @@ class FNoPhysicsWorld extends FWorld
 			var pc = ent.getPhysicsComponent();
 			var lv = pc.getLinearVelocity();
 			var av = pc.getAngularVelocity();
+
 			if(av!=0){
 				pc.setAngle(pc.getAngle() + av * elapsedTime);
 			}
@@ -60,13 +64,17 @@ class FNoPhysicsWorld extends FWorld
 		
 	}
 	
-	public function checkSleepingState(component:FNoPhysicsComponent){
+	public function updateSleepState(component:FNoPhysicsComponent){
 		if(component.isSleeping()){
 			_activeAwakeEntities.remove(component.getEntity());
 		} else{
 			_activeAwakeEntities.remove(component.getEntity());
 			_activeAwakeEntities.push(component.getEntity());
 		}
+	}
+
+	public function updatePositionState(component:FNoPhysicsComponent,oldTopX:Float,oldTopY:Float){
+		_rtree.updateObject(component.getEntity(),oldTopX,oldTopY,component.getTopX(), component.getTopY(), component.getBottomX(), component.getBottomY());
 	}
 	
 	override public function getType():String{
@@ -89,12 +97,15 @@ class FNoPhysicsWorld extends FWorld
 	
 	override public function addEntity(ent:FEntity) {
 		super.addEntity(ent);
-		checkSleepingState(cast(ent.getPhysicsComponent()));
+		var component:FNoPhysicsComponent = cast(ent.getPhysicsComponent());
+		
+		_rtree.insertObj(ent, component.getTopX(), component.getTopY(), component.getBottomX(), component.getBottomY());
+		updateSleepState(component);
 	}
 	
 	override public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity> {
 		//right now just returning all entities
-		return this.entities;
+		return _rtree.getObjectsFromRange(topLeftX,topLeftY,bottomRightX,bottomRightY,200,200);
 		
 	}
 	
