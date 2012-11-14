@@ -45,7 +45,6 @@ class FTilesheetRenderHelper {
 		this.initializedCameras.push(camera);
 		camera.addEventListener(FCamera.BEFORE_RENDER_EVENT,this.preRender);
 		camera.addEventListener(FCamera.AFTER_RENDER_EVENT,this.postRender);
-
 	}
 
 	public function preRender(e:Event){
@@ -56,8 +55,6 @@ class FTilesheetRenderHelper {
 
 		for(tilesheet in FTilesheetManager.getInstance().getOrderedTilesheets()){
 			var list = this.drawList.get(tilesheet.getId());
-
-			
 			var camera = cast(e.currentTarget,FCamera);
 			
 			tilesheet.drawTiles(camera.graphics, list, true, 

@@ -33,12 +33,14 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 	var _tilesheet:FTilesheet;
 	var imageScale:Float;
 	var _tile:Int;
+	var _parallax:Float;
 		
 	public function new() {
 		imageScale=100;
 		super();
 		drawList = new Array<Float>();
 		_tile = 0;
+		_parallax = 1;
 		
 	}
 
@@ -53,6 +55,10 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 
         if(Std.is(config.imageScale,Int)) {
 			imageScale = config.imageScale;
+		}
+
+		if(Std.is(config.parallax,Float)){
+			_parallax = config.parallax;
 		}
 	}
 	
@@ -111,11 +117,11 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		this._entity.dispatchEvent(new Event(FGame.BEFORE_RENDER));
 		
 		var physicsComponent:FPhysicsComponentInterface = cast(this._entity.getComponent("physics"));
-		var cameraPos = camera.getTopLeftPosition();
+		var cameraPos = camera.getTopLeftPosition(this._parallax);
 		var ratio = camera.getZoom() / imageScale;
 		var pos = physicsComponent.getPosition();
-		var nx = ((pos.x - cameraPos.x) * camera.getZoom());
-		var ny = ((pos.y - cameraPos.y) * camera.getZoom());
+		var nx = ((pos.x - cameraPos.x) *_parallax * camera.getZoom());
+		var ny = ((pos.y - cameraPos.y) *_parallax * camera.getZoom());
 		
 		var index =0;
 		drawList[index] = nx;
@@ -161,6 +167,10 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 	
 	override public function getType():String {
 		return "render";
+	}
+
+	public function getParallaxMultiplier():Float{
+		return _parallax;
 	}
 	
 	

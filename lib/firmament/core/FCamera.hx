@@ -86,16 +86,16 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 
 	}
 
-	private function calculateTopLeftPosition() {
+	private function calculateTopLeftPosition(?parallax:Float=1) {
 		//trace(this.width);
-		this.topLeftPosition.x=this.position.x-(this.displayWidth/this.zoom)/2;
-		this.topLeftPosition.y = this.position.y - (this.displayHeight / this.zoom) / 2;
+		this.topLeftPosition.x=this.position.x-(this.displayWidth/this.zoom/parallax)/2;
+		this.topLeftPosition.y = this.position.y - (this.displayHeight / this.zoom/parallax) / 2;
 		this.calculatedTopLeft = true;
 	}
 	
-	public function getTopLeftPosition() {
+	public function getTopLeftPosition(?parallax:Float=1) {
 		
-			this.calculateTopLeftPosition();
+		this.calculateTopLeftPosition(parallax);
 		
 		return this.topLeftPosition;
 	}
@@ -177,7 +177,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		this.displayHeight = stage.stageHeight;
 		//this.width = this.displayWidth;
 		//this.height = this.displayHeight;
-		this.calculateTopLeftPosition();
+		this.calculateTopLeftPosition(1);
 	}
 	
 	public function getWorldPosition(x:Float,y:Float) {

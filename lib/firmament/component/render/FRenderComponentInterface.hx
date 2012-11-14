@@ -12,5 +12,7 @@ interface FRenderComponentInterface
 	function render(camera:FCamera):Void;
 	
 	function getBitmapData():BitmapData;
+
+	function getParallaxMultiplier():Float;
 	
 }
