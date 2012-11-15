@@ -75,6 +75,7 @@ class FirmamentEditor
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.quality = StageQuality.BEST;
 		camera = new FCamera(stage.stageWidth,stage.stageHeight);
+		camera.setDebugMode(true);
 		game  = FGame.getInstance();
 		world = cast(game.getWorld("box2d"));
 		game.enableSimulation = false;
