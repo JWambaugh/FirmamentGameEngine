@@ -265,6 +265,15 @@ class RTNode<T>
 		var leaf:RTLeaf<T> = getObjLeaf(obj, objTopX, objTopY);
 		if (leaf != null) updateLeaf(leaf, newTopX, newTopY, newBotX, newBotY);
 	}
+
+	public function deleteObject(obj:T, objTopX:Float, objTopY:Float):Void{
+		var leaf:RTLeaf<T> = getObjLeaf(obj, objTopX, objTopY);
+		if (leaf != null) deleteLeaf(leaf);
+	}
+
+	public function deleteLeaf(leaf:RTLeaf<T>):Void{
+		leaf.parentNode.leafs.remove(leaf);
+	}
 	
 	//updates the data of the given leaf
 	public function updateLeaf(leaf:RTLeaf<T>, ?topX:Float, ?topY, ?botX, ?botY):Void

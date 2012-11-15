@@ -91,8 +91,7 @@ class FNoPhysicsWorld extends FWorld
 	}
 	
 	override public function getEntitiesAtPoint(p:FVector):Array<FEntity> {
-		throw "Not implemented";
-		return null;
+		return _rtree.getObjectsFromPosition(p.x,p.y,200,200);
 	}
 	
 	override public function addEntity(ent:FEntity) {
@@ -106,6 +105,16 @@ class FNoPhysicsWorld extends FWorld
 	override public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity> {
 		//right now just returning all entities
 		return _rtree.getObjectsFromRange(topLeftX,topLeftY,bottomRightX,bottomRightY,200,200);
+		
+	}
+
+	
+	override public function deleteEntity(ent:FEntity) {
+		var component:FNoPhysicsComponent = cast(ent.getPhysicsComponent());
+		_rtree.deleteObject(ent,component.getTopX(),component.getTopY());
+		super.deleteEntity(ent);
+
+		
 		
 	}
 	

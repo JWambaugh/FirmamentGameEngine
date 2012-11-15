@@ -13,6 +13,7 @@ import nme.display.StageAlign;
 import nme.display.StageScaleMode;
 import nme.Lib;
 import nme.Assets;
+import firmament.component.physics.FPhysicsComponentInterface;
 
 import nme.events.Event;
 import nme.events.MouseEvent;
@@ -37,7 +38,7 @@ class FirmamentEditor
 	public static var entitySelector:EntitySelector;
 	public static var toolBar:ToolBar;
 	public static var entityWindow:EntityWindow;
-	public static var world:FBox2DWorld;
+
 	public static var dragEnt:FEntity;
 	public static var cwd:String;
 	public static var dragOffset:FVector;
@@ -77,7 +78,7 @@ class FirmamentEditor
 		camera = new FCamera(stage.stageWidth,stage.stageHeight);
 		camera.setDebugMode(true);
 		game  = FGame.getInstance();
-		world = cast(game.getWorld("box2d"));
+		
 		game.enableSimulation = false;
 		game.addCamera("main",camera);
 		stage.addChild(camera);
@@ -111,8 +112,15 @@ class FirmamentEditor
 		
 		camera.addEventListener(MouseEvent.MOUSE_DOWN, function(e:MouseEvent) { 
 			var point:FVector = camera.getWorldPosition(e.localX, e.localY);
-			var ents = world.getEntitiesAtPoint(point);
+			var ents = FGame.getInstance().getEntitiesAtPoint(point);
 			if (ents.length > 0) {
+				ents.sort(function(a:FEntity,b:FEntity):Int{
+					var cmp = cast(b.getComponent("physics"),FPhysicsComponentInterface).getZPosition() - cast(a.getComponent("physics"),FPhysicsComponentInterface).getZPosition();
+					if (cmp==0) {
+						return 0;	
+					} else if (cmp > 0) return 1;
+					return -1;
+				});
 				dragEnt = cast(ents[0], FEntity);
 				entityWindow.setEntity(cast(ents[0]));
 				point.subtract(dragEnt.getPosition());

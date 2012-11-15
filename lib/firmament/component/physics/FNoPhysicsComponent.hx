@@ -162,7 +162,6 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 	
 	public function getAngle():Float {
-		trace(_angle);
 		return _angle;
 	}
 	

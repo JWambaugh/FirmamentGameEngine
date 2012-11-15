@@ -131,6 +131,22 @@ class FGame extends EventDispatcher
 		return this.worldHash;
 	}
 
+	public function getAllEntities():Array<FEntity>{
+		var a = new Array<FEntity>();
+		for(world in getWorlds()){
+			a=a.concat(world.getAllEntities());
+		}
+		return a;
+	}
+
+	public function getEntitiesAtPoint(p:FVector):Array<FEntity>{
+		var a = new Array<FEntity>();
+		for(world in worldHash){
+			a=a.concat(world.getEntitiesAtPoint(p));
+		}
+		return a;
+	}
+
 	/**
 	 * Function: getProcessManager
 	 */

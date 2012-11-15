@@ -65,4 +65,13 @@ class RTree<T>
 	{
 		mainNode.updateLeaf(leaf, topX, topY, botX, botY);
 	}
+
+	//updates the leaf of the given object
+	public function deleteObject(obj:T, objTopX:Float, objTopY:Float):Void
+	{
+		mainNode.deleteObject(obj, objTopX, objTopY);
+	}
+
+
+
 }

@@ -88,7 +88,7 @@ class EntityWindow extends FWindow
 	
 	public function deleteEntity(e:MouseEvent) {
 		if (this.selectedEntity == null) return;
-		FirmamentEditor.world.deleteEntity(this.selectedEntity);
+		this.selectedEntity.delete();
 		this.selectedEntity = null;
 		
 	}

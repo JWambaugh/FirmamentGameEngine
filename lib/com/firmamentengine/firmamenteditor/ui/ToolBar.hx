@@ -13,6 +13,7 @@ import com.firmamentengine.firmamenteditor.FirmamentEditor;
 import firmament.utils.loader.FEntityLoader;
 import com.firmamentengine.firmamenteditor.FEditorEntity;
 import sys.io.File;
+import firmament.core.FGame;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -38,7 +39,7 @@ class ToolBar extends FWindow
 		FDialog.prompt("Please enter the name of the map you wish to save.", function(fileName) { 
 			lastFileName = fileName;
 			//get all entities
-			var ents = FirmamentEditor.world.getAllEntities();
+			var ents = FGame.getInstance().getAllEntities();
 			
 			var entC = [];
 			for (ent in ents) {
