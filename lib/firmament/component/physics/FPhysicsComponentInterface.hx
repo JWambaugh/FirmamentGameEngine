@@ -1,7 +1,7 @@
 package firmament.component.physics;
 import firmament.core.FVector;
 import firmament.core.FWorld;
-
+import firmament.core.FShape;
 
 /**
  * Interface: FPhysicsComponentInterface
@@ -61,8 +61,11 @@ interface FPhysicsComponentInterface{
 	public function setAngle(a:Float):Void ;
 	
 	public function getZPosition():Float;
+
 	public function setZPosition(p:Float):Void;
+
 	public function setWorld(world:FWorld):Void;
+
 	public function getWorld():FWorld;
 
 	public function setLinearVelocity(v:FVector):Void;
@@ -74,5 +77,7 @@ interface FPhysicsComponentInterface{
 	public function getAngularVelocity():Float;
 
 	public function addAngularVelocity(omega:Float):Void;
+
+	public function getShapes():Array<FShape>;
 
 }

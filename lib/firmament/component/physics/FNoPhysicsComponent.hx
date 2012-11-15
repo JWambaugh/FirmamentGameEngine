@@ -12,7 +12,8 @@ import firmament.core.FWorldPositionalInterface;
 import firmament.core.FWorld;
 import haxe.Timer;
 import nme.events.Event;
-
+import firmament.core.FPolygonShape;
+import firmament.core.FShape;
 /**
  * Class: FBox2DComponent
  * @author Jordan Wambaugh
@@ -34,6 +35,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	private var _linearVelocity:FVector;
 	private var _width:Float;
 	private var _height:Float;
+	private var _shape:FPolygonShape;
 	public function new() 
 	{
 		super();
@@ -111,6 +113,16 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 		}
 		
 		this.world.addEntity(this._entity);
+
+		buildShape();
+	}
+	private function buildShape(){
+		_shape = new FPolygonShape([
+			new FVector(-_width/2,-_height/2)
+			,new FVector(-_width/2,_height/2)
+			,new FVector(_width/2,_height/2)
+			,new FVector(_width/2,-_height/2)
+			]);
 	}
 		
 	private function registerEventHandlers(){
@@ -150,6 +162,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 	
 	public function getAngle():Float {
+		trace(_angle);
 		return _angle;
 	}
 	
@@ -234,6 +247,9 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 
 	public function getBottomY(){
 		return this.position.y + _height/2;
+	}
+	public function getShapes():Array<FShape>{
+		return [_shape];
 	}
 
 

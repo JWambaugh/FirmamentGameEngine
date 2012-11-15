@@ -19,6 +19,10 @@ import firmament.core.FWorld;
 import firmament.core.FWorldPositionalInterface;
 import haxe.Timer;
 import nme.events.Event;
+import firmament.core.FShape;
+import firmament.core.FPolygonShape;
+import firmament.core.FCircleShape;
+
 
 /**
  * Class: FBox2DComponent
@@ -246,11 +250,27 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	}
 
 	//TODO: Cache the response from this for speed
-	public function getShapes():Array<B2Shape>{
+	public function getShapes():Array<FShape>{
 		var fixture = this.body.getFixtureList();
-		var shapes = new Array<B2Shape>();
+		var shapes = new Array<FShape>();
 		while (fixture != null) {
-			shapes.push(fixture.getShape());
+			var b2Shape = fixture.getShape();
+
+			if(b2Shape.getType() == B2Shape.e_polygonShape){
+				var fvecs = new Array<FVector>();
+				for( vec in cast(b2Shape,B2PolygonShape).m_vertices){
+					fvecs.push(new FVector(vec.x,vec.y));
+				}
+				shapes.push(new FPolygonShape(fvecs));
+			}
+			if(b2Shape.getType() == B2Shape.e_circleShape){
+				var s:B2CircleShape = cast(b2Shape);
+				var p = s.getLocalPosition();
+				shapes.push(new FCircleShape(s.m_radius,new FVector(p.x,p.y)));
+			}
+
+
+
 			fixture = fixture.getNext();
 		}
 		return shapes;

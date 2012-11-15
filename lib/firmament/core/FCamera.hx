@@ -9,6 +9,7 @@ import nme.geom.Rectangle;
 import nme.Lib;
 import nme.display.Stage;
 import nme.events.Event;
+import firmament.component.render.FWireframeRenderComponent;
 /**
  * Class: FCamera
  * 
@@ -31,7 +32,8 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	var zoom:Float;
 	var displayWidth:Int;
 	var displayHeight:Int;
-
+	var _debugRender:Bool;
+	var _debugRenderer:FWireframeRenderComponent;
 	var calculatedTopLeft:Bool;
 	
 	/**
@@ -50,7 +52,9 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		this.topLeftPosition = new FVector(0, 0);
 		this.displayHeight = height;
 		this.displayWidth = width;
-		
+		_debugRender = true;
+		_debugRenderer = new FWireframeRenderComponent();
+
 	}
 	
 	public function render(worlds:Hash<FWorld>) {
@@ -83,6 +87,12 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 			cast(ent.getComponent("render"),FRenderComponentInterface).render(this);
 		}
 		this.dispatchEvent(new Event(FCamera.AFTER_RENDER_EVENT));
+		if(_debugRender){
+			for (ent in entityList) {
+				_debugRenderer.setEntity(ent);
+				_debugRenderer.render(this);
+			}
+		}
 
 	}
 
@@ -187,6 +197,9 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 
 	}
 
+	public function setDebugMode(debug:Bool){
+		_debugRender = debug;
+	}
 
 	public function getAngle():Float{
 		return 0;
