@@ -34,6 +34,10 @@ class FVector extends B2Vec2
 		if (d < 0) d = -d;
 		return d;
 	}
+
+	override public function copy():FVector{
+		return new FVector(x,y);
+	}
 	
 	
 }

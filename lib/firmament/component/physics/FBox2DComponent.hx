@@ -74,8 +74,10 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		
 		
 		var physWorld:FBox2DWorld = cast world;
-		if(Std.is(config.angle,Float))
+		if(Std.is(config.angle,Float)){
 			def.angle = config.angle;
+		}
+
 		def.fixedRotation = false;
 
 		if(Std.is(config.fixedRotation,Bool)){
@@ -89,7 +91,9 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 
 		body = physWorld.getB2World().createBody(def);
 		
-		
+		if(body==null){
+			throw "error creating body. config: "+Std.string(config);
+		}
 		
 		if (Std.is(config.maxLifeSeconds, Float)) {
 			Timer.delay(function() { this._entity.delete(); }, Math.floor(config.maxLifeSeconds * 1000));
