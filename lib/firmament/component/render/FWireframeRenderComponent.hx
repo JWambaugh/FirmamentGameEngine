@@ -63,7 +63,8 @@ class FWireframeRenderComponent extends FEntityComponent, implements FRenderComp
 				matrix.rotate(physicsComponent.getAngle());
 
 				for (vec in pshape.getVectors()) {
-					//trace(vec.x+'   '+vec.y);
+					vec = vec.copy(); //don't want to modify original
+
 					var p:Point = new Point(vec.x,vec.y);
 					p=matrix.transformPoint(p);
 					vec.x=p.x;
@@ -73,11 +74,15 @@ class FWireframeRenderComponent extends FEntityComponent, implements FRenderComp
 					}
 					pvec = vec;
 					camera.graphics.moveTo(( pos.x+pvec.x - cameraPos.x)*camera.getZoom(), (pos.y+pvec.y - cameraPos.y)*camera.getZoom());
-					//trace('draw');
+
 				}
 				
 				if (counter > 0) {
-					var vec = pshape.getVectors()[0];
+					var vec = pshape.getVectors()[0].copy();
+					var p:Point = new Point(vec.x,vec.y);
+					p=matrix.transformPoint(p);
+					vec.x=p.x;
+					vec.y=p.y;
 					camera.graphics.lineTo((pos.x+vec.x-cameraPos.x)*camera.getZoom(), (pos.y+vec.y-cameraPos.y)*camera.getZoom());
 				}
 			}else if (Std.is(shape,FCircleShape)) {
