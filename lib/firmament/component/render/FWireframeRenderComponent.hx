@@ -91,7 +91,7 @@ class FWireframeRenderComponent extends FEntityComponent, implements FRenderComp
 		
 			}
 		}
-	
+		camera.graphics.lineStyle(0,0,0);
 		
 	}
 	public function getBitmapData():BitmapData{

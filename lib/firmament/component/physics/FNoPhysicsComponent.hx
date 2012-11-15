@@ -112,6 +112,10 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 			Timer.delay(function() { this._entity.delete(); }, Math.floor(config.maxLifeSeconds * 1000));
 		}
 		
+		
+		if(Std.is(config.alwaysRender,Bool) && config.alwaysRender==true){
+			this.world.addToAlwaysRenderList(_entity);
+		}
 		this.world.addEntity(this._entity);
 
 		buildShape();

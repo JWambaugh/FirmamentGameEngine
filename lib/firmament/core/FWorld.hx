@@ -13,10 +13,12 @@ class FWorld
 	
 	var entities:Array<FEntity>;
 	var lastStep:Float;
+	var _alwaysRenderEntities:Array<FEntity>;
 
 	public function new() 
 	{
 		this.entities = new Array<FEntity>();
+		this._alwaysRenderEntities= new Array<FEntity>();
 		this.lastStep=Timer.stamp();
 	}
 	public function addEntity(ent:FEntity) {
@@ -60,6 +62,7 @@ class FWorld
 	public function deleteEntity(ent:FEntity) {
 		ent.dispatchEvent(new Event(FGame.DELETE_ENTITY));
 		this.entities.remove(ent);
+		_alwaysRenderEntities.remove(ent);
 	}
 
 	public function getType():String{
@@ -72,5 +75,16 @@ class FWorld
 	
 	public function insideStep():Bool{
 		return false;
+	}
+
+	public function addToAlwaysRenderList(ent:FEntity){
+		_alwaysRenderEntities.push(ent);
+	}
+
+	public function removeFromAlwaysRenderList(ent:FEntity){
+		_alwaysRenderEntities.remove(ent);
+	}
+	public function getAlwaysRenderEntities():Array<FEntity>{
+		return _alwaysRenderEntities;
 	}
 }

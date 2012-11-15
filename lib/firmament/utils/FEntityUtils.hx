@@ -23,7 +23,7 @@ class FEntityUtils {
 	    var sp = sourceEntity.getPhysicsComponent();
 	    var cos = Math.cos(sp.getAngle()+angleOffset);
 	    var sin = Math.sin(sp.getAngle()+angleOffset);
-	    var posMult = 1+distanceOffset;
+	    var posMult = distanceOffset;
 	    p.setPosition(new FVector(sp.getPositionX()+cos*posMult
 	    	,sp.getPositionY()+sin*posMult)) ;
 	    
@@ -47,7 +47,7 @@ class FEntityUtils {
 	    
 	    var cos = Math.cos(angle);
 	    var sin = Math.sin(angle);
-	    var posMult = 1+distanceOffset;
+	    var posMult = distanceOffset;
 	    p.setPosition(new FVector(position.x+cos*posMult
 	    	,position.y+sin*posMult)) ;
 	    

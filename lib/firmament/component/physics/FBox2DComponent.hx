@@ -149,6 +149,9 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 				body.createFixture(shapeDef);
 		}
 		
+		if(Std.is(config.alwaysRender,Bool) && config.alwaysRender==true){
+			this.world.addToAlwaysRenderList(_entity);
+		}
 		
 		this.world.addEntity(this._entity);
 	}

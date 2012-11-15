@@ -52,7 +52,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		this.topLeftPosition = new FVector(0, 0);
 		this.displayHeight = height;
 		this.displayWidth = width;
-		_debugRender = true;
+		_debugRender = false;
 		_debugRenderer = new FWireframeRenderComponent();
 
 	}
@@ -73,6 +73,9 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 				,Math.floor(this.position.x + this.displayWidth / 2 / this.zoom+displayPadding)
 				,Math.floor(this.position.y + this.displayHeight / 2 / this.zoom+displayPadding));
 			
+			//add entites marked for always rendering
+			entities=entities.concat(world.getAlwaysRenderEntities());
+
 			//Firmament.log(entities);
 			if(entities!=null)
 				entityList=entityList.concat(entities);
