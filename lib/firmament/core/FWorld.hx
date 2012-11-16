@@ -60,7 +60,6 @@ class FWorld
 	}
 	
 	public function deleteEntity(ent:FEntity) {
-		ent.dispatchEvent(new Event(FGame.DELETE_ENTITY));
 		this.entities.remove(ent);
 		_alwaysRenderEntities.remove(ent);
 	}

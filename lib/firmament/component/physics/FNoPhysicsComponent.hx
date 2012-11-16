@@ -254,6 +254,8 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	public function getShapes():Array<FShape>{
 		return [_shape];
 	}
-
+	override public function destruct(){
+		world.deleteEntity(_entity);
+	}
 
 }

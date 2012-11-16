@@ -282,6 +282,9 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		}
 		return shapes;
 	}
+	override public function destruct(){
+		world.deleteEntity(_entity);
+	}
 
 
 

@@ -105,9 +105,9 @@ class FEntity extends nme.events.EventDispatcher
 	 * Will handle deletion of itself
 	**/
 	public function delete():Void{
-		var p = this.getPhysicsComponent();
-		if(p!=null){
-			p.getWorld().deleteEntity(this);
+		this.dispatchEvent(new Event(FGame.DELETE_ENTITY));
+		for(c in _components){
+			c.destruct();
 		}
 	}
 

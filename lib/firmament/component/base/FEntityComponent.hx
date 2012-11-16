@@ -1,4 +1,4 @@
-package firmament.component.base;
+ package firmament.component.base;
 import firmament.core.FEntity;
 import nme.events.EventDispatcher;
 
