@@ -10,7 +10,7 @@ import nme.display.Tilesheet;
 import nme.events.Event;
 import nme.geom.Point;
 import nme.geom.Rectangle;
-
+import firmament.utils.FMisc;
 import nme.Assets;
  
  /**
@@ -26,6 +26,7 @@ class FEntity extends nme.events.EventDispatcher
 	var _pool:FEntityPool;
 	var _active:Bool;
 	var _typeId:String;
+	var _listeners : Hash<Dynamic>; 
 
 	public static inline var ACTIVE_STATE_CHANGE = "activeChange";
 
@@ -47,6 +48,7 @@ class FEntity extends nme.events.EventDispatcher
 			
 		}
 		_typeId = config.typeId;
+		_listeners = new Hash();
 
 	}
 
@@ -102,13 +104,18 @@ class FEntity extends nme.events.EventDispatcher
 
 	/**
 	 * Function: delete
-	 * Will handle deletion of itself
+	 * Deleted the entity
 	**/
 	public function delete():Void{
 		this.dispatchEvent(new Event(FGame.DELETE_ENTITY));
-		for(c in _components){
-			c.destruct();
-		}
+		if(_components!=null){
+			for(c in _components){
+				c.destruct();
+			}
+			this._components = null;
+			this._config = null;
+		}	
+		//this.removeListeners();
 	}
 
 	public function setActive(active:Bool){
@@ -130,14 +137,45 @@ class FEntity extends nme.events.EventDispatcher
 	}
 	
 	public function returnToPool(){
+		
 		this.setActive(false);
+		
 		if(_pool == null){
 			throw "Can't return to pool. Pool is null";
 		}else{
 			_pool.addEntity(this);
 		}
+		
 	}
 
+/*
+	//overriding addEventListener so we can remove all listeners when we destruct.
+	override public function addEventListener(type : String, listener : Dynamic -> Void, useCapture : Bool = false, priority : Int = 0, useWeakReference : Bool = false) : Void{
+			var key : String = type+"_"+useCapture;
+		  	if( _listeners.exists(key) ) {
+				removeEventListener( type, _listeners.get(key).listener, useCapture );
+				_listeners.remove(key);
+		  	}
+		  	_listeners.set(key,{listener:listener,type:type,useCapture:useCapture});
+
+		  	super.addEventListener( type, listener, useCapture, priority, useWeakReference );
+		  	//trace("event listener added: "+key);
+	}
+*/
+	/*
+		Helper to remove all event listers. Called when entity is destroyed.
+	*//*
+	private function removeListeners():Void{
+		//throw("remove listeners called");
+			try
+			{
+				for (key in _listeners.keys()) {
+					var event = _listeners.get(key);
+					removeEventListener( event.type, event.listener, event.useCapture );
+					_listeners.remove(key);
+				}
+			}catch(e:Dynamic){trace("removeListener error: "+e);} //we aren't updating our hash when we remove a listener, so there might be errors
+	}*/
 
 	
 	

@@ -28,10 +28,12 @@ class FPhysicsWorldContactListener extends B2ContactListener {
 		super();
 	}
 	override public function beginContact(contact:B2Contact):Void {
+
 		var bodyA:FBox2DComponent = contact.getFixtureA().getBody().getUserData();
 		var bodyB:FBox2DComponent = contact.getFixtureB().getBody().getUserData();
 		bodyA.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact));
 		bodyB.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact));
+		trace("beginContact "+bodyA.getEntity().getTypeId() + " > "+bodyB.getEntity().getTypeId());
 	}
 
 	override public function endContact(contact:B2Contact):Void {

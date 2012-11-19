@@ -22,7 +22,7 @@ import nme.events.Event;
 import firmament.core.FShape;
 import firmament.core.FPolygonShape;
 import firmament.core.FCircleShape;
-
+import firmament.utils.FMisc;
 
 /**
  * Class: FBox2DComponent
@@ -95,9 +95,6 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 			throw "error creating body. config: "+Std.string(config);
 		}
 		
-		if (Std.is(config.maxLifeSeconds, Float)) {
-			Timer.delay(function() { this._entity.delete(); }, Math.floor(config.maxLifeSeconds * 1000));
-		}
 		
 		if(Std.is(config.shapes,Array))
 		for (shape in cast(config.shapes, Array<Dynamic>)) {
@@ -160,11 +157,16 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		_entity.addEventListener(FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
 	}
 	
+	private function removeEventHandlers(){
+		_entity.removeEventListener(FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
+	}
+
+
 	public function onActiveStateChange(e:Event){
 
 		//we need to do this after the step to be safe.
 		if(world.insideStep()){
-			FGame.getInstance().addEventListener(FGame.AFTER_STEP,deactivate);
+			FMisc.doLater(function(){deactivate();});
 		}else{
 			deactivate();
 		}
@@ -174,7 +176,6 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 
 	function deactivate(?e:Event=null){
 			this.body.setActive(_entity.isActive());
-			FGame.getInstance().removeEventListener(FGame.AFTER_STEP,deactivate);
 			//trace("deactivated:"+_entity.isActive());
 		}
 
@@ -283,6 +284,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		return shapes;
 	}
 	override public function destruct(){
+		this.removeEventHandlers();
 		world.deleteEntity(_entity);
 	}
 

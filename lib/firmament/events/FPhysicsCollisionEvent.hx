@@ -33,6 +33,7 @@ class FPhysicsCollisionEvent extends Event
 	public function new(world:FWorld,type:FCollisionEventType) 
 	{
 		this._world = world;
+		_collisionType = type;
 		super(FGame.COLLISION_EVENT);
 	}
 	

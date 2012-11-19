@@ -1,5 +1,8 @@
 package firmament.utils;
 
+import firmament.core.FGame;
+import firmament.process.base.FProcessManager;
+import firmament.process.helper.FCallbackProcess;
 /**
  * Class: FMisc
  * @author Jordan Wambaugh
@@ -41,6 +44,13 @@ class FMisc
 				Reflect.setField(b, f, val);
 			}
 		}
+	}
+
+	public static function doLater(cb:Void->Dynamic){
+		FGame.getInstance().getProcessManager().addProcess(new FCallbackProcess({step:function(){
+			cb();
+			return false;
+		}}));
 	}
 	
 }
