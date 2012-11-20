@@ -14,12 +14,16 @@ import sys.io.File;
 */
 class FDataLoader 
 {
+	static var _cache:Hash<Dynamic> = new Hash();
 
 	public static function loadData(fileName:String, ?allowEmpty:Bool=false):Dynamic{
 		trace("Processing: " + fileName);
+		if(_cache.exists(fileName)){
+			return FMisc.deepClone(_cache.get(fileName));
+		}
 		var serializer = FSerializerFactory.getSerializerForFile(fileName);
 		if (serializer == null) {
-			throw ("Appropriate serializer for fileName "+fileName+" could not befound.");
+			throw ("Appropriate serializer for fileName "+fileName+" could not be found.");
 		}
 		var string = Assets.getText(fileName);
 		#if cpp
@@ -35,6 +39,7 @@ class FDataLoader
 			throw("Data could not be unserialized for "+fileName);
 		}
 		data.entityFile = fileName;
+		_cache.set(fileName,FMisc.deepClone(data));
 		return data;
 	}
 	
