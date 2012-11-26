@@ -52,7 +52,6 @@ class FPhysicsCollisionEvent extends Event
 		return null;
 	}
 
-
 	public function getOtherEntity(ent:FEntity):FEntity{
 		var entA = this.getEntityA();
 		if(entA != ent)return entA;

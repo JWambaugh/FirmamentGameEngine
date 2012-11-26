@@ -3,11 +3,18 @@ package firmament.core;
 import firmament.core.FEntity;
 import firmament.component.base.FEntityComponent;
 import firmament.component.base.FEntityComponentFactory;
+import firmament.utils.loader.FDataLoader;
 
 class FEntityFactory{
 
 	public static function createEntity(config:Dynamic):FEntity{
 		var entity:FEntity;
+
+		//if config is a string, assume it's a file name to be loaded.
+		if(Std.is(config,String)){
+			config = FDataLoader.loadData(config);
+		}
+		
 		if(Std.is(config.className, String)){
 			var c =Type.resolveClass(config.className);
 			if(c==null){

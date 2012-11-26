@@ -132,6 +132,10 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	private function registerEventHandlers(){
 		_entity.addEventListener(FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
 	}
+
+	private function removeEventHandlers(){
+		_entity.removeEventListener(FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
+	}	
 	
 	public function onActiveStateChange(e:Event){
 			deactivate();
@@ -256,6 +260,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 	override public function destruct(){
 		world.deleteEntity(_entity);
+		removeEventHandlers();
 	}
 
 }
