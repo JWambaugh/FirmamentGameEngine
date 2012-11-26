@@ -83,16 +83,21 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 			def.angle = config.angle;
 		}
 
+		//fixedRotation
 		def.fixedRotation = false;
-
 		if(Std.is(config.fixedRotation,Bool)){
 			def.fixedRotation = config.fixedRotation;
 		}
 
+		//allowSleep
 		if (Std.is(config.allowSleep, Bool)) {
 			def.allowSleep= config.allowSleep;
 		}
 
+		//isBullet
+		if(Std.is(config.bullet,Bool)){
+			def.bullet = config.bullet;
+		}
 
 		body = physWorld.getB2World().createBody(def);
 		
@@ -159,38 +164,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		//process joints
 		if(Std.is(config.joints,Array))
 		for (joint in cast(config.joints, Array<Dynamic>)) {
-			trace("jointLoop");
-			if(Std.is(joint.entity,String)){
-				joint.entity = FDataLoader.loadData(joint.entity);
-			}
-			var mergeConfig:Dynamic = {components:{physics:{}}};
-			if(joint.entity == null){
-				throw("joint entity is null");
-			}
-
-			if(Reflect.isObject(joint.positionOffset)){
-				mergeConfig.components.physics.position={x:getPositionX()+joint.positionOffset.x,y:getPositionY()+joint.positionOffset.y};
-			}else{
-				mergeConfig.components.physics.position = getPosition();
-			}
-
-			if(Std.is(joint.angleOffset,Float)){
-				mergeConfig.components.physics.angle = getAngle()+joint.angleOffset;
-			}else{
-				mergeConfig.components.physics.angle = getAngle();
-			}
-			FMisc.mergeInto(mergeConfig,joint.entity);
-			trace(Std.string(joint.entity));
-			var childEntity = FEntityFactory.createEntity(joint.entity);
-
-
-			if(joint.type == 'weld'){
-				var def = new B2WeldJointDef();
-				def.initialize(this.body,cast(childEntity.getPhysicsComponent(),FBox2DComponent).body,body.getWorldCenter());
-				physWorld.getB2World().createJoint(def);
-
-
-			}
+			createJointEntity(joint);
 		}
 		
 		this.world.addEntity(this._entity);
@@ -204,6 +178,61 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		_entity.removeEventListener(FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
 	}
 
+	/*
+		Function: createJointEntity
+		creates an entity and a joint between this entity an the new one.
+	*/
+	public function createJointEntity(joint:Dynamic){
+		var physWorld:FBox2DWorld = cast world;
+		if(Std.is(joint.entity,String)){
+			joint.entity = FDataLoader.loadData(joint.entity);
+		}
+		var mergeConfig:Dynamic = {components:{physics:{}}};
+		if(joint.entity == null){
+			throw("joint entity is null");
+		}
+
+		if(Reflect.isObject(joint.positionOffset)){
+			mergeConfig.components.physics.position={x:getPositionX()+joint.positionOffset.x,y:getPositionY()+joint.positionOffset.y};
+		}else{
+			mergeConfig.components.physics.position = getPosition();
+		}
+
+		if(Std.is(joint.angleOffset,Float)){
+			mergeConfig.components.physics.angle = getAngle()+joint.angleOffset;
+		}else{
+			mergeConfig.components.physics.angle = getAngle();
+		}
+		FMisc.mergeInto(mergeConfig,joint.entity);
+		trace(Std.string(joint.entity));
+		var childEntity = FEntityFactory.createEntity(joint.entity);
+
+
+		if(joint.type == 'weld'){
+			var def = new B2WeldJointDef();
+			def.initialize(this.body,cast(childEntity.getPhysicsComponent(),FBox2DComponent).body,body.getWorldCenter());
+			physWorld.getB2World().createJoint(def);
+		}
+		if(joint.type == 'distance'){
+			var def = new B2DistanceJointDef();
+			def.initialize(this.body,cast(childEntity.getPhysicsComponent(),FBox2DComponent).body,body.getWorldCenter(),cast(childEntity.getPhysicsComponent(),FBox2DComponent).body.getWorldCenter());
+			physWorld.getB2World().createJoint(def);
+		}
+		if(joint.type == 'revolute'){
+			var def = new B2RevoluteJointDef();
+			def.initialize(this.body,cast(childEntity.getPhysicsComponent(),FBox2DComponent).body,body.getWorldCenter());
+			if(Std.is(joint.motorSpeed,Float)){
+				def.enableMotor=true;
+				def.motorSpeed=joint.motorSpeed;
+			}
+			if(Std.is(joint.maxMotorTorque,Float)){
+				def.enableMotor=true;
+				def.maxMotorTorque=joint.maxMotorTorque;
+			}
+
+			physWorld.getB2World().createJoint(def);
+		}
+	}
 
 	public function onActiveStateChange(e:Event){
 
