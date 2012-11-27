@@ -36,6 +36,7 @@ class FGame extends EventDispatcher
 	var worldHash:Hash<FWorld>; 
 	public var enableSimulation:Bool;
 	var processManager:FProcessManager;
+	var _renderProcessManager:FProcessManager;
 
 	var _mainInput:FInput;
 
@@ -73,6 +74,7 @@ class FGame extends EventDispatcher
 		cameras = new Hash<FCamera>();
 		var stage = Lib.current.stage;
 		this.processManager = new FProcessManager();
+		_renderProcessManager = new FProcessManager();
 		stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
 		
 		_mainInput = new FInput(stage);
@@ -155,6 +157,14 @@ class FGame extends EventDispatcher
 	}
 
 	/**
+	 * Function: getRenderProcessManager
+	 */
+	public function getRenderProcessManager():FProcessManager {
+		return this._renderProcessManager;
+	}
+
+
+	/**
 	 * Function: addProcess
 	 *
 	 * Parameters: 
@@ -176,7 +186,7 @@ class FGame extends EventDispatcher
 	 */
 	public function addCamera(name:String,c:FCamera):Void {
 		this.cameras.set(name,c);
-		this.processManager.addProcess(new FCameraRenderProcess(c));
+		this._renderProcessManager.addProcess(new FCameraRenderProcess(c));
 	}
 
 
@@ -205,6 +215,7 @@ class FGame extends EventDispatcher
 		this.dispatchEvent(new Event(FGame.BEFORE_STEP));
 		this.processManager.step();
 		this.dispatchEvent(new Event(FGame.AFTER_STEP));
+		this._renderProcessManager.step();
 	}
 
 
@@ -220,6 +231,29 @@ class FGame extends EventDispatcher
 
 	public function getPoolManager(){
 		return _poolManager;
+	}
+
+	/*
+		Function: clearWorlds
+		Destroys all worlds and entities
+
+	*/
+	public function clearWorlds(){
+		for (world in worldHash){
+			world.destruct();
+		}
+		worldHash = new Hash();
+	}
+
+	/*
+		Function: clearAll
+		destroys or clears references to all entities, worlds, cameras, and processes.
+	*/
+	public function clearAll(){
+		clearWorlds();
+		processManager = new FProcessManager();
+		_renderProcessManager = new FProcessManager();
+		cameras = new Hash();
 	}
 
 

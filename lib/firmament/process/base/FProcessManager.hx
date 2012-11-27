@@ -1,37 +1,43 @@
 package firmament.process.base;
 
 import haxe.Timer;
-
+import nme.events.EventDispatcher;
+import nme.events.Event;
 /**
  * ...
  * @author Jordan Wambaugh
  */
 
-class FProcessManager 
+class FProcessManager extends nme.events.EventDispatcher
 {
-	var processQueue:Array<FProcessInterface>;
-	var iteration:Int;
-	var frameDelta:Float; // in seconds
-	var lastTime:Float; // in seconds
-	
+	var _processQueue:Array<FProcessInterface>;
+	var _iteration:Int;
+	var _frameDelta:Float; // in seconds
+	var _lastTime:Float; // in seconds
+	var _paused:Bool;
+
+	public static inline var PAUSED = "paused";
+	public static inline var UNPAUSED = "unpaused";
 	public function new() 
 	{
-		processQueue = new Array<FProcessInterface>();
-		iteration = 0;
-		lastTime = 0; // Timer.stamp();
-		frameDelta = .03;
+		super();
+		_paused = false;
+		_processQueue = new Array<FProcessInterface>();
+		_iteration = 0;
+		_lastTime = 0; // Timer.stamp();
+		_frameDelta = .03;
 	}
 
 	public function getFrameDelta():Float {
-		return frameDelta;
+		return _frameDelta;
 	}
 	
 	public function getIteration(){
-		return iteration;
+		return _iteration;
 	}
 
 	public function addProcess(p:FProcessInterface) {
-		processQueue.push(p);
+		_processQueue.push(p);
 		p.beforeStart(this);
 	}
 	
@@ -39,29 +45,30 @@ class FProcessManager
 	 * Runs a step for each registered process.
 	 */
 	public function step() {
-		if(lastTime == 0) {
-		    lastTime = Timer.stamp();
+		if(_paused)return;
+		if(_lastTime == 0) {
+		    _lastTime = Timer.stamp();
 		} else {
 			var ctime = Timer.stamp();
-			frameDelta = ctime - lastTime;
-			lastTime = ctime;
+			_frameDelta = ctime - _lastTime;
+			_lastTime = ctime;
 		}
-		iteration++;
-		for (p in processQueue) {
+		_iteration++;
+		for (p in _processQueue) {
 			if(!p.isComplete()){
 				p.step();
 			}
 		}
 		//clean up left over processes every 10 steps
-		if (iteration % 10 == 0) {
+		if (_iteration % 10 == 0) {
 			cleanupProcesses();
 		}
 	}
 	
 	private function cleanupProcesses() {
-		for (p in processQueue) {
+		for (p in _processQueue) {
 			if (p.isComplete()) {
-				processQueue.remove(p);
+				_processQueue.remove(p);
 				p.afterFinish();
 			}
 		}
@@ -77,9 +84,27 @@ class FProcessManager
 				throw "Cannot abort process";
 			}
 		}
-		processQueue.remove(p);
+		_processQueue.remove(p);
 		
 		
+	}
+
+	public function pause(){
+		var ctime = Timer.stamp();
+		_frameDelta = ctime - _lastTime;
+		_paused = true;
+		this.dispatchEvent(new Event(PAUSED));
+	}
+
+	public function unPause(){
+		_lastTime = Timer.stamp() - _frameDelta;
+		_paused = false;
+		this.dispatchEvent(new Event(UNPAUSED));
+
+	}
+
+	public function destruct(){
+		_processQueue = null;
 	}
 	
 }

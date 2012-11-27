@@ -120,9 +120,14 @@ class FNoPhysicsWorld extends FWorld
 		var component:FNoPhysicsComponent = cast(ent.getPhysicsComponent());
 		_rtree.deleteObject(ent,component.getTopX(),component.getTopY());
 		super.deleteEntity(ent);
-
-		
-		
 	}
+
+
+	override public function destruct(){
+		super.destruct();
+		_rtree = null;
+	}
+	
+
 	
 }

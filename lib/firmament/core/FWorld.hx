@@ -83,7 +83,16 @@ class FWorld
 	public function removeFromAlwaysRenderList(ent:FEntity){
 		_alwaysRenderEntities.remove(ent);
 	}
+	
 	public function getAlwaysRenderEntities():Array<FEntity>{
 		return _alwaysRenderEntities;
+	}
+
+	public function destruct(){
+		for (ent in entities){
+			ent.delete();
+		}
+		entities = null;
+		_alwaysRenderEntities = null;
 	}
 }

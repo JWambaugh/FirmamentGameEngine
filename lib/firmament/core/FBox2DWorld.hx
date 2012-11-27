@@ -191,5 +191,10 @@ class FBox2DWorld extends FWorld
 	override public function insideStep():Bool{
 		return _inStep;
 	}
+
+	override public function destruct(){
+		super.destruct();
+		this._b2world = null;
+	}
 	
 }
