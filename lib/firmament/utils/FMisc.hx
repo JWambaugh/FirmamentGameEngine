@@ -29,7 +29,7 @@ class FMisc
 
 	/**
 	 * Function: mergeInto
-	 * merges one object into another. does not remove fields from b that aren't in a.
+	 * merges one object (a) into another (b). does not remove fields from b that aren't in a.
 	 * does a deep merge.
 	 */
 

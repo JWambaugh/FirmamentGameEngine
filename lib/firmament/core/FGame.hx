@@ -16,6 +16,7 @@ import firmament.process.base.FProcessManager;
 import firmament.process.engine.FCameraRenderProcess;
 import firmament.process.engine.FWorldStepProcess;
 import firmament.utils.loader.serializer.FSerializerFactory;
+import firmament.utils.loader.FSceneLoader;
 import haxe.Timer;
 import nme.Assets;
 import nme.display.Bitmap;

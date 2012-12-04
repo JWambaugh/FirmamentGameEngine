@@ -15,6 +15,7 @@ import firmament.events.FBox2DCollisionEvent;
 import firmament.events.FPhysicsCollisionEvent;
 import firmament.ui.FDialog;
 import nme.events.Event;
+import firmament.utils.FConfigHelper;
 /**
  * ...
  * @author Jordan Wambaughz
@@ -27,6 +28,9 @@ class FPhysicsWorldContactListener extends B2ContactListener {
 		this.world = world;
 		super();
 	}
+
+
+
 	override public function beginContact(contact:B2Contact):Void {
 
 		var bodyA:FBox2DComponent = contact.getFixtureA().getBody().getUserData();
@@ -74,6 +78,12 @@ class FBox2DWorld extends FWorld
 		this._b2world = new B2World(new B2Vec2(0,0), true);
 		this.deleteQueue = new Array<FEntity>();
 		this._b2world.setContactListener(new FPhysicsWorldContactListener(this));
+	}
+
+	override public function init(config:Dynamic){
+		super.init(config);
+		var c = new FConfigHelper(config);
+		this._b2world.setGravity(c.getVector('position',{x:0,y:0}));
 	}
 	
 	override public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity>{

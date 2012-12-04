@@ -15,8 +15,9 @@ import sys.io.File;
 class FDataLoader 
 {
 	static var _cache:Hash<Dynamic> = new Hash();
-
+	static var _recursionCount:Int;
 	public static function loadData(fileName:String, ?allowEmpty:Bool=false):Dynamic{
+
 		trace("Processing: " + fileName);
 		if(_cache.exists(fileName)){
 			return FMisc.deepClone(_cache.get(fileName));
@@ -39,6 +40,16 @@ class FDataLoader
 			throw("Data could not be unserialized for "+fileName);
 		}
 		data.entityFile = fileName;
+
+		if(Std.is(data._extends,String)){
+			_recursionCount++;
+			if(_recursionCount > 100 )throw "recursive _extends detected in "+fileName;
+			var parent = loadData(data._extends);
+			_recursionCount--;
+			FMisc.mergeInto(data,parent);
+			data = parent;
+			trace(Std.string(data));
+		}
 		_cache.set(fileName,FMisc.deepClone(data));
 		return data;
 	}

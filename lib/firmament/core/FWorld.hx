@@ -14,6 +14,7 @@ class FWorld
 	var entities:Array<FEntity>;
 	var lastStep:Float;
 	var _alwaysRenderEntities:Array<FEntity>;
+	var _config:Dynamic;
 
 	public function new() 
 	{
@@ -21,6 +22,11 @@ class FWorld
 		this._alwaysRenderEntities= new Array<FEntity>();
 		this.lastStep=Timer.stamp();
 	}
+
+	public function init(config:Dynamic){
+		_config = config;
+	}
+
 	public function addEntity(ent:FEntity) {
 		this.entities.push(ent);
 	}

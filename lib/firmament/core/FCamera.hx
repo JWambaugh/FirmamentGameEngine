@@ -10,6 +10,7 @@ import nme.Lib;
 import nme.display.Stage;
 import nme.events.Event;
 import firmament.component.render.FWireframeRenderComponent;
+import firmament.utils.FConfigHelper;
 /**
  * Class: FCamera
  * 
@@ -43,7 +44,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		 * width - Int The width of the camera
 		 * height - Int The height of the camera
 	 */
-	public function new(width:Int,height:Int) 
+	public function new(?width:Int=100,?height:Int=100) 
 	{
 		super();
 		this.zoom = 100;
@@ -54,6 +55,20 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		this.displayWidth = width;
 		_debugRender = false;
 		_debugRenderer = new FWireframeRenderComponent();
+
+	}
+
+
+	public function init(config:Dynamic){
+		var c= new FConfigHelper(config);
+		var pos = c.getVector('position',{x:0,y:0});
+		this.x = pos.x;
+		this.y = pos.y;
+
+		var stage = Lib.current.stage;
+		this.displayWidth = c.getNotNull("width",Float,stage.stageWidth);
+		this.displayHeight = c.getNotNull("height",Float,stage.stageHeight);
+		this.calculateTopLeftPosition(1);
 
 	}
 	
