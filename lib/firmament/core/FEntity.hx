@@ -22,7 +22,8 @@ import nme.Assets;
 class FEntity extends nme.events.EventDispatcher
 {
 	var _config:Dynamic;
-	var _components:Hash<FEntityComponent>;
+	var _componentsHash:Hash<Array<FEntityComponent>>;
+	var _components:Array<FEntityComponent>;
 	var _pool:FEntityPool;
 	var _active:Bool;
 	var _typeId:String;
@@ -41,7 +42,8 @@ class FEntity extends nme.events.EventDispatcher
 	{
 		super();
 		this._config = config;
-		this._components = new Hash<FEntityComponent>();
+		this._componentsHash = new Hash<Array<FEntityComponent>>();
+		_components = new Array<FEntityComponent>();
 		_active = true;
 		if(!Std.is(config.typeId,String)){
 			config.typeId = "Entity_"+Math.floor(Math.random()*10000000);
@@ -64,11 +66,11 @@ class FEntity extends nme.events.EventDispatcher
 	 * Returns:
 	 * 	<FentityComponent>
 	 */
-	public function getComponent(type:String):FEntityComponent {
-		return this._components.get(type);
+	public function getComponent(type:String):Array<FEntityComponent> {
+		return this._componentsHash.get(type);
 	}
 
-	public function getAllComponents():Hash<FEntityComponent>{
+	public function getAllComponents():Array<FEntityComponent>{
 		return _components;
 	}
 
@@ -84,16 +86,31 @@ class FEntity extends nme.events.EventDispatcher
 	 *	<FPysicsComponentInterface>
 	 */
 	public function getPhysicsComponent():FPhysicsComponentInterface {
-		return cast(this.getComponent('physics'), FPhysicsComponentInterface);
+		var ca = this.getComponent('physics');
+		if(ca!=null){
+			return cast(ca[0]);
+		}
+		return null;
 	}
 
 	public function getRenderComponent():FRenderComponentInterface {
-		return cast(this.getComponent('render'), FRenderComponentInterface);
+		var ca = this.getComponent('render');
+		if(ca!=null){
+			return cast(ca[0]);
+		}
+		return null;
 	}
 	
 	
 	public function setComponent(component:FEntityComponent) {
-		this._components.set(component.getType(),component);
+		var array:Array<FEntityComponent>;
+		array = _componentsHash.get(component.getType());
+		if(array == null){
+			array = new Array();
+			_componentsHash.set(component.getType(),array);
+		}
+		array.push(component);
+		_components.push(component);
 		component.setEntity(this);
 	}
 	

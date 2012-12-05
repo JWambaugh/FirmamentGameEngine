@@ -116,7 +116,8 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 
 		this._entity.dispatchEvent(new Event(FGame.BEFORE_RENDER));
 		
-		var physicsComponent:FPhysicsComponentInterface = cast(this._entity.getComponent("physics"));
+		var physicsComponent:FPhysicsComponentInterface = this._entity.getPhysicsComponent();
+		if(physicsComponent == null) return;
 		var cameraPos = camera.getTopLeftPosition(this._parallax);
 		var ratio = camera.getZoom() / imageScale;
 		var pos = physicsComponent.getPosition();

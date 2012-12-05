@@ -38,7 +38,7 @@ class FWireframeRenderComponent extends FEntityComponent, implements FRenderComp
 	}
 	
 	public function render(camera:FCamera):Void {
-		var physicsComponent:FPhysicsComponentInterface= cast(this._entity.getComponent("physics"));
+		var physicsComponent:FPhysicsComponentInterface= _entity.getPhysicsComponent();
 		if(physicsComponent==null)return;
 		var pos = physicsComponent.getPosition();
 		

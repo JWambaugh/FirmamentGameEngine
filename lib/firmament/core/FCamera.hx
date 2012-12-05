@@ -96,14 +96,15 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 				entityList=entityList.concat(entities);
 		}
 		entityList.sort(function(a:FEntity,b:FEntity):Int{
-			var cmp = cast(a.getComponent("physics"),FPhysicsComponentInterface).getZPosition() - cast(b.getComponent("physics"),FPhysicsComponentInterface).getZPosition();
+			var cmp = a.getPhysicsComponent().getZPosition() -b.getPhysicsComponent().getZPosition();
 			if (cmp==0) {
 				return 0;	
 			} else if (cmp > 0) return 1;
 			return -1;
 		});
 		for (ent in entityList) {
-			cast(ent.getComponent("render"),FRenderComponentInterface).render(this);
+			var rc = ent.getRenderComponent();
+			if(rc!=null) rc.render(this);
 		}
 		this.dispatchEvent(new Event(FCamera.AFTER_RENDER_EVENT));
 		if(_debugRender){

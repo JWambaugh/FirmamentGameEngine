@@ -8,6 +8,7 @@ package firmament.core;
 
 import firmament.core.FCamera;
 import firmament.core.FEntity;
+
 import firmament.core.FEntityPoolManager;
 import firmament.core.FInput;
 import firmament.core.FWorldFactory;
