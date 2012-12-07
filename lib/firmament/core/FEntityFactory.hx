@@ -12,7 +12,14 @@ class FEntityFactory{
 
 		//if config is a string, assume it's a file name to be loaded.
 		if(Std.is(config,String)){
-			config = FDataLoader.loadData(config);
+			//pool support
+			var str:String = config;
+			//if string starts with "pool:" then get the entity from the specified pool
+			if(str.indexOf("pool:") == 0){
+				str = str.substr(5);
+				return FGame.getInstance().getPoolManager().getPool(str).getEntity();
+			}
+			config = FDataLoader.loadData(str);
 		}
 		
 		if(Std.is(config.className, String)){

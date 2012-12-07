@@ -1,13 +1,14 @@
 package firmament.component.base;
 
-import firmament.component.base.FEntityComponent;
 
+import firmament.component.animation.FAnimationComponent;
+import firmament.component.base.FEntityComponent;
+import firmament.component.event.FEntityEmitterComponent;
+import firmament.component.event.FEventMapperComponent;
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.physics.FNoPhysicsComponent;
-
-import firmament.component.render.FWireframeRenderComponent;
 import firmament.component.render.FTilesheetRenderComponent;
-import firmament.component.animation.FAnimationComponent;
+import firmament.component.render.FWireframeRenderComponent;
 
 class FEntityComponentFactory{
 	public static function createComponent(type:String):FEntityComponent {
@@ -24,14 +25,19 @@ class FEntityComponentFactory{
 	}
 
 	public static function getClassFromType(type:String){
-		return switch(type){
-			case "box2d":"firmament.component.physics.FBox2DComponent";
-			case "noPhysics":"firmament.component.physics.FNoPhysicsComponent";
-			case "wireframe":"firmament.component.render.FWireframeRenderComponent";
-			case "tilesheet":"firmament.component.render.FTilesheetRenderComponent";
-			case "animation":"firmament.component.animation.FAnimationComponent";
-			default: type;
-		}
+		var map = {
+			"box2d":"firmament.component.physics.FBox2DComponent"
+			,"noPhysics":"firmament.component.physics.FNoPhysicsComponent"
+			,"wireframe":"firmament.component.render.FWireframeRenderComponent"
+			,"tilesheet":"firmament.component.render.FTilesheetRenderComponent"
+			,"animation":"firmament.component.animation.FAnimationComponent"
+			,"eventMapper":"firmament.component.event.FEventMapperComponent"
+			,"entityEmitter":"firmament.component.event.FEntityEmitterComponent"
+		};
+
+		var cls = Reflect.field(map,type);
+		if(cls == null) return type;
+		return cls;
 	}
 
 }
