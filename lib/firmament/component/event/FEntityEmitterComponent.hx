@@ -24,7 +24,7 @@ class FEntityEmitterComponent extends FEntityComponent{
 
 				if(Reflect.isObject(emitter)){
 					var ec = new FConfigHelper(emitter);
-					_entity.addEventListener(event,function(e:Event){
+					addEventListenerToEntity(event,function(e:Event){
 						var ent = FEntityFactory.createEntity(ec.getNotNull('entity',Dynamic));
 						FEntityUtils.emitEntity(_entity
 							,ent
@@ -43,5 +43,7 @@ class FEntityEmitterComponent extends FEntityComponent{
 	override public function getType(){
 		return "entityEmitter";
 	}	
+
+	
 
 }

@@ -1,6 +1,7 @@
  package firmament.component.base;
 import firmament.core.FEntity;
 import nme.events.EventDispatcher;
+import nme.events.Event;
 
 /*
 	Class: FEntity Component
@@ -15,11 +16,12 @@ class FEntityComponent extends EventDispatcher
 
 	private var _config:Dynamic;
 	private var _entity:FEntity;
-	
+	private var _listeners:Hash<Event->Void>;
 	
 	public function new() 
 	{
 		super();
+		_listeners = new Hash();
 	}
 	
 	public function init(config:Dynamic):Void {
@@ -49,6 +51,30 @@ class FEntityComponent extends EventDispatcher
 	}
 
 	
-	public function destruct(){}
+	public function destruct(){
+		removeAllEventListenersFromEntity();
+	}
 	
+
+	public function addEventListenerToEntity(event:String,listener:Event->Void):Void{
+		//is it safe to assume a single component won't have multiple listeners for the same event on an entity?
+		//I can't think of a reason why you'd ever want to do that.
+		_listeners.set(event,listener);
+		_entity.addEventListener(event,listener);
+	}
+
+	public function removeEventListenerFromEntity(event:String){
+		_entity.removeEventListener(event,_listeners.get(event));
+		_listeners.remove(event);
+	}
+
+	public function removeAllEventListenersFromEntity(){
+		for(event in _listeners.keys()){
+			removeEventListenerFromEntity(event);
+		}
+	}
+
+
+
+
 }
