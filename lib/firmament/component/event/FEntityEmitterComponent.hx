@@ -2,8 +2,8 @@
 package firmament.component.event;
 import firmament.component.base.FEntityComponent;
 import nme.events.Event;
-import firmament.utils.FEntityUtils;
-import firmament.utils.FConfigHelper;
+import firmament.util.FEntityUtils;
+import firmament.util.FConfigHelper;
 import firmament.core.FEntityFactory;
 
 /*

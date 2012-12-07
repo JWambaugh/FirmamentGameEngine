@@ -1,4 +1,4 @@
-package firmament.events;
+package firmament.event;
 
 import box2D.collision.B2Manifold;
 import box2D.collision.B2WorldManifold;
@@ -9,7 +9,7 @@ import firmament.component.physics.FBox2DComponent;
 import firmament.core.FEntity;
 import firmament.core.FGame;
 import firmament.core.FWorld;
-import firmament.events.FPhysicsCollisionEvent;
+import firmament.event.FPhysicsCollisionEvent;
 import nme.events.Event;
 /**
  * ...

@@ -1,7 +1,7 @@
 package firmament.core;
 
 import firmament.core.FTilesheet;
-import firmament.utils.loader.FDataLoader;
+import firmament.util.loader.FDataLoader;
 import nme.display.BitmapData;
 import nme.geom.Rectangle;
 import nme.geom.Point;

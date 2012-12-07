@@ -12,7 +12,7 @@ import nme.events.MouseEvent;
 import firmament.ui.FDialog;
 import sys.io.File;
 import sys.FileSystem;
-import firmament.utils.loader.serializer.FJsonSerializer;
+import firmament.util.loader.serializer.FJsonSerializer;
 import nme.events.Event;
 
 /**

@@ -1,4 +1,4 @@
-package firmament.events;
+package firmament.event;
 
 
 import box2D.collision.B2Manifold;

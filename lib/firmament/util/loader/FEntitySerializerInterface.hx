@@ -1,4 +1,4 @@
-package firmament.utils.loader;
+package firmament.util.loader;
 
 /**
  * ...

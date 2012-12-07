@@ -1,5 +1,5 @@
 
-package firmament.utils;
+package firmament.util;
 
 class FRepository {
 

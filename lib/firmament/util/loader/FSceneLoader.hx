@@ -1,11 +1,11 @@
 
-package firmament.utils.loader;
-import firmament.utils.loader.FDataLoader;
+package firmament.util.loader;
+import firmament.util.loader.FDataLoader;
 import firmament.core.FGame;
 import nme.Lib;
 import firmament.core.FCamera;
-import firmament.utils.FConfigHelper;
-import firmament.utils.loader.FEntityLoader;
+import firmament.util.FConfigHelper;
+import firmament.util.loader.FEntityLoader;
 import nme.events.Event;
 
 class FSceneLoader {

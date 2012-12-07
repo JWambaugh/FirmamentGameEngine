@@ -1,8 +1,8 @@
 
-package firmament.utils.loader;
+package firmament.util.loader;
 
-import firmament.utils.FMisc;
-import firmament.utils.loader.serializer.FSerializerFactory;
+import firmament.util.FMisc;
+import firmament.util.loader.serializer.FSerializerFactory;
 import nme.Assets;
 import nme.events.EventDispatcher;
 #if(cpp)

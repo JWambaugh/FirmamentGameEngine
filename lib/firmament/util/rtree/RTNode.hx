@@ -1,4 +1,4 @@
-package firmament.utils.rtree;
+package firmament.util.rtree;
 
 class RTNode<T>
 {

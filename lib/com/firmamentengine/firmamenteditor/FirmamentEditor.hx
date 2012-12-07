@@ -28,7 +28,7 @@ import firmament.core.FBox2DWorld;
  * @author Jordan Wambaugh
  */
 using StringTools;
-using firmament.utils.FEntityCompat;
+using firmament.util.FEntityCompat;
 class FirmamentEditor
 {
 	

@@ -1,4 +1,4 @@
-package firmament.utils;
+package firmament.util;
 
 import firmament.core.FGame;
 import firmament.process.base.FProcessManager;

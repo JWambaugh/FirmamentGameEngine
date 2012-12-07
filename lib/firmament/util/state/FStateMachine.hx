@@ -1,5 +1,5 @@
-package firmament.utils;
-import firmament.utils.state.FState;
+package firmament.util;
+import firmament.util.state.FState;
 
 /**
  * ...

@@ -10,7 +10,7 @@ import nme.Lib;
 import nme.display.Stage;
 import nme.events.Event;
 import firmament.component.render.FWireframeRenderComponent;
-import firmament.utils.FConfigHelper;
+import firmament.util.FConfigHelper;
 /**
  * Class: FCamera
  * 

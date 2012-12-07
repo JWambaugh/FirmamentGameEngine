@@ -1,12 +1,12 @@
 package com.firmamentengine.firmamenteditor;
 import firmament.core.FEntity;
-import firmament.utils.FEntityCompat;
+import firmament.util.FEntityCompat;
 import firmament.ui.FDialog;
 /**
  * ...
  * @author Jordan Wambaugh
  */
-using firmament.utils.FEntityCompat;
+using firmament.util.FEntityCompat;
 class FEditorEntity extends FEntity
 {
 

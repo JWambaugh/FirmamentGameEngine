@@ -3,7 +3,7 @@ import firmament.ui.FWindow;
 import firmament.ui.layout.FHBox;
 import nme.display.Sprite;
 import sys.FileSystem;
-import firmament.utils.loader.serializer.FJsonSerializer;
+import firmament.util.loader.serializer.FJsonSerializer;
 import firmament.ui.FDialog;
 import sys.io.File;
 

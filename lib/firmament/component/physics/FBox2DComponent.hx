@@ -24,8 +24,8 @@ import firmament.core.FShape;
 import firmament.core.FVector;
 import firmament.core.FWorld;
 import firmament.core.FWorldPositionalInterface;
-import firmament.utils.FMisc;
-import firmament.utils.loader.FDataLoader;
+import firmament.util.FMisc;
+import firmament.util.loader.FDataLoader;
 import haxe.Timer;
 import nme.events.Event;
 

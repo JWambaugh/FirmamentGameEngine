@@ -2,7 +2,7 @@ package firmament.ui;
 import nme.text.TextField;
 import nme.text.TextFormat;
 import nme.Assets;
-import firmament.utils.FMisc;
+import firmament.util.FMisc;
 
 
 

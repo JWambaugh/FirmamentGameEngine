@@ -4,14 +4,14 @@ package firmament.core;
 import firmament.component.physics.FBox2DComponent;
 import firmament.core.FEntity;
 import firmament.core.FWorld;
-import firmament.events.FBox2DCollisionEvent;
-import firmament.events.FPhysicsCollisionEvent;
+import firmament.event.FBox2DCollisionEvent;
+import firmament.event.FPhysicsCollisionEvent;
 import firmament.ui.FDialog;
 import nme.events.Event;
 import firmament.core.FGame;
 import firmament.process.base.FProcessManager;
 import firmament.component.physics.FNoPhysicsComponent;
-import firmament.utils.rtree.RTree;
+import firmament.util.rtree.RTree;
 
 /**
  * ...

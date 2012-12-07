@@ -1,9 +1,9 @@
-package firmament.utils;
+package firmament.util;
 
 import firmament.core.FVector;
-import firmament.utils.FTracerVertex;
+import firmament.util.FTracerVertex;
 import nme.display.BitmapData;
-import firmament.utils.FPolySimplifier;
+import firmament.util.FPolySimplifier;
 /**
  * traces a given bitmap image and returns the resulting polygons
  * @author Jordan Wambaugh

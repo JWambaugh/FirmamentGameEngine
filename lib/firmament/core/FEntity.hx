@@ -10,7 +10,7 @@ import nme.display.Tilesheet;
 import nme.events.Event;
 import nme.geom.Point;
 import nme.geom.Rectangle;
-import firmament.utils.FMisc;
+import firmament.util.FMisc;
 import nme.Assets;
  
  /**

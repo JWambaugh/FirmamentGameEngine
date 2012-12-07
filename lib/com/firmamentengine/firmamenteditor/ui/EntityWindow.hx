@@ -18,7 +18,7 @@ import nme.Lib;
  * ...
  * @author Jordan Wambaugh
  */
-using firmament.utils.FEntityCompat;
+using firmament.util.FEntityCompat;
 class EntityWindow extends FWindow
 {
 

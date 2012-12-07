@@ -11,11 +11,11 @@ import box2D.dynamics.contacts.B2Contact;
 import firmament.component.physics.FBox2DComponent;
 import firmament.core.FEntity;
 import firmament.core.FWorld;
-import firmament.events.FBox2DCollisionEvent;
-import firmament.events.FPhysicsCollisionEvent;
+import firmament.event.FBox2DCollisionEvent;
+import firmament.event.FPhysicsCollisionEvent;
 import firmament.ui.FDialog;
 import nme.events.Event;
-import firmament.utils.FConfigHelper;
+import firmament.util.FConfigHelper;
 /**
  * ...
  * @author Jordan Wambaughz

@@ -1,5 +1,5 @@
 
-package firmament.events;
+package firmament.event;
 
 import nme.events.Event;
 import firmament.core.FEntity;

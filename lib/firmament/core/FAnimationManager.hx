@@ -2,7 +2,7 @@
 package firmament.core;
 
 import firmament.core.FAnimation;
-import firmament.utils.loader.FDataLoader;
+import firmament.util.loader.FDataLoader;
 
 class FAnimationManager {
 

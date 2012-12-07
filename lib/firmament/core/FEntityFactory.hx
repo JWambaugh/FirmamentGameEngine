@@ -3,7 +3,7 @@ package firmament.core;
 import firmament.core.FEntity;
 import firmament.component.base.FEntityComponent;
 import firmament.component.base.FEntityComponentFactory;
-import firmament.utils.loader.FDataLoader;
+import firmament.util.loader.FDataLoader;
 
 class FEntityFactory{
 

@@ -1,5 +1,5 @@
 
-package firmament.utils;
+package firmament.util;
 
 import firmament.core.FEntity;
 import firmament.core.FVector;

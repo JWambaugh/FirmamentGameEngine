@@ -1,4 +1,4 @@
-package firmament.utils;
+package firmament.util;
 import nme.display.BitmapData;
 import nme.geom.Rectangle;
 

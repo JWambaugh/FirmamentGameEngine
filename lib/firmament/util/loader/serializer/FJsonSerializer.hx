@@ -1,5 +1,5 @@
-package firmament.utils.loader.serializer;
-import firmament.utils.loader.serializer.FSerializerInterface;
+package firmament.util.loader.serializer;
+import firmament.util.loader.serializer.FSerializerInterface;
 
 import nice_json.Render;
 import tjson.TJSON;

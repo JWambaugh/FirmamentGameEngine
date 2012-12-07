@@ -2,7 +2,7 @@
  * Class: FEntityCompat
  * To be used with 'using' mixin keyword. Adds methods to help make FEntities more firmament 1.0 compatible.
  */
-package firmament.utils;
+package firmament.util;
 
 import firmament.core.FEntity;
 import firmament.core.FVector;

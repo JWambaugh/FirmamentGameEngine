@@ -1,7 +1,7 @@
-package firmament.utils.loader.serializer;
+package firmament.util.loader.serializer;
 
-import firmament.utils.loader.serializer.FSerializerInterface;
-import firmament.utils.loader.serializer.FJsonSerializer;
+import firmament.util.loader.serializer.FSerializerInterface;
+import firmament.util.loader.serializer.FJsonSerializer;
 
 /**
  * ...
