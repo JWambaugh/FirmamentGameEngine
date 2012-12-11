@@ -10,6 +10,7 @@ import firmament.component.physics.FBox2DComponent;
 import firmament.component.physics.FNoPhysicsComponent;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.component.render.FWireframeRenderComponent;
+import firmament.component.event.FCollisionEventMapperComponent;
 
 class FEntityComponentFactory{
 	public static function createComponent(type:String):FEntityComponent {
@@ -35,6 +36,8 @@ class FEntityComponentFactory{
 			,"eventMapper":"firmament.component.event.FEventMapperComponent"
 			,"entityEmitter":"firmament.component.event.FEntityEmitterComponent"
 			,"eventRelay":"firmament.component.event.FEventRelayComponent"
+			,"collisionEventMapper":"firmament.component.event.FCollisionEventMapperComponent"
+
 		};
 
 		var cls = Reflect.field(map,type);

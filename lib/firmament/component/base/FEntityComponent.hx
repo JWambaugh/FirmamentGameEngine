@@ -16,7 +16,7 @@ class FEntityComponent extends EventDispatcher
 
 	private var _config:Dynamic;
 	private var _entity:FEntity;
-	private var _listeners:Hash<Event->Void>;
+	private var _listeners:Hash<Dynamic->Void>;
 	
 	public function new() 
 	{
@@ -56,7 +56,7 @@ class FEntityComponent extends EventDispatcher
 	}
 	
 
-	public function addEventListenerToEntity(event:String,listener:Event->Void):Void{
+	public function addEventListenerToEntity(event:String,listener:Dynamic->Void):Void{
 		//is it safe to assume a single component won't have multiple listeners for the same event on an entity?
 		//I can't think of a reason why you'd ever want to do that.
 		_listeners.set(event,listener);
