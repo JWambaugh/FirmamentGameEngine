@@ -18,6 +18,9 @@ import firmament.process.engine.FCameraRenderProcess;
 import firmament.process.engine.FWorldStepProcess;
 import firmament.util.loader.serializer.FSerializerFactory;
 import firmament.util.loader.FSceneLoader;
+import firmament.filter.entity.FEntityFilter;
+import firmament.filter.entity.FEntityFilterFactory;
+import firmament.util.FConfigHelper;
 import haxe.Timer;
 import nme.Assets;
 import nme.display.Bitmap;
@@ -44,9 +47,22 @@ class FGame extends EventDispatcher
 
 	var _poolManager:FEntityPoolManager;
 
-	//Constant: COLLISION_EVENT
-	public static inline var COLLISION_EVENT = 'collision';
+	//Constant: COLLISION_PRE_SOLVE_EVENT
+	public static inline var COLLISION_PRE_SOLVE_EVENT = 'preSolveCollision';
+
+	//Constant: COLLISION_POST_SOLVE_EVENT
+	public static inline var COLLISION_POST_SOLVE_EVENT = 'postSolveCollision';
 	
+	//Constant: COLLISION_BEGIN_CONTACT_EVENT
+	public static inline var COLLISION_BEGIN_CONTACT_EVENT = 'beginContactCollision';
+
+	//Constant: COLLISION_END_CONTACT_EVENT
+	public static inline var COLLISION_END_CONTACT_EVENT = 'endContactCollision';
+	
+	
+
+
+
 	//CONSTANT: BEFORE_STEP
 	public static inline var BEFORE_STEP = 'beforeStep';
 	
@@ -149,6 +165,64 @@ class FGame extends EventDispatcher
 			a=a.concat(world.getEntitiesAtPoint(p));
 		}
 		return a;
+	}
+
+	public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity> {
+		var a = new Array<FEntity>();
+		for(world in worldHash){
+			a=a.concat(world.getEntitiesInBox(topLeftX,topLeftY,bottomRightX,bottomRightY));
+		}
+		return a;
+	}
+	/*
+		Function: queryEntities
+
+		Returns: Array<FEntity> objects
+
+		Example query:
+			{
+				selector: 'box'
+				topLeft: {x:-1,-1}
+				bottomRight:{1,1}
+				filters:{
+					type:{
+						typeId: "enemy"
+					}
+				}
+
+			}
+
+	*/
+	public function queryEntities(query:Dynamic){
+		var entities:Array<FEntity>;
+		var config = new FConfigHelper(query);
+		var selector:String = config.getNotNull("selector",String);
+		if (selector == "box"){
+			var topLeft = config.getVector("topLeft",null);
+			var bottomRight = config.getVector("bottomRight",null);
+			if(topLeft == null || bottomRight ==null){
+				throw "parameters topLeft or bottomRight are null.";
+			}
+			entities = getEntitiesInBox(topLeft.x,topLeft.y,bottomRight.x,bottomRight.y);
+		}else if(selector =="point"){
+			var point = config.getVector("point",null);
+			if(point == null){throw "parameter 'point' is missing or null";}
+			entities = getEntitiesAtPoint(point);
+		}else{
+			//default to select all
+			entities = getAllEntities();
+		}
+
+		//run filters
+		if(Reflect.isObject(query.filters)){
+			for(filterName in Reflect.fields(query.filters)){
+				var filter:FEntityFilter = FEntityFilterFactory.createfilter(filterName);
+				filter.filterEntityArray(entities,Reflect.field(query.filters,filterName));
+			}
+		}
+
+
+		return entities;
 	}
 
 	/**

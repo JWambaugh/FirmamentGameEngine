@@ -5,6 +5,7 @@ import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
 import firmament.component.event.FEntityEmitterComponent;
 import firmament.component.event.FEventMapperComponent;
+import firmament.component.event.FEventRelayComponent;
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.physics.FNoPhysicsComponent;
 import firmament.component.render.FTilesheetRenderComponent;
@@ -33,6 +34,7 @@ class FEntityComponentFactory{
 			,"animation":"firmament.component.animation.FAnimationComponent"
 			,"eventMapper":"firmament.component.event.FEventMapperComponent"
 			,"entityEmitter":"firmament.component.event.FEntityEmitterComponent"
+			,"eventRelay":"firmament.component.event.FEventRelayComponent"
 		};
 
 		var cls = Reflect.field(map,type);

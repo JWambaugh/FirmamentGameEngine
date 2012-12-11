@@ -34,7 +34,14 @@ class FPhysicsCollisionEvent extends Event
 	{
 		this._world = world;
 		_collisionType = type;
-		super(FGame.COLLISION_EVENT);
+		var typeStr = switch(type){
+			case preSolve:FGame.COLLISION_PRE_SOLVE_EVENT;
+			case postSolve:FGame.COLLISION_POST_SOLVE_EVENT;
+			case endContact:FGame.COLLISION_END_CONTACT_EVENT;
+			case beginContact:FGame.COLLISION_BEGIN_CONTACT_EVENT;
+			
+		}
+		super(typeStr);
 	}
 	
 	public function getCollisionSpeed():Float {
