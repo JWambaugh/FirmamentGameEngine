@@ -1,15 +1,15 @@
 package firmament.component.event;
 
 import firmament.component.base.FEntityComponent;
-import firmament.util.FConfigHelper;
-import firmament.util.FMisc;
-import firmament.core.FVector;
 import firmament.core.FEntity;
-import firmament.filter.entity.FEntityFilterInterface;
 import firmament.core.FGame;
-import nme.events.Event;
+import firmament.core.FVector;
 import firmament.event.FEventRelayEvent;
 import firmament.filter.entity.FEntityFilterFactory;
+import firmament.filter.entity.FEntityFilterInterface;
+import firmament.util.FConfigHelper;
+import firmament.util.FMisc;
+import nme.events.Event;
 
 class FEventRelayComponent extends FEntityComponent{
 
