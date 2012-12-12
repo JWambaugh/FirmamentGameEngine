@@ -8,6 +8,7 @@ import firmament.core.FEntity;
 import firmament.filter.entity.FEntityFilterInterface;
 import firmament.core.FGame;
 import nme.events.Event;
+import firmament.event.FEventRelayEvent;
 import firmament.filter.entity.FEntityFilterFactory;
 
 class FEventRelayComponent extends FEntityComponent{
@@ -56,7 +57,7 @@ class FEventRelayComponent extends FEntityComponent{
 		var entities = FGame.getInstance().queryEntities(c);
 		
 		for (ent in entities){
-			ent.dispatchEvent(new Event(_fireEvent));
+			ent.dispatchEvent(new FEventRelayEvent(_fireEvent,_entity,_config));
 		}
 
 	}

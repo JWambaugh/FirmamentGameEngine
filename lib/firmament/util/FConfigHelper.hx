@@ -1,6 +1,7 @@
 
 package firmament.util;
 import firmament.core.FVector;
+
 class FConfigHelper {
 
 	private var _config:Dynamic;

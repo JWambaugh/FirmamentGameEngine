@@ -21,8 +21,8 @@ class FEntityRadiusFilter extends FEntityFilter{
 			throw "point parameter in options is null but should be a vector.";
 		}
 		//Pythagorean Theorem
-		var distance = Math.abs(Math.sqrt(Math.pow(point.x - entPoint.x, 2) + Math.pow(point.y - entPoint.y, 2)));
-		if(distance <= radius) return true;
+		var distance = Math.pow(point.x - entPoint.x, 2) + Math.pow(point.y - entPoint.y, 2);
+		if(distance <= Math.pow(radius,2)) return true;
 
 		return false;
 	}
