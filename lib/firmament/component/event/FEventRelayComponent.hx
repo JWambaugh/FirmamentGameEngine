@@ -31,11 +31,8 @@ class FEventRelayComponent extends FEntityComponent{
 		for(e in events){
 			addEventListenerToEntity(e,eventFired);
 		}
-		_config = config;
-
+		
 		_fireEvent = ch.getNotNull("fireEvent");
-
-
 
 	}
 

@@ -277,6 +277,12 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	public function getAngle():Float {
 		return this.body.getAngle();
 	}
+
+	public function applyLinearForce(v:FVector,?point:FVector=null):Void {
+		this.body.setAwake(true);
+		var applyAtPoint = point==null?this.body.getPosition():point;
+		this.body.applyForce(v,applyAtPoint);
+	}
 	
 	public function setLinearVelocity(vel:FVector) {
 		this.body.setAwake(true);
@@ -285,12 +291,6 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	
 	public function getLinearVelocity():FVector {
 		return new FVector(this.body.getLinearVelocity().x, this.body.getLinearVelocity().y);
-	}
-
-	public function addLinearVelocity(velocity:FVector){
-		this.body.setAwake(true);
-		var vel = this.body.getLinearVelocity();
-		vel.add(velocity);
 	}
 
 	public function setAngularVelocity(omega:Float):Void {
@@ -304,7 +304,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	public function addAngularVelocity(omega:Float) {
 		this.body.setAwake(true);
 		var ome = this.body.getAngularVelocity();
-	    this.body.setAngularVelocity(ome+omega);	
+	    this.body.setAngularVelocity(ome+omega);
 	}
 	
 	public function getZPosition():Float {

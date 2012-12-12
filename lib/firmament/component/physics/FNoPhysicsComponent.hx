@@ -173,6 +173,13 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 		return _angle;
 	}
 	
+	public function applyLinearForce(v:FVector,?point:FVector=null):Void {
+		_isSleeping = false;
+		world.updateSleepState(this);
+		_linearVelocity.add(v);
+		// TODO (JCMW): Support second param
+	}
+
 	public function setLinearVelocity(vel:FVector) {
 		_isSleeping = false;
 		world.updateSleepState(this);
@@ -181,12 +188,6 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	
 	public function getLinearVelocity():FVector {
 		return _linearVelocity;
-	}
-
-	public function addLinearVelocity(velocity:FVector){
-		_isSleeping = false;
-		world.updateSleepState(this);
-		_linearVelocity.add(velocity);
 	}
 
 	public function setAngularVelocity(omega:Float):Void {

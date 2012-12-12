@@ -68,6 +68,8 @@ interface FPhysicsComponentInterface{
 
 	public function getWorld():FWorld;
 
+	public function applyLinearForce(v:FVector,?point:FVector=null):Void;
+
 	public function setLinearVelocity(v:FVector):Void;
 
 	public function getLinearVelocity():FVector;
