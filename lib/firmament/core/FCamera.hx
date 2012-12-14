@@ -130,6 +130,14 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		return this.topLeftPosition;
 	}
 	
+	public function getBottomRightPosition(?parallax:Float=1){
+		return new FVector(
+			this.position.x + (this.displayWidth/this.zoom/parallax)/2
+			,this.position.y + (this.displayHeight / this.zoom/parallax) / 2);
+
+	}
+
+
 	/**
 	 * Function: setPosition
 	 * 
@@ -216,6 +224,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		,(y / this.getZoom()) + (this.getPositionY() - (this.displayHeight / this.getZoom() / 2)));
 
 	}
+
 
 	public function setDebugMode(debug:Bool){
 		_debugRender = debug;

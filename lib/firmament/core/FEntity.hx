@@ -28,6 +28,7 @@ class FEntity extends nme.events.EventDispatcher
 	var _active:Bool;
 	var _typeId:String;
 	var _listeners : Hash<Dynamic>; 
+	var _tags:Array<String>;
 
 	public static inline var ACTIVE_STATE_CHANGE = "activeChange";
 
@@ -51,6 +52,12 @@ class FEntity extends nme.events.EventDispatcher
 		}
 		_typeId = config.typeId;
 		_listeners = new Hash();
+
+		if(Std.is(config.tags,Array)){
+			_tags = config.tags;
+		}else{
+			_tags = new Array<String>();
+		}
 
 	}
 
@@ -165,35 +172,23 @@ class FEntity extends nme.events.EventDispatcher
 		
 	}
 
-/*
-	//overriding addEventListener so we can remove all listeners when we destruct.
-	override public function addEventListener(type : String, listener : Dynamic -> Void, useCapture : Bool = false, priority : Int = 0, useWeakReference : Bool = false) : Void{
-			var key : String = type+"_"+useCapture;
-		  	if( _listeners.exists(key) ) {
-				removeEventListener( type, _listeners.get(key).listener, useCapture );
-				_listeners.remove(key);
-		  	}
-		  	_listeners.set(key,{listener:listener,type:type,useCapture:useCapture});
-
-		  	super.addEventListener( type, listener, useCapture, priority, useWeakReference );
-		  	//trace("event listener added: "+key);
+	public function getTags():Array<String>{
+		return _tags;
 	}
-*/
-	/*
-		Helper to remove all event listers. Called when entity is destroyed.
-	*//*
-	private function removeListeners():Void{
-		//throw("remove listeners called");
-			try
-			{
-				for (key in _listeners.keys()) {
-					var event = _listeners.get(key);
-					removeEventListener( event.type, event.listener, event.useCapture );
-					_listeners.remove(key);
-				}
-			}catch(e:Dynamic){trace("removeListener error: "+e);} //we aren't updating our hash when we remove a listener, so there might be errors
-	}*/
 
-	
+	public function addTag(tag:String){
+		_tags.push(tag);
+	}
+
+	public function removeTag(tag:String){
+		_tags.remove(tag);
+	}
+
+	public function hasTag(tag:String):Bool{
+		for(t in _tags){
+			if(t == tag) return true;
+		}
+		return false;
+	}
 	
 }

@@ -280,7 +280,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 
 	public function applyLinearForce(v:FVector,?point:FVector=null):Void {
 		this.body.setAwake(true);
-		var applyAtPoint = point==null?this.body.getPosition():point;
+		var applyAtPoint = point==null?this.body.getWorldCenter():point;
 		this.body.applyForce(v,applyAtPoint);
 	}
 	
