@@ -51,6 +51,9 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 
 		if(Std.is(config.tile,Int)){
 			this._tile = config.tile;
+		}else if(Std.is(config.label,String)){
+			this._tile = _tilesheet.getTileNumber(config.label);
+			trace(_tile);
 		}
 
         if(Std.is(config.imageScale,Int)) {

@@ -121,8 +121,10 @@ class FTilesheetManager {
 						center.x = Math.floor(( tile.width)/2);
 						center.y = Math.floor((tile.height)/2);
 					}
-					t.addTileRect(new Rectangle (tile.topLeft.x, tile.topLeft.y, tile.width, tile.height)
-						,new Point(center.x,center.y));
+					var label:String = null;
+					if(Std.is(tile.label,String))label = tile.label;
+					t.addTileRectWithLabel(new Rectangle (tile.topLeft.x, tile.topLeft.y, tile.width, tile.height)
+						,new Point(center.x,center.y),label);
 				}else{
 					throw "Found a tile that doesn't have a topLeft and/or height and width";
 				}

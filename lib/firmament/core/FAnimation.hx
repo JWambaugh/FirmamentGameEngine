@@ -27,6 +27,9 @@ class FAnimation {
 
 		if(Std.is(config.frames,Array)){
 			for(el in cast(config.frames,Array<Dynamic>)){
+				if(Std.is(el,String)){
+					el = _tilesheet.getTileNumber(el);
+				}
 				_frames.push(el);
 			}
 		}else{
