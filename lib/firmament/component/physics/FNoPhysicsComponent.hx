@@ -36,6 +36,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	private var _width:Float;
 	private var _height:Float;
 	private var _shape:FPolygonShape;
+	private var _deleted:Bool;
 	public function new() 
 	{
 		super();
@@ -45,6 +46,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 		_isActive = true;
 		_linearVelocity = new FVector(0,0);
 		_zPosition = 0;
+		_deleted = false;
 	}
 	
 	override public function init(config:Dynamic):Void {
@@ -142,14 +144,15 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 
 	function deactivate(?e:Event=null){
-			this._isActive = _entity.isActive();
-		}
+		this._isActive = _entity.isActive();
+	}
 
 	public function  getPosition() {
 		return this.position;
 	}
 	
 	public function setPosition(pos:FVector) {
+		if(_deleted)return;
 		var oldTopX = position.x - _width/2;
 		var oldTopY = position.y - _height/2;
 		
@@ -260,6 +263,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 		return [_shape];
 	}
 	override public function destruct(){
+		_deleted = true;
 		world.deleteEntity(_entity);
 		removeEventHandlers();
 	}

@@ -28,7 +28,8 @@ class FEntityPool {
 		for(n in 0...number){
 			var ent:FEntity = FEntityFactory.createEntity(_entityConfig);
 			ent.setPool(this);
-			ent.setActive(false);
+			ent.returnToPool();
+
 		}
 	}
 
@@ -37,11 +38,14 @@ class FEntityPool {
 	}
 
 	public function getEntity():FEntity{
-		if(_entityConfig.length > 0) {
-			return _entities.pop();
-		}
-		else {
-			var ent:FEntity = FEntityFactory.createEntity(_entityConfig);
+		trace(_entityConfig.typeId+"poolSize: "+_entities.length);
+		var ent = _entities.pop();
+
+		if(ent!=null) {
+			//ent.setActive(true);
+			return ent;
+		}else {
+			ent = FEntityFactory.createEntity(_entityConfig);
 			ent.setPool(this);
 			return ent;
 		}
