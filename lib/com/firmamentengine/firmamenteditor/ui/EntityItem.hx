@@ -45,6 +45,7 @@ class EntityItem extends Sprite
 	public function new(fileName:String,dir:String,config:Dynamic) 
 	{
 		trace("intityItem constructor");
+
 		super();
 		this.filePath = dir+"/"+fileName;
 		this.config = config;
@@ -53,8 +54,11 @@ class EntityItem extends Sprite
 		this.dragging = false;
 
 		var tempEntity:FEntity = new FEntity(config);
-
+		if(config.components.render==null){
+			throw "No render component config";
+		}
 		var component = FEntityComponentFactory.createComponent(config.components.render.componentName);
+		if(component == null)throw "error getting render component!";
 		var renderComponent = cast(component,FRenderComponentInterface);
 		component.setEntity(tempEntity);
 		
@@ -70,8 +74,9 @@ class EntityItem extends Sprite
 
 
 
-
-		var bitmap = new Bitmap(renderComponent.getBitmapData());
+		var bitmapData = renderComponent.getBitmapData();
+		if(bitmapData == null)throw("bitmapData null");
+		var bitmap = new Bitmap(bitmapData);
 		
 		image = new Sprite();
 		var scaleFactor = 75 / bitmap.height;

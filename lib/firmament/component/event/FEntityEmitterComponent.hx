@@ -26,10 +26,20 @@ class FEntityEmitterComponent extends FEntityComponent{
 					var ec = new FConfigHelper(emitter);
 					addEventListenerToEntity(event,function(e:Event){
 						var ent = FEntityFactory.createEntity(ec.getNotNull('entity',Dynamic));
+						
+						var angle:Float;
+						if(ec.get("angleOffset",String)=="random"){
+							angle = Math.random()*6.28318530718;
+						}else{
+							angle=ec.get("angleOffset",Float);
+						}
+							
+
+						
 						FEntityUtils.emitEntity(_entity
 							,ent
 							,ec.get("speed",Float)
-							,ec.get("angleOffset",Float) 
+							,angle
 							,ec.get("distanceOffset",Float) ); 
 						ent.setActive(true);
 					});

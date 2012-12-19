@@ -92,6 +92,7 @@ class ProjectSettings extends FWindow
 			trace(e);
 			return;
 		}
+		
 		this.dispatchEvent(new Event(PROJECT_READY));
 		
 	}

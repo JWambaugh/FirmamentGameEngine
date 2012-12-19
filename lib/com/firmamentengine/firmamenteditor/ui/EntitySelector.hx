@@ -24,8 +24,8 @@ class EntitySelector extends FWindow
 		ents = new Array<Dynamic>();
 		c = new Sprite();
 		layout = new FHBox();
+
 		this.loadEntities(entityDir);
-		
 		
 		
 		c.addChild(layout);
