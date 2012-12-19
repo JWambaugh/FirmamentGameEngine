@@ -1,0 +1,51 @@
+<exporter version="1.0">
+    <!-- identifier of the exporter -->
+    <name>firmament</name>
+	
+    <!-- display name of the exporter for the combo box -->
+    <displayName>Firmament Game Engine</displayName>
+	
+    <!-- description of the exporter -->
+    <description>Firmament Exporter</description>
+
+    <!-- exporter version -->
+    <version>1.1</version>
+	
+    <!-- currently only one file allowed - more to come with update -->
+    <files>
+        <file>
+            <!-- name of this file variable -->
+            <name>Firmament_json</name>
+
+            <!-- human readable name (for GUI) -->
+            <displayName>Firmament Tilesheet</displayName>
+
+            <!-- file extension for the file -->
+            <fileExtension>json</fileExtension>
+
+            <!-- name of the template file -->
+            <template>Firmament_tilesheet.json</template>
+        </file>
+    </files>
+
+    <!-- target framework supports trimming -->
+    <supportsTrimming>false</supportsTrimming>
+
+    <!-- target framework supports rotated sprites -->
+    <supportsRotation>false</supportsRotation>
+
+    <!-- rotated sprites direction (cw/ccw) -->
+    <rotationDirection>ccw</rotationDirection>
+
+    <!-- supports npot sizes -->
+    <supportsNPOT>false</supportsNPOT>
+
+    <!-- supports file name stripping (remove .png etc) -->
+    <supportsTrimSpriteNames>yes</supportsTrimSpriteNames>
+
+    <!-- supports texure subpath -->
+    <supportsTextureSubPath>yes</supportsTextureSubPath>
+
+</exporter>
+
+

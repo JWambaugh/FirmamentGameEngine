@@ -1,0 +1,13 @@
+{
+	"image": "assets/tilesheets/{{texture.fullName}}"
+	"tiles":[
+		{% for sprite in sprites %}
+		{
+			"label": "{{sprite.trimmedName}}"
+			,"width": {{sprite.frameRect.width}}
+			,"height":{{sprite.frameRect.height}}
+			,"topLeft":{"x":{{sprite.frameRect.x}},"y": {{sprite.frameRect.y}}}
+		},
+		{% endfor %}
+	]
+}

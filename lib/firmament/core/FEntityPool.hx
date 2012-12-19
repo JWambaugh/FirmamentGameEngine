@@ -38,7 +38,7 @@ class FEntityPool {
 	}
 
 	public function getEntity():FEntity{
-		trace(_entityConfig.typeId+"poolSize: "+_entities.length);
+		//trace(_entityConfig.typeId+"poolSize: "+_entities.length);
 		var ent = _entities.pop();
 
 		if(ent!=null) {
