@@ -54,7 +54,9 @@ class FTilesheetRenderHelper {
 	public function postRender(e:Event){
 
 		for(tilesheet in FTilesheetManager.getInstance().getOrderedTilesheets()){
+			if(tilesheet == null)continue;
 			var list = this.drawList.get(tilesheet.getId());
+			if(list ==null)continue;
 			var camera = cast(e.currentTarget,FCamera);
 			
 			tilesheet.drawTiles(camera.graphics, list, true, 
