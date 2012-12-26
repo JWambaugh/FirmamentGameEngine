@@ -125,9 +125,9 @@ class FWindow extends FWidget
 		
 		this.titleBar.graphics.beginFill(this.titleColor);
 		if(this.expanded){
-			this.titleBar.graphics.drawRoundRect(0, 0, this.canvas.width + 13, 20, 10);
+			this.titleBar.graphics.drawRoundRect(0, 0, this.canvas.width + 13, 20, 10,10);
 		}else {
-			this.titleBar.graphics.drawRoundRect(0, 0, this.width-4, 20, 10);
+			this.titleBar.graphics.drawRoundRect(0, 0, this.width-4, 20, 10,10);
 		}
 		this.titleBar.graphics.endFill();
 	}
@@ -137,9 +137,9 @@ class FWindow extends FWidget
 		this.graphics.beginFill(this.backgroundColor);
 		this.graphics.lineStyle(2, 0x111111);
 		if(this.expanded){
-			this.graphics.drawRoundRect(0, 0, this.canvas.width+15, this.canvas.height+40,10);
+			this.graphics.drawRoundRect(0, 0, this.canvas.width+15, this.canvas.height+40,10,10);
 		}else {
-			this.graphics.drawRoundRect(0, 0, this.width+2, this.height+2,10);
+			this.graphics.drawRoundRect(0, 0, this.width+2, this.height+2,10,10);
 		}
 		this.graphics.endFill();
 	}

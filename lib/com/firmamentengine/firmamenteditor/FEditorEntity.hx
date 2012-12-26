@@ -20,12 +20,16 @@ class FEditorEntity extends FEntity
 				Reflect.deleteField(config.components,key);
 			}
 		}
-		//must preserve original config for editor
-		this.originalSprite = config.components.render.image;
+		
 		this.fileName = config.entityFile;
-		//need to use our own image loader here since we don't have compiled assets
-		if(Std.is(config.components.render.image,String)){
-			config.components.render.image = ResourceLoader.loadImage(config.components.render.image);
+
+		//must preserve original config for editor
+		if(config.components.render!=null){
+			this.originalSprite = config.components.render.image;
+			//need to use our own image loader here since we don't have compiled assets
+			if(Std.is(config.components.render.image,String)){
+				config.components.render.image = ResourceLoader.loadImage(config.components.render.image);
+			}
 		}
 		super(config);
 		

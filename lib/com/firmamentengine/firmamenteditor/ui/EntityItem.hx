@@ -52,9 +52,9 @@ class EntityItem extends Sprite
 		var entName = fileName.split(".")[0];
 		layout = new FVBox();
 		this.dragging = false;
-
+		trace(fileName);
 		var tempEntity:FEntity = new FEntity(config);
-		if(config.components.render==null){
+		if(config == null || config.components == null || config.components.render==null){
 			throw "No render component config";
 		}
 		var component = FEntityComponentFactory.createComponent(config.components.render.componentName);

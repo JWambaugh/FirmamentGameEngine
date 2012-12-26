@@ -42,6 +42,7 @@ class FEntity extends nme.events.EventDispatcher
 	public function new(config:Dynamic) 
 	{
 		super();
+		if(config == null) config ={};
 		this._config = config;
 		this._componentsHash = new Hash<Array<FEntityComponent>>();
 		_components = new Array<FEntityComponent>();

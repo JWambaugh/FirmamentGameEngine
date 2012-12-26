@@ -41,6 +41,7 @@ class EntitySelector extends FWindow
 		var files = FileSystem.readDirectory(entityDir);
 		var serializer = new FJsonSerializer();
 		for (file in files) {
+			if(file.indexOf(".json")<0)continue;
 			try{
 				var str = File.getContent(entityDir + "/" + file);
 				var config = serializer.unserialize(str);
