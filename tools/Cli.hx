@@ -28,7 +28,7 @@ class Cli {
 		
 		
 		if (args.length == 0) {
-				Lib.println("possible commands: setup");
+				Lib.println("possible commands: setup [project name] [package name] [template]");
 				return;
 		}
 		
@@ -57,7 +57,7 @@ class Cli {
 		
 		var templatePath = firmamentPath + "/templates/" + template;
 		if (!FileSystem.exists(templatePath)) {
-			Lib.println("Template '"+template+"' cannot be found.");
+			Lib.println("Template '"+template+"' cannot be found. (looking in " + templatePath + ")");
 			return;
 		}
 		

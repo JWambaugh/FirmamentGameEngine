@@ -2,17 +2,22 @@
 <project>
 <!-- metadata, make sure 'package' is at least 2 segments (ie. com.myproject) -->
 <app file="[*PROJECT_NAME*]" title="[*PROJECT_NAME*]" main="[*PACKAGE_NAME*].[*PROJECT_NAME*]" package="[*PACKAGE_NAME*]" version="1.0.0" company="" />
-<!-- output --><window width="800" height="480" fps="30" background="0xFFFFFF" orientation="landscape" resizable="true" />
+<!-- output --><window width="800" height="800" fps="30" background="0xFFFFFF" orientation="landscape" resizable="true" antialiasing="2" />
 <set name="BUILD_DIR" value="bin" />
 
 <!-- classpath, haxe libs -->
 <classpath name="src" />
 
-<haxelib name="nme" /><haxelib name="hxJson2" />
-<haxelib name="firmament" />
+<classpath name="../Firmament.hx/lib" />
+
+
+<haxelib name="nme" />
+<haxelib name="hx_nice_json" />
+<haxelib name="tjson" /> 
 
 <!-- assets -->
 <assets path="assets" include="*"  />
+<assets path="config" include="*"  />
 
 <!-- DLLs -->
 <ndll name="std" />

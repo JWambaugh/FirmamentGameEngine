@@ -1,0 +1,132 @@
+{
+	"image": "assets/tilesheets/earthAnimation.png"
+	"tiles":[
+		
+		{
+			"label": "globe_1"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":278,"y": 184}
+		},
+		
+		{
+			"label": "globe_10"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":186,"y": 184}
+		},
+		
+		{
+			"label": "globe_11"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":94,"y": 366}
+		},
+		
+		{
+			"label": "globe_12"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":94,"y": 275}
+		},
+		
+		{
+			"label": "globe_13"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":94,"y": 184}
+		},
+		
+		{
+			"label": "globe_14"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":370,"y": 93}
+		},
+		
+		{
+			"label": "globe_15"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":278,"y": 93}
+		},
+		
+		{
+			"label": "globe_16"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":186,"y": 93}
+		},
+		
+		{
+			"label": "globe_17"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":94,"y": 93}
+		},
+		
+		{
+			"label": "globe_18"
+			,"width": 90
+			,"height":90
+			,"topLeft":{"x":2,"y": 94}
+		},
+		
+		{
+			"label": "globe_2"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":370,"y": 2}
+		},
+		
+		{
+			"label": "globe_3"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":278,"y": 2}
+		},
+		
+		{
+			"label": "globe_4"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":186,"y": 2}
+		},
+		
+		{
+			"label": "globe_5"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":94,"y": 2}
+		},
+		
+		{
+			"label": "globe_6"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":2,"y": 368}
+		},
+		
+		{
+			"label": "globe_7"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":2,"y": 277}
+		},
+		
+		{
+			"label": "globe_8"
+			,"width": 90
+			,"height":89
+			,"topLeft":{"x":2,"y": 186}
+		},
+		
+		{
+			"label": "globe_9"
+			,"width": 90
+			,"height":90
+			,"topLeft":{"x":2,"y": 2}
+		},
+		
+	]
+}

@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="[*PROJECT_NAME*].nmml" />
+    <movie path="com.celestia.nmml" />
     <movie fps="0" />
     <movie width="0" />
     <movie height="0" />
@@ -21,7 +21,7 @@
   <build>
     <option directives="" />
     <option flashStrict="False" />
-    <option mainClass="[*PACKAGE_NAME*].[*PROJECT_NAME*]" />
+    <option mainClass="[*PACKAGE_NAME*].[*CLASS_NAME*] />
     <option enabledebug="True" />
     <option additional="" />
   </build>
@@ -31,7 +31,7 @@
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\[*PACKAGE_NAME*]\[*PROJECT_NAME*].hx" />
+    <compile path="src\[*PACKAGE_NAME*]\[*PACKAGE_NAME*]" />
   </compileTargets>
   <!-- Assets to embed into the output SWF -->
   <library>

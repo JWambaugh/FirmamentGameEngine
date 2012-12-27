@@ -1,7 +1,0 @@
-{
-	worlds:{
-		box2d:{
-			gravity:{x:0,y:-2}
-		}
-	}
-}

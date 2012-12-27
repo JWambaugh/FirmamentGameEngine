@@ -14,7 +14,8 @@ import firmament.util.FMisc;
 import nme.Assets;
  
  /**
-  * Base class for all entities in Firmament
+  * Core entity class for all entities/actors in the game.
+  * entities now follow a component archetecture. Modify their behavior with coponents.
   * 
   * 
   */

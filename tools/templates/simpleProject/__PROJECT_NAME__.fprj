@@ -1,1 +1,6 @@
-{"baseDir":".","entityDir":"assets\/entities","mapDir":"assets\/maps" } 
+{
+	"baseDir":"."
+	,"entityDir":"config/entities"
+	,"mapDir":"config/maps"
+	,"gameDir":"config/games"
+} 

@@ -1,0 +1,34 @@
+{
+	typeId: "earth"
+	,components:{
+
+		animation:{
+			componentName:animation
+			animationFile:"config/animations/spinningEarth.json"
+		}
+
+		,render:{
+			componentName:tilesheet
+			,tilesheetFile:"config/tilesheets/earthAnimation.json"
+			,tile:"globe_1"
+
+		}
+
+		,physics:{
+			componentName:box2d //name of the component to use. This is usually box2d for physics.
+			,type:"dynamic"
+			,allowSleep:false
+			,"shapes":[
+				{
+				"type": "circle"
+				,"radius":0.45
+				,"restitution":1
+				,"density":1
+				,"friction":0.7
+				}	
+			]
+		}
+		
+		
+	}
+}

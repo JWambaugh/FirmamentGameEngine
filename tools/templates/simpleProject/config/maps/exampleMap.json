@@ -1,0 +1,17 @@
+{"entities":
+  [{"config":
+     {"components":
+       {"physics":
+         {"angle": 0,
+          "position":
+           {"y": 0.07,
+            "x": 0.16}}}},
+    "entityFile": "config/entities/earth.json"},
+   {"config":
+     {"components":
+       {"physics":
+         {"angle": 0,
+          "position":
+           {"y": 2.28,
+            "x": 0.22}}}},
+    "entityFile": "config/entities/floor.json"}]}

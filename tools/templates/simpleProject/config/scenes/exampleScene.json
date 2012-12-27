@@ -1,0 +1,4 @@
+{
+	_extends:"config/scenes/baseScene.json" //This scene extends the base scene
+	,map:"config/maps/exampleMap.json"
+}

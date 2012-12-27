@@ -83,7 +83,7 @@ class FBox2DWorld extends FWorld
 	override public function init(config:Dynamic){
 		super.init(config);
 		var c = new FConfigHelper(config);
-		this._b2world.setGravity(c.getVector('position',{x:0,y:0}));
+		this._b2world.setGravity(c.getVector('gravity',{x:0,y:0}));
 	}
 	
 	override public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity>{

@@ -1,6 +1,0 @@
-{
-	"baseDir":"."
-	,"entityDir":"config/entities"
-	,"mapDir":"config/maps"
-	,"gameDir":"config/games"
-} 

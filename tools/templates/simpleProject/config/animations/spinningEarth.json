@@ -1,0 +1,25 @@
+{
+
+	tilesheetFile:"config/tilesheets/earthAnimation.json"
+	,frames:[
+		"globe_1"
+		,"globe_2"
+		,"globe_3"
+		,"globe_4"
+		,"globe_5"
+		,"globe_6"
+		,"globe_7"
+		,"globe_8"
+		,"globe_9"
+		,"globe_10"
+		,"globe_11"
+		,"globe_12"
+		,"globe_13"
+		,"globe_14"
+		,"globe_15"
+		,"globe_16"
+		,"globe_17"
+		,"globe_18"
+	]
+	,timeBetweenFrames:.1
+}

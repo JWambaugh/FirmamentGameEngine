@@ -58,7 +58,7 @@ class FSceneLoader {
 			for(poolConfig in cast(scene.entityPools,Array<Dynamic>)){
 				var pool = new FConfigHelper(poolConfig);
 				//load non-map entities we need
-				trace("entFile: "+pool.getNotNull('entityFile',String));
+				//trace("entFile: "+pool.getNotNull('entityFile',String));
 				loader.loadPool(pool.getNotNull('entityFile',String),pool.get("amount",Int,10));
 			}
 		}
