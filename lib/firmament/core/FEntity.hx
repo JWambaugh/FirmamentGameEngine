@@ -14,7 +14,6 @@ import firmament.util.FMisc;
 import nme.Assets;
  
  /**
-  * Class: FEntity 
   * Base class for all entities in Firmament
   * 
   * 
@@ -33,7 +32,6 @@ class FEntity extends nme.events.EventDispatcher
 	public static inline var ACTIVE_STATE_CHANGE = "activeChange";
 
 	/**
-	 * Constructor: new
 	 * 
 	 * Config Paramers:
 	 * 	imageScale - [Float] The initial scale value for the sprite.
@@ -69,10 +67,9 @@ class FEntity extends nme.events.EventDispatcher
 	
 	
 	/**
-	 * Function: getComponent
+	 * Returns an array of components with the specified type.
 	 * 
-	 * Returns:
-	 * 	<FentityComponent>
+	 * @return  The components with matching type
 	 */
 	public function getComponent(type:String):Array<FEntityComponent> {
 		return this._componentsHash.get(type);
@@ -84,14 +81,10 @@ class FEntity extends nme.events.EventDispatcher
 
 
 	/**
-	 * Function: getPhysicsComponent()
-	 *	returns a physics component
+	 *	returns a physics component if there is one. null otherwise
 	 * 
-	 * Parameters: 
-	 *	none
 	 *
-	 * Returns:
-	 *	<FPysicsComponentInterface>
+	 * @return PysicsComponentInterface
 	 */
 	public function getPhysicsComponent():FPhysicsComponentInterface {
 		var ca = this.getComponent('physics');
@@ -101,6 +94,12 @@ class FEntity extends nme.events.EventDispatcher
 		return null;
 	}
 
+	/**
+	 *	returns a render component, if there is one. null otherwise
+	 * 
+	 *
+	 * @return PysicsComponentInterface
+	 */
 	public function getRenderComponent():FRenderComponentInterface {
 		var ca = this.getComponent('render');
 		if(ca!=null){
@@ -109,7 +108,9 @@ class FEntity extends nme.events.EventDispatcher
 		return null;
 	}
 	
-	
+	/**
+	 * Adds a componenet to the entity
+	 */
 	public function setComponent(component:FEntityComponent) {
 		var array:Array<FEntityComponent>;
 		array = _componentsHash.get(component.getType());
@@ -128,8 +129,7 @@ class FEntity extends nme.events.EventDispatcher
 	}
 
 	/**
-	 * Function: delete
-	 * Deleted the entity
+	 * Deletes the entity
 	**/
 	public function delete():Void{
 		this.dispatchEvent(new Event(FGame.DELETE_ENTITY));

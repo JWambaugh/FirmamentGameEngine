@@ -1,6 +1,6 @@
 -main Main
 -cp ../../lib
--xml ../../docs/documentation.xml
+-xml documentation.xml
 -lib nme
 -lib tjson
 -swf deleteMe.swf

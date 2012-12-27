@@ -1,5 +1,3 @@
+rm -rf ../../docs/*
 haxe documentationProject.hxml
-cp template.xml ../../docs
-cd ../../docs
-haxedoc documentation.xml -f firmament
-cd ../tools/documentation
+./chxdoc -o ../../docs -f documentation.xml --config=chxdocConfig.xml
