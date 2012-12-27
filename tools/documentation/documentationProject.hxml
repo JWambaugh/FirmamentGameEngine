@@ -1,0 +1,8 @@
+-main Main
+-cp ../../lib
+-xml ../../docs/documentation.xml
+-lib nme
+-lib tjson
+-swf deleteMe.swf
+-lib hx_nice_json
+-swf-version 10.1

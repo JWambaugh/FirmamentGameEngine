@@ -22,7 +22,7 @@ package box2D.dynamics;
 import box2D.common.math.B2Transform;
 import box2D.common.math.B2Vec2;
 import box2D.common.B2Color;
-import flash.display.Sprite;
+import nme.display.Sprite;
 
 
 /**
