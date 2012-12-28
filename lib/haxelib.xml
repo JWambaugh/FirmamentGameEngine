@@ -10,9 +10,9 @@
     <tag v="box2d"/>
     <tag v="2D"/>
     <tag v="physics"/>
-    <description>2D game engine using NME. Port of Firmament Game Engine to HaXe.</description>
-    <version name="2.0.0">Using TJSON for json parsing so we can support comments in json files.</version>
+    <description>2D game engine using NME.</description>
+    <version name="2.0.0">New 2.0 Release. Many API changes. See website for details</version>
     <depends name="nme"/>
-    <depends name="hxJson2"/>
+    <depends name="hx_nice_json"/>
     <depends name="tjson"/>
 </project>
