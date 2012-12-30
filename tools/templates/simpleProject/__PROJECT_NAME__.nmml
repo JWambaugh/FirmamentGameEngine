@@ -8,12 +8,13 @@
 <!-- classpath, haxe libs -->
 <classpath name="src" />
 
-<classpath name="../Firmament.hx/lib" />
 
 
 <haxelib name="nme" />
 <haxelib name="hx_nice_json" />
 <haxelib name="tjson" /> 
+<haxelib name="firmament" /> 
+
 
 <!-- assets -->
 <assets path="assets" include="*"  />

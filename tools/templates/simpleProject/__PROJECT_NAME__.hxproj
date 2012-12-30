@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="com.celestia.nmml" />
+    <movie path="[*PROJECT_NAME*].nmml" />
     <movie fps="0" />
     <movie width="0" />
     <movie height="0" />

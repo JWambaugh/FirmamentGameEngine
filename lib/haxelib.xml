@@ -11,7 +11,7 @@
     <tag v="2D"/>
     <tag v="physics"/>
     <description>2D game engine using NME.</description>
-    <version name="2.0.0">New 2.0 Release. Many API changes. See website for details</version>
+    <version name="2.0.1">Fixed a bug in the 2.0 sample project that caused it not to compile</version>
     <depends name="nme"/>
     <depends name="hx_nice_json"/>
     <depends name="tjson"/>
