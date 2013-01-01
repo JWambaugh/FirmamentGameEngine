@@ -25,9 +25,8 @@
 	<icon name="icons/firmamentLogo24.png" width="24" height="24" />
 	<!-- DLLs -->
 
-	<ndll name="std" />
-	<ndll name="regexp" />
-	<ndll name="zlib" />
+	
+	
 	<ndll name="nme" haxelib="nme" />
 	
 	<!-- Windows app: hide console -->
