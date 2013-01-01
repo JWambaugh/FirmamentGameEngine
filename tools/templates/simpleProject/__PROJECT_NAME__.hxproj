@@ -15,13 +15,13 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    
+     <class path="src" />
   </classpaths>
   <!-- Build options -->
   <build>
     <option directives="" />
     <option flashStrict="False" />
-    <option mainClass="[*PACKAGE_NAME*].[*CLASS_NAME*] />
+    <option mainClass="[*PACKAGE_NAME*].[*PROJECT_NAME*] />
     <option enabledebug="True" />
     <option additional="" />
   </build>
@@ -31,7 +31,7 @@
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\[*PACKAGE_NAME*]\[*PACKAGE_NAME*]" />
+    <compile path="[*SOURCE_CODE_DIR*]\[*PROJECT_NAME*].hx" />
   </compileTargets>
   <!-- Assets to embed into the output SWF -->
   <library>

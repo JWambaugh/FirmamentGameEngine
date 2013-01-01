@@ -63,17 +63,20 @@ class Cli {
 		
 		Lib.println("Creating project '"+projectName+"' ...");
 		
-		var vars = { 
+		var vars:Dynamic = { 
 			PROJECT_NAME:projectName
 			,PACKAGE_NAME:packageName
 		
 		};
-		
+
+		var sourceCodeDir =  "src/" + packageName.replace(".", "/");
+		vars.SOURCE_CODE_DIR = sourceCodeDir;
+
 		projectHomeDir = Sys.getCwd()+projectName;
 
 		processTemplateDir(templatePath, projectName,vars,projectName,"__SRC__");
 		
-		var sourceCodeDir = projectName + "/src/" + packageName.replace(".", "/");
+		sourceCodeDir = projectName +"/"+sourceCodeDir;
 		makeDirRecursive(sourceCodeDir);
 		processTemplateDir(templatePath+"/__SRC__", sourceCodeDir,vars,projectName);
 			
