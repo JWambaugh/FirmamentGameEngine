@@ -44,7 +44,7 @@ class EntityItem extends Sprite
 	var dragging:Bool;
 	public function new(fileName:String,dir:String,config:Dynamic) 
 	{
-		trace("intityItem constructor");
+		//trace("intityItem constructor");
 
 		super();
 		this.filePath = dir+"/"+fileName;
@@ -80,7 +80,8 @@ class EntityItem extends Sprite
 		
 		image = new Sprite();
 		var scaleFactor = 75 / bitmap.height;
-		if(bitmap.width > 200 && bitmap.width > bitmap.height)scaleFactor = 200/bitmap.width;
+		//if(bitmap.width > 75 && bitmap.width > bitmap.height)scaleFactor = 75/bitmap.width;
+		
 		bitmap.scaleX = scaleFactor;
 		bitmap.scaleY = scaleFactor;
 		this.sprite = bitmap.bitmapData;

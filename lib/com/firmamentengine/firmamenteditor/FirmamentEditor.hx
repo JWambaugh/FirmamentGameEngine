@@ -90,7 +90,6 @@ class FirmamentEditor
 		projectEditor = new ProjectSettings();
 		projectEditor.y = 60;
 		stage.addChild(projectEditor);
-		FDialog.alert("Welcome to the Firmament Editor!\nThis is still a work in progress, so please bear with us!","Welcome to Firmament");
 		
 		
 		entityWindow = new EntityWindow();

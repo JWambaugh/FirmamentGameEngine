@@ -26,6 +26,7 @@ class ProjectSettings extends FWindow
 	var entityDirTxt:FLineEdit;
 	var mapDirTxt:FLineEdit;
 	var projectFileTxt:FLineEdit;
+	var lastOpenedMap:String;
 	
 	
 	public static inline var PROJECT_READY = "projectReady";
@@ -86,7 +87,7 @@ class ProjectSettings extends FWindow
 			this.entityDirTxt.text = settings.entityDir;
 			this.mapDirTxt.text = settings.mapDir;
 			this.baseDirTxt.text = settings.baseDir;
-			
+			this.lastOpenedMap = settings.lastOpenedMap;
 		}catch(e:Dynamic){
 			FDialog.alert("Error loading file " + projectFileTxt.text);
 			trace(e);
@@ -109,6 +110,7 @@ class ProjectSettings extends FWindow
 		data.entityDir = this.entityDirTxt.text;
 		data.mapDir = this.mapDirTxt.text;
 		data.baseDir = this.baseDirTxt.text;
+		data.lastOpenedMap = this.lastOpenedMap;
 		var str = serializer.serialize(data);
 		trace(str);
 		
@@ -131,4 +133,11 @@ class ProjectSettings extends FWindow
 		return this.mapDirTxt.text;
 	}
 	
+	public function setLastOpenedMap(map:String){
+		this.lastOpenedMap = map;
+	}
+
+	public function getLastOpenedMap():String{
+		return this.lastOpenedMap;
+	}
 }

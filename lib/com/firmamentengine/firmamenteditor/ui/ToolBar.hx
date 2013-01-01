@@ -23,7 +23,6 @@ class ToolBar extends FWindow
 {
 
 	var layout:FLayout;
-	var lastFileName:String;
 	public function new() 
 	{
 		super(false);
@@ -37,7 +36,7 @@ class ToolBar extends FWindow
 	
 	private function save(e:MouseEvent) {
 		FDialog.prompt("Please enter the name of the map you wish to save.", function(fileName) { 
-			lastFileName = fileName;
+			FirmamentEditor.projectEditor.setLastOpenedMap(fileName);
 			//get all entities
 			var ents = FGame.getInstance().getAllEntities();
 			
@@ -53,19 +52,24 @@ class ToolBar extends FWindow
 			var data:String = serializer.serialize(c).replace("\\/","/");
 			trace(data);
 			File.saveContent(FirmamentEditor.projectEditor.getMapDir() + "/" +fileName, data);
-		},"Save Map", lastFileName);
+		},"Save Map", FirmamentEditor.projectEditor.getLastOpenedMap());
 		
 	}
 	
 	
 	private function load(e:MouseEvent) {
 		FDialog.prompt("Please enter the name of the map you wish to load.", function(fileName) { 
-			lastFileName = fileName;
-			var path = FirmamentEditor.projectEditor.getMapDir() + "/" + fileName;
-			//FDialog.alert(path);
-			FGame.getInstance().clearWorlds();
-			FEntityLoader.getInstance().loadMap(path, "com.firmamentengine.firmamenteditor.FEditorEntity");
-		},"Load Map",lastFileName );
+			this.loadMap(fileName);
+		},"Load Map", FirmamentEditor.projectEditor.getLastOpenedMap() );
+	}
+
+
+	public function loadMap(fileName:String){
+		FirmamentEditor.projectEditor.setLastOpenedMap(fileName);
+		var path = FirmamentEditor.projectEditor.getMapDir() + "/" + fileName;
+		//FDialog.alert(path);
+		FGame.getInstance().clearWorlds();
+		FEntityLoader.getInstance().loadMap(path, "com.firmamentengine.firmamenteditor.FEditorEntity");
 	}
 	
 	
