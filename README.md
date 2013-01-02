@@ -13,11 +13,9 @@ It is currently under heavy development, so its feature list is constantly expan
 * Open source - Firmament is licensed under the GPL version 3. Download the engine and use it in your open source project for free.
 * To get started with Firmament, download it, and start playing today!
 
-**Firmament is currently in a Pre-Alpha state. It may not yet completely stable, and its features and APIs are subject to refactoring**
-
 
 ##Website
-For more information, please check out the website at [www.FirmamentEngine.com](http://www.FirmamentEngine.com)
+For more information, please check out the website at [martamius.github.com/Firmament.hx/](http://martamius.github.com/Firmament.hx/)
 
 ##Installation
 Please see the [Download Page](http://martamius.github.com/Firmament.hx/downloads.html) on our website for information on obtaining and installing Firmament. 
