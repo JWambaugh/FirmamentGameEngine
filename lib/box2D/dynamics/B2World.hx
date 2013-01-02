@@ -86,8 +86,8 @@ class B2World
 		
 		m_contactManager.m_world = this;
 		
-		var bd:B2BodyDef = new B2BodyDef();
-		m_groundBody = createBody(bd);
+		//var bd:B2BodyDef = new B2BodyDef();
+		//m_groundBody = createBody(bd);
 	}
 
 	/**
@@ -1636,7 +1636,7 @@ class B2World
 		}
 	}
 	
-	public var m_flags:Int;
+	public var m_flags:Int = 0;
 
 	public var m_contactManager:B2ContactManager;
 	

@@ -5,7 +5,7 @@ import firmament.util.loader.FDataLoader;
 import nme.display.BitmapData;
 import nme.geom.Rectangle;
 import nme.geom.Point;
-#if(cpp)
+#if(cpp||neko)
 import com.firmamentengine.firmamenteditor.ResourceLoader;
 #end
 
@@ -88,7 +88,7 @@ class FTilesheetManager {
 			
 			bitmap = nme.Assets.getBitmapData(image);
 			
-			#if(cpp)
+			#if(cpp||neko)
 			if(bitmap==null)
 				bitmap = ResourceLoader.loadImage(image);
 			#end

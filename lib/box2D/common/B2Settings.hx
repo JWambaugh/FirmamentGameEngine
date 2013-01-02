@@ -64,6 +64,13 @@ class B2Settings{
 	 */
 	static public var b2_aabbMultiplier:Float = 2.0;
 
+
+	/**
+	* A small length used as a collision and constraint tolerance. Usually it is
+	* chosen to be numerically significant, but visually insignificant.
+	*/
+	static public var b2_linearSlop:Float = 0.005;	// 0.5 cm
+	
 	/**
 	 * The radius of the polygon/edge shape skin. This should not be modified. Making
 	 * this smaller means polygons will have and insufficient for continuous collision.
@@ -73,11 +80,6 @@ class B2Settings{
 	
 	// Dynamics
 	
-	/**
-	* A small length used as a collision and constraint tolerance. Usually it is
-	* chosen to be numerically significant, but visually insignificant.
-	*/
-	static public var b2_linearSlop:Float = 0.005;	// 0.5 cm
 	
 	/**
 	* A small angle used as a collision and constraint tolerance. Usually it is

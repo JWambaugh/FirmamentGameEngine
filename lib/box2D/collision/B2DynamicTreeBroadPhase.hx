@@ -223,7 +223,7 @@ class B2DynamicTreeBroadPhase implements IBroadPhase
 	}
 	
 	private var m_tree:B2DynamicTree;
-	private var m_proxyCount:Int;
+	private var m_proxyCount:Int=0;
 	private var m_moveBuffer:Array <B2DynamicTreeNode>;
 	
 	private var m_pairBuffer:Array <B2DynamicTreePair>;

@@ -28,7 +28,9 @@ class Cli {
 		
 		
 		if (args.length == 0) {
-				Lib.println("possible commands: setup [project name] [package name] [template]");
+				Lib.println("possible commands: 
+	setup [project name] [?package name?] [?template?]  -  Sets up a new project
+	edit [?project file?]  -  opens the editor for the project");
 				return;
 		}
 		
@@ -38,7 +40,22 @@ class Cli {
 					Lib.println("setup requires project name.");
 					return;
 				}
-				doSetup(args[1]);
+				if(args.length == 4){
+					doSetup(args[1],args[2],args[3]);
+				} else if(args.length == 3){
+					doSetup(args[1],args[2]);
+				}else {
+					doSetup(args[1]);
+				}
+			}
+			case "edit":{
+				Sys.putEnv("FirmamentEditorPath",firmamentPath);
+				Sys.putEnv("FirmamentEditorCWD",Sys.getCwd());
+				if(args.length <2)
+					Sys.command("neko", [firmamentPath+"/FirmamentEditor.n"]);
+				else 
+					Sys.command("neko", [firmamentPath+"/FirmamentEditor.n",args[1]]);
+
 			}
 		}
 		
@@ -85,6 +102,9 @@ class Cli {
 		Lib.println("Project '" + projectName + "' Created! Run the following to try it out:");
 		Lib.println("cd " + projectName);
 		Lib.println("nme test "+projectName+".nmml flash");
+		Lib.println("----------------------------------------");
+
+		Lib.println("To run the editor, run: haxelib run firmament edit");
 	}
 	
 	static function makeDirRecursive(path:String) {

@@ -1,9 +1,6 @@
 package firmament.util.loader;
 import firmament.core.FEntity;
 import nme.events.EventDispatcher;
-#if(cpp)
-import sys.io.File;
-#end
 import firmament.core.FWorld;
 import nme.events.Event;
 import firmament.util.FMisc;

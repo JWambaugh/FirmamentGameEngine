@@ -5,7 +5,7 @@ import firmament.util.FMisc;
 import firmament.util.loader.serializer.FSerializerFactory;
 import nme.Assets;
 import nme.events.EventDispatcher;
-#if(cpp)
+#if (cpp || neko)
 import sys.io.File;
 #end
 
@@ -27,11 +27,14 @@ class FDataLoader
 			throw ("Appropriate serializer for fileName "+fileName+" could not be found.");
 		}
 		var string = Assets.getText(fileName);
-		#if cpp
-		if (string == null || string == '') {
-			string = File.getContent(fileName);
-		}
+		
+		#if (cpp || neko)
+			//trace('attempting load with file.getContents');
+			if (string == null || string == '') {
+				string = File.getContent(fileName);
+			}
 		#end
+
 		if(string==null || (!allowEmpty && string == '')){
 			throw("Error reading data from "+fileName);
 		}

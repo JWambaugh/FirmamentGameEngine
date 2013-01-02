@@ -1,27 +1,28 @@
 package com.firmamentengine.firmamenteditor;
 
+
 import com.firmamentengine.firmamenteditor.ui.EntitySelector;
 import com.firmamentengine.firmamenteditor.ui.EntityWindow;
-import com.firmamentengine.firmamenteditor.ui.ToolBar;
 import com.firmamentengine.firmamenteditor.ui.ProjectSettings;
+import com.firmamentengine.firmamenteditor.ui.ToolBar;
+import firmament.component.physics.FPhysicsComponentInterface;
+import firmament.core.FBox2DWorld;
 import firmament.core.FCamera;
 import firmament.core.FEntity;
-import firmament.core.FGame;
 import firmament.core.FEntity;
+import firmament.core.FGame;
+import firmament.core.FInput;
 import firmament.core.FVector;
-import nme.display.StageAlign;
-import nme.display.StageScaleMode;
-import nme.Lib;
-import nme.Assets;
-import firmament.component.physics.FPhysicsComponentInterface;
-
-import nme.events.Event;
-import nme.events.MouseEvent;
 import firmament.ui.FDialog;
 import firmament.ui.FStyle;
+import nme.Assets;
+import nme.display.StageAlign;
 import nme.display.StageQuality;
-import firmament.core.FInput;
-import firmament.core.FBox2DWorld;
+import nme.display.StageScaleMode;
+import nme.events.Event;
+import nme.events.MouseEvent;
+import nme.Lib;
+import nme.text.Font;
 
 /**
  * ...
@@ -51,19 +52,32 @@ class FirmamentEditor
 		#end
 
 		var executableDir:String = Sys.executablePath();
-		trace(executableDir);
-		executableDir=executableDir.replace("\\","/");
-		var arr:Array<String>=executableDir.split('/');
-		arr.pop();
-		executableDir = arr.join("/");
+
+		if(Sys.getEnv("FirmamentEditorCWD") != null && Sys.getEnv("FirmamentEditorCWD") != ""){
+			Sys.setCwd(Sys.getEnv("FirmamentEditorCWD"));
+			trace("set cwd to "+Sys.getEnv("FirmamentEditorCWD"));
+		}
+
+		if(Sys.getEnv("FirmamentEditorPath") != null && Sys.getEnv("FirmamentEditorPath") != ""){
+			executableDir = Sys.getEnv("FirmamentEditorPath");
+		}else{
+
+			executableDir=executableDir.replace("\\","/");
+			var arr:Array<String>=executableDir.split('/');
+			arr.pop();
+			executableDir = arr.join("/");
+		}
 		//Sys.setCwd(executableDir);
 		//set styles
 
 		cwd = Sys.getCwd();
+		trace(executableDir);
+		trace(cwd);
 		//temporarily changeworking directory while we load our font
 		Sys.setCwd(executableDir);
 	
-		var font = Assets.getFont ("assets/fonts/Ubuntu-R.ttf");
+		var font:Font = Assets.getFont("assets/fonts/Ubuntu-R.ttf");
+		
 		FStyle.setStyleObj("",{
 			fontName:font.fontName
 			,fontHeightMultiplier:1

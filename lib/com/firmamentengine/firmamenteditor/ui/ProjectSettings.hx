@@ -64,8 +64,20 @@ class ProjectSettings extends FWindow
 		if (args[0] != null && args[0] != "") {
 			this.projectFileTxt.text = args[0];
 			this.load();
+		}else{
+			//if no project file specified, look for on in the current directory
+			var files = FileSystem.readDirectory(FirmamentEditor.cwd);
+			for (file in files) {
+				if(file.indexOf(".fprj")>0){
+					this.projectFileTxt.text = file;
+					this.load();
+					return;
+				}
+
+			}
 		}
 	}
+
 	function load(?e:MouseEvent=null) {
 		if (projectFileTxt.text == "") {
 			FDialog.alert("Project file is blank!");
