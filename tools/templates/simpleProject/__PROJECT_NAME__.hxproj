@@ -21,7 +21,7 @@
   <build>
     <option directives="" />
     <option flashStrict="False" />
-    <option mainClass="[*PACKAGE_NAME*].[*PROJECT_NAME*] />
+    <option mainClass="[*PACKAGE_NAME*].[*PROJECT_NAME*]" />
     <option enabledebug="True" />
     <option additional="" />
   </build>
