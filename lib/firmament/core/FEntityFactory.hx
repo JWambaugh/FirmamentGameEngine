@@ -4,6 +4,7 @@ import firmament.core.FEntity;
 import firmament.component.base.FEntityComponent;
 import firmament.component.base.FEntityComponentFactory;
 import firmament.util.loader.FDataLoader;
+import nme.events.Event;
 
 class FEntityFactory{
 
@@ -33,6 +34,7 @@ class FEntityFactory{
 		}
 		applyComponents(entity,config);
 		initComponents(entity,config);
+		entity.dispatchEvent(new Event(FEntity.COMPONENTS_INITIALIZED));
 		return entity;
 	}
 

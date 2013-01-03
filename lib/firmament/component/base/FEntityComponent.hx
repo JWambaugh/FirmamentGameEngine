@@ -28,7 +28,7 @@ class FEntityComponent extends EventDispatcher
 		throw "This needs to be overridden in a subclass.";
 	}
 	
-	
+
 	public function getType():String {
 		throw "this needs to be overridden in a subclass.";
 		return "";

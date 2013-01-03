@@ -6,6 +6,7 @@ import nme.display.Sprite;
 import nme.events.MouseEvent;
 import firmament.core.FVector;
 import firmament.ui.FVirtualJoystick;
+import nme.events.Event;
 
 class FAutoVirtualJoystick extends Sprite{
 
@@ -18,8 +19,10 @@ class FAutoVirtualJoystick extends Sprite{
 		this.graphics.drawRect(0,0,width,height);
 		this.addEventListener(MouseEvent.MOUSE_DOWN,mouseDown);
 		this.addEventListener(MouseEvent.MOUSE_UP,mouseUp);
+		//this.addEventListener(MouseEvent.MOUSE_OUT,mouseUp);
 		_mouseDown = false;
 		_stick = new FVirtualJoystick(classes);
+		_stick.addEventListener("f_mouseup",mouseUp);
 	}
 
 	private function mouseDown(e:MouseEvent){
@@ -29,9 +32,9 @@ class FAutoVirtualJoystick extends Sprite{
 		_stick.mouseDown(e);
 	}
 	
-	private function mouseUp(e:MouseEvent){
+	private function mouseUp(e:Event){
 		_mouseDown = false;
-		this.removeChild(_stick);
+		try{this.removeChild(_stick);}catch(e:Dynamic){}
 	}
 	
 	public function getValue():FVector{

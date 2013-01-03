@@ -36,7 +36,7 @@ import nme.events.Event;
 
 class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInterface, implements FWorldPositionalInterface 
 {
-	
+
 	public var body:B2Body;
 	private var zPosition:Float;
 	private var position:FVector;
@@ -198,6 +198,10 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 			mergeConfig.components.physics.position = getPosition();
 		}
 
+		if(Std.is(joint.zPositionOffset,Float)){
+			mergeConfig.components.physics.zPosition=getZPosition()+joint.zPositionOffset;
+		}
+
 		if(Std.is(joint.angleOffset,Float)){
 			mergeConfig.components.physics.angle = getAngle()+joint.angleOffset;
 		}else{
@@ -232,6 +236,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 
 			physWorld.getB2World().createJoint(def);
 		}
+		return childEntity;
 	}
 
 	public function onActiveStateChange(e:Event){
@@ -252,6 +257,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		}
 
 	public function  getPosition() {
+		if(body == null)throw("BODY IS NULL!!!"+_entity.getTypeId());
 		this.position.x = this.body.getPosition().x;
 		this.position.y = this.body.getPosition().y;
 		return this.position;

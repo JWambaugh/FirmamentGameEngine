@@ -21,6 +21,8 @@ import nme.Assets;
   */
 class FEntity extends nme.events.EventDispatcher
 {
+
+	public static inline var COMPONENTS_INITIALIZED = 'componentsInited';
 	var _config:Dynamic;
 	var _componentsHash:Hash<Array<FEntityComponent>>;
 	var _components:Array<FEntityComponent>;
