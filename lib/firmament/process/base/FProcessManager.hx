@@ -15,7 +15,7 @@ class FProcessManager extends nme.events.EventDispatcher
 	var _frameDelta:Float; // in seconds
 	var _lastTime:Float; // in seconds
 	var _paused:Bool;
-
+	var _stepTime:Float;
 	public static inline var PAUSED = "paused";
 	public static inline var UNPAUSED = "unpaused";
 	public function new() 
@@ -63,6 +63,7 @@ class FProcessManager extends nme.events.EventDispatcher
 		if (_iteration % 10 == 0) {
 			cleanupProcesses();
 		}
+		_stepTime = Timer.stamp() - _lastTime;
 	}
 	
 	private function cleanupProcesses() {
@@ -105,6 +106,10 @@ class FProcessManager extends nme.events.EventDispatcher
 
 	public function destruct(){
 		_processQueue = null;
+	}
+
+	public function getLastStepTime():Float{
+		return _stepTime;
 	}
 	
 }

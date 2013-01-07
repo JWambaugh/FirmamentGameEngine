@@ -5,6 +5,7 @@ import nme.events.Event;
 import firmament.util.FEntityUtils;
 import firmament.util.FConfigHelper;
 import firmament.core.FEntityFactory;
+import firmament.core.FEntity;
 
 /*
 	Class: FEntityEmitterComponent
@@ -26,7 +27,6 @@ class FEntityEmitterComponent extends FEntityComponent{
 					var ec = new FConfigHelper(emitter);
 					addEventListenerToEntity(event,function(e:Event){
 						var ent = FEntityFactory.createEntity(ec.getNotNull('entity',Dynamic));
-						
 						var angle:Float;
 						if(ec.get("angleOffset",String)=="random"){
 							angle = Math.random()*6.28318530718;
