@@ -13,13 +13,14 @@ import firmament.component.render.FWireframeRenderComponent;
 import firmament.component.event.FCollisionEventMapperComponent;
 
 class FEntityComponentFactory{
-	public static function createComponent(type:String):FEntityComponent {
+	public static function createComponent(type:String,?componentKey:String=''):FEntityComponent {
 		var className = getClassFromType(type);
 		var c =Type.resolveClass(className);
 		if(c==null){
 			throw "class "+className+" could not be found.";
 		}
 		var component:FEntityComponent = Type.createInstance(c,[]);
+		component.setComponentKey(componentKey);
 		if(component == null){
 			throw "Component of type "+type+" with class "+className+" could not be instantiated!";
 		}

@@ -17,7 +17,8 @@ class FEntityComponent extends EventDispatcher
 	private var _config:Dynamic;
 	private var _entity:FEntity;
 	private var _listeners:Hash<Dynamic->Void>;
-	
+	private var _componentKey:String;
+
 	public function new() 
 	{
 		super();
@@ -74,6 +75,9 @@ class FEntityComponent extends EventDispatcher
 		}
 	}
 
+	public function setComponentKey(key:String){
+		_componentKey = key;
+	}
 
 
 
