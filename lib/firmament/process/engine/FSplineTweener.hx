@@ -18,9 +18,9 @@ class FSplineTweener extends FProcess {
     private var pts:Array<FVector>;
     private var graphics:Graphics;
 
-	public function new(parameters:Dynamic) {
+	public function new(?name:String="splineTweener",parameters:Dynamic) {
 		super();
-		FGame.getInstance().addProcess("splineTweener",this);
+		FGame.getInstance().addProcess(name,this);
 		spline = new CatmullRom(null,Math.NaN);
 		if( parameters.graphicsObject != null ) {
 			graphics = parameters.graphicsObject;
@@ -51,7 +51,7 @@ class FSplineTweener extends FProcess {
 	/*override*/ public function stop() { 
 	}
 
-	/*override*/ public function reset() { 
+	/*override*/ public function reset() {
 	}
 
 	override public function step() {
@@ -67,12 +67,12 @@ class FSplineTweener extends FProcess {
 
         graphics.lineStyle(2,0xcccc0);
 
-		/*graphics.moveTo(pts[0].x+300,pts[0].y+400);
+		graphics.moveTo(pts[0].x+300,pts[0].y+400);
         for ( index in 1...(pts.length-1) ) {
         	var point:FVector = pts[index];
         	graphics.lineStyle(2,0xcccc0);
         	graphics.lineTo(point.x+300,point.y+400);
-        }*/
+        }
 
         graphics.beginFill(0xcc0000);
         for( point in points ) {
