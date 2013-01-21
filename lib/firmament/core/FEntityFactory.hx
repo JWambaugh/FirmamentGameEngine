@@ -43,9 +43,9 @@ class FEntityFactory{
 		if(!Std.is(config.components,Dynamic)){
 			throw("no components specified in entity config.");
 		}
-		for(componentType in Reflect.fields(config.components)){
-			var cConfig= Reflect.field(config.components,componentType);
-			var component = FEntityComponentFactory.createComponent(cConfig.componentName);
+		for(componentKey in Reflect.fields(config.components)){
+			var cConfig= Reflect.field(config.components,componentKey);
+			var component = FEntityComponentFactory.createComponent(cConfig.componentName,componentKey);
 			component.setConfig(cConfig);
 			entity.setComponent(component);
 		}

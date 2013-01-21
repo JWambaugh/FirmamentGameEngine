@@ -1,6 +1,7 @@
 package com.firmamentengine.firmamenteditor;
 import firmament.core.FEntity;
 import firmament.util.FEntityCompat;
+import firmament.component.base.FEntityComponentFactory;
 import firmament.ui.FDialog;
 /**
  * ...
@@ -32,7 +33,9 @@ class FEditorEntity extends FEntity
 			}
 		}
 		super(config);
-		
+		if(config.components.render!=null){
+			var renderComponent = FEntityComponentFactory.createComponent();
+		}
 		
 	}
 	
