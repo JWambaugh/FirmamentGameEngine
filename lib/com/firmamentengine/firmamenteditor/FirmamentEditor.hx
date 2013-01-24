@@ -128,11 +128,26 @@ class FirmamentEditor
 			var ents = FGame.getInstance().getEntitiesAtPoint(point);
 			if (ents.length > 0) {
 				ents.sort(function(a:FEntity,b:FEntity):Int{
-					var cmp = cast(b.getComponent("physics"),FPhysicsComponentInterface).getZPosition() - cast(a.getComponent("physics"),FPhysicsComponentInterface).getZPosition();
-					if (cmp==0) {
+					var bc = b.getPhysicsComponent();
+					var ac = a.getPhysicsComponent();
+					if(bc == null || ac == null){
+						trace('null physics component!');
+						return 0;
+					}
+					
+					try{
+					 	var cmp = cast(bc,FPhysicsComponentInterface).getZPosition() - cast(ac,FPhysicsComponentInterface).getZPosition();
+					 	if (cmp==0) {
 						return 0;	
-					} else if (cmp > 0) return 1;
-					return -1;
+						} else if (cmp > 0) return 1;
+						return -1;
+					}catch(e:Dynamic){
+						trace('exception: '+e);
+						trace(Type.getClass(bc));
+						trace(Type.getClass(ac));
+						return 0;
+					}
+					
 				});
 				dragEnt = cast(ents[0], FEntity);
 				entityWindow.setEntity(cast(ents[0]));

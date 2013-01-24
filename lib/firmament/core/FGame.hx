@@ -292,7 +292,7 @@ class FGame extends EventDispatcher
 		this.processManager.step();
 		this.dispatchEvent(new Event(FGame.AFTER_STEP));
 		this._renderProcessManager.step();
-		trace('Simulation: '+processManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
+		//trace('Simulation: '+processManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
 	}
 
 

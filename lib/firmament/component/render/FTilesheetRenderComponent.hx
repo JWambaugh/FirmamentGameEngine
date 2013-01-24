@@ -56,7 +56,7 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 
 		}
 
-        if(Std.is(config.imageScale,Int)) {
+        if(Std.is(config.imageScale,Float)) {
 			imageScale = config.imageScale;
 		}
 

@@ -3,6 +3,8 @@ import firmament.core.FEntity;
 import firmament.util.FEntityCompat;
 import firmament.component.base.FEntityComponentFactory;
 import firmament.ui.FDialog;
+import nme.Assets;
+import firmament.component.render.FTilesheetRenderComponent;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -15,6 +17,7 @@ class FEditorEntity extends FEntity
 	var fileName:String;
 	public function new(config:Dynamic) 
 	{
+
 		//filter out any custom components
 		for(key in Reflect.fields(config.components)){
 			if(key!='animation' && key!='render' && key!='physics'){
@@ -24,6 +27,11 @@ class FEditorEntity extends FEntity
 		
 		this.fileName = config.entityFile;
 
+		if(config.components.physics.componentName == 'noPhysics'){
+			if(config.components.physics.width <.20)config.components.physics.width =.20;
+			if(config.components.physics.height <.20)config.components.physics.height =.20;
+		}
+
 		//must preserve original config for editor
 		if(config.components.render!=null){
 			this.originalSprite = config.components.render.image;
@@ -32,10 +40,22 @@ class FEditorEntity extends FEntity
 				config.components.render.image = ResourceLoader.loadImage(config.components.render.image);
 			}
 		}
-		super(config);
-		if(config.components.render!=null){
-			var renderComponent = FEntityComponentFactory.createComponent();
+		if(config._defaultImage == true || config.components.render==null){
+			
+			config.components.render={
+				componentName:'tilesheet'
+				,image: Assets.getBitmapData("assets/images/default-icon.png")
+			};
+			if(config.components.physics.componentName == 'noPhysics'){
+				config.components.render.imageScale= 256/config.components.physics.width;
+			}else if(config.components.physics.componentName == 'box2d'){
+				config.components.render.imageScale= 256/config.components.physics.shapes[0].width;
+			}
 		}
+
+
+		super(config);
+		
 		
 	}
 	

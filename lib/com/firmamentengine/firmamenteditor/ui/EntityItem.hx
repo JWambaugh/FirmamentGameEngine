@@ -1,30 +1,31 @@
 package com.firmamentengine.firmamenteditor.ui;
 import com.firmamentengine.firmamenteditor.FEditorEntity;
+import com.firmamentengine.firmamenteditor.FirmamentEditor;
+import com.firmamentengine.firmamenteditor.ResourceLoader;
+import firmament.component.base.FEntityComponentFactory;
+import firmament.component.render.FRenderComponentInterface;
+import firmament.core.FCamera;
+import firmament.core.FEntity;
+import firmament.core.FEntityFactory;
 import firmament.core.FVector;
+import firmament.ui.FDialog;
 import firmament.ui.FTextLabel;
 import firmament.ui.layout.FHBox;
 import firmament.ui.layout.FVBox;
-import firmament.core.FCamera;
-import firmament.core.FEntity;
+import nme.Assets;
 import nme.display.Bitmap;
 import nme.display.BitmapData;
 import nme.display.Loader;
 import nme.display.Sprite;
-import nme.events.IOErrorEvent;
-import nme.geom.Point;
-import nme.net.URLRequest;
 import nme.events.Event;
-import firmament.ui.FDialog;
-import sys.io.File;
-import nme.utils.ByteArray;
+import nme.events.IOErrorEvent;
 import nme.events.MouseEvent;
-import com.firmamentengine.firmamenteditor.FirmamentEditor;
+import nme.geom.Point;
 import nme.Lib;
-import com.firmamentengine.firmamenteditor.ResourceLoader;
-import firmament.core.FEntityFactory;
+import nme.net.URLRequest;
+import nme.utils.ByteArray;
 import sys.FileSystem;
-import firmament.component.base.FEntityComponentFactory;
-import firmament.component.render.FRenderComponentInterface;
+import sys.io.File;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -54,9 +55,20 @@ class EntityItem extends Sprite
 		this.dragging = false;
 		trace(fileName);
 		var tempEntity:FEntity = new FEntity(config);
-		if(config == null || config.components == null || config.components.render==null){
-			throw "No render component config";
+		if(config == null || config.components == null){
+			throw "invalid entity config";
 		}
+		
+		if(config.components.render == null){
+			config.components.render={
+				componentName:'tilesheet'
+				,image:Assets.getBitmapData("assets/images/default-icon.png")
+
+			};
+			config._defaultImage = true;
+		}
+
+
 		var component = FEntityComponentFactory.createComponent(config.components.render.componentName);
 		if(component == null)throw "error getting render component!";
 		var renderComponent = cast(component,FRenderComponentInterface);

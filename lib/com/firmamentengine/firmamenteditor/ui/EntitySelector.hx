@@ -49,7 +49,7 @@ class EntitySelector extends FWindow
 				layout.addChild(new EntityItem(file,entityDir, config));
 			}catch (e:Dynamic) {
 				FDialog.alert("Error loading entity file " + entityDir + "/" + file);
-				trace(e);
+				trace("######### "+e);
 			}
 			
 		}

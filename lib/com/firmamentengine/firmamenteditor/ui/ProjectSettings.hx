@@ -102,7 +102,7 @@ class ProjectSettings extends FWindow
 			this.lastOpenedMap = settings.lastOpenedMap;
 		}catch(e:Dynamic){
 			FDialog.alert("Error loading file " + projectFileTxt.text);
-			trace(e);
+			trace("******* "+Std.string(e));
 			return;
 		}
 		
