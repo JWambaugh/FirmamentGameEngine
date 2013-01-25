@@ -14,8 +14,10 @@ import haxe.Timer;
 import nme.events.Event;
 import firmament.core.FPolygonShape;
 import firmament.core.FShape;
+
+
 /**
- * Class: FBox2DComponent
+ * FBox2DComponent
  * @author Jordan Wambaugh
  */
 
