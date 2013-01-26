@@ -15,6 +15,7 @@ class FSplineTweener extends FProcess {
 
     private var spline:CatmullRom;
     private var q:FVector;
+    private var t:FVector;
     private var pts:Array<FVector>;
     private var graphics:Graphics;
 
@@ -31,7 +32,8 @@ class FSplineTweener extends FProcess {
 		var delta:Float = 1.0/20;
 		var progress:Float = spline.progress();
 		while( progress < 1 ) {
-			pts.push(spline.loop(delta));
+			spline.loop(delta);
+			pts.push(spline.getPosition());
 			var nextProgress:Float = spline.progress();
 			if(nextProgress != progress) {
 				if (nextProgress < progress) {progress = 1;} 
@@ -59,7 +61,9 @@ class FSplineTweener extends FProcess {
 
 		var delta = this._manager.getFrameDelta();
 		// trace("Delta: " + delta);
-		q=spline.loop(delta);
+		spline.loop(delta);
+		q=spline.getPosition();
+		t=spline.getTangent();
 	}
 
 	public function renderPoint() {        
@@ -82,6 +86,8 @@ class FSplineTweener extends FProcess {
 		graphics.lineStyle(1,0xFFFF00);
         graphics.beginFill(0xFF0000);
         graphics.drawCircle(q.x+300,q.y+400,2);
+        graphics.moveTo(q.x+300,q.y+400);
+        graphics.lineTo((q.x+t.x*25)+300,(q.y+t.y*25)+400);
         graphics.lineStyle(0,0,0);
         graphics.endFill();
 	}

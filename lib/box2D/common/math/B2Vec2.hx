@@ -106,7 +106,7 @@ class B2Vec2
 
 	public function length():Float
 	{
-		return Math.sqrt(x * x + y * y);
+		return Math.sqrt(lengthSquared());
 	}
 	
 	public function lengthSquared():Float
