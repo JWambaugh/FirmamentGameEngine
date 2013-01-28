@@ -112,7 +112,7 @@ class FEntity extends nme.events.EventDispatcher
 	}
 	
 	/**
-	 * Adds a componenet to the entity
+	 * Adds a component to the entity
 	 */
 	public function setComponent(component:FEntityComponent) {
 		var array:Array<FEntityComponent>;

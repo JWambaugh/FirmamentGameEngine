@@ -19,19 +19,17 @@ class SplinePoints {
 
 class CatmullRom
 {
+    private var updateStep:Float->Bool;
     private var _ps:Array<FVector>; // spline points
-    private var _step:Int; // active index
-    private var _position:Float; 
+    private var _index:Int; // active index
+    private var _step:Float; 
     private var _rate:Float; // how many seconds it takes to traverse the curve
     private var _active:Bool; // if object updates or not
     private var _calcTangent:Bool = true;
     private var _ptcache:SplinePoints;
     
     private var _q:FVector; // current position along spline
-    private var _t:FVector; // tangent as unit vector, needs to be moved to _position
-
-    private var startOffset:FVector;
-    private var endOffset:FVector;
+    private var _t:FVector; // tangent as unit vector, needs to be moved to _step
 
     /*CatmullRom*/
     public function new (points:Array<FVector>,totalTime:Float)
@@ -39,9 +37,10 @@ class CatmullRom
         _ptcache = new SplinePoints();
     	_ps = [];
 
-        _step = -1;
-        _position = 1;
+        _index = -1;
+        _step = 1;
         _active = true;
+        updateStep = updateStepForwards;
 
         var N:Int = Std.int(3 + 10 * Math.random ());
         for ( i in 0 ... N ) {
@@ -50,7 +49,6 @@ class CatmullRom
         /*_ps.push (new FVector (-200, -200));
         _ps.push (new FVector (0,0));
         _ps.push (new FVector (200, 200));*/
-        _rate = _ps.length / 10.0;
 
         if(Std.is(points,Array)) {
             _ps = [];
@@ -59,69 +57,22 @@ class CatmullRom
             }
         }
 
+        if( _ps.length < 3 ) {
+            throw "CatmullRom - Spline must have a minimum of 3 control points";
+        }
+
         if(Math.isNaN(totalTime) == false) {
             _rate = _ps.length / totalTime;
+        } else {
+            _rate = _ps.length / 5.0; // default is 5 seconds, shorter makes it quite difficult to see the progression of the entity
         }
-    }
-
-    public function setStartTarget() {
 
     }
 
-    public function setEndTarget() {
-
-    }
-
-    public function setActive(active:Bool) {
-        _active = active;
-    }
-
-    public function isActive(active:Bool) {
-        return (_active == true);
-    }
-
-    public function reset() {
-        _step = -1;
-        _position = 1;
-    }
-
-    public function progress() {
-        return _step/(_ps.length-1);
-    }
-
-    public function loop (delta:Float):Void 
-    {
-        if(_active) {
-            var updated:Bool = false;
-            _position=_position+(delta*_rate);
-            while(_position > 1) {
-                updated=true;
-                _step = (_step+1) % (_ps.length-1);
-                _position=_position-1;
-            }
-
-            if(updated) {
-                setPositionCache(_step,_ptcache);
-            }
-
-            _q = spline (_ptcache._p0, _ptcache._p1, _ptcache._p2, _ptcache._p3, _position);
-
-            if( _calcTangent ) {
-                var t1:FVector = spline (_ptcache._p0, _ptcache._p1, _ptcache._p2, _ptcache._p3, _position-.0000000001);
-                var t2:FVector = spline (_ptcache._p0, _ptcache._p1, _ptcache._p2, _ptcache._p3, _position+.0000000001);
-                var tt:FVector;
-                t2.subtract(t1);
-                _t = t2.makeUnit();
-            }
-        }
-    }
-
-    private function setPositionCache(step:Int,ptcache:SplinePoints) {
-        var s0 = (step>0)?step-1:0; 
-        var s1 = (step>0)?step:0;
-        var s2=((step+1)<_ps.length)?step+1:step; 
-        var s3=((step+2)<_ps.length)?step+2:step;
-        ptcache.setPoints(_ps[s0],_ps[s1],_ps[s2],_ps[s3]);
+    public function setRate(totalTime:Float):Float {
+        var currentRate:Float = _ps.length / _rate;
+        _rate = _ps.length / totalTime;
+        return currentRate;
     }
 
     public function getPosition():FVector {
@@ -134,6 +85,65 @@ class CatmullRom
 
     public function getPoints():Array<FVector> {
         return _ps;
+    }
+
+    public function setActive(active:Bool) {
+        _active = active;
+    }
+
+    public function isActive() {
+        return (_active == true);
+    }
+
+    public function reset() {
+        _index = -1;
+        _step = 1;
+    }
+
+    public function update (delta:Float):Void 
+    {
+        if(_active) {
+            if(updateStep(delta)) {
+                setPositionCache(_index,_ptcache);
+            }
+
+            _q = spline (_ptcache._p0, _ptcache._p1, _ptcache._p2, _ptcache._p3, _step);
+
+            if( _calcTangent ) {
+                var t1:FVector = spline (_ptcache._p0, _ptcache._p1, _ptcache._p2, _ptcache._p3, _step-.0000000001);
+                var t2:FVector = spline (_ptcache._p0, _ptcache._p1, _ptcache._p2, _ptcache._p3, _step+.0000000001);
+                t2.subtract(t1);
+                _t = t2.makeUnit();
+            } else { 
+                _t = null; 
+            }
+        }
+    }
+
+    private function updateStepForwards(delta:Float):Bool {
+        var updated:Bool = false;
+        var lenMinusOne:Int = _ps.length -1;
+        _step=_step+(delta*_rate);
+        while(_step > 1) {
+            updated=true;
+            _step -= 1;
+            _index += 1;
+            if( _index >= lenMinusOne ) {
+                _index = lenMinusOne-1;
+                _step = .99999;
+                _active = false;
+                break;
+            }
+        }
+        return updated;
+    }
+
+    private function setPositionCache(index:Int,ptcache:SplinePoints) {
+        var s0 = (index>0)?index-1:0; 
+        var s1 = (index>0)?index:0;
+        var s2=((index+1)<_ps.length)?index+1:index; 
+        var s3=((index+2)<_ps.length)?index+2:index;
+        ptcache.setPoints(_ps[s0],_ps[s1],_ps[s2],_ps[s3]);
     }
 
     /* 

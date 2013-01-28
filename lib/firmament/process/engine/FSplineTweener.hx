@@ -28,32 +28,21 @@ class FSplineTweener extends FProcess {
 		}
 
 		//build spline path
+		// this will build a static array which will be incorrect
+		// when dynamically updating array position/shape
 		pts = [];
-		var delta:Float = 1.0/20;
-		var progress:Float = spline.progress();
-		while( progress < 1 ) {
-			spline.loop(delta);
+		var delta:Float = 0.01;
+		// var progress:Float = spline.progress();
+		spline.setActive(true);
+		var rate:Float = spline.setRate( Math.max( 10, spline.getPoints().length) );
+		while( spline.isActive() ) {
+			spline.update(delta);
 			pts.push(spline.getPosition());
-			var nextProgress:Float = spline.progress();
-			if(nextProgress != progress) {
-				if (nextProgress < progress) {progress = 1;} 
-				else {progress = nextProgress;}
-				trace("Progress - " + progress);
-			}
+			delta = 1.0/15;
 		}
-		reset();
-	}
-
-	/*override*/ public function pause() { 
-	}
-
-	/*override*/ public function resume() { 
-	}
-
-	/*override*/ public function stop() { 
-	}
-
-	/*override*/ public function reset() {
+		spline.reset();
+		spline.setRate(rate);
+		spline.setActive(true);
 	}
 
 	override public function step() {
@@ -61,22 +50,35 @@ class FSplineTweener extends FProcess {
 
 		var delta = this._manager.getFrameDelta();
 		// trace("Delta: " + delta);
-		spline.loop(delta);
+		spline.update(delta);
 		q=spline.getPosition();
 		t=spline.getTangent();
+
+		if(spline.isActive() == false ) {
+			spline.reset();
+			spline.setActive(true);
+		}
+
+		// update the entities position
+
+
+		// update the entities heading
+
 	}
 
-	public function renderPoint() {        
+	public function render() {
         var points:Array<FVector> = spline.getPoints();
 
         graphics.lineStyle(2,0xcccc0);
 
-		graphics.moveTo(pts[0].x+300,pts[0].y+400);
-        for ( index in 1...(pts.length-1) ) {
-        	var point:FVector = pts[index];
-        	graphics.lineStyle(2,0xcccc0);
-        	graphics.lineTo(point.x+300,point.y+400);
-        }
+        if( pts.length > 0) {
+			graphics.moveTo(pts[0].x+300,pts[0].y+400);
+	        for ( index in 1...(pts.length-1) ) {
+	        	var point:FVector = pts[index];
+	        	graphics.lineStyle(2,0xcccc0);
+	        	graphics.lineTo(point.x+300,point.y+400);
+	        }
+    	}
 
         graphics.beginFill(0xcc0000);
         for( point in points ) {
