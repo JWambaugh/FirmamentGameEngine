@@ -1,0 +1,5 @@
+#-neko TJSONTest.n 
+-neko UnitTest.n
+-main TestAll
+-cp ../lib
+-cp .

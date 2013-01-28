@@ -27,7 +27,7 @@ class FSortedLinkedListCell<T>{
 	}
 
 
-	public function getNext():FSortedLinkedListCell{
+	public function getNext():FSortedLinkedListCell<T>{
 		return _next;
 	}
 

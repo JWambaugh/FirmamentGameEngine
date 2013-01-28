@@ -11,7 +11,7 @@ import firmament.core.FSortedLinkedListCell;
 class FSortedLinkedList<T>{
 
 	var _first:FSortedLinkedListCell<T>;
-	var _cellCount:Float;
+	var _cellCount:Int;
 	var _last:FSortedLinkedListCell<T>;
 	public function new(){
 		_first = null;
@@ -74,12 +74,20 @@ class FSortedLinkedList<T>{
 	 * removes the lowest value from the list and returns it
 	 *
 	 */
-	public function getRemoveLowestValue(){
+	public function getRemoveLowestCell(){
 		var cell = _first;
 		_first = cell.getNext();
 		cell.getNext().setPrevious(null);
 		_cellCount--;
 		return cell;
+	}
+
+	/**
+	 * removes the lowest Cell from the list and returns it
+	 *
+	 */
+	public function getRemoveLowestValue(){
+		return getRemoveLowestCell().getValue();
 	}
 
 
@@ -104,18 +112,33 @@ class FSortedLinkedList<T>{
 	}
 
 	/**
-	 * removes the highest value from the list and returns it
+	 * removes the highest cell from the list and returns it
 	 *
 	 */
-	public function getRemoveHighestValue(){
+	public function getRemoveHighestCell(){
 		var cell = _last;
 		_last= cell.getPrevious();
-		cell.getPrevious().setLast(null);
+		cell.getPrevious().setNext(null);
 		_cellCount--;
 		return cell;
 	}
 
 
+	/**
+	 * removes the highest cell from the list and returns it
+	 *
+	 */
+	public function getRemoveHighestValue(){
+		return getRemoveHighestCell().getValue();
+	}
+
+
+	/**
+	 * Returns the number of entries in the list
+	 */
+	public function getCellCount(){
+		return _cellCount;
+	}
 
 
 }
