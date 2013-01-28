@@ -18,6 +18,7 @@ class FProcessManager extends nme.events.EventDispatcher
 	var _stepTime:Float;
 	public static inline var PAUSED = "paused";
 	public static inline var UNPAUSED = "unpaused";
+
 	public function new() 
 	{
 		super();
@@ -86,10 +87,11 @@ class FProcessManager extends nme.events.EventDispatcher
 			}
 		}
 		_processQueue.remove(p);
-		
-		
 	}
 
+	/**
+	 * Pauses all processes in the manager
+	 */
 	public function pause(){
 		var ctime = Timer.stamp();
 		_frameDelta = ctime - _lastTime;
@@ -97,6 +99,10 @@ class FProcessManager extends nme.events.EventDispatcher
 		this.dispatchEvent(new Event(PAUSED));
 	}
 
+
+	/**
+	 * Unpauses all processes in the manager
+	 */
 	public function unPause(){
 		_lastTime = Timer.stamp() - _frameDelta;
 		_paused = false;

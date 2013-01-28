@@ -16,7 +16,7 @@ class TestSortedLinkedList extends haxe.unit.TestCase {
         ll.add(5,5);
 	}
 
-    public function testBasicGetValue(){
+    public function testGetValue(){
     	assertEquals(6,ll.getCellCount());
         assertEquals(2,ll.getLowestValue());
         assertEquals(100,ll.getHighestValue());
