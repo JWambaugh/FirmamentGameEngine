@@ -50,6 +50,7 @@ class FSortedLinkedList<T>{
 			}
 		}
 		_cellCount++;
+		return cell;
 	}
 
 	/**
@@ -77,7 +78,8 @@ class FSortedLinkedList<T>{
 	public function getRemoveLowestCell(){
 		var cell = _first;
 		_first = cell.getNext();
-		cell.getNext().setPrevious(null);
+		if(_first!=null)
+			cell.getNext().setPrevious(null);
 		_cellCount--;
 		return cell;
 	}
@@ -138,6 +140,21 @@ class FSortedLinkedList<T>{
 	 */
 	public function getCellCount(){
 		return _cellCount;
+	}
+
+	public function removeCell(cell:FSortedLinkedListCell<T>){
+		var next = cell.getNext();
+		var previous = cell.getPrevious();
+		if(previous!=null){
+			previous.setNext(next);
+		}else{
+			_first = next;
+		}
+		if(next != null){
+			next.setPrevious(previous);
+		}else{
+			_last = previous;
+		}
 	}
 
 

@@ -297,7 +297,7 @@ class FGame extends EventDispatcher
 		this._processManager.step();
 		this.dispatchEvent(new Event(FGame.AFTER_STEP));
 		this._renderProcessManager.step();
-		trace('Simulation: '+_processManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
+		//trace('Simulation: '+_processManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
 	}
 
 
@@ -353,7 +353,7 @@ class FGame extends EventDispatcher
 	 *
 	 */
 	public function addGameTimer(seconds:Float, cb:Void->Dynamic, ?scope:Dynamic=null){
-		_gameTimerManager.addTimer(seconds, cb, scope);
+		return _gameTimerManager.addTimer(seconds, cb, scope);
 	}
 
 

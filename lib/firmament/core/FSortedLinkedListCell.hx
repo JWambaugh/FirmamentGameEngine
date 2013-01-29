@@ -51,4 +51,9 @@ class FSortedLinkedListCell<T>{
 	public function setPrevious(cell:FSortedLinkedListCell<T>){
 		_previous = cell;
 	}
+
+	public function remove(){
+		_list.removeCell(this);
+
+	}
 }

@@ -25,12 +25,13 @@ class FTimerManager extends FProcess {
 		super.beforeStart(processManager);
 		processManager.addEventListener(FProcessManager.PAUSED,pause);
 		processManager.addEventListener(FProcessManager.UNPAUSED,unPause);
-		trace('TIMER BEFORE START');
+		//trace('TIMER BEFORE START');
 	}
 
 	public function addTimer(seconds:Float, cb:Void->Dynamic,?scope:Dynamic=null){
 		var timer = new FTimer(seconds,cb,scope,this);
-		_timers.add(timer,Timer.stamp()+seconds);
+		var cell = _timers.add(timer,Timer.stamp()+seconds);
+		timer.setCell(cell);
 		return timer;
 	}
 
@@ -51,6 +52,7 @@ class FTimerManager extends FProcess {
 			
 		}
 		super.step();
+		//trace(_timers.getCellCount());
 	}
 
 	public function pause(e:Event){

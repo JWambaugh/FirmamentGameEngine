@@ -2,6 +2,7 @@ package firmament.filter.entity;
 
 import firmament.filter.entity.FEntityTypeFilter;
 import firmament.filter.entity.FEntityRadiusFilter;
+import firmament.filter.entity.FEntityTagFilter;
 import firmament.filter.entity.FEntityFilterInterface;
 
 class FEntityFilterFactory{
@@ -22,6 +23,7 @@ class FEntityFilterFactory{
 		var map = {
 			"type":"FEntityTypeFilter"
 			,"radius":"FEntityRadiusFilter"
+			,"tag":"FEntityTagFilter"
 		};
 
 		var cls = Reflect.field(map,type);
