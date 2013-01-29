@@ -83,7 +83,7 @@ class FTilesheet extends Tilesheet {
 	public function addTileRectWithLabel(rectangle:Rectangle, centerPoint:Point = null, label:String=null){
 		super.addTileRect(rectangle,centerPoint);
 		if(label!=null){
-			trace("LENGTH:"+_rects.length);
+			//trace("LENGTH:"+_rects.length);
 			_labelMap.set(label,_rects.length);
 		}
 		_rects.push(rectangle);

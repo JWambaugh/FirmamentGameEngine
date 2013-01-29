@@ -208,7 +208,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 			mergeConfig.components.physics.angle = getAngle();
 		}
 		FMisc.mergeInto(mergeConfig,joint.entity);
-		trace(Std.string(joint.entity));
+		//trace(Std.string(joint.entity));
 		var childEntity = FEntityFactory.createEntity(joint.entity);
 
 

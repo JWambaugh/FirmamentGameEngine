@@ -51,7 +51,7 @@ class FDataLoader
 			_recursionCount--;
 			FMisc.mergeInto(data,parent);
 			data = parent;
-			trace(Std.string(data));
+			//trace(Std.string(data));
 		}
 		_cache.set(fileName,FMisc.deepClone(data));
 		return data;

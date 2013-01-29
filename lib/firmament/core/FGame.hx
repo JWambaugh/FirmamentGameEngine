@@ -21,6 +21,7 @@ import firmament.util.loader.FSceneLoader;
 import firmament.filter.entity.FEntityFilter;
 import firmament.filter.entity.FEntityFilterFactory;
 import firmament.util.FConfigHelper;
+import firmament.process.timer.FTimerManager;
 import haxe.Timer;
 import nme.Assets;
 import nme.display.Bitmap;
@@ -40,12 +41,14 @@ class FGame extends EventDispatcher
 	var cameras:Hash<FCamera>;
 	var worldHash:Hash<FWorld>; 
 	public var enableSimulation:Bool;
-	var processManager:FProcessManager;
+	var _processManager:FProcessManager;
 	var _renderProcessManager:FProcessManager;
 
 	var _mainInput:FInput;
 
 	var _poolManager:FEntityPoolManager;
+
+	var _gameTimerManager:FTimerManager;
 
 	//Constant: COLLISION_PRE_SOLVE_EVENT
 	public static inline var COLLISION_PRE_SOLVE_EVENT = 'preSolveCollision';
@@ -91,12 +94,14 @@ class FGame extends EventDispatcher
 		worldHash = new Hash<FWorld>();
 		cameras = new Hash<FCamera>();
 		var stage = Lib.current.stage;
-		this.processManager = new FProcessManager();
+		this._processManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
 		stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
 		
 		_mainInput = new FInput(stage);
 		_poolManager = new FEntityPoolManager();
+		_gameTimerManager = new FTimerManager();
+		this._processManager.addProcess(_gameTimerManager);
 		/*var timer = new Timer(33);
 		timer.addEventListener(TimerEvent.TIMER, this_step);
 		timer.start();
@@ -142,7 +147,7 @@ class FGame extends EventDispatcher
 
 		//set up process for it
 		var p = new FWorldStepProcess(w);
-		this.processManager.addProcess(p);
+		this._processManager.addProcess(p);
 
 		return w;
 	}
@@ -229,7 +234,7 @@ class FGame extends EventDispatcher
 	 * Function: getProcessManager
 	 */
 	public function getProcessManager():FProcessManager {
-		return this.processManager;
+		return this._processManager;
 	}
 
 	/**
@@ -248,7 +253,7 @@ class FGame extends EventDispatcher
 	 *  p - Process object
 	 */
 	public function addProcess(?type:String,p:FProcess):Void {
-		this.processManager.addProcess(p);
+		this._processManager.addProcess(p);
 	}
 
 	/**
@@ -289,10 +294,10 @@ class FGame extends EventDispatcher
 	
 	private function doStep():Void {
 		this.dispatchEvent(new Event(FGame.BEFORE_STEP));
-		this.processManager.step();
+		this._processManager.step();
 		this.dispatchEvent(new Event(FGame.AFTER_STEP));
 		this._renderProcessManager.step();
-		//trace('Simulation: '+processManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
+		trace('Simulation: '+_processManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
 	}
 
 
@@ -328,9 +333,27 @@ class FGame extends EventDispatcher
 	*/
 	public function clearAll(){
 		clearWorlds();
-		processManager = new FProcessManager();
+		_processManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
 		cameras = new Hash();
+		this._processManager.addProcess(_gameTimerManager);
+	}
+
+	/**
+	 * Returns the FTimerManager object for game timers
+	 *
+	 */
+	public function getGameTimerManager(){
+		return _gameTimerManager;
+	}
+
+	/**
+	 * Adds a game timer.
+	 * @param seconds - number of seconds until timer times out
+	 *
+	 */
+	public function addGameTimer(seconds:Float, cb:Void->Dynamic, ?scope:Dynamic=null){
+		_gameTimerManager.addTimer(seconds, cb, scope);
 	}
 
 
