@@ -22,7 +22,10 @@ import nme.Assets;
 class FEntity extends nme.events.EventDispatcher
 {
 
+	//events
 	public static inline var COMPONENTS_INITIALIZED = 'componentsInited';
+	public static inline var ACTIVE_STATE_CHANGE = "activeChange";
+
 	var _config:Dynamic;
 	var _componentsHash:Hash<Array<FEntityComponent>>;
 	var _components:Array<FEntityComponent>;
@@ -32,7 +35,6 @@ class FEntity extends nme.events.EventDispatcher
 	var _listeners : Hash<Dynamic>; 
 	var _tags:Array<String>;
 
-	public static inline var ACTIVE_STATE_CHANGE = "activeChange";
 
 	/**
 	 * 

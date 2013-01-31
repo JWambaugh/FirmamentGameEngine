@@ -238,6 +238,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 
 			physWorld.getB2World().createJoint(def);
 		}
+		childEntity.dispatchEvent(new Event('ParentJointCreated'));
 		return childEntity;
 	}
 
