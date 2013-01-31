@@ -21,9 +21,9 @@ class FEntityFilterFactory{
 
 	public static function getClassFromType(type:String){
 		var map = {
-			"type":"FEntityTypeFilter"
-			,"radius":"FEntityRadiusFilter"
-			,"tag":"FEntityTagFilter"
+			"type":"firmament.filter.entity.FEntityTypeFilter"
+			,"radius":"firmament.filter.entity.FEntityRadiusFilter"
+			,"tag":"firmament.filter.entity.FEntityTagFilter"
 		};
 
 		var cls = Reflect.field(map,type);

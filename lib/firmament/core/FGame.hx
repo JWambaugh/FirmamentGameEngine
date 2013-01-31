@@ -222,7 +222,7 @@ class FGame extends EventDispatcher
 		if(Reflect.isObject(query.filters)){
 			for(filterName in Reflect.fields(query.filters)){
 				var filter:FEntityFilter = FEntityFilterFactory.createfilter(filterName);
-				filter.filterEntityArray(entities,Reflect.field(query.filters,filterName));
+				entities = filter.filterEntityArray(entities,Reflect.field(query.filters,filterName));
 			}
 		}
 

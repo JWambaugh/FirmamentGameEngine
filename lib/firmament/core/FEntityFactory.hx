@@ -54,7 +54,6 @@ class FEntityFactory{
 
 	public static function initComponents(entity:FEntity, config:Dynamic){
 		for(component in entity.getAllComponents()){
-			
 			component.init(component.getConfig());
 		}
 	}

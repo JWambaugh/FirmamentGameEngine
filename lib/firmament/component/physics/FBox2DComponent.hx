@@ -41,12 +41,14 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	private var zPosition:Float;
 	private var position:FVector;
 	private var world:FWorld;
+	private var _parentEntity:FEntity;
 	public function new() 
 	{
 		super();
 		this.world = FGame.getInstance().getWorld("box2d");
 		this.position = new FVector(0,0);
 		zPosition = 0;
+		_parentEntity = null;
 	}
 	
 	override public function init(config:Dynamic):Void {
@@ -210,7 +212,7 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		FMisc.mergeInto(mergeConfig,joint.entity);
 		//trace(Std.string(joint.entity));
 		var childEntity = FEntityFactory.createEntity(joint.entity);
-
+		cast(childEntity.getPhysicsComponent(), FBox2DComponent).setParentEntity(_entity);
 
 		if(joint.type == 'weld'){
 			var def = new B2WeldJointDef();
@@ -367,6 +369,13 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		world.deleteEntity(_entity);
 	}
 
+	public function getParentEntity(){
+		return _parentEntity;
+	}
+
+	public function setParentEntity(entity:FEntity){
+		_parentEntity = entity;
+	}
 
 
 }
