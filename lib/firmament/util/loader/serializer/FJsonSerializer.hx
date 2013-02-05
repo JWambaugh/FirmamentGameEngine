@@ -14,9 +14,9 @@ class FJsonSerializer implements FSerializerInterface
 	public function new() {
 		
 	}
-	public function unserialize(data:String):Dynamic {
+	public function unserialize(data:String,?fileName:String=''):Dynamic {
 		
-		return TJSON.parse(data);
+		return TJSON.parse(data,fileName);
 		
 	}
 	

@@ -6,7 +6,7 @@ package firmament.util.loader.serializer;
  */
 
 interface FSerializerInterface{
-	function unserialize(data:String):Dynamic;
+	function unserialize(data:String,?filename:String=""):Dynamic;
 	function serialize(object:Dynamic):String;
 	function canProccessFileName(fileName:String):Bool;
 }

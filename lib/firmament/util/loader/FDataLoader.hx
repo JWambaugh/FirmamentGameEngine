@@ -18,7 +18,7 @@ class FDataLoader
 	static var _recursionCount:Int;
 	public static function loadData(fileName:String, ?allowEmpty:Bool=false):Dynamic{
 
-		trace("Processing: " + fileName);
+		//trace("Processing: " + fileName);
 		if(_cache.exists(fileName)){
 			return FMisc.deepClone(_cache.get(fileName));
 		}
@@ -38,7 +38,7 @@ class FDataLoader
 		if(string==null || (!allowEmpty && string == '')){
 			throw("Error reading data from "+fileName);
 		}
-		var data = serializer.unserialize(string);
+		var data = serializer.unserialize(string,fileName);
 		if (data == null) {
 			throw("Data could not be unserialized for "+fileName);
 		}
