@@ -142,6 +142,14 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		this._tile = t;
 	}
 
+	public function setTileByLabel(label:String){
+		this._tile = _tilesheet.getTileNumber(label);
+	}
+
+	public function getCurrentTile(){
+		return _tile;
+	}
+
 	public function getTilesheet():FTilesheet{
 		return _tilesheet;
 	}
