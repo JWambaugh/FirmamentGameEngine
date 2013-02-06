@@ -163,6 +163,10 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 	public function setImageScale(scale:Float){
 		imageScale = scale;
 	}
+
+	public function getImageScale(){
+		return imageScale;
+	}
 	
 	public function getBitmapData():BitmapData{
 		var sprite:Sprite = new Sprite();
