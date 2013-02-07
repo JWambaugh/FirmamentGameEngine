@@ -38,11 +38,11 @@ class FEntityUtils {
 	 * Params: 
 	 * 		sourceEntity 	{FEntity} The entity to shoot the bullet from
 	 * 		entity 			{FEntity} The entity to emit
-	 *		speed 			Float the speed at which the entity should travel
 	 *		angleOffset 	Float the angle that should be added to sourceEntity's angle
+	 *		speed 			Float the speed at which the entity should travel
 	 *		positionOffset  Float the distance from sourceEntity that the entity should start from.
 	 */
-	static public function emitEntityFromPoint( entity:FEntity, position:FVector,angle:Float, ?speed:Float=10,?distanceOffset:Float=0){
+	static public function emitEntityFromPoint( entity:FEntity, position:FVector,angle:Float, ?speed:Float=10,?distanceOffset:Float=0,?matchAngle=true){
 	    var p = entity.getPhysicsComponent();
 	    
 	    var cos = Math.cos(angle);
@@ -50,8 +50,8 @@ class FEntityUtils {
 	    var posMult = distanceOffset;
 	    p.setPosition(new FVector(position.x+cos*posMult
 	    	,position.y+sin*posMult)) ;
-	    
-	    p.setAngle(angle);
+	    if(matchAngle)
+	    	p.setAngle(angle);
 	    p.setLinearVelocity(new FVector(cos*speed,sin*speed));
 	}
 
