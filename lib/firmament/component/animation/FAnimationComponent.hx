@@ -27,21 +27,17 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 			var animationFile:String = config.animationFile;
 			_currentAnimation = FAnimationManager.getInstance().getAnimationByFileName(animationFile);
 		}
-		this._entity.addEventListener(FGame.BEFORE_RENDER,this.beforeRender);
+		//this._entity.addEventListener(FGame.BEFORE_RENDER,this.beforeRender);
+		FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
 	}
 
 	override public function getType(){
 		return "animation";
 	}	
 
-	public function beforeRender(e:Event){
-		//see if enough time has elapsed to change frames
-		var stamp = Timer.stamp(); 
-		if((stamp - _timeOfLastFrameChange) >= _currentAnimation.getTimeBetweenFrames()){
-			_timeOfLastFrameChange = stamp;
-			jumpToFrame(_currentAnimation.getNextFrame(_currentFrame));
-		}
-
+	public function changeFrame(){
+		jumpToFrame(_currentAnimation.getNextFrame(_currentFrame));
+		FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
 	}
 
 	public function setAnimation(animation:FAnimation,?frame:Int=0){
