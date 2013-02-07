@@ -9,17 +9,17 @@ import nme.events.Event;
 import haxe.Timer;
 import firmament.component.render.FRenderComponentInterface;
 import firmament.component.render.FTilesheetRenderComponent;
+import firmament.process.timer.FTimer;
+import firmament.core.FEntity;
 
 class FAnimationComponent extends FEntityComponent, implements FAnimationComponentInterface{
 	
 	var _currentAnimation:FAnimation;
 	var _currentFrame:Int;
-	var _timeOfLastFrameChange:Float;
-
+	var _timer:FTimer;
 	public function new(){
 		super();
 		_currentFrame = 0;
-		_timeOfLastFrameChange = Timer.stamp();
 	}
 
 	override public function init(config:Dynamic){
@@ -28,7 +28,17 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 			_currentAnimation = FAnimationManager.getInstance().getAnimationByFileName(animationFile);
 		}
 		//this._entity.addEventListener(FGame.BEFORE_RENDER,this.beforeRender);
-		FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
+		if(_entity.isActive())
+			_timer = FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
+		this.addEventListenerToEntity(FEntity.ACTIVE_STATE_CHANGE,stateChange);
+	}
+
+	public function stateChange(e:Event){
+		if(_entity.isActive()){
+			_timer = FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
+		}else{
+			_timer.cancel();
+		}
 	}
 
 	override public function getType(){
@@ -37,7 +47,7 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 
 	public function changeFrame(){
 		jumpToFrame(_currentAnimation.getNextFrame(_currentFrame));
-		FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
+		_timer = FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
 	}
 
 	public function setAnimation(animation:FAnimation,?frame:Int=0){
