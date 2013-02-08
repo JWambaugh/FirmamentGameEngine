@@ -30,9 +30,16 @@ class FVector extends B2Vec2
 	 * @return
 	 */
 	public function distanceTo(v:FVector):Float {
-		var d = Math.sqrt(Math.pow(this.x - v.x, 2) + Math.pow(this.y - v.y, 2));
-		if (d < 0) d = -d;
+		var p1:Float = this.x - v.x;
+		var p2:Float = this.y - v.y;
+		var d = Math.sqrt(p1*p1 + p2*p2);
 		return d;
+	}
+
+	public function makeUnit():FVector {
+		var l:Float = length();
+		var unit:FVector = new FVector(x/l,y/l);
+		return unit;
 	}
 
 	override public function copy():FVector{
