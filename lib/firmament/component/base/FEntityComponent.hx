@@ -2,7 +2,7 @@ package firmament.component.base;
 import firmament.core.FEntity;
 import nme.events.EventDispatcher;
 import nme.events.Event;
-
+import firmament.util.FConfigHelper;
 /*
 	Class: FEntity Component
 
@@ -18,11 +18,14 @@ class FEntityComponent extends EventDispatcher
 	private var _entity:FEntity;
 	private var _listeners:Hash<Dynamic->Void>;
 	private var _componentKey:String;
+	private var _configHelper:FConfigHelper;
 
 	public function new() 
 	{
+		_configHelper = null;
 		super();
 		_listeners = new Hash();
+
 	}
 	
 	public function init(config:Dynamic):Void {
@@ -49,6 +52,16 @@ class FEntityComponent extends EventDispatcher
 
 	public function getConfig(){
 		return _config;
+	}
+
+	/**
+	 * Returns a config helper object for the component's config
+	 */
+	public function getConfigHelper():FConfigHelper{
+		if(_configHelper == null){
+			_configHelper = new FConfigHelper(_config);
+		}
+		return _configHelper;
 	}
 
 	
