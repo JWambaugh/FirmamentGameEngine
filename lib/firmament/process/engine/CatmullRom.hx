@@ -42,10 +42,10 @@ class CatmullRom
         _active = true;
         updateStep = updateStepForwards;
 
-        var N:Int = Std.int(3 + 10 * Math.random ());
+        /*var N:Int = Std.int(3 + 10 * Math.random ());
         for ( i in 0 ... N ) {
             _ps.push (new FVector (200-400 * Math.random (), 200-400 * Math.random ()));
-        }
+        }*/
         /*_ps.push (new FVector (-200, -200));
         _ps.push (new FVector (0,0));
         _ps.push (new FVector (200, 200));*/
