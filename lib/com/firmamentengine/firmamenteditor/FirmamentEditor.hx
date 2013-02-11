@@ -5,6 +5,11 @@ import com.firmamentengine.firmamenteditor.ui.EntitySelector;
 import com.firmamentengine.firmamenteditor.ui.EntityWindow;
 import com.firmamentengine.firmamenteditor.ui.ProjectSettings;
 import com.firmamentengine.firmamenteditor.ui.ToolBar;
+
+import com.firmamentengine.firmamenteditor.ui.ConfigEditor;
+
+
+
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.core.FBox2DWorld;
 import firmament.core.FCamera;
@@ -15,6 +20,7 @@ import firmament.core.FInput;
 import firmament.core.FVector;
 import firmament.ui.FDialog;
 import firmament.ui.FStyle;
+import firmament.ui.FWindow;
 import nme.Assets;
 import nme.display.StageAlign;
 import nme.display.StageQuality;
@@ -194,7 +200,15 @@ class FirmamentEditor
 			}
 			
 		} );
-		
+
+		var configEditor = new ConfigEditor();
+		configEditor.setConfig("sweet");
+		var configWindow = new FWindow();
+		configWindow.setTitle("Config");
+		configWindow.setCanvas(configEditor);
+		stage.addChild(configWindow);
+
+
 		Sys.setCwd(cwd);
 		//FDialog.prompt("Howdy! please put somthing in here.", function(s) { } ,"Please enter your name","jordan");
     }

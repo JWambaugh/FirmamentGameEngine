@@ -12,12 +12,12 @@ import firmament.ui.layout.FVBox;
 
 class FScroller extends FWidget
 {
-
+/*
 	var canvas:DisplayObject;
 	var rect:Rectangle;
 	var w:Int;
 	var h:Int;
-	var layout:FH
+	//var layout:FH
 	var _buttons:Hash<FWidget>;
 
 	public function new(width, height, canvas:DisplayObject, buttons:Hash<FWidget>) 
@@ -35,7 +35,7 @@ class FScroller extends FWidget
 
 
 	public function setLeftButton(b:FWidget){
-		this.removeChild(leftButton);
+		//this.removeChild(leftButton);
 		leftButton = b;
 		this.addChild(b);
 
@@ -87,5 +87,5 @@ class FScroller extends FWidget
 		rect.x -= 10;
 		this.canvas.scrollRect = rect;
 	}
-
+*/
 }
