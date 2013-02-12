@@ -64,7 +64,7 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 			tsc.setTilesheet(_currentAnimation.getTilesheet());
 			_currentFrame = frame;
 		}else{
-			throw "Animations are only work with FTilesheet render components";
+			throw "Animations only work with FTilesheet render components. Entity: "+_entity.getTypeId();
 		}
 	}
 
