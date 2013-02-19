@@ -36,10 +36,7 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 
 	public function stateChange(e:Event){
 		if(_entity.isActive()){
-			if(_entity.getTypeId()=='fireball')
-				trace('animation active');
 			if(_timer!=null)_timer.cancel();
-
 			_currentFrame=0;
 			jumpToFrame(0);
 			_timer = FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
