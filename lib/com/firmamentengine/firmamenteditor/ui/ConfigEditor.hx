@@ -16,7 +16,7 @@ class ConfigEditor extends FWidget{
 	public function setConfig(config:Dynamic){
 		_originalConfig = config;
 		_config = FMisc.deepClone(config);
-		_root =ConfigEditorField.getEditorField(null,_config);
+		_root =ConfigEditorField.getEditorField(null,_config,this);
 		this.addChild(_root);
 	}
 

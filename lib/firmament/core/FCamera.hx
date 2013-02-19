@@ -36,7 +36,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	var _debugRender:Bool;
 	var _debugRenderer:FWireframeRenderComponent;
 	var calculatedTopLeft:Bool;
-	
+
 	/**
 	 * Constructor: new
 	 * 
@@ -55,7 +55,6 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		this.displayWidth = width;
 		_debugRender = false;
 		_debugRenderer = new FWireframeRenderComponent();
-
 	}
 
 

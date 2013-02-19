@@ -13,6 +13,8 @@ import nme.display.Sprite;
 import nme.events.MouseEvent;
 import nme.events.Event;
 import nme.Lib;
+import  com.firmamentengine.firmamenteditor.ui.ConfigEditor;
+import  com.firmamentengine.firmamenteditor.ui.ConfigEditorFieldEvent;
 
 /**
  * ...
@@ -27,48 +29,46 @@ class EntityWindow extends FWindow
 	var positionXEdit:FFloatEntry;
 	var positionYEdit:FFloatEntry;
 	var entName:FTextLabel;
+	var _configEditor:ConfigEditor;
+
 	public function new() 
 	{
 		super(false);
 		this.setTitle("Entity");
+		_configEditor = new ConfigEditor();
+		_configEditor.setConfig({
+			
+		});
+
 		var layout = new FVBox([
 			entName = new FTextLabel("(No Entity Selected")
-			,new FHBox([
-				new FTextLabel("Rotation:")
-				,rotationEdit = new FFloatEntry(0.0,1)
-			])
-			,new FHBox([
-				new FTextLabel("Position X:")
-				,positionXEdit = new FFloatEntry(0.0,0.01)
-			])
-			,new FHBox([
-				new FTextLabel("Position Y:")
-				,positionYEdit = new FFloatEntry(0.0,0.01)
-			])
 			,new FButton("Delete", 0, 0, deleteEntity)
+			,_configEditor
+			
 		]);
 		
+		/*
 		rotationEdit.addEventListener(FFloatEntry.VALUE_CHANGED, function(e:Event) { 
 			if(this.selectedEntity!=null)
 				this.selectedEntity.setAngle(rotationEdit.getValue()*0.0174532925);
 		} );
-		
-		positionXEdit.addEventListener(FFloatEntry.VALUE_CHANGED, function(e:Event) { 
+		*/
+		_configEditor.addEventListener(ConfigEditorFieldEvent.FIELD_CHANGED_PREFIX+'/components/physics/position/y', function(e:ConfigEditorFieldEvent) { 
 			if(this.selectedEntity!=null)
-				this.selectedEntity.setPosition(new FVector(positionXEdit.getValue(), this.selectedEntity.getPositionY()));
+				this.selectedEntity.setPosition(new FVector(e.getValue(), this.selectedEntity.getPositionY()));
 		} );
-		
+		/*
 		positionYEdit.addEventListener(FFloatEntry.VALUE_CHANGED, function(e:Event) { 
 			if(this.selectedEntity!=null)
 				this.selectedEntity.setPosition(new FVector( this.selectedEntity.getPositionX() , positionYEdit.getValue()));
-		} );
+		} );*/
 		
 		
 		var stage = Lib.current.stage;
-		stage.addEventListener("entityMove", function(e:Event) {
+		/*stage.addEventListener("entityMove", function(e:Event) {
 			positionXEdit.setValue(selectedEntity.getPositionX());
 			positionYEdit.setValue(selectedEntity.getPositionY());
-		} );
+		} );*/
 		
 		this.setCanvas(layout);
 	}
@@ -81,9 +81,8 @@ class EntityWindow extends FWindow
 		name = name.split(".")[0];
 		entName.text = name;
 		
-		rotationEdit.setValue(cast(Math.round(e.getAngle() * 57.2957795)));
-		positionXEdit.setValue(e.getPositionX());
-		positionYEdit.setValue(e.getPositionY());
+		
+		_configEditor.setConfig(e.getConfig());
 	}
 	
 	public function deleteEntity(e:MouseEvent) {

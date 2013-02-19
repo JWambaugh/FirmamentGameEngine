@@ -5,7 +5,7 @@ import firmament.ui.layout.FHBox;
 import firmament.ui.layout.FVBox;
 import firmament.ui.FTextLabel;
 
-class ConfigEditorObjectField extends ConfigEditorField{
+class ConfigEditorArrayField extends ConfigEditorField{
 
 
 	

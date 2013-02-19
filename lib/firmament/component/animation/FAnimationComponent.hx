@@ -28,16 +28,24 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 			_currentAnimation = FAnimationManager.getInstance().getAnimationByFileName(animationFile);
 		}
 		//this._entity.addEventListener(FGame.BEFORE_RENDER,this.beforeRender);
-		if(_entity.isActive())
+		if(_entity.isActive()){
 			_timer = FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
+		}
 		this.addEventListenerToEntity(FEntity.ACTIVE_STATE_CHANGE,stateChange);
 	}
 
 	public function stateChange(e:Event){
 		if(_entity.isActive()){
+			if(_entity.getTypeId()=='fireball')
+				trace('animation active');
+			if(_timer!=null)_timer.cancel();
+
+			_currentFrame=0;
+			jumpToFrame(0);
 			_timer = FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
 		}else{
-			_timer.cancel();
+			if(_timer!=null)_timer.cancel();
+			_timer = null;
 		}
 	}
 
@@ -64,7 +72,7 @@ class FAnimationComponent extends FEntityComponent, implements FAnimationCompone
 			tsc.setTilesheet(_currentAnimation.getTilesheet());
 			_currentFrame = frame;
 		}else{
-			throw "Animations only work with FTilesheet render components. Entity: "+_entity.getTypeId();
+			//throw "Animations only work with FTilesheet render components. Entity: "+_entity.getTypeId();
 		}
 	}
 
