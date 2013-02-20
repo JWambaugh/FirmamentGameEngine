@@ -30,7 +30,7 @@ class FSoundtrackManager{
 	public static function setVolume(volume:Float){
 		_volume = volume;
 		if(_soundChannel != null){
-			var transform = new SoundTransform(_volume);
+			var transform = new SoundTransform(_volume*FSoundManager.getMasterVolume());
 			_soundChannel.soundTransform = transform;
 		}
 	}

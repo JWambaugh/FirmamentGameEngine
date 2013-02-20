@@ -2,22 +2,34 @@ package firmament.sound;
 
 import nme.media.Sound;
 import nme.Assets;
-
+/**
+ * Firmament Sound Repository. Also manages volumes.
+ *
+ *
+ */
 class FSoundManager{
-	private static var soundHash:Hash<Sound>;
+	private static var _soundHash:Hash<Sound>;
+
+	private static var _masterVolume:Float=.7;
+	private static var _soundVolume:Float=1;
+
 
 	private static function init(){
-		if(soundHash == null){
-			soundHash = new Hash();
+		if(_soundHash == null){
+			_soundHash = new Hash();
 		}
 	}
-
-	public static function getSound(name:String){
+	/**
+	 * returns the specified sound object from the repository
+	 * @param name The file name of the sound asset
+	 *
+	 */
+	public static function getSound(name:String):Sound{
 		init();
-		var s = soundHash.get(name);
+		var s = _soundHash.get(name);
 		if(s==null){
 			s = Assets.getSound(name);
-			soundHash.set(name,s);
+			_soundHash.set(name,s);
 		}
 		return s;
 	}
@@ -32,4 +44,32 @@ class FSoundManager{
 	}
 
 
+	
+	public static function setMasterVolume(volume:Float) {
+		_masterVolume = volume;
+	}
+
+	
+	public static function setSoundVolume(volume:Float) {
+		_soundVolume = volume;
+	}
+
+	public static function getMasterVolume() {
+		return _masterVolume;
+	}
+
+
+	public static function getSoundVolume() {
+		return _soundVolume;
+	}
+
+	/**
+	 * Returns the effective sound volume, after master volume is applied.
+	 *
+	 */
+	public static function getEffectiveSoundVolume() {
+		return _soundVolume*_masterVolume;
+	}
+
+	
 }
