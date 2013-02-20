@@ -33,7 +33,7 @@ class FSplineTweener extends FProcess {
 
 		var args:Array<Dynamic> = parameters.get('points',Array,[]);
 		for ( pt in args ) {
-		    trace(pt[0],",",pt[1]);
+		    //trace(pt[0],",",pt[1]);
 		    points.push( new FVector(pt[0],pt[1]) );
 		}
 		spline = new CatmullRom(points, totalTime);
@@ -67,7 +67,7 @@ class FSplineTweener extends FProcess {
 	}
 
 	public function setEntity(entity:FEntity) {
-		trace(Std.string(entity));
+		//trace(Std.string(entity));
 		
 	}
 
@@ -96,7 +96,7 @@ class FSplineTweener extends FProcess {
 
 	public function render() {
 		if(_draw == false) { return; }
-		trace( Type.getClassName(Type.getClass(this)));
+		//trace( Type.getClassName(Type.getClass(this)));
 
         var points:Array<FVector> = spline.getPoints();
 

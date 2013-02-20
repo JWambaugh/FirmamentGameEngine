@@ -7,6 +7,7 @@ import firmament.core.FCamera;
 import firmament.util.FConfigHelper;
 import firmament.util.loader.FEntityLoader;
 import nme.events.Event;
+import firmament.sound.FSoundManager;
 
 class FSceneLoader {
 	public static function loadScene(scene:Dynamic){
@@ -60,6 +61,18 @@ class FSceneLoader {
 				//load non-map entities we need
 				//trace("entFile: "+pool.getNotNull('entityFile',String));
 				loader.loadPool(pool.getNotNull('entityFile',String),pool.get("amount",Int,10));
+			}
+		}
+
+		//load sounds
+		if(Std.is(scene.sounds,Array)){
+			for(sound in cast(scene.sounds,Array<Dynamic>)){
+				if(Std.is(sound,String)){
+					if(FSoundManager.getSound(sound) == null){
+						trace("Scene loader warning: Sound not found: "+sound);
+					}
+				}
+				
 			}
 		}
 

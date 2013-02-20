@@ -63,7 +63,7 @@ class FTilesheetManager {
 
 	public function getOrderedTilesheets():Array<FTilesheet>{
 		if(idCounter > _orderedTilesheets.length){
-			trace("building ordered tilesheet list");
+			//trace("building ordered tilesheet list");
 			_orderedTilesheets = new Array<FTilesheet>();
 			for(tilesheet in tilesheets){
 				_orderedTilesheets.push(tilesheet);
@@ -109,7 +109,7 @@ class FTilesheetManager {
 		if(Std.is(config.renderPriority,Float)){
 			t.setRenderPriority(config.renderPriority);
 		}
-		trace("Render priority: "+t.getRenderPriority());
+		//trace("Render priority: "+t.getRenderPriority());
 
 		if(Std.is(config.tiles,Array)) {
 			for(tile in cast(config.tiles,Array<Dynamic>)){
