@@ -99,6 +99,7 @@ class FWindow extends FWidget
 		this.canvas.x = this.canvasOffsetX;
 		this.draw();
 		this.canvas.addEventListener(Event.ADDED, this.draw);
+		this.canvas.addEventListener(FWidget.RESIZED, this.draw);
 	}
 	
 	

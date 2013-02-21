@@ -27,5 +27,6 @@ class FVBox extends FLayout
 			this.contentHeight += cast(child.height);
 			child.x = 0;
 		}
+		super.layoutChildren();
 	}
 }

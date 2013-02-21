@@ -3,6 +3,7 @@ import firmament.ui.FWidget;
 import nme.display.DisplayObjectContainer;
 import nme.display.DisplayObject;
 import nme.display.Sprite;
+import nme.events.Event;
 
 /**
  * ...
@@ -55,14 +56,18 @@ class FLayout extends FWidget
 	override public function addChild(child:DisplayObject):DisplayObject {
 		
 		super.addChild(child);
+		child.addEventListener(FWidget.RESIZED,layoutChildrenEvent);
 		//optimization. If we're inside a call to addChildren, don't layout yet.
 		if(!this.addingChildren){
 			this.layoutChildren();
 		}
 		return child;
 	}
+	private function layoutChildrenEvent(e:Event){
+		layoutChildren();
+	}
 	public function layoutChildren() {
-		
+		this.dispatchEvent(new Event(FWidget.RESIZED));
 	}
 	
 }

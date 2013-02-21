@@ -28,6 +28,8 @@ class FHBox extends FLayout
 			this.contentWidth += cast(child.width);
 			child.y = 0;
 		}
+		super.layoutChildren();
+		
 	}
 	
 	
