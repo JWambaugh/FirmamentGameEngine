@@ -1,6 +1,6 @@
 {
 	"image": "assets/tilesheets/{{texture.fullName}}"
-	"tiles":[
+	,"tiles":[
 		{% for sprite in sprites %}
 		{
 			"label": "{{sprite.trimmedName}}"
