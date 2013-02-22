@@ -4,6 +4,7 @@ import nme.text.TextFormat;
 import nme.Assets;
 import firmament.ui.FStyle;
 import firmament.ui.FStyleHelper;
+import nme.events.Event;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -33,7 +34,7 @@ class FTextField extends FWidget
 		this.y = y;
 		this.textField.width = width;
 		this.textField.height = this.textField.textHeight*FStyleHelper.get(style,'fontHeightMultiplier',1)+FStyleHelper.get(style,'fontHeightAdd',1);
-				
+		textField.addEventListener(Event.CHANGE, function(e:Event) {this.dispatchEvent(e); } );
 	}
 	
 	function getText():String { return textField.text; }

@@ -29,5 +29,9 @@ class ConfigEditor extends FWidget{
 		trace(this.height);
 	}
 
+	public function setValue(path:Array, value){
+
+	}
+
 
 }

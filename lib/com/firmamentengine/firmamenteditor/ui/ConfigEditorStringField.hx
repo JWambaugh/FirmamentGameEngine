@@ -16,7 +16,9 @@ class ConfigEditorStringField extends ConfigEditorField{
 
 	override public function draw(){
 		_field = new FLineEdit(_value);
-		_field.addEventListener(Event.CHANGE, function(e:Event) {_editor.dispatchEvent(new ConfigEditorFieldEvent(this.getPath(),_field.text)); } );
+		_field.addEventListener(Event.CHANGE, function(e:Event) {
+			trace(this.getPath());
+			_editor.dispatchEvent(new ConfigEditorFieldEvent(this.getPath(),_field.text)); } );
 		this.addChild(_field);
 	}
 

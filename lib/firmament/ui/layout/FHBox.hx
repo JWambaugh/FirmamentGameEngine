@@ -18,7 +18,6 @@ class FHBox extends FLayout
 	}
 	
 	
-	
 	override public function layoutChildren() {
 		this.contentWidth = 0;
 		for (x in 0 ... this.numChildren) {
@@ -29,7 +28,7 @@ class FHBox extends FLayout
 			child.y = 0;
 		}
 		super.layoutChildren();
-		
+
 	}
 	
 	

@@ -16,6 +16,7 @@ class FLineEdit extends FTextField
 		this.textField.border = true;
 		this.textField.backgroundColor = 0xFFFFFF;
 		this.textField.background = true;
+		
 	}
 	
 }

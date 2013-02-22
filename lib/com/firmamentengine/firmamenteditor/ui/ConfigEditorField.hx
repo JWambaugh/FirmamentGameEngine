@@ -70,10 +70,13 @@ class ConfigEditorField extends FWidget{
 	public function draw(){}
 
 	public function getPath(){
-		var path:String;
-		path = _parent.getPath();
+		var path:String = null;
+		if(_parent!=null)
+			path = _parent.getPath();
 		if(path == null)path ='';
-		return path+'/'+_key;
+		if(_key!=null)
+			return path+'/'+_key;
+		else return "";
 	}
 	public function getKey(){
 		return _key;
