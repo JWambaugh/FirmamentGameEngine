@@ -14,11 +14,14 @@ It is currently under heavy development, so its feature list is constantly expan
 * To get started with Firmament, download it, and start playing today!
 
 
-##Website
-For more information, please check out the website at [martamius.github.com/Firmament.hx/](http://martamius.github.com/Firmament.hx/)
+##Website and Documentation
+For more information including news, blogs, and documentation, please check out the website at [firmament.atlassian.net/wiki](https://firmament.atlassian.net/wiki) (Note that this is a new location)
 
 ##Installation
-Please see the [Download Page](http://martamius.github.com/Firmament.hx/downloads.html) on our website for information on obtaining and installing Firmament. 
+Please see the [Installation Guide](https://firmament.atlassian.net/wiki/display/FE/Installation) on our website for information on obtaining and installing Firmament. 
+
+##Issues
+If you encounter any issues, wish to file a feature request, or want to help contribute to the project, please check out the project jira at [firmament.atlassian.net](https://firmament.atlassian.net/)
 
 ##License
 This program is free software: you can redistribute it and/or modify
