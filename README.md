@@ -1,7 +1,7 @@
 Firmament Game Engine
 =====================
 
-Copyright (C) 2012 Jordan CM Wambaugh
+Copyright (C) 2012-2013 Jordan CM Wambaugh
 
 
 Firmament is an open-source, 2 dimensional game engine developed for the easy creation of video games. 
