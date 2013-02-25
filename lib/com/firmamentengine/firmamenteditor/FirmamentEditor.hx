@@ -201,23 +201,7 @@ class FirmamentEditor
 			
 		} );
 
-		var configEditor = new ConfigEditor();
-		configEditor.setConfig({
-			key:"value"
-			,innerObject:{
-				"cool":'this works?'
-				,"letsGoDeeper":{
-					wow:3.2
-				}
-				,"nice":24
-
-			}
-
-			});
-		var configWindow = new FWindow();
-		configWindow.setTitle("Config");
-		configWindow.setCanvas(configEditor);
-		stage.addChild(configWindow);
+		
 
 
 		Sys.setCwd(cwd);

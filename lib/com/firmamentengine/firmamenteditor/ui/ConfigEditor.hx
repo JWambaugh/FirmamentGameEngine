@@ -1,6 +1,7 @@
 package com.firmamentengine.firmamenteditor.ui;
 import firmament.ui.FWidget;
 import com.firmamentengine.firmamenteditor.ui.ConfigEditorField;
+import com.firmamentengine.firmamenteditor.ui.ConfigEditorStringField;
 import firmament.util.FMisc;
 import nme.events.Event;
 
@@ -29,8 +30,14 @@ class ConfigEditor extends FWidget{
 		trace(this.height);
 	}
 
-	public function setValue(path:Array, value){
+	public function setValue(path:Array<String>, value:Dynamic){
+		var current:ConfigEditorField;
+		current = _root;
+		for(p in path){
+			if(Std.is(current,ConfigEditorStringField)){
 
+			}
+		}
 	}
 
 
