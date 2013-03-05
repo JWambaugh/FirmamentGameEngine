@@ -1,4 +1,4 @@
-package firmament.core;
+package firmament.world;
 
 
 import box2D.collision.B2AABB;
@@ -10,12 +10,13 @@ import box2D.dynamics.B2World;
 import box2D.dynamics.contacts.B2Contact;
 import firmament.component.physics.FBox2DComponent;
 import firmament.core.FEntity;
-import firmament.core.FWorld;
+import firmament.core.FVector;
 import firmament.event.FBox2DCollisionEvent;
 import firmament.event.FPhysicsCollisionEvent;
 import firmament.ui.FDialog;
-import nme.events.Event;
 import firmament.util.FConfigHelper;
+import firmament.world.FWorld;
+import nme.events.Event;
 /**
  * ...
  * @author Jordan Wambaughz

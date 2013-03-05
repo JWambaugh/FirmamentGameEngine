@@ -4,7 +4,7 @@ package firmament.process.engine;
 
 import firmament.core.FGame;
 import firmament.core.FVector;
-import firmament.core.FWorld;
+import firmament.world.FWorld;
 import firmament.core.FWorldPositionalInterface;
 import firmament.process.base.FProcess;
 import Type;

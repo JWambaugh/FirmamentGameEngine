@@ -6986,7 +6986,7 @@
 		<_eventsToFire><c path="Array"><c path="String"/></c></_eventsToFire>
 		<new public="1" set="method" line="22"><f a=""><e path="Void"/></f></new>
 	</class>
-	<class path="firmament.core.FWorldPositionalInterface" params="" file="../../lib/firmament/core/FWorldPositionalInterface.hx" interface="1">
+	<class path="firmament.world.FWorldPositionalInterface" params="" file="../../lib/firmament/core/FWorldPositionalInterface.hx" interface="1">
 		<setAngle public="1" set="method"><f a="a">
 	<c path="Float"/>
 	<e path="Void"/>
@@ -7024,9 +7024,9 @@
 	<c path="firmament.core.FVector"/>
 	<e path="Void"/>
 </f></applyLinearForce>
-		<getWorld public="1" set="method"><f a=""><c path="firmament.core.FWorld"/></f></getWorld>
+		<getWorld public="1" set="method"><f a=""><c path="firmament.world.FWorld"/></f></getWorld>
 		<setWorld public="1" set="method"><f a="world">
-	<c path="firmament.core.FWorld"/>
+	<c path="firmament.world.FWorld"/>
 	<e path="Void"/>
 </f></setWorld>
 		<setZPosition public="1" set="method"><f a="p">
@@ -7091,15 +7091,15 @@
 	</class>
 	<class path="firmament.component.physics.FBox2DComponent" params="" file="../../lib/firmament/component/physics/FBox2DComponent.hx">
 		<extends path="firmament.component.base.FEntityComponent"/>
-		<implements path="firmament.core.FWorldPositionalInterface"/>
+		<implements path="firmament.world.FWorldPositionalInterface"/>
 		<implements path="firmament.component.physics.FPhysicsComponentInterface"/>
 		<destruct public="1" set="method" line="359" override="1"><f a=""><e path="Void"/></f></destruct>
 		<getShapes public="1" set="method" line="333"><f a=""><c path="Array"><c path="firmament.core.FShape"/></c></f></getShapes>
 		<hasShapes public="1" set="method" line="328"><f a=""><e path="Bool"/></f></hasShapes>
 		<getType public="1" set="method" line="324" override="1"><f a=""><c path="String"/></f></getType>
-		<getWorld public="1" set="method" line="320"><f a=""><c path="firmament.core.FWorld"/></f></getWorld>
+		<getWorld public="1" set="method" line="320"><f a=""><c path="firmament.world.FWorld"/></f></getWorld>
 		<setWorld public="1" set="method" line="316"><f a="world">
-	<c path="firmament.core.FWorld"/>
+	<c path="firmament.world.FWorld"/>
 	<e path="Void"/>
 </f></setWorld>
 		<setZPosition public="1" set="method" line="313"><f a="p">
@@ -7156,7 +7156,7 @@
 	<d/>
 	<e path="Void"/>
 </f></init>
-		<world><c path="firmament.core.FWorld"/></world>
+		<world><c path="firmament.world.FWorld"/></world>
 		<position><c path="firmament.core.FVector"/></position>
 		<zPosition><c path="Float"/></zPosition>
 		<body public="1"><c path="box2D.dynamics.B2Body"/></body>
@@ -7166,7 +7166,7 @@
 	</class>
 	<class path="firmament.component.physics.FNoPhysicsComponent" params="" file="../../lib/firmament/component/physics/FNoPhysicsComponent.hx">
 		<extends path="firmament.component.base.FEntityComponent"/>
-		<implements path="firmament.core.FWorldPositionalInterface"/>
+		<implements path="firmament.world.FWorldPositionalInterface"/>
 		<implements path="firmament.component.physics.FPhysicsComponentInterface"/>
 		<destruct public="1" set="method" line="265" override="1"><f a=""><e path="Void"/></f></destruct>
 		<getShapes public="1" set="method" line="262"><f a=""><c path="Array"><c path="firmament.core.FShape"/></c></f></getShapes>
@@ -7181,7 +7181,7 @@
 		<getType public="1" set="method" line="227" override="1"><f a=""><c path="String"/></f></getType>
 		<getWorld public="1" set="method" line="223"><f a=""><c path="firmament.core.FNoPhysicsWorld"/></f></getWorld>
 		<setWorld public="1" set="method" line="219"><f a="world">
-	<c path="firmament.core.FWorld"/>
+	<c path="firmament.world.FWorld"/>
 	<e path="Void"/>
 </f></setWorld>
 		<setZPosition public="1" set="method" line="215"><f a="p">
@@ -7369,7 +7369,7 @@
 		<_animationsHash><c path="Hash"><c path="firmament.core.FAnimation"/></c></_animationsHash>
 		<new set="method" line="13"><f a=""><e path="Void"/></f></new>
 	</class>
-	<class path="firmament.core.FPhysicsWorldContactListener" params="" file="../../lib/firmament/core/FBox2DWorld.hx" module="firmament.core.FBox2DWorld">
+	<class path="firmament.core.FPhysicsWorldContactListener" params="" file="../../lib/firmament/core/FBox2DWorld.hx" module="firmament.world.FBox2DWorld">
 		<extends path="box2D.dynamics.B2ContactListener"/>
 		<preSolve public="1" set="method" line="50" override="1"><f a="contact:oldManifold">
 	<c path="box2D.dynamics.contacts.B2Contact"/>
@@ -7384,15 +7384,15 @@
 	<c path="box2D.dynamics.contacts.B2Contact"/>
 	<e path="Void"/>
 </f></beginContact>
-		<world><c path="firmament.core.FBox2DWorld"/></world>
+		<world><c path="firmament.world.FBox2DWorld"/></world>
 		<new public="1" set="method" line="27"><f a="world">
-	<c path="firmament.core.FBox2DWorld"/>
+	<c path="firmament.world.FBox2DWorld"/>
 	<e path="Void"/>
 </f></new>
 		<haxe_doc>* ...
  * @author Jordan Wambaughz</haxe_doc>
 	</class>
-	<class path="firmament.core.FWorld" params="" file="../../lib/firmament/core/FWorld.hx">
+	<class path="firmament.world.FWorld" params="" file="../../lib/firmament/core/FWorld.hx">
 		<destruct public="1" set="method" line="97"><f a=""><e path="Void"/></f></destruct>
 		<getAlwaysRenderEntities public="1" set="method" line="93"><f a=""><c path="Array"><c path="firmament.core.FEntity"/></c></f></getAlwaysRenderEntities>
 		<removeFromAlwaysRenderList public="1" set="method" line="89"><f a="ent">
@@ -7450,8 +7450,8 @@
 		<haxe_doc>* ...
  * @author Jordan Wambaugh</haxe_doc>
 	</class>
-	<class path="firmament.core.FBox2DWorld" params="" file="../../lib/firmament/core/FBox2DWorld.hx">
-		<extends path="firmament.core.FWorld"/>
+	<class path="firmament.world.FBox2DWorld" params="" file="../../lib/firmament/core/FBox2DWorld.hx">
+		<extends path="firmament.world.FWorld"/>
 		<destruct public="1" set="method" line="205" override="1"><f a=""><e path="Void"/></f></destruct>
 		<insideStep public="1" set="method" line="201" override="1"><f a=""><e path="Bool"/></f></insideStep>
 		<setGravity public="1" set="method" line="197" override="1"><f a="gravity">
@@ -7725,7 +7725,7 @@
 	</class>
 	<class path="firmament.core.FCamera" params="" file="../../lib/firmament/core/FCamera.hx">
 		<extends path="flash.display.Sprite"/>
-		<implements path="firmament.core.FWorldPositionalInterface"/>
+		<implements path="firmament.world.FWorldPositionalInterface"/>
 		<BEFORE_RENDER_EVENT public="1" get="inline" set="null" line="26" static="1"><c path="String"/></BEFORE_RENDER_EVENT>
 		<AFTER_RENDER_EVENT public="1" get="inline" set="null" line="27" static="1"><c path="String"/></AFTER_RENDER_EVENT>
 		<setAngle public="1" set="method" line="236"><f a="a">
@@ -7815,7 +7815,7 @@
 	<e path="Void"/>
 </f></calculateTopLeftPosition>
 		<render public="1" set="method" line="75"><f a="worlds">
-	<c path="Hash"><c path="firmament.core.FWorld"/></c>
+	<c path="Hash"><c path="firmament.world.FWorld"/></c>
 	<e path="Void"/>
 </f></render>
 		<init public="1" set="method" line="62"><f a="config">
@@ -8080,11 +8080,11 @@
 	<c path="Array"><c path="firmament.core.FEntity"/></c>
 </f></getEntitiesAtPoint>
 		<getAllEntities public="1" set="method" line="154"><f a=""><c path="Array"><c path="firmament.core.FEntity"/></c></f></getAllEntities>
-		<getWorlds public="1" set="method" line="150"><f a=""><c path="Hash"><c path="firmament.core.FWorld"/></c></f></getWorlds>
+		<getWorlds public="1" set="method" line="150"><f a=""><c path="Hash"><c path="firmament.world.FWorld"/></c></f></getWorlds>
 		<getWorld public="1" set="method" line="136">
 			<f a="type">
 				<c path="String"/>
-				<c path="firmament.core.FWorld"/>
+				<c path="firmament.world.FWorld"/>
 			</f>
 			<haxe_doc>* Function: getWorld
 	 *
@@ -8099,7 +8099,7 @@
 		<_renderProcessManager><c path="firmament.process.base.FProcessManager"/></_renderProcessManager>
 		<processManager><c path="firmament.process.base.FProcessManager"/></processManager>
 		<enableSimulation public="1"><e path="Bool"/></enableSimulation>
-		<worldHash><c path="Hash"><c path="firmament.core.FWorld"/></c></worldHash>
+		<worldHash><c path="Hash"><c path="firmament.world.FWorld"/></c></worldHash>
 		<cameras><c path="Hash"><c path="firmament.core.FCamera"/></c></cameras>
 		<new set="method" line="86">
 			<f a=""><e path="Void"/></f>
@@ -8170,7 +8170,7 @@
 </f></new>
 	</class>
 	<class path="firmament.core.FNoPhysicsWorld" params="" file="../../lib/firmament/core/FNoPhysicsWorld.hx">
-		<extends path="firmament.core.FWorld"/>
+		<extends path="firmament.world.FWorld"/>
 		<destruct public="1" set="method" line="126" override="1"><f a=""><e path="Void"/></f></destruct>
 		<deleteEntity public="1" set="method" line="119" override="1"><f a="ent">
 	<c path="firmament.core.FEntity"/>
@@ -8510,10 +8510,10 @@
 		<haxe_doc>* Class: FVector
  * @author Jordan Wambaugh</haxe_doc>
 	</class>
-	<class path="firmament.core.FWorldFactory" params="" file="../../lib/firmament/core/FWorldFactory.hx">
+	<class path="firmament.world.FWorldFactory" params="" file="../../lib/firmament/core/FWorldFactory.hx">
 		<createWorld public="1" set="method" line="7" static="1"><f a="type">
 	<c path="String"/>
-	<c path="firmament.core.FWorld"/>
+	<c path="firmament.world.FWorld"/>
 </f></createWorld>
 		<getClassFromType public="1" set="method" line="16" static="1"><f a="type">
 	<c path="String"/>
@@ -8642,9 +8642,9 @@
 		<getEntityA public="1" set="method" line="52"><f a=""><c path="firmament.core.FEntity"/></f></getEntityA>
 		<getCollisionSpeed public="1" set="method" line="47"><f a=""><c path="Float"/></f></getCollisionSpeed>
 		<_collisionType><e path="firmament.event.FCollisionEventType"/></_collisionType>
-		<_world><c path="firmament.core.FWorld"/></_world>
+		<_world><c path="firmament.world.FWorld"/></_world>
 		<new public="1" set="method" line="33"><f a="world:type">
-	<c path="firmament.core.FWorld"/>
+	<c path="firmament.world.FWorld"/>
 	<e path="firmament.event.FCollisionEventType"/>
 	<e path="Void"/>
 </f></new>
@@ -8660,7 +8660,7 @@
 		<getCollisionSpeed public="1" set="method" line="28" override="1"><f a=""><c path="Float"/></f></getCollisionSpeed>
 		<_contact><c path="box2D.dynamics.contacts.B2Contact"/></_contact>
 		<new public="1" set="method" line="22"><f a="world:type:contact">
-	<c path="firmament.core.FWorld"/>
+	<c path="firmament.world.FWorld"/>
 	<e path="firmament.event.FCollisionEventType"/>
 	<c path="box2D.dynamics.contacts.B2Contact"/>
 	<e path="Void"/>
@@ -8864,9 +8864,9 @@
 	<class path="firmament.process.engine.FWorldStepProcess" params="" file="../../lib/firmament/process/engine/FWorldStepProcess.hx">
 		<extends path="firmament.process.base.FProcess"/>
 		<step public="1" set="method" line="14" override="1"><f a=""><e path="Void"/></f></step>
-		<world><c path="firmament.core.FWorld"/></world>
+		<world><c path="firmament.world.FWorld"/></world>
 		<new public="1" set="method" line="9"><f a="world">
-	<c path="firmament.core.FWorld"/>
+	<c path="firmament.world.FWorld"/>
 	<e path="Void"/>
 </f></new>
 	</class>

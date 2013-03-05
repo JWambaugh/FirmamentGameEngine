@@ -1,8 +1,9 @@
-package firmament.core;
+package firmament.world;
 import box2D.dynamics.B2World;
 import nme.events.Event;
 import firmament.core.FEntity;
 import haxe.Timer;
+import firmament.core.FVector;
 /**
  * ...
  * @author Jordan Wambaugh

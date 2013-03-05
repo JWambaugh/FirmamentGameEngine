@@ -6,22 +6,23 @@ package firmament.core;
  */
 
 
+
 import firmament.core.FCamera;
 import firmament.core.FEntity;
-
 import firmament.core.FEntityPoolManager;
 import firmament.core.FInput;
-import firmament.core.FWorldFactory;
+import firmament.filter.entity.FEntityFilter;
+import firmament.filter.entity.FEntityFilterFactory;
 import firmament.process.base.FProcess;
 import firmament.process.base.FProcessManager;
 import firmament.process.engine.FCameraRenderProcess;
 import firmament.process.engine.FWorldStepProcess;
-import firmament.util.loader.serializer.FSerializerFactory;
-import firmament.util.loader.FSceneLoader;
-import firmament.filter.entity.FEntityFilter;
-import firmament.filter.entity.FEntityFilterFactory;
-import firmament.util.FConfigHelper;
 import firmament.process.timer.FTimerManager;
+import firmament.util.FConfigHelper;
+import firmament.util.loader.FSceneLoader;
+import firmament.util.loader.serializer.FSerializerFactory;
+import firmament.world.FWorld;
+import firmament.world.FWorldFactory;
 import haxe.Timer;
 import nme.Assets;
 import nme.display.Bitmap;
@@ -81,7 +82,7 @@ class FGame extends EventDispatcher
 	//CONCSTANT: DELETE_ENTITY
 	public static inline var DELETE_ENTITY = 'deleteEntity';
 
-	private static var _instance:FGame;
+	private static var _instances:Hash<FGame>;
 
 	/**
 	 * Constructor: new
@@ -122,15 +123,20 @@ class FGame extends EventDispatcher
 
 
 	/*
-		Function: getInstance
-		returns the singleton instance of FGame.
+		returns an instance of FGame.
+		As of 2.1, has optional parameter 'key'
+		@param String - The name of the instance to get. Default name is 'main'
 	*/
-	// TODO: Refactor to getInstance
-	public static function getInstance():FGame{
-		if(_instance == null){
-			_instance = new FGame();
+	public static function getInstance(?name:String='main'):FGame{
+		if(_instances == null){
+			_instances = new Hash();
 		}
-		return _instance;
+		var instance = _instances.get(name);
+		if(instance == null){
+			instance = new FGame();
+			_instances.set(name,instance);
+		}
+		return instance;
 	}
 	
 	/**

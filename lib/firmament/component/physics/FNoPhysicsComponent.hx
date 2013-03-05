@@ -3,17 +3,17 @@ package firmament.component.physics;
 
 import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
-import firmament.core.FBox2DWorld;
 import firmament.core.FEntity;
 import firmament.core.FGame;
-import firmament.core.FVector;
-import firmament.core.FNoPhysicsWorld;
-import firmament.core.FWorldPositionalInterface;
-import firmament.core.FWorld;
-import haxe.Timer;
-import nme.events.Event;
 import firmament.core.FPolygonShape;
 import firmament.core.FShape;
+import firmament.core.FVector;
+import firmament.core.FWorldPositionalInterface;
+import firmament.world.FBox2DWorld;
+import firmament.world.FNoPhysicsWorld;
+import firmament.world.FWorld;
+import haxe.Timer;
+import nme.events.Event;
 
 
 /**

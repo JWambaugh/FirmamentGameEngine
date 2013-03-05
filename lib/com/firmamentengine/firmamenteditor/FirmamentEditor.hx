@@ -11,7 +11,7 @@ import com.firmamentengine.firmamenteditor.ui.ConfigEditor;
 
 
 import firmament.component.physics.FPhysicsComponentInterface;
-import firmament.core.FBox2DWorld;
+import firmament.world.FBox2DWorld;
 import firmament.core.FCamera;
 import firmament.core.FEntity;
 import firmament.core.FEntity;

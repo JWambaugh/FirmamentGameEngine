@@ -1,7 +1,7 @@
 package firmament.util.loader;
 import firmament.core.FEntity;
 import nme.events.EventDispatcher;
-import firmament.core.FWorld;
+import firmament.world.FWorld;
 import nme.events.Event;
 import firmament.util.FMisc;
 import firmament.util.loader.serializer.FSerializerFactory;

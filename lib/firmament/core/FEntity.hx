@@ -3,7 +3,7 @@ import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.component.render.FRenderComponentInterface;
 import firmament.component.render.FTilesheetRenderComponent;
-import firmament.core.FWorld;
+import firmament.world.FWorld;
 import firmament.core.FEntityPool;
 import nme.display.BitmapData;
 import nme.display.Tilesheet;

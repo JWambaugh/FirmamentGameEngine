@@ -1,7 +1,7 @@
-package firmament.core;
+package firmament.world;
 
-import firmament.core.FNoPhysicsWorld;
-import firmament.core.FBox2DWorld;
+import firmament.world.FNoPhysicsWorld;
+import firmament.world.FBox2DWorld;
 
 class FWorldFactory{
 	public static function createWorld(type:String):FWorld {
@@ -15,8 +15,8 @@ class FWorldFactory{
 
 	public static function getClassFromType(type:String){
 		return switch(type){
-			case "box2d" : "firmament.core.FBox2DWorld";
-			case "noPhysics" : "firmament.core.FNoPhysicsWorld";
+			case "box2d" : "firmament.world.FBox2DWorld";
+			case "noPhysics" : "firmament.world.FNoPhysicsWorld";
 			default: throw "World type '"+type+"' not found";
 		}
 	}

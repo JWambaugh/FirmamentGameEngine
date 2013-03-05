@@ -1,6 +1,6 @@
 package firmament.component.physics;
 import firmament.core.FVector;
-import firmament.core.FWorld;
+import firmament.world.FWorld;
 import firmament.core.FShape;
 
 /**

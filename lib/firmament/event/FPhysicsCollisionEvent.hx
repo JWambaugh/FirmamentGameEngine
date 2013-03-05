@@ -9,7 +9,7 @@ import box2D.dynamics.contacts.B2Contact;
 import firmament.core.FEntity;
 import firmament.core.FGame;
 import firmament.core.FVector;
-import firmament.core.FWorld;
+import firmament.world.FWorld;
 import nme.events.Event;
 /**
  * ...

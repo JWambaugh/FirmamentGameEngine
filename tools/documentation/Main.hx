@@ -1,5 +1,5 @@
 package;
-import firmament.core.FBox2DWorld;
+import firmament.world.FBox2DWorld;
 import firmament.core.FCamera;
 import firmament.core.FEntityFactory;
 import firmament.core.FEntityPool;

@@ -3,7 +3,7 @@ import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.component.render.FRenderComponentInterface;
 import nme.display.Sprite;
 import firmament.core.FEntity;
-import firmament.core.FWorld;
+import firmament.world.FWorld;
 import nme.display.BitmapData;
 import nme.geom.Rectangle;
 import nme.Lib;

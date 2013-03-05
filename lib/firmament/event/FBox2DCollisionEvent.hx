@@ -8,7 +8,7 @@ import box2D.dynamics.contacts.B2Contact;
 import firmament.component.physics.FBox2DComponent;
 import firmament.core.FEntity;
 import firmament.core.FGame;
-import firmament.core.FWorld;
+import firmament.world.FWorld;
 import firmament.event.FPhysicsCollisionEvent;
 import nme.events.Event;
 /**

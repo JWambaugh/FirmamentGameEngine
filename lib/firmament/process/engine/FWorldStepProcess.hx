@@ -1,7 +1,7 @@
 
 package firmament.process.engine;
 import firmament.process.base.FProcess;
-import firmament.core.FWorld;
+import firmament.world.FWorld;
 import firmament.core.FGame;
 class FWorldStepProcess extends FProcess {
 
