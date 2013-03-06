@@ -97,7 +97,7 @@ class FParticleWorld extends FWorld
 	}
 	
 	override public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity> {
-		return this.entities;
+		return this._activeAwakeEntities;
 	}
 
 	
