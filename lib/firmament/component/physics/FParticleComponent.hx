@@ -10,24 +10,24 @@ import firmament.core.FShape;
 import firmament.core.FVector;
 import firmament.core.FWorldPositionalInterface;
 import firmament.world.FBox2DWorld;
-import firmament.world.FNoPhysicsWorld;
+import firmament.world.FParticleWorld;
 import firmament.world.FWorld;
 import haxe.Timer;
 import nme.events.Event;
 
 
 /**
- * FBox2DComponent
+ * FParticleComponent
  * @author Jordan Wambaugh
  */
 
-class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponentInterface, implements FWorldPositionalInterface 
+class FParticleComponent extends FEntityComponent, implements FPhysicsComponentInterface, implements FWorldPositionalInterface 
 {
 	
 	
 	private var _zPosition:Float;
 	private var position:FVector;
-	private var world:FNoPhysicsWorld;
+	private var world:FParticleWorld;
 	private var _angle:Float;
 	private var _fixedRotation:Bool;
 	private var _allowSleep:Bool;
@@ -39,10 +39,12 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	private var _height:Float;
 	private var _shape:FPolygonShape;
 	private var _deleted:Bool;
+
+
 	public function new() 
 	{
 		super();
-		this.world = cast(FGame.getInstance().getWorld("noPhysics"),FNoPhysicsWorld);
+		this.world = cast(FGame.getInstance().getWorld("particle"),FParticleWorld);
 		this.position = new FVector(0,0);
 		_isSleeping = false;
 		_isActive = true;
@@ -155,11 +157,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	
 	public function setPosition(pos:FVector) {
 		if(_deleted)return;
-		var oldTopX = position.x - _width/2;
-		var oldTopY = position.y - _height/2;
-		
 		this.position=pos;
-		world.updatePositionState(this,oldTopX,oldTopY);
 	}
 
 	public function setPositionXY(x:Float,y:Float){

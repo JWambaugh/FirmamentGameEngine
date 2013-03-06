@@ -19,6 +19,13 @@ interface FPhysicsComponentInterface{
 		 * pos - <FVector>
 	 */
 	public function setPosition(pos:FVector):Void;
+
+
+	/**
+	 * Sets the position of the entity.
+	 *
+	 */
+	public function setPositionXY(x:Float,y:Float):Void;
 	
 	/**
 	 * Function: getPosition

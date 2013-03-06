@@ -271,6 +271,10 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 		this.position=pos;
 	}
 
+	public function setPositionXY(x:Float,y:Float){
+		this.position.set(x,y);
+	}
+
 	public function getPositionX():Float{
 		return this.getPosition().x;
 	}

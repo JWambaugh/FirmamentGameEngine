@@ -8,6 +8,7 @@ import firmament.component.event.FEventMapperComponent;
 import firmament.component.event.FEventRelayComponent;
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.physics.FNoPhysicsComponent;
+import firmament.component.physics.FParticleComponent;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.component.render.FWireframeRenderComponent;
 import firmament.component.event.FCollisionEventMapperComponent;
@@ -31,6 +32,7 @@ class FEntityComponentFactory{
 		var map = {
 			"box2d":"firmament.component.physics.FBox2DComponent"
 			,"noPhysics":"firmament.component.physics.FNoPhysicsComponent"
+			,"particle":"firmament.component.physics.FParticleComponent"
 			,"wireframe":"firmament.component.render.FWireframeRenderComponent"
 			,"tilesheet":"firmament.component.render.FTilesheetRenderComponent"
 			,"animation":"firmament.component.animation.FAnimationComponent"
