@@ -9,6 +9,7 @@ import nme.geom.Rectangle;
 import nme.Lib;
 import nme.display.Stage;
 import nme.events.Event;
+import nme.events.MouseEvent;
 import firmament.component.render.FWireframeRenderComponent;
 import firmament.util.FConfigHelper;
 /**
@@ -26,16 +27,17 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	public inline static var BEFORE_RENDER_EVENT = "beforeRenderEvent";
 	public inline static var AFTER_RENDER_EVENT = "afterRenderEvent";
 
-	var position:FVector;
-	var topLeftPosition:FVector;
-	var positionBase:String;
-	var angle:Float;
-	var zoom:Float;
-	var displayWidth:Int;
-	var displayHeight:Int;
+	var _position:FVector;
+	var _topLeftPosition:FVector;
+	var _positionBase:String;
+	var _angle:Float;
+	var _zoom:Float;
+	var _displayWidth:Int;
+	var _displayHeight:Int;
 	var _debugRender:Bool;
 	var _debugRenderer:FWireframeRenderComponent;
-	var calculatedTopLeft:Bool;
+	var _calculatedTopLeft:Bool;
+
 
 	/**
 	 * Constructor: new
@@ -47,12 +49,12 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	public function new(?width:Int=100,?height:Int=100) 
 	{
 		super();
-		this.zoom = 100;
-		this.position = new FVector(0, 0);
-		this.calculatedTopLeft = false;
-		this.topLeftPosition = new FVector(0, 0);
-		this.displayHeight = height;
-		this.displayWidth = width;
+		this._zoom = 100;
+		this._position = new FVector(0, 0);
+		this._calculatedTopLeft = false;
+		this._topLeftPosition = new FVector(0, 0);
+		this._displayHeight = height;
+		this._displayWidth = width;
 		_debugRender = false;
 		_debugRenderer = new FWireframeRenderComponent();
 	}
@@ -60,13 +62,13 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 
 	public function init(config:Dynamic){
 		var c= new FConfigHelper(config);
-		var pos = c.getVector('position',{x:0,y:0});
+		var pos = c.getVector('_position',{x:0,y:0});
 		this.x = pos.x;
 		this.y = pos.y;
 
 		var stage = Lib.current.stage;
-		this.displayWidth = c.getNotNull("width",Float,stage.stageWidth);
-		this.displayHeight = c.getNotNull("height",Float,stage.stageHeight);
+		this._displayWidth = c.getNotNull("width",Float,stage.stageWidth);
+		this._displayHeight = c.getNotNull("height",Float,stage.stageHeight);
 		this.calculateTopLeftPosition(1);
 
 	}
@@ -75,17 +77,17 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		this.dispatchEvent(new Event(FCamera.BEFORE_RENDER_EVENT));
 		this.graphics.clear();
 		this.graphics.beginFill(0);
-		this.graphics.drawRect(0, 0, this.displayWidth, this.displayHeight);
+		this.graphics.drawRect(0, 0, this._displayWidth, this._displayHeight);
 		this.graphics.endFill();
 		
-		//this.graphics.drawRect(0,0, this.displayWidth, this.displayHeight);
+		//this.graphics.drawRect(0,0, this._displayWidth, this._displayHeight);
 		var entityList:Array<FEntity> = new Array<FEntity>();
 		var displayPadding = 4; //number of meters to pad in query for entities. Increase this if you have entities popping out at the edges
 		for (world in worlds) {
-			var entities = world.getEntitiesInBox(Math.floor(this.position.x - (this.displayWidth / 2 / this.zoom+displayPadding))
-				,Math.floor(this.position.y - (this.displayHeight / 2 / this.zoom+displayPadding))
-				,Math.floor(this.position.x + this.displayWidth / 2 / this.zoom+displayPadding)
-				,Math.floor(this.position.y + this.displayHeight / 2 / this.zoom+displayPadding));
+			var entities = world.getEntitiesInBox(Math.floor(this._position.x - (this._displayWidth / 2 / this._zoom+displayPadding))
+				,Math.floor(this._position.y - (this._displayHeight / 2 / this._zoom+displayPadding))
+				,Math.floor(this._position.x + this._displayWidth / 2 / this._zoom+displayPadding)
+				,Math.floor(this._position.y + this._displayHeight / 2 / this._zoom+displayPadding));
 			
 			//add entites marked for always rendering
 			entities=entities.concat(world.getAlwaysRenderEntities());
@@ -117,22 +119,22 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 
 	private function calculateTopLeftPosition(?parallax:Float=1) {
 		//trace(this.width);
-		this.topLeftPosition.x=this.position.x-(this.displayWidth/this.zoom/parallax)/2;
-		this.topLeftPosition.y = this.position.y - (this.displayHeight / this.zoom/parallax) / 2;
-		this.calculatedTopLeft = true;
+		this._topLeftPosition.x=this._position.x-(this._displayWidth/this._zoom/parallax)/2;
+		this._topLeftPosition.y = this._position.y - (this._displayHeight / this._zoom/parallax) / 2;
+		this._calculatedTopLeft = true;
 	}
 	
 	public function getTopLeftPosition(?parallax:Float=1) {
 		
 		this.calculateTopLeftPosition(parallax);
 		
-		return this.topLeftPosition;
+		return this._topLeftPosition;
 	}
 	
 	public function getBottomRightPosition(?parallax:Float=1){
 		return new FVector(
-			this.position.x + (this.displayWidth/this.zoom/parallax)/2
-			,this.position.y + (this.displayHeight / this.zoom/parallax) / 2);
+			this._position.x + (this._displayWidth/this._zoom/parallax)/2
+			,this._position.y + (this._displayHeight / this._zoom/parallax) / 2);
 
 	}
 
@@ -144,7 +146,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		 * pos - <FVector>
 	 */
 	public function setPosition(pos:FVector) {
-		this.position = pos;
+		this._position = pos;
 	}
 	
 	/**
@@ -154,7 +156,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		 * <FVector>
 	 */
 	public function getPosition():FVector {
-		return this.position;
+		return this._position;
 	}
 	
 	/**
@@ -164,7 +166,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		 * Float
 	 */
 	public function getPositionX():Float {
-		return this.position.x;
+		return this._position.x;
 	}
 	
 		/**
@@ -174,23 +176,23 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		 * Float
 	 */
 	public function getPositionY():Float {
-		return this.position.y;
+		return this._position.y;
 	}
 	
 	/**
 	 * Function: getZoom
 	 * 
-	 * The zoom is 'pixels per meter'. By default, this value is set to 100, meaning we show 100 pixels for each meter in world space.
+	 * The _zoom is 'pixels per meter'. By default, this value is set to 100, meaning we show 100 pixels for each meter in world space.
 	 * 
 	 * Returns: 
-		 * Float - the camera's current zoom value.
+		 * Float - the camera's current _zoom value.
 	 * 
 	 * 
 	 * See Also: 
 		 * <setZoom>
 	 */
 	public function getZoom():Float {
-		return this.zoom;
+		return this._zoom;
 	}
 	
 	/**
@@ -205,22 +207,22 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		 * <getZoom>
 	 */
 	public function setZoom(z:Float) {
-			this.zoom = z;
+			this._zoom = z;
 	}
 	
 	public function resizeToStage() {
 		var stage = Lib.current.stage;
-		this.displayWidth = stage.stageWidth;
-		this.displayHeight = stage.stageHeight;
-		//this.width = this.displayWidth;
-		//this.height = this.displayHeight;
+		this._displayWidth = stage.stageWidth;
+		this._displayHeight = stage.stageHeight;
+		//this.width = this._displayWidth;
+		//this.height = this._displayHeight;
 		this.calculateTopLeftPosition(1);
 	}
 	
 	public function getWorldPosition(x:Float,y:Float) {
 		return new FVector(
-		(x / this.getZoom()) + (this.getPositionX() - (this.displayWidth / this.getZoom() / 2))
-		,(y / this.getZoom()) + (this.getPositionY() - (this.displayHeight / this.getZoom() / 2)));
+		(x / this.getZoom()) + (this.getPositionX() - (this._displayWidth / this.getZoom() / 2))
+		,(y / this.getZoom()) + (this.getPositionY() - (this._displayHeight / this.getZoom() / 2)));
 
 	}
 
@@ -234,6 +236,17 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	}
 	public function setAngle(a:Float){
 		//noop
+	}
+
+	public function enableClickEvents(){
+		this.addEventListener(nme.events.MouseEvent.CLICK,onClick);
+	}
+
+	private function onClick(e:MouseEvent){
+		var ents = FGame.getInstance().getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
+		for(ent in ents){
+			ent.dispatchEvent(new Event(MouseEvent.CLICK));
+		}
 	}
 	
 }

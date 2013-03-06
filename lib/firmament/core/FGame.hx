@@ -63,7 +63,6 @@ class FGame extends EventDispatcher
 	//Constant: COLLISION_END_CONTACT_EVENT
 	public static inline var COLLISION_END_CONTACT_EVENT = 'endContactCollision';
 	
-	
 
 
 
