@@ -5,7 +5,7 @@
 		version="1.0.0" company="Jordan Wambaugh" />
 		
 	<!-- output -->
-	<window width="800" height="600" fps="60" background="0xFFFFFF" orientation="landscape" resizable="true" hardware="true" />
+	<window width="800" height="600" fps="60" background="0xFFFFFF" orientation="landscape" resizable="true" hardware="true" antialiasing="2" />
 	<set name="BUILD_DIR" value="bin" />
 	
 	<!-- classpath, haxe libs -->

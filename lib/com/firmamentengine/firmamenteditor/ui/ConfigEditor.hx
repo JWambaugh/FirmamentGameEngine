@@ -14,7 +14,6 @@ class ConfigEditor extends FWidget{
 	public function new(){
 		super();
 		_hasChild = false;
-
 	}
 
 	public function setConfig(config:Dynamic){
@@ -32,11 +31,22 @@ class ConfigEditor extends FWidget{
 
 	public function setValue(path:Array<String>, value:Dynamic){
 		var current:ConfigEditorField;
+		var pathString = '/'+path.join('/');
 		current = _root;
 		for(p in path){
-			if(Std.is(current,ConfigEditorStringField)){
-
+			if(current.getPath() == pathString){
+				current.updateValue(value);
+				break;
 			}
+			if(Std.is(current,ConfigEditorObjectField)){
+				for(o in cast(current,ConfigEditorObjectField).getChildren()){
+					if(o.getKey() == p){
+						current = o;
+						break;
+					} 
+				}
+			}
+			throw "Invalid path";
 		}
 	}
 

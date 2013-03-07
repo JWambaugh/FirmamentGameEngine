@@ -56,6 +56,11 @@ class ConfigEditorField extends FWidget{
 		draw();
 	}
 
+	public function updateValue(value:Dynamic){
+		_value = value;
+		draw();
+	}
+
 	private static function getType(value:Dynamic){
 		var type:String=null;
 		if(Std.is(value,String))type = 'string';

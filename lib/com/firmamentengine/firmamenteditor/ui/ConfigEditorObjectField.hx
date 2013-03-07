@@ -50,6 +50,10 @@ class ConfigEditorObjectField extends ConfigEditorField{
 		return ob;
 	}
 
+	public function getChildren(){
+		return _children;
+	}
+
 
 
 
