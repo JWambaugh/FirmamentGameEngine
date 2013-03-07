@@ -238,6 +238,10 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		//noop
 	}
 
+	/**
+	 * Enables click events on this camera. Any entities under the point clicked on will receive a click event.
+	 *
+	 */
 	public function enableClickEvents(){
 		this.addEventListener(nme.events.MouseEvent.CLICK,onClick);
 	}
