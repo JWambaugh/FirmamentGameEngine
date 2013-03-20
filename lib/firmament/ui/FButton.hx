@@ -8,6 +8,9 @@ import nme.Lib;
  * @author Jordan Wambaugh
  */
 
+
+
+
 class FButton extends FWidget
 {
 
@@ -44,6 +47,8 @@ class FButton extends FWidget
 		if (onClick != null) {
 			this.addEventListener(MouseEvent.CLICK, onClick);
 		}
+
+
 	}
 	
 	public function draw(?e:Event) {
@@ -78,6 +83,10 @@ class FButton extends FWidget
 	public function setText(t:String) {
 		this.text.text = t;
 		this.draw();
+	}
+
+	public function getText():String{
+		return this.text.text;
 	}
 	
 }

@@ -63,6 +63,11 @@ class FLayout extends FWidget
 		}
 		return child;
 	}
+	override public function removeChild(child:DisplayObject):DisplayObject{
+		super.removeChild(child);
+		this.layoutChildren();
+		return child;
+	}
 	private function layoutChildrenEvent(e:Event){
 		layoutChildren();
 	}

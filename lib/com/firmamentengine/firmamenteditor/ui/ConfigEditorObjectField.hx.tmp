@@ -39,15 +39,17 @@ class ConfigEditorObjectField extends ConfigEditorField{
 				var minimizeButton:FSmallButton;
 				var ihb = new FHBox();
 
-				var minimizeButton:FSmallButton = new FSmallButton("-",0,0);
-				minimizeButton.addEventListener(MouseEvent.CLICK, function(e:MouseEvent){
+				var minimizeButton:FSmallButton = new FSmallButton("-",0,0,function(e:MouseEvent){
 					trace(ihb);
-					
-					if(minimizeButton.getText() == '-'){
+					var t:Dynamic = e.target;
+					if(Std.is(t,FTextLabel)){
+						t=t.parent;
+					}
+					if(t.getText() == '-'){
 						ihb.removeChild(value);
-						minimizeButton.setText('+');
+						t.setText('+');
 					}else{
-						minimizeButton.setText('-');
+						t.setText('-');
 						ihb.addChild(value);
 					}
 				});

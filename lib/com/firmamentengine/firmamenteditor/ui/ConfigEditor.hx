@@ -26,27 +26,32 @@ class ConfigEditor extends FWidget{
 		this.addChild(_root);
 		_hasChild = true;
 		this.dispatchEvent(new Event(FWidget.RESIZED));
-		trace(this.height);
+		//trace(this.height);
 	}
 
 	public function setValue(path:Array<String>, value:Dynamic){
 		var current:ConfigEditorField;
 		var pathString = '/'+path.join('/');
 		current = _root;
+		var found:Bool=false;
 		for(p in path){
-			if(current.getPath() == pathString){
-				current.updateValue(value);
-				break;
-			}
+			found=false;			
 			if(Std.is(current,ConfigEditorObjectField)){
+				
 				for(o in cast(current,ConfigEditorObjectField).getChildren()){
 					if(o.getKey() == p){
 						current = o;
+						found = true;
 						break;
 					} 
 				}
 			}
-			throw "Invalid path";
+			if(!found)throw "Invalid path? "+ pathString;
+		}
+		if(current.getPath() == pathString){
+			current.updateValue(value);			
+		}else{
+			if(!found)throw "Invalid path? "+ pathString;
 		}
 	}
 

@@ -65,10 +65,14 @@ class EntityWindow extends FWindow
 		
 		
 		var stage = Lib.current.stage;
-		/*stage.addEventListener("entityMove", function(e:Event) {
-			positionXEdit.setValue(selectedEntity.getPositionX());
-			positionYEdit.setValue(selectedEntity.getPositionY());
-		} );*/
+		stage.addEventListener("entityMove", function(e:Event) {
+			try{
+				_configEditor.setValue(['components','physics','position','x'],selectedEntity.getPositionX());
+				_configEditor.setValue(['components','physics','position','y'],selectedEntity.getPositionY());
+			}catch(error:String){
+				trace(error);
+			}
+		} );
 		
 		this.setCanvas(layout);
 	}
