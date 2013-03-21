@@ -11,6 +11,7 @@ import firmament.component.physics.FNoPhysicsComponent;
 import firmament.component.physics.FParticleComponent;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.component.render.FWireframeRenderComponent;
+import firmament.component.render.FLineRenderComponent;
 import firmament.component.event.FCollisionEventMapperComponent;
 import firmament.component.sound.FSoundComponent;
 class FEntityComponentFactory{
@@ -35,6 +36,7 @@ class FEntityComponentFactory{
 			,"particle":"firmament.component.physics.FParticleComponent"
 			,"wireframe":"firmament.component.render.FWireframeRenderComponent"
 			,"tilesheet":"firmament.component.render.FTilesheetRenderComponent"
+			,"line":"firmament.component.render.FLineRenderComponent"
 			,"animation":"firmament.component.animation.FAnimationComponent"
 			,"eventMapper":"firmament.component.event.FEventMapperComponent"
 			,"entityEmitter":"firmament.component.event.FEntityEmitterComponent"
