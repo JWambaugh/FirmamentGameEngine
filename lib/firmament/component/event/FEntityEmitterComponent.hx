@@ -6,7 +6,7 @@ import firmament.util.FEntityUtils;
 import firmament.util.FConfigHelper;
 import firmament.core.FEntityFactory;
 import firmament.core.FEntity;
-
+import firmament.event.FEntityEvent;
 /*
 	Class: FEntityEmitterComponent
 	emits the specified entities when an event is fired.
@@ -33,10 +33,15 @@ class FEntityEmitterComponent extends FEntityComponent{
 						}else{
 							angle=ec.get("angleOffset",Float);
 						}
-							
-
 						
-						FEntityUtils.emitEntity(_entity
+						var originEntity = _entity;
+						
+						//if event received is an entity event, use that entity as the origin instead
+						if(Std.is(e,FEntityEvent)){
+							originEntity = cast(e,FEntityEvent).getEntity();
+						}
+						
+						FEntityUtils.emitEntity(originEntity
 							,ent
 							,ec.get("speed",Float)
 							,angle
