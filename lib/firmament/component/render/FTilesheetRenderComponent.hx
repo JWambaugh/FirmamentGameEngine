@@ -106,7 +106,6 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 	}
 
 	public function render(camera:FCamera):Void {
-		var TILE_FIELDS = 6; // x+y+index+scale+rotation+alpha
 		
 		//make sure we are currently active 
 		if(!_entity.isActive())return;
@@ -127,13 +126,12 @@ class FTilesheetRenderComponent extends FEntityComponent ,implements FRenderComp
 		var nx = ((pos.x - cameraPos.x) *_parallax * camera.getZoom());
 		var ny = ((pos.y - cameraPos.y) *_parallax * camera.getZoom());
 		
-		var index =0;
-		drawList[index] = nx;
-		drawList[index + 1] = ny;
-		drawList[index + 2] = this._tile; // sprite index
-		drawList[index + 3] = ratio;
-		drawList[index + 4] = -physicsComponent.getAngle();
-		drawList[index + 5] = 1;
+		drawList[0] = nx;
+		drawList[1] = ny;
+		drawList[2] = this._tile; // sprite index
+		drawList[3] = ratio;
+		drawList[4] = -physicsComponent.getAngle();
+		drawList[5] = 1;
 		
 		FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList);
 	}

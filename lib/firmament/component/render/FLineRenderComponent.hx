@@ -72,7 +72,7 @@ class FLineRenderComponent extends FEntityComponent ,implements FRenderComponent
 
 		setPoints(
 			new FVector(0,0)
-			,new FVector(3,3)
+			,new FVector(0,-10)
 			);
 	}
 	

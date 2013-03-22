@@ -102,13 +102,32 @@ class FBox2DWorld extends FWorld
 		return selectEntities;
 	}
 	
-	public function getEntitiesRay(a:FVector, b:FVector) {
+	public function getEntitiesRay(a:FVector, b:FVector,mask:Int=0xFFFF) {
 		var ents:Array<FEntity>=new Array<FEntity>();
 		this.rayCast(a, b, function(fixture:B2Fixture , a, b, fraction) {
-			FDialog.alert('here');
-			ents.push(fixture.m_body.getUserData());
+			//FDialog.alert('here');
+			if(fixture.m_filter.categoryBits & mask>0)
+			ents.push(cast(fixture.getBody().getUserData(),FBox2DComponent).getEntity());
 			return fraction;
 		} );
+		return ents;
+	}
+
+	public function getEntitiesRaySorted(a:FVector, b:FVector,mask:Int=0xFFFF) {
+		var ents:Array<FEntity>=new Array<FEntity>();
+		this.rayCast(a, b, function(fixture:B2Fixture , a, b, fraction) {
+			//FDialog.alert('here');
+			if(fixture.m_filter.categoryBits & mask >0)
+			ents.push(cast(fixture.getBody().getUserData(),FBox2DComponent).getEntity());
+			return fraction;
+		} );
+		ents.sort(function(x,y):Int{
+			var xd = x.getPhysicsComponent().getPosition().distanceTo(a);
+			var yd = y.getPhysicsComponent().getPosition().distanceTo(a);
+			if(xd==yd) return 0;
+			if(xd<yd) return -1;
+			return 1;
+		});
 		return ents;
 	}
 	
