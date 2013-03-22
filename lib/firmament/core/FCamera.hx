@@ -104,8 +104,11 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 			return -1;
 		});
 		for (ent in entityList) {
-			var rc = ent.getRenderComponent();
-			if(rc!=null) rc.render(this);
+			var components = ent.getComponent("render");
+			if(components!=null)
+			for (component in components){
+				cast(component,FRenderComponentInterface).render(this);
+			}
 		}
 		this.dispatchEvent(new Event(FCamera.AFTER_RENDER_EVENT));
 		if(_debugRender){

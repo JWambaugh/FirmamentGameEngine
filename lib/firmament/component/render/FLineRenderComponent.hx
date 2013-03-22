@@ -140,7 +140,7 @@ class FLineRenderComponent extends FEntityComponent ,implements FRenderComponent
 		var stepNum = Math.floor(_distanceBetween/stepDistance);
 		var pos = start;
 		var multiplier = _parallax * camera.getZoom();
-		trace(stepNum);
+		//trace(stepNum);
 		for(x in 0 ... stepNum){
 			
 			if(x>0)pos = pos.getPointAtAngle(_angle,stepDistance);

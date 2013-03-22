@@ -12,6 +12,7 @@ import firmament.component.physics.FParticleComponent;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.component.render.FWireframeRenderComponent;
 import firmament.component.render.FLineRenderComponent;
+
 import firmament.component.event.FCollisionEventMapperComponent;
 import firmament.component.sound.FSoundComponent;
 class FEntityComponentFactory{

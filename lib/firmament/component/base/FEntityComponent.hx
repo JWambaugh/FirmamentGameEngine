@@ -29,12 +29,12 @@ class FEntityComponent extends EventDispatcher
 	}
 	
 	public function init(config:Dynamic):Void {
-		throw "This needs to be overridden in a subclass.";
+		throw "This needs to be overwritten in a subclass.";
 	}
 	
 
 	public function getType():String {
-		throw "this needs to be overridden in a subclass.";
+		throw "this needs to be overwritten in a subclass.";
 		return "";
 	}
 	
