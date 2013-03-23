@@ -98,5 +98,31 @@ class FMisc
 		}}));
 	}
 
+	/**
+	 *	sets the value at the specified path to the specified value
+	 */
+	public static function setObjectValue(path:String,obj:Dynamic,value:Dynamic){
+		var steps:Array<String> = path.split('/');
+		var currentPos = obj;
+		var x=0;
+
+		for(step in steps){
+			if(x++ == steps.length -1){
+				Reflect.setField(currentPos,step,value);
+				break;
+			}
+			if(step=='')continue;
+			
+			var n:Dynamic  = Reflect.field(currentPos,step);
+			if(n!=null){
+				currentPos = n;
+				continue;
+			}else{
+				Reflect.setField(currentPos,step,{});
+				currentPos = Reflect.field(currentPos,step);
+			}
+		}
+	}
+
 	
 }

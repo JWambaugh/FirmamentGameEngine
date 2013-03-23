@@ -15,7 +15,7 @@ import nme.events.Event;
 import nme.Lib;
 import  com.firmamentengine.firmamenteditor.ui.ConfigEditor;
 import  com.firmamentengine.firmamenteditor.ui.ConfigEditorFieldEvent;
-
+import firmament.util.FMisc;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -53,10 +53,19 @@ class EntityWindow extends FWindow
 				this.selectedEntity.setAngle(rotationEdit.getValue()*0.0174532925);
 		} );
 		*/
-		_configEditor.addEventListener(ConfigEditorFieldEvent.FIELD_CHANGED_PREFIX+'/components/physics/position/y', function(e:ConfigEditorFieldEvent) { 
-			if(this.selectedEntity!=null)
-				this.selectedEntity.setPosition(new FVector(e.getValue(), this.selectedEntity.getPositionY()));
+		_configEditor.addEventListener(ConfigEditorFieldEvent.FIELD_CHANGED, function(e:ConfigEditorFieldEvent) { 
+			if(this.selectedEntity!=null){
+				if(e.getPath() == '/components/physics/position/y'){
+					this.selectedEntity.setPosition(new FVector(this.selectedEntity.getPositionY(),e.getValue()));
+				}
+				else if(e.getPath() == '/components/physics/position/x'){
+					this.selectedEntity.setPosition(new FVector( this.selectedEntity.getPositionX(),e.getValue()));
+				}else{
+					FMisc.setObjectValue(e.getPath(),this.selectedEntity._modifications,e.getValue());
+				}
+			}
 		} );
+		
 		/*
 		positionYEdit.addEventListener(FFloatEntry.VALUE_CHANGED, function(e:Event) { 
 			if(this.selectedEntity!=null)
@@ -95,6 +104,8 @@ class EntityWindow extends FWindow
 		this.selectedEntity = null;
 		
 	}
+
+
 	
 	
 }

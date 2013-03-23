@@ -5,6 +5,7 @@ import firmament.component.base.FEntityComponentFactory;
 import firmament.ui.FDialog;
 import nme.Assets;
 import firmament.component.render.FTilesheetRenderComponent;
+import firmament.util.FMisc;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -15,9 +16,10 @@ class FEditorEntity extends FEntity
 
 	var originalSprite:Dynamic;
 	var fileName:String;
+	public var _modifications:Dynamic;
 	public function new(config:Dynamic) 
 	{
-
+		_modifications = {};
 		//filter out any custom components
 		for(key in Reflect.fields(config.components)){
 			if(key!='animation' && key!='render' && key!='physics'){
@@ -62,13 +64,15 @@ class FEditorEntity extends FEntity
 	public function setFileName(n:String) {
 		this.fileName = n;
 	}
+
 	public function getFileName() {
 		return this.fileName;
 	}
+
 	public function getMapConfig():Dynamic {
 		var p = this.getPhysicsComponent();
 
-		return { 
+		var base = { 
 			entityFile:this.fileName
 			,config: {
 				components:{
@@ -79,6 +83,9 @@ class FEditorEntity extends FEntity
 					}
 				}
 			};
+		FMisc.mergeInto(_modifications,base.config);
+		base.config.components.physics.position={x:p.getPositionX(),y:getPositionY()};
+		return base;
 		
 	}
 	
