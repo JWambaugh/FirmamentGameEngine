@@ -6,6 +6,7 @@ import firmament.ui.FDialog;
 import nme.Assets;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.util.FMisc;
+import firmament.core.FGame;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -17,7 +18,7 @@ class FEditorEntity extends FEntity
 	var originalSprite:Dynamic;
 	var fileName:String;
 	public var _modifications:Dynamic;
-	public function new(config:Dynamic) 
+	public function new(config:Dynamic,?gameInstanceName:String="main") 
 	{
 		_modifications = {};
 		//filter out any custom components
@@ -56,7 +57,7 @@ class FEditorEntity extends FEntity
 		}
 
 
-		super(config);
+		super(config,gameInstanceName);
 		
 		
 	}
