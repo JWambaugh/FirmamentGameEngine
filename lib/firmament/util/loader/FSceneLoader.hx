@@ -10,12 +10,12 @@ import nme.events.Event;
 import firmament.sound.FSoundManager;
 
 class FSceneLoader {
-	public static function loadScene(scene:Dynamic){
+	public static function loadScene(scene:Dynamic,?gameInstanceName:String='main'){
 		if(Std.is(scene,String)){
 			scene = FDataLoader.loadData(scene);
 		}
 
-		var game = FGame.getInstance();
+		var game = FGame.getInstance(gameInstanceName);
 		var stage = Lib.current.stage;
 		var sceneHelper = new FConfigHelper(scene);
 		//clear any previous scene
@@ -79,7 +79,7 @@ class FSceneLoader {
 		//load map
 		if(Std.is(scene.map,String)){
 			
-			loader.loadMap(scene.map);
+			loader.loadMap(scene.map,null,gameInstanceName);
 		}
 
 

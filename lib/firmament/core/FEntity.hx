@@ -12,6 +12,7 @@ import nme.geom.Point;
 import nme.geom.Rectangle;
 import firmament.util.FMisc;
 import nme.Assets;
+import firmament.core.FGame;
  
  /**
   * Core entity class for all entities/actors in the game.
@@ -34,6 +35,8 @@ class FEntity extends nme.events.EventDispatcher
 	var _typeId:String;
 	var _listeners : Hash<Dynamic>; 
 	var _tags:Array<String>;
+	var _gameInstance:FGame;
+
 
 
 	/**
@@ -42,7 +45,7 @@ class FEntity extends nme.events.EventDispatcher
 	 * 	imageScale - [Float] The initial scale value for the sprite.
 	 * 	sprite  - [BitmapData] The image to use as a sprite for this entity
 	 */
-	public function new(config:Dynamic) 
+	public function new(config:Dynamic,?gameInstanceName='main') 
 	{
 		super();
 		if(config == null) config ={};
@@ -62,6 +65,7 @@ class FEntity extends nme.events.EventDispatcher
 		}else{
 			_tags = new Array<String>();
 		}
+		_gameInstance = FGame.getInstance(gameInstanceName);
 
 	}
 
@@ -195,6 +199,9 @@ class FEntity extends nme.events.EventDispatcher
 			if(t == tag) return true;
 		}
 		return false;
+	}
+	public function getGameInstance():FGame{
+		return _gameInstance;
 	}
 	
 }

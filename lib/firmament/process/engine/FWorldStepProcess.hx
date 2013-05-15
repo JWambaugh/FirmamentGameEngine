@@ -6,13 +6,15 @@ import firmament.core.FGame;
 class FWorldStepProcess extends FProcess {
 
 	private var world:FWorld;
-	public function new(world:FWorld){
+	private var game:FGame;
+	public function new(world:FWorld,game:FGame){
 		this.world = world;
+		this.game = game;
 		super();
 	}
 
 	override public function step(){
-		if(FGame.getInstance().enableSimulation){
+		if(game.enableSimulation){
 			this.world.step();
 		}
 	}

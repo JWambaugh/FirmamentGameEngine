@@ -46,7 +46,7 @@ class FEntityLoader extends EventDispatcher
 	/**
 	 * Function: loadEntity
 	 */
-	public function loadEntity(fileName:String, config:Dynamic,?overrideClass=null):FEntity {
+	public function loadEntity(fileName:String, config:Dynamic,?overrideClass=null,?gameInstanceName:String='main'):FEntity {
 		var data = FDataLoader.loadData(fileName);
 		FMisc.mergeInto(config,data);
 		
@@ -61,7 +61,7 @@ class FEntityLoader extends EventDispatcher
 			data.typeId = fileName;
 		}
 		
-		ent = FEntityFactory.createEntity(data);
+		ent = FEntityFactory.createEntity(data,gameInstanceName);
 		this.dispatchEvent(new FEntityLoadEvent(ENTITY_LOADED,ent));
 		return ent;
 		
@@ -73,7 +73,7 @@ class FEntityLoader extends EventDispatcher
 	 * 
 	 * 
 	 **/
-	public function loadMap(fileName:String, ?overrideClass=null) {
+	public function loadMap(fileName:String, ?overrideClass=null,?gameInstanceName:String='main') {
 		var data = FDataLoader.loadData(fileName);
 		
 		
@@ -92,15 +92,15 @@ class FEntityLoader extends EventDispatcher
 					config = { };
 				}
 				
-				loadEntity(ent.entityFile, config,overrideClass);
+				loadEntity(ent.entityFile, config,overrideClass, gameInstanceName);
 		}
 	}
 	
 
-	public function loadPool(fileName,?preAllocate=0){
+	public function loadPool(fileName,?preAllocate=0,?gameInstanceName:String='main'){
 		var data = FDataLoader.loadData(fileName);
 		var pool = new FEntityPool(data,preAllocate);
-		FGame.getInstance().getPoolManager().addPool(pool);
+		FGame.getInstance(gameInstanceName).getPoolManager().addPool(pool);
 		return pool;
 	}
 }

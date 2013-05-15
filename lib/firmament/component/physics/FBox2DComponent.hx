@@ -45,13 +45,14 @@ class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInte
 	public function new() 
 	{
 		super();
-		this.world = FGame.getInstance().getWorld("box2d");
+		
 		this.position = new FVector(0,0);
 		zPosition = 0;
 		_parentEntity = null;
 	}
 	
 	override public function init(config:Dynamic):Void {
+		this.world = _entity.getGameInstance().getWorld("box2d");
 		registerEventHandlers();
 		var def:B2BodyDef = new B2BodyDef();
 		var fixtureDef:B2FixtureDef = new B2FixtureDef();

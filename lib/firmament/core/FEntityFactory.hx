@@ -8,7 +8,7 @@ import nme.events.Event;
 
 class FEntityFactory{
 
-	public static function createEntity(config:Dynamic):FEntity{
+	public static function createEntity(config:Dynamic,?gameInstanceName:String='main'):FEntity{
 		var entity:FEntity;
 
 		//if config is a string, assume it's a file name to be loaded.
@@ -18,7 +18,7 @@ class FEntityFactory{
 			//if string starts with "pool:" then get the entity from the specified pool
 			if(str.indexOf("pool:") == 0){
 				str = str.substr(5);
-				return FGame.getInstance().getPoolManager().getPool(str).getEntity();
+				return FGame.getInstance(gameInstanceName).getPoolManager().getPool(str).getEntity();
 			}
 			config = FDataLoader.loadData(str);
 		}
@@ -28,9 +28,9 @@ class FEntityFactory{
 			if(c==null){
 				throw "class "+config.className+" could not be found. Did you remember to include the whole package name?";
 			}
-			entity = Type.createInstance(c,[config]);
+			entity = Type.createInstance(c,[config,gameInstanceName]);
 		} else {
-			entity = new FEntity(config);
+			entity = new FEntity(config,gameInstanceName);
 		}
 		applyComponents(entity,config);
 		initComponents(entity,config);

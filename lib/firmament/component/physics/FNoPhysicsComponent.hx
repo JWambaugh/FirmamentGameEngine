@@ -42,7 +42,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	public function new() 
 	{
 		super();
-		this.world = cast(FGame.getInstance().getWorld("noPhysics"),FNoPhysicsWorld);
+		
 		this.position = new FVector(0,0);
 		_isSleeping = false;
 		_isActive = true;
@@ -52,6 +52,7 @@ class FNoPhysicsComponent extends FEntityComponent, implements FPhysicsComponent
 	}
 	
 	override public function init(config:Dynamic):Void {
+		this.world = cast(_entity.getGameInstance().getWorld("noPhysics"),FNoPhysicsWorld);
 		registerEventHandlers();
 		
 		

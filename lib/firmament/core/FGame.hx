@@ -42,7 +42,7 @@ class FGame extends EventDispatcher
 	var cameras:Hash<FCamera>;
 	var worldHash:Hash<FWorld>; 
 	public var enableSimulation:Bool;
-	var _processManager:FProcessManager;
+	var _gameProcessManager:FProcessManager;
 	var _renderProcessManager:FProcessManager;
 
 	var _mainInput:FInput;
@@ -94,14 +94,14 @@ class FGame extends EventDispatcher
 		worldHash = new Hash<FWorld>();
 		cameras = new Hash<FCamera>();
 		var stage = Lib.current.stage;
-		this._processManager = new FProcessManager();
+		this._gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
 		stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
 		
 		_mainInput = new FInput(stage);
 		_poolManager = new FEntityPoolManager();
 		_gameTimerManager = new FTimerManager();
-		this._processManager.addProcess(_gameTimerManager);
+		this._gameProcessManager.addProcess(_gameTimerManager);
 		/*var timer = new Timer(33);
 		timer.addEventListener(TimerEvent.TIMER, this_step);
 		timer.start();
@@ -151,8 +151,8 @@ class FGame extends EventDispatcher
 		worldHash.set(type, w);
 
 		//set up process for it
-		var p = new FWorldStepProcess(w);
-		this._processManager.addProcess(p);
+		var p = new FWorldStepProcess(w,this);
+		this._gameProcessManager.addProcess(p);
 
 		return w;
 	}
@@ -239,7 +239,7 @@ class FGame extends EventDispatcher
 	 * Function: getProcessManager
 	 */
 	public function getProcessManager():FProcessManager {
-		return this._processManager;
+		return this._gameProcessManager;
 	}
 
 	/**
@@ -258,7 +258,7 @@ class FGame extends EventDispatcher
 	 *  p - Process object
 	 */
 	public function addProcess(?type:String,p:FProcess):Void {
-		this._processManager.addProcess(p);
+		this._gameProcessManager.addProcess(p);
 	}
 
 	/**
@@ -272,7 +272,7 @@ class FGame extends EventDispatcher
 	 */
 	public function addCamera(name:String,c:FCamera):Void {
 		this.cameras.set(name,c);
-		this._renderProcessManager.addProcess(new FCameraRenderProcess(c));
+		this._renderProcessManager.addProcess(new FCameraRenderProcess(c,this));
 	}
 
 
@@ -299,10 +299,10 @@ class FGame extends EventDispatcher
 	
 	private function doStep():Void {
 		this.dispatchEvent(new Event(FGame.BEFORE_STEP));
-		this._processManager.step();
+		this._gameProcessManager.step();
 		this.dispatchEvent(new Event(FGame.AFTER_STEP));
 		this._renderProcessManager.step();
-		//trace('Simulation: '+_processManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
+		//trace('Simulation: '+_gameProcessManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
 	}
 
 
@@ -338,10 +338,10 @@ class FGame extends EventDispatcher
 	*/
 	public function clearAll(){
 		clearWorlds();
-		_processManager = new FProcessManager();
+		_gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
 		cameras = new Hash();
-		this._processManager.addProcess(_gameTimerManager);
+		this._gameProcessManager.addProcess(_gameTimerManager);
 	}
 
 	/**
