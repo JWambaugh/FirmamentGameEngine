@@ -62,6 +62,7 @@ class FTimerManager extends FProcess {
 		timerCell = _timers.getLowestCell();
 		while(timerCell!=null){
 			timerCell.getValue().pause();
+			timerCell = timerCell.getNext();
 		}
 	}
 
@@ -73,6 +74,7 @@ class FTimerManager extends FProcess {
 		timerCell = _timers.getLowestCell();
 		while(timerCell!=null){
 			timerCell.getValue().unPause();
+			timerCell = timerCell.getNext();
 		}
 	}
 

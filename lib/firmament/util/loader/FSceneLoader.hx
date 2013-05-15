@@ -34,7 +34,7 @@ class FSceneLoader {
 				stage.addChild(camera);
 			}
 		}else{
-			var camera = new FCamera();
+			var camera = new FCamera(100,100,gameInstanceName);
 			camera.init({});
 			game.addCamera("main",camera);
 			stage.addChild(camera);

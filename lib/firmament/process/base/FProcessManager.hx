@@ -110,6 +110,10 @@ class FProcessManager extends nme.events.EventDispatcher
 
 	}
 
+	public function isPaused():Bool{
+		return _paused;
+	}
+
 	public function destruct(){
 		_processQueue = null;
 	}

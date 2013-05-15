@@ -1,10 +1,9 @@
 
-package firmament.component.sound;
+package firmament.component.ui;
 
 import firmament.component.base.FEntityComponent;
-import firmament.sound.FSoundManager;
+
 import nme.events.Event;
-import nme.media.SoundTransform;
 
 
 
@@ -20,7 +19,7 @@ import nme.media.SoundTransform;
  *			}
  *		}
  */
-class FSoundComponent extends FEntityComponent  {
+class FButtonComponent extends FEntityComponent  {
 	var _events:Dynamic;
 	public function new(){
 		super();
@@ -36,20 +35,9 @@ class FSoundComponent extends FEntityComponent  {
 
 		for(event in Reflect.fields(_events)){
 			addEventListenerToEntity(event,function(e:Event){
-				var eventConfig = Reflect.field(_events,event);
-				var sound = FSoundManager.getSound(Reflect.field(eventConfig,"fileName"));
-				
-				if(sound!=null){
-					var volume = FSoundManager.getEffectiveSoundVolume();
-					var soundChannel = sound.play();
-					if(Std.is(eventConfig.volume,Float)){
-						volume*=eventConfig.volume;
-					}
-					var transform = new SoundTransform(volume);
-					soundChannel.soundTransform = transform;
-				}
-				else{
-					trace("Can't find sound "+Reflect.field(_events,event));
+				var eventValue = Reflect.field(_events,event);
+				if(Std.is(eventValue,String)){
+					_entity.dispatchEvent(new Event(eventValue));
 				}
 
 			});
@@ -57,6 +45,6 @@ class FSoundComponent extends FEntityComponent  {
 	}
 
 	override public function getType(){
-		return "sound";
+		return "button";
 	}	
 }

@@ -12,6 +12,7 @@ import nme.events.Event;
 import nme.events.MouseEvent;
 import firmament.component.render.FWireframeRenderComponent;
 import firmament.util.FConfigHelper;
+import firmament.core.FGame;
 /**
  * Class: FCamera
  * 
@@ -37,6 +38,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	var _debugRender:Bool;
 	var _debugRenderer:FWireframeRenderComponent;
 	var _calculatedTopLeft:Bool;
+	var _game:FGame;
 
 
 	/**
@@ -46,7 +48,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		 * width - Int The width of the camera
 		 * height - Int The height of the camera
 	 */
-	public function new(?width:Int=100,?height:Int=100) 
+	public function new(?width:Int=100,?height:Int=100,?gameInstanceName='main') 
 	{
 		super();
 		this._zoom = 100;
@@ -57,6 +59,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 		this._displayWidth = width;
 		_debugRender = false;
 		_debugRenderer = new FWireframeRenderComponent();
+		_game = FGame.getInstance(gameInstanceName);
 	}
 
 
@@ -250,7 +253,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 	}
 
 	private function onClick(e:MouseEvent){
-		var ents = FGame.getInstance().getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
+		var ents = _game.getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
 		for(ent in ents){
 			ent.dispatchEvent(new Event(MouseEvent.CLICK));
 		}

@@ -298,9 +298,11 @@ class FGame extends EventDispatcher
 	
 	
 	private function doStep():Void {
-		this.dispatchEvent(new Event(FGame.BEFORE_STEP));
-		this._gameProcessManager.step();
-		this.dispatchEvent(new Event(FGame.AFTER_STEP));
+		if(!_gameProcessManager.isPaused()){ //don't fire step events if we are paused.
+			this.dispatchEvent(new Event(FGame.BEFORE_STEP));
+			this._gameProcessManager.step();
+			this.dispatchEvent(new Event(FGame.AFTER_STEP));
+		}
 		this._renderProcessManager.step();
 		//trace('Simulation: '+_gameProcessManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
 	}

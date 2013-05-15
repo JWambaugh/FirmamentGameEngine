@@ -15,6 +15,8 @@ import firmament.component.render.FLineRenderComponent;
 
 import firmament.component.event.FCollisionEventMapperComponent;
 import firmament.component.sound.FSoundComponent;
+import firmament.component.ui.FButtonComponent;
+
 class FEntityComponentFactory{
 	public static function createComponent(type:String,?componentKey:String=''):FEntityComponent {
 		var className = getClassFromType(type);
@@ -44,6 +46,7 @@ class FEntityComponentFactory{
 			,"eventRelay":"firmament.component.event.FEventRelayComponent"
 			,"collisionEventMapper":"firmament.component.event.FCollisionEventMapperComponent"
 			,"sound":"firmament.component.sound.FSoundComponent"
+			,"button":"firmament.component.ui.FButtonComponent"
 		};
 
 		var cls = Reflect.field(map,type);
