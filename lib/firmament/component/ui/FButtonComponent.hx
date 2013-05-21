@@ -8,16 +8,7 @@ import nme.events.Event;
 
 
 /**
- * Plays a sound when event(s) are fired on the entity.
- * Example usage:
- * ,sound:{
- *			componentName:"sound"
- *			,events:{
- *				destroyed:{
- *					fileName:"assets/sounds/SciFiMediumExplosion.wav" //This sound is played when the 'destroyed' event is fired on the entity
- *				}
- *			}
- *		}
+ * s
  */
 class FButtonComponent extends FEntityComponent  {
 	var _events:Dynamic;
