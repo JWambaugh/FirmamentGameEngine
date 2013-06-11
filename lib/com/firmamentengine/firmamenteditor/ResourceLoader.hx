@@ -13,6 +13,7 @@ import nme.display.Bitmap;
 /**
  * ...
  * @author Jordan Wambaugh
+ * This is deprecated. Use BitmapData.load() instead.
  */
 
 class ResourceLoader 

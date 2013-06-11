@@ -20,4 +20,5 @@ cp -r assets ../haxelib/firmament/
 cd ..
 cd haxelib
 zip -r firmament.zip firmament
+haxelib test firmament.zip
 cd ..

@@ -89,8 +89,9 @@ class FTilesheetManager {
 			bitmap = nme.Assets.getBitmapData(image);
 			
 			#if(cpp||neko)
-			if(bitmap==null)
-				bitmap = ResourceLoader.loadImage(image);
+			if(bitmap==null){
+				bitmap = BitmapData.load(image);
+			}
 			#end
 		}
 		else if(Std.is(image,BitmapData)){
