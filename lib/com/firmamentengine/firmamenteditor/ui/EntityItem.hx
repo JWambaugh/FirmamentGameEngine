@@ -53,7 +53,6 @@ class EntityItem extends Sprite
 		var entName = fileName.split(".")[0];
 		layout = new FVBox();
 		this.dragging = false;
-		trace(fileName);
 		var tempEntity:FEntity = new FEntity(config);
 		if(config == null || config.components == null){
 			throw "invalid entity config";

@@ -29,6 +29,7 @@ import nme.events.Event;
 import nme.events.MouseEvent;
 import nme.Lib;
 import nme.text.Font;
+import nme.net.SharedObject;
 
 /**
  * ...
@@ -46,6 +47,7 @@ class FirmamentEditor
 	public static var toolBar:ToolBar;
 	public static var entityWindow:EntityWindow;
 
+	public static var settings:SharedObject;
 	public static var dragEnt:FEntity;
 	public static var cwd:String;
 	public static var dragOffset:FVector;
@@ -56,6 +58,7 @@ class FirmamentEditor
 		#elseif flash
 		haxe.Log.trace = function(v,?pos) { flash.Lib.trace(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"): "+v); }
 		#end
+
 
 		var executableDir:String = Sys.executablePath();
 
@@ -90,6 +93,10 @@ class FirmamentEditor
 			,fontHeightAdd:5
 					
 		});
+
+		//load settings
+		settings = SharedObject.getLocal('FirmamentEditorSettings');
+
 	   	
 		var stage = Lib.current.stage;
 		stage.align = StageAlign.TOP_LEFT;
@@ -104,22 +111,38 @@ class FirmamentEditor
 		stage.addChild(camera);
 		
 		toolBar = new ToolBar();
+		if(Reflect.isObject(settings.data.windowPositions) && Reflect.isObject(settings.data.windowPositions.toolBar)){
+			toolBar.x = settings.data.windowPositions.toolBar.x;
+			toolBar.y = settings.data.windowPositions.toolBar.y;
+		}
 		stage.addChild(toolBar);
 	  
 	    
 		projectEditor = new ProjectSettings();
 		projectEditor.y = 60;
+		if(Reflect.isObject(settings.data.windowPositions) && Reflect.isObject(settings.data.windowPositions.projectEditor)){
+			projectEditor.x = settings.data.windowPositions.projectEditor.x;
+			projectEditor.y = settings.data.windowPositions.projectEditor.y;
+		}
 		stage.addChild(projectEditor);
 		
 		
 		entityWindow = new EntityWindow();
 		entityWindow.x = 650;
+		if(Reflect.isObject(settings.data.windowPositions)){
+			entityWindow.x = settings.data.windowPositions.entityWindow.x;
+			entityWindow.y = settings.data.windowPositions.entityWindow.y;
+		}
 		stage.addChild(entityWindow);
 		
 		projectEditor.addEventListener(ProjectSettings.PROJECT_READY, function(e:Event) {
 			if(entitySelector == null){
 				entitySelector = new EntitySelector(projectEditor.getEntityDir());
 				entitySelector.y = 350;
+				if(Reflect.isObject(settings.data.windowPositions) && Reflect.isObject(settings.data.windowPositions.entitySelector)){
+					entitySelector.x = settings.data.windowPositions.entitySelector.x;
+					entitySelector.y = settings.data.windowPositions.entitySelector.y;
+				}
 				stage.addChild(entitySelector);
 			}
 		});
@@ -201,8 +224,32 @@ class FirmamentEditor
 			
 		} );
 
-		
+		//executed on close.
+		stage.onQuit=function():Void{
+			
 
+			var windowPositions:Dynamic={};
+			
+			windowPositions.entityWindow={};
+			windowPositions.entityWindow.x=entityWindow.x;
+			windowPositions.entityWindow.y=entityWindow.y;
+
+			windowPositions.projectEditor={};
+			windowPositions.projectEditor.x=projectEditor.x;
+			windowPositions.projectEditor.y=projectEditor.y;
+
+			windowPositions.toolBar={};
+			windowPositions.toolBar.x=toolBar.x;
+			windowPositions.toolBar.y=toolBar.y;
+
+			windowPositions.entitySelector={};
+			windowPositions.entitySelector.x=entitySelector.x;
+			windowPositions.entitySelector.y=entitySelector.y;
+
+			settings.data.windowPositions = windowPositions;
+			settings.flush();
+			Lib.close();
+		};
 
 		Sys.setCwd(cwd);
 		//FDialog.prompt("Howdy! please put somthing in here.", function(s) { } ,"Please enter your name","jordan");
