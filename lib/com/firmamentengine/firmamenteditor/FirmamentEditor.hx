@@ -114,6 +114,8 @@ class FirmamentEditor
 		if(Reflect.isObject(settings.data.windowPositions) && Reflect.isObject(settings.data.windowPositions.toolBar)){
 			toolBar.x = settings.data.windowPositions.toolBar.x;
 			toolBar.y = settings.data.windowPositions.toolBar.y;
+			if(settings.data.windowPositions.toolBar.expanded)toolBar.expand();
+			else toolBar.collapse();
 		}
 		stage.addChild(toolBar);
 	  
@@ -123,6 +125,8 @@ class FirmamentEditor
 		if(Reflect.isObject(settings.data.windowPositions) && Reflect.isObject(settings.data.windowPositions.projectEditor)){
 			projectEditor.x = settings.data.windowPositions.projectEditor.x;
 			projectEditor.y = settings.data.windowPositions.projectEditor.y;
+			if(settings.data.windowPositions.projectEditor.expanded)projectEditor.expand();
+			else projectEditor.collapse();
 		}
 		stage.addChild(projectEditor);
 		
@@ -132,6 +136,8 @@ class FirmamentEditor
 		if(Reflect.isObject(settings.data.windowPositions)){
 			entityWindow.x = settings.data.windowPositions.entityWindow.x;
 			entityWindow.y = settings.data.windowPositions.entityWindow.y;
+			if(settings.data.windowPositions.entityWindow.expanded)entityWindow.expand();
+			else entityWindow.collapse();
 		}
 		stage.addChild(entityWindow);
 		
@@ -142,6 +148,8 @@ class FirmamentEditor
 				if(Reflect.isObject(settings.data.windowPositions) && Reflect.isObject(settings.data.windowPositions.entitySelector)){
 					entitySelector.x = settings.data.windowPositions.entitySelector.x;
 					entitySelector.y = settings.data.windowPositions.entitySelector.y;
+					if(settings.data.windowPositions.entitySelector.expanded)entitySelector.expand();
+					else entitySelector.collapse();
 				}
 				stage.addChild(entitySelector);
 			}
@@ -233,18 +241,22 @@ class FirmamentEditor
 			windowPositions.entityWindow={};
 			windowPositions.entityWindow.x=entityWindow.x;
 			windowPositions.entityWindow.y=entityWindow.y;
+			windowPositions.entityWindow.expanded=entityWindow.isExpanded();
 
 			windowPositions.projectEditor={};
 			windowPositions.projectEditor.x=projectEditor.x;
 			windowPositions.projectEditor.y=projectEditor.y;
+			windowPositions.projectEditor.expanded=projectEditor.isExpanded();
 
 			windowPositions.toolBar={};
 			windowPositions.toolBar.x=toolBar.x;
 			windowPositions.toolBar.y=toolBar.y;
+			windowPositions.toolBar.expanded=toolBar.isExpanded();
 
 			windowPositions.entitySelector={};
 			windowPositions.entitySelector.x=entitySelector.x;
 			windowPositions.entitySelector.y=entitySelector.y;
+			windowPositions.entitySelector.expanded=entitySelector.isExpanded();
 
 			settings.data.windowPositions = windowPositions;
 			settings.flush();

@@ -120,6 +120,9 @@ class FWindow extends FWidget
 		
 	}
 	
+	public function isExpanded():Bool{
+		return this.expanded;
+	}
 	
 	private function drawTitleBar() {	
 		this.titleBar.graphics.clear();
