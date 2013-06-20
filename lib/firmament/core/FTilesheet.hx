@@ -64,9 +64,10 @@ class FTilesheet extends Tilesheet {
 	 *	centerPoint - the center point of the image
 	 *
 	 */
-	override public function addTileRect(rectangle:Rectangle, centerPoint:Point = null){
-		super.addTileRect(rectangle,centerPoint);
+	override public function addTileRect(rectangle:Rectangle, centerPoint:Point = null):Int{
+		var ret =super.addTileRect(rectangle,centerPoint);
 		_rects.push(rectangle);
+		return ret;
 	}
 
 
@@ -87,6 +88,7 @@ class FTilesheet extends Tilesheet {
 			_labelMap.set(label,_rects.length);
 		}
 		_rects.push(rectangle);
+
 	}
 	
 	public function getRectangle(i:Int){

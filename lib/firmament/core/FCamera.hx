@@ -249,7 +249,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	 *
 	 */
 	public function enableClickEvents(){
-		this.addEventListener(nme.events.MouseEvent.CLICK,onClick);
+		this.addEventListener(flash.events.MouseEvent.CLICK,onClick);
 	}
 
 	private function onClick(e:MouseEvent){

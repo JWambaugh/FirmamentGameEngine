@@ -12,6 +12,7 @@
 	<classpath name="../lib" />
 	<haxelib name="OPENFL" />
 	<haxelib name="tjson" />
+	<haxelib name="box2d" />
 	<!-- icons -->
 	
 	<assets path="assets" include="*" exclude="" />

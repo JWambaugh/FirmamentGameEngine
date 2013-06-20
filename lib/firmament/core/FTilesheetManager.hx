@@ -86,7 +86,7 @@ class FTilesheetManager {
 		var imageIsFileName = false;
 		if (Std.is(image,String) && image != ''){
 			
-			bitmap = flash.Assets.getBitmapData(image);
+			bitmap = openfl.Assets.getBitmapData(image);
 			
 			#if(cpp||neko)
 			if(bitmap==null){

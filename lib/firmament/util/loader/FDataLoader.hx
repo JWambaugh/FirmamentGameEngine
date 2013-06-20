@@ -14,7 +14,7 @@ import sys.io.File;
 */
 class FDataLoader 
 {
-	static var _cache:Map<String,Dynamic> = new Map();
+	static var _cache:Map<String,Dynamic> = new Map<String,Dynamic>();
 	static var _recursionCount:Int;
 	public static function loadData(fileName:String, ?allowEmpty:Bool=false):Dynamic{
 

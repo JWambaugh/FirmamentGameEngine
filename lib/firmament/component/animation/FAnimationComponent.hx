@@ -50,9 +50,10 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
 		return "animation";
 	}	
 
-	public function changeFrame(){
+	public function changeFrame():Dynamic{
 		jumpToFrame(_currentAnimation.getNextFrame(_currentFrame));
 		_timer = FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
+		return null;
 	}
 
 	public function setAnimation(animation:FAnimation,?frame:Int=0){

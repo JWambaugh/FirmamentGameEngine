@@ -14,10 +14,10 @@ import flash.events.Event;
 class FTextField extends FWidget
 {
 	public var textField:TextField;
-	public var  text(getText,setText ):String;
-	public var  textHeight(getTextHeight,null ):Float;
-	public var  textWidth(getTextWidth , null):Float;
-	public var multiline(getMultiline, setMultiline):Bool;
+	public var  text(get,set ):String;
+	public var  textHeight(get,null ):Float;
+	public var  textWidth(get , null):Float;
+	public var multiline(get, set):Bool;
 	
 	public function new(?text:String="", ?x:Int=0, ?y:Int=0, ?width:Int=100, ?classes:Array<String>=null) 
 	{
@@ -37,10 +37,10 @@ class FTextField extends FWidget
 		textField.addEventListener(Event.CHANGE, function(e:Event) {this.dispatchEvent(e); } );
 	}
 	
-	function getText():String { return textField.text; }
-	function setText(t:String):String { return textField.text = t; }
-	function getTextHeight() { return textField.textHeight; }
-	function getTextWidth() { return textField.textWidth; }
-	function getMultiline() { return textField.multiline; }
-	function setMultiline(m:Bool):Bool { return textField.multiline = m; }
+	function get_text():String { return textField.text; }
+	function set_text(t:String):String { return textField.text = t; }
+	function get_textHeight() { return textField.textHeight; }
+	function get_textWidth() { return textField.textWidth; }
+	function get_multiline() { return textField.multiline; }
+	function set_multiline(m:Bool):Bool { return textField.multiline = m; }
 }

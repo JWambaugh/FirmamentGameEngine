@@ -28,7 +28,7 @@ import firmament.util.FMisc;
 import firmament.util.loader.FDataLoader;
 import haxe.Timer;
 import flash.events.Event;
-
+import box2D.collision.shapes.B2ShapeType;
 /**
  * Class: FBox2DComponent
  * @author Jordan Wambaugh
@@ -247,7 +247,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 
 		//we need to do this after the step to be safe.
 		if(world.insideStep()){
-			FMisc.doLater(function(){deactivate();});
+			FMisc.doLater(function():Dynamic{deactivate();return null;});
 		}else{
 			deactivate();
 		}
@@ -350,14 +350,14 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		while (fixture != null) {
 			var b2Shape = fixture.getShape();
 
-			if(b2Shape.getType() == B2Shape.e_polygonShape){
+			if(b2Shape.getType() == B2ShapeType.POLYGON_SHAPE){
 				var fvecs = new Array<FVector>();
 				for( vec in cast(b2Shape,B2PolygonShape).m_vertices){
 					fvecs.push(new FVector(vec.x,vec.y));
 				}
 				shapes.push(new FPolygonShape(fvecs));
 			}
-			if(b2Shape.getType() == B2Shape.e_circleShape){
+			if(b2Shape.getType() == B2ShapeType.CIRCLE_SHAPE){
 				var s:B2CircleShape = cast(b2Shape);
 				var p = s.getLocalPosition();
 				shapes.push(new FCircleShape(s.m_radius,new FVector(p.x,p.y)));

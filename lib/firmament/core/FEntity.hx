@@ -58,7 +58,7 @@ class FEntity extends flash.events.EventDispatcher
 			
 		}
 		_typeId = config.typeId;
-		_listeners = new Map();
+		_listeners = new Map<String, Dynamic>();
 
 		if(Std.is(config.tags,Array)){
 			_tags = config.tags;
