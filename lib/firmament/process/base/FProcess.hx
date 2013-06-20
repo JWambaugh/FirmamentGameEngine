@@ -1,12 +1,12 @@
 package firmament.process.base;
 import firmament.process.base.FProcessManager;
-import nme.events.Event;
+import flash.events.Event;
 /**
  * Basic process implementation that does nothing. Extend for easy process implementation.
  * @author Jordan Wambaugh
  */
 
-class FProcess extends nme.events.EventDispatcher, implements FProcessInterface
+class FProcess extends flash.events.EventDispatcher implements FProcessInterface
 {
 
 	public static inline var COMPLETE:String = "FProcess.COMPLETE";

@@ -1,6 +1,6 @@
 package firmament.util;
 import firmament.core.FVector;
-import nme.display.BitmapData;
+import flash.display.BitmapData;
 
 /**
  * ...

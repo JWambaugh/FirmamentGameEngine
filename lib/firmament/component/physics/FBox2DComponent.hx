@@ -27,14 +27,14 @@ import firmament.core.FWorldPositionalInterface;
 import firmament.util.FMisc;
 import firmament.util.loader.FDataLoader;
 import haxe.Timer;
-import nme.events.Event;
+import flash.events.Event;
 
 /**
  * Class: FBox2DComponent
  * @author Jordan Wambaugh
  */
 
-class FBox2DComponent extends FEntityComponent, implements FPhysicsComponentInterface, implements FWorldPositionalInterface 
+class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInterface implements FWorldPositionalInterface 
 {
 
 	public var body:B2Body;

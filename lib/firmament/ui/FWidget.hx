@@ -1,5 +1,5 @@
 package firmament.ui;
-import nme.display.Sprite;
+import flash.display.Sprite;
 
 /**
  * ...

@@ -3,8 +3,8 @@ package firmament.util.loader;
 
 import firmament.util.FMisc;
 import firmament.util.loader.serializer.FSerializerFactory;
-import nme.Assets;
-import nme.events.EventDispatcher;
+import openfl.Assets;
+import flash.events.EventDispatcher;
 #if (cpp || neko)
 import sys.io.File;
 #end
@@ -14,7 +14,7 @@ import sys.io.File;
 */
 class FDataLoader 
 {
-	static var _cache:Hash<Dynamic> = new Hash();
+	static var _cache:Map<String,Dynamic> = new Map();
 	static var _recursionCount:Int;
 	public static function loadData(fileName:String, ?allowEmpty:Bool=false):Dynamic{
 

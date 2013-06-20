@@ -3,7 +3,7 @@ package firmament.component.system;
 
 import firmament.component.base.FEntityComponent;
 
-import nme.events.Event;
+import flash.events.Event;
 import firmament.util.FConfigHelper;
 
 import firmament.util.loader.FSceneLoader;

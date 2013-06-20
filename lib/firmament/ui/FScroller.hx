@@ -1,8 +1,8 @@
 package firmament.ui;
-import nme.display.DisplayObject;
-import nme.display.Sprite;
-import nme.geom.Rectangle;
-import nme.events.MouseEvent;
+import flash.display.DisplayObject;
+import flash.display.Sprite;
+import flash.geom.Rectangle;
+import flash.events.MouseEvent;
 import firmament.ui.layout.FHBox;
 import firmament.ui.layout.FVBox;
 /**
@@ -18,9 +18,9 @@ class FScroller extends FWidget
 	var w:Int;
 	var h:Int;
 	//var layout:FH
-	var _buttons:Hash<FWidget>;
+	var _buttons:Map<String,FWidget>;
 
-	public function new(width, height, canvas:DisplayObject, buttons:Hash<FWidget>) 
+	public function new(width, height, canvas:DisplayObject, buttons:Map<String,FWidget>) 
 	{
 		super();
 		this.w = width;

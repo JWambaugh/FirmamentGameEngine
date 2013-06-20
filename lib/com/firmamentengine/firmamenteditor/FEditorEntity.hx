@@ -3,7 +3,7 @@ import firmament.core.FEntity;
 import firmament.util.FEntityCompat;
 import firmament.component.base.FEntityComponentFactory;
 import firmament.ui.FDialog;
-import nme.Assets;
+import openfl.Assets;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.util.FMisc;
 import firmament.core.FGame;

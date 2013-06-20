@@ -2,11 +2,11 @@ package firmament.core;
 
 
 
-import nme.events.EventDispatcher;
-import nme.events.Event;
-import nme.events.MouseEvent;
-import nme.events.KeyboardEvent;
-import nme.events.TouchEvent;
+import flash.events.EventDispatcher;
+import flash.events.Event;
+import flash.events.MouseEvent;
+import flash.events.KeyboardEvent;
+import flash.events.TouchEvent;
 
 
 

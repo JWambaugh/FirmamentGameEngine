@@ -3,7 +3,7 @@ import firmament.ui.FWidget;
 import com.firmamentengine.firmamenteditor.ui.ConfigEditorField;
 import com.firmamentengine.firmamenteditor.ui.ConfigEditorStringField;
 import firmament.util.FMisc;
-import nme.events.Event;
+import flash.events.Event;
 
 class ConfigEditor extends FWidget{
 	var _config:Dynamic;

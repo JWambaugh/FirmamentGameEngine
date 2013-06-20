@@ -1,9 +1,9 @@
 package firmament.ui.layout;
 import firmament.ui.FWidget;
-import nme.display.DisplayObjectContainer;
-import nme.display.DisplayObject;
-import nme.display.Sprite;
-import nme.events.Event;
+import flash.display.DisplayObjectContainer;
+import flash.display.DisplayObject;
+import flash.display.Sprite;
+import flash.events.Event;
 
 /**
  * ...

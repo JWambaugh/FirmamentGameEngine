@@ -3,7 +3,7 @@ package firmament.component.ui;
 
 import firmament.component.base.FEntityComponent;
 
-import nme.events.Event;
+import flash.events.Event;
 
 
 

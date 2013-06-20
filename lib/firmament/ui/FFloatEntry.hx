@@ -1,8 +1,8 @@
 package firmament.ui;
-import nme.display.Sprite;
+import flash.display.Sprite;
 import firmament.ui.layout.FHBox;
-import nme.events.Event;
-import nme.events.MouseEvent;
+import flash.events.Event;
+import flash.events.MouseEvent;
 
 /**
  * ...

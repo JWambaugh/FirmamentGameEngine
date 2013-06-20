@@ -1,5 +1,5 @@
 package firmament.ui.layout;
-import nme.display.DisplayObject;
+import flash.display.DisplayObject;
 
 
 /**

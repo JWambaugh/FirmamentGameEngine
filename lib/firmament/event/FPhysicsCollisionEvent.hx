@@ -10,7 +10,7 @@ import firmament.core.FEntity;
 import firmament.core.FGame;
 import firmament.core.FVector;
 import firmament.world.FWorld;
-import nme.events.Event;
+import flash.events.Event;
 /**
  * ...
  * @author Jordan Wambaugh

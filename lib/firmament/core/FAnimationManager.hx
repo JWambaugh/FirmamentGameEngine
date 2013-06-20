@@ -8,10 +8,10 @@ class FAnimationManager {
 
 	private static  var _instance:FAnimationManager;
 
-	private var _animationsHash:Hash<FAnimation>;
+	private var _animationsHash:Map<String,FAnimation>;
 
 	private function new(){
-		_animationsHash = new Hash<FAnimation>();
+		_animationsHash = new Map<String,FAnimation>();
 
 	}
 

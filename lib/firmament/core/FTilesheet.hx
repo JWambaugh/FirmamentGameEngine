@@ -1,9 +1,9 @@
 package firmament.core;
-import nme.display.Tilesheet;
+import openfl.display.Tilesheet;
 import firmament.core.FTilesheetManager;
-import nme.display.BitmapData;
-import nme.geom.Rectangle;
-import nme.geom.Point;
+import flash.display.BitmapData;
+import flash.geom.Rectangle;
+import flash.geom.Point;
 
 
 
@@ -18,7 +18,7 @@ class FTilesheet extends Tilesheet {
 	private var definitionFileName:String;
 	private var imageFileName:String;
 	private var _renderPriority:Float;
-	private var _labelMap:Hash<Int>;
+	private var _labelMap:Map<String,Int>;
 	
 	private var _rects:Array<Rectangle>;
 	public function new (inImage:BitmapData) {
@@ -28,7 +28,7 @@ class FTilesheet extends Tilesheet {
 		tm.addTileSheet(this);
 		_rects = new Array<Rectangle>();
 		_renderPriority = 0;
-		_labelMap = new Hash();
+		_labelMap = new Map();
 	}
 
 

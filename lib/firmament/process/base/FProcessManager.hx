@@ -1,14 +1,14 @@
 package firmament.process.base;
 
 import haxe.Timer;
-import nme.events.EventDispatcher;
-import nme.events.Event;
+import flash.events.EventDispatcher;
+import flash.events.Event;
 /**
  * ...
  * @author Jordan Wambaugh
  */
 
-class FProcessManager extends nme.events.EventDispatcher
+class FProcessManager extends flash.events.EventDispatcher
 {
 	var _processQueue:Array<FProcessInterface>;
 	var _iteration:Int;

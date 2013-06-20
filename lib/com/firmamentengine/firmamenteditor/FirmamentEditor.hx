@@ -21,15 +21,15 @@ import firmament.core.FVector;
 import firmament.ui.FDialog;
 import firmament.ui.FStyle;
 import firmament.ui.FWindow;
-import nme.Assets;
-import nme.display.StageAlign;
-import nme.display.StageQuality;
-import nme.display.StageScaleMode;
-import nme.events.Event;
-import nme.events.MouseEvent;
-import nme.Lib;
-import nme.text.Font;
-import nme.net.SharedObject;
+import openfl.Assets;
+import flash.display.StageAlign;
+import flash.display.StageQuality;
+import flash.display.StageScaleMode;
+import flash.events.Event;
+import flash.events.MouseEvent;
+import flash.Lib;
+import flash.text.Font;
+import flash.net.SharedObject;
 
 /**
  * ...

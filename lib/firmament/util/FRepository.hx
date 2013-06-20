@@ -5,10 +5,10 @@ class FRepository {
 
 	static var _instance:FRepository;
 
-	var _hash:Hash<Dynamic>;
+	var _hash:Map<String,Dynamic>;
 
 	private function new(){
-		_hash = new Hash<Dynamic>();
+		_hash = new Map<String,Dynamic>();
 	}
 
 

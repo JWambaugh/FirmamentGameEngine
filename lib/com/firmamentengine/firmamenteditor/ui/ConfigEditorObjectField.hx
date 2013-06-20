@@ -5,7 +5,7 @@ import firmament.ui.layout.FHBox;
 import firmament.ui.layout.FVBox;
 import firmament.ui.FTextLabel;
 import firmament.ui.FSmallButton;
-import nme.events.MouseEvent;
+import flash.events.MouseEvent;
 
 class ConfigEditorObjectField extends ConfigEditorField{
 

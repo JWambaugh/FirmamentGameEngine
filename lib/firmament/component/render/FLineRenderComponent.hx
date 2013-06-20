@@ -11,15 +11,15 @@ import firmament.core.FTilesheet;
 import firmament.core.FTilesheetManager;
 import firmament.core.FTilesheetRenderHelper;
 import firmament.component.animation.FAnimationComponent;
-import nme.Assets;
-import nme.display.BitmapData;
-import nme.display.IBitmapDrawable;
-import nme.display.Sprite;
-import nme.display.Tilesheet;
-import nme.events.Event;
-import nme.events.EventDispatcher;
-import nme.geom.Point;
-import nme.geom.Rectangle;
+import openfl.Assets;
+import flash.display.BitmapData;
+import flash.display.IBitmapDrawable;
+import flash.display.Sprite;
+import openfl.display.Tilesheet;
+import flash.events.Event;
+import flash.events.EventDispatcher;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 import firmament.core.FVector;
 
 
@@ -28,7 +28,7 @@ import firmament.core.FVector;
  * ...
  * @author jordan
  */
-class FLineRenderComponent extends FEntityComponent ,implements FRenderComponentInterface 
+class FLineRenderComponent extends FEntityComponent  implements FRenderComponentInterface 
 {
 	var drawList:Array<Float>;
 	var _tilesheet:FTilesheet;

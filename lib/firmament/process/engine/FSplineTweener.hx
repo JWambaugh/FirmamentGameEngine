@@ -9,8 +9,8 @@ import firmament.process.engine.CatmullRom;
 import firmament.core.FVector;
 import firmament.core.FEntity;
 
-import nme.geom.Point;
-import nme.display.Graphics;
+import flash.geom.Point;
+import flash.display.Graphics;
 import firmament.util.FConfigHelper;
 
 class FSplineTweener extends FProcess {

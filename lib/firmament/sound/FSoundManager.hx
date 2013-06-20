@@ -1,14 +1,14 @@
 package firmament.sound;
 
-import nme.media.Sound;
-import nme.Assets;
+import flash.media.Sound;
+import openfl.Assets;
 /**
  * Firmament Sound Repository. Also manages volumes.
  *
  *
  */
 class FSoundManager{
-	private static var _soundHash:Hash<Sound>;
+	private static var _soundHash:Map<String,Sound>;
 
 	private static var _masterVolume:Float=.7;
 	private static var _soundVolume:Float=1;
@@ -16,7 +16,7 @@ class FSoundManager{
 
 	private static function init(){
 		if(_soundHash == null){
-			_soundHash = new Hash();
+			_soundHash = new Map();
 		}
 	}
 	/**

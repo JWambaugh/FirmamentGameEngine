@@ -1,30 +1,30 @@
 package firmament.component.render;
 
 
-import nme.display.MovieClip;
-import nme.display.Bitmap;
-import nme.display.Shape;
-import nme.display.Sprite;
+import flash.display.MovieClip;
+import flash.display.Bitmap;
+import flash.display.Shape;
+import flash.display.Sprite;
 import firmament.core.FShape;
 import firmament.core.FPolygonShape;
 import firmament.core.FCircleShape;
 import firmament.core.FVector;
 //import these two classes
-import nme.display.BitmapData;
-import nme.geom.Rectangle;
+import flash.display.BitmapData;
+import flash.geom.Rectangle;
 import firmament.component.base.FEntityComponent;
 import firmament.core.FEntity;
 import firmament.core.FCamera;
 import firmament.component.physics.FPhysicsComponentInterface;
-import nme.geom.Matrix;
-import nme.geom.Point;
+import flash.geom.Matrix;
+import flash.geom.Point;
 
 /**
  * ...
  * @author Jordan Wambaugh
  */
 
-class FWireframeRenderComponent extends FEntityComponent, implements FRenderComponentInterface
+class FWireframeRenderComponent extends FEntityComponent implements FRenderComponentInterface
 {
 
 	public function new() 

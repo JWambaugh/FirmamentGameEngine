@@ -1,15 +1,15 @@
 package com.firmamentengine.firmamenteditor;
-import nme.display.Loader;
-import nme.display.Sprite;
-import nme.events.IOErrorEvent;
-import nme.geom.Point;
+import flash.display.Loader;
+import flash.display.Sprite;
+import flash.events.IOErrorEvent;
+import flash.geom.Point;
 
-import nme.events.Event;
+import flash.events.Event;
 import firmament.ui.FDialog;
 import sys.io.File;
-import nme.utils.ByteArray;
-import nme.display.BitmapData;
-import nme.display.Bitmap;
+import flash.utils.ByteArray;
+import flash.display.BitmapData;
+import flash.display.Bitmap;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -18,7 +18,7 @@ import nme.display.Bitmap;
 
 class ResourceLoader 
 {
-	static var bitmapCache:Hash<BitmapData>;
+	static var bitmapCache:Map<String,BitmapData>;
 	public function new() 
 	{
 		
@@ -26,7 +26,7 @@ class ResourceLoader
 	
 	private static function init() {
 		if (bitmapCache == null) {
-			bitmapCache = new Hash<BitmapData>();
+			bitmapCache = new Map<String,BitmapData>();
 		}
 	}
 	

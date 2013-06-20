@@ -4,10 +4,10 @@ package [*PACKAGE_NAME*];
 
 
 import firmament.util.loader.FSceneLoader;
-import nme.display.StageAlign;
-import nme.display.StageScaleMode;
+import flash.display.StageAlign;
+import flash.display.StageScaleMode;
 
-import nme.Lib;
+import flash.Lib;
 
 
 

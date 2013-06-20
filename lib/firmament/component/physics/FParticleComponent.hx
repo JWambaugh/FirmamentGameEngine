@@ -13,7 +13,7 @@ import firmament.world.FBox2DWorld;
 import firmament.world.FParticleWorld;
 import firmament.world.FWorld;
 import haxe.Timer;
-import nme.events.Event;
+import flash.events.Event;
 
 
 /**
@@ -21,7 +21,7 @@ import nme.events.Event;
  * @author Jordan Wambaugh
  */
 
-class FParticleComponent extends FEntityComponent, implements FPhysicsComponentInterface, implements FWorldPositionalInterface 
+class FParticleComponent extends FEntityComponent implements FPhysicsComponentInterface implements FWorldPositionalInterface 
 {
 	
 	

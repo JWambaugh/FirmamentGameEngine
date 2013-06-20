@@ -7,7 +7,7 @@ import firmament.world.FWorld;
 import firmament.event.FBox2DCollisionEvent;
 import firmament.event.FPhysicsCollisionEvent;
 import firmament.ui.FDialog;
-import nme.events.Event;
+import flash.events.Event;
 import firmament.core.FGame;
 import firmament.process.base.FProcessManager;
 import firmament.component.physics.FNoPhysicsComponent;

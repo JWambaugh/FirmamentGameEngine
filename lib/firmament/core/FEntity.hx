@@ -5,13 +5,13 @@ import firmament.component.render.FRenderComponentInterface;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.world.FWorld;
 import firmament.core.FEntityPool;
-import nme.display.BitmapData;
-import nme.display.Tilesheet;
-import nme.events.Event;
-import nme.geom.Point;
-import nme.geom.Rectangle;
+import flash.display.BitmapData;
+import openfl.display.Tilesheet;
+import flash.events.Event;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 import firmament.util.FMisc;
-import nme.Assets;
+import openfl.Assets;
 import firmament.core.FGame;
  
  /**
@@ -20,7 +20,7 @@ import firmament.core.FGame;
   * 
   * 
   */
-class FEntity extends nme.events.EventDispatcher
+class FEntity extends flash.events.EventDispatcher
 {
 
 	//events
@@ -28,12 +28,12 @@ class FEntity extends nme.events.EventDispatcher
 	public static inline var ACTIVE_STATE_CHANGE = "activeChange";
 
 	var _config:Dynamic;
-	var _componentsHash:Hash<Array<FEntityComponent>>;
+	var _componentsHash:Map<String,Array<FEntityComponent>>;
 	var _components:Array<FEntityComponent>;
 	var _pool:FEntityPool;
 	var _active:Bool;
 	var _typeId:String;
-	var _listeners : Hash<Dynamic>; 
+	var _listeners : Map<String,Dynamic>; 
 	var _tags:Array<String>;
 	var _gameInstance:FGame;
 
@@ -50,7 +50,7 @@ class FEntity extends nme.events.EventDispatcher
 		super();
 		if(config == null) config ={};
 		this._config = config;
-		this._componentsHash = new Hash<Array<FEntityComponent>>();
+		this._componentsHash = new Map<String,Array<FEntityComponent>>();
 		_components = new Array<FEntityComponent>();
 		_active = true;
 		if(!Std.is(config.typeId,String)){
@@ -58,7 +58,7 @@ class FEntity extends nme.events.EventDispatcher
 			
 		}
 		_typeId = config.typeId;
-		_listeners = new Hash();
+		_listeners = new Map();
 
 		if(Std.is(config.tags,Array)){
 			_tags = config.tags;

@@ -3,18 +3,18 @@ package firmament.core;
 
 import firmament.core.FTilesheet;
 import firmament.core.FCamera;
-import nme.events.Event;
-import nme.display.Tilesheet;
+import flash.events.Event;
+import openfl.display.Tilesheet;
 
 class FTilesheetRenderHelper {
 	private static var _instance;
 
-	var drawList:IntHash<Array<Float>>;
+	var drawList:Map<Int,Array<Float>>;
 	var initializedCameras:Array<FCamera>;
 
 
 	private function new(){
-		drawList = new IntHash<Array<Float>>();
+		drawList = new Map<Int,Array<Float>>();
 		initializedCameras = new Array<FCamera>();
 	}
 
@@ -48,7 +48,7 @@ class FTilesheetRenderHelper {
 	}
 
 	public function preRender(e:Event){
-		this.drawList = new IntHash<Array<Float>>();
+		this.drawList = new Map<Int,Array<Float>>();
 	}
 
 	public function postRender(e:Event){

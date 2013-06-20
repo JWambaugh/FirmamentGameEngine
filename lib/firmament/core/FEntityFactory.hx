@@ -4,7 +4,7 @@ import firmament.core.FEntity;
 import firmament.component.base.FEntityComponent;
 import firmament.component.base.FEntityComponentFactory;
 import firmament.util.loader.FDataLoader;
-import nme.events.Event;
+import flash.events.Event;
 
 class FEntityFactory{
 

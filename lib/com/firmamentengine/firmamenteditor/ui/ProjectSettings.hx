@@ -3,17 +3,17 @@ import firmament.ui.FButton;
 import firmament.ui.FScroller;
 import firmament.ui.layout.FHBox;
 import firmament.ui.layout.FVBox;
-import nme.display.Sprite;
+import flash.display.Sprite;
 import firmament.ui.FTextLabel;
 import firmament.ui.FLineEdit;
 import firmament.ui.FWindow;
-import nme.events.MouseEvent;
+import flash.events.MouseEvent;
 
 import firmament.ui.FDialog;
 import sys.io.File;
 import sys.FileSystem;
 import firmament.util.loader.serializer.FJsonSerializer;
-import nme.events.Event;
+import flash.events.Event;
 
 /**
  * ...

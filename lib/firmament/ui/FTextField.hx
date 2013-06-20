@@ -1,10 +1,10 @@
 package firmament.ui;
-import nme.text.TextField;
-import nme.text.TextFormat;
-import nme.Assets;
+import flash.text.TextField;
+import flash.text.TextFormat;
+import openfl.Assets;
 import firmament.ui.FStyle;
 import firmament.ui.FStyleHelper;
-import nme.events.Event;
+import flash.events.Event;
 /**
  * ...
  * @author Jordan Wambaugh

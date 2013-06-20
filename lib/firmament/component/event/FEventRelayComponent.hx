@@ -9,7 +9,7 @@ import firmament.filter.entity.FEntityFilterFactory;
 import firmament.filter.entity.FEntityFilterInterface;
 import firmament.util.FConfigHelper;
 import firmament.util.FMisc;
-import nme.events.Event;
+import flash.events.Event;
 
 class FEventRelayComponent extends FEntityComponent{
 

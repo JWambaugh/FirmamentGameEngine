@@ -1,8 +1,8 @@
 package firmament.sound;
 
-import nme.media.Sound;
-import nme.media.SoundChannel;
-import nme.media.SoundTransform;
+import flash.media.Sound;
+import flash.media.SoundChannel;
+import flash.media.SoundTransform;
 import firmament.sound.FSoundManager;
 class FSoundtrackManager{
 

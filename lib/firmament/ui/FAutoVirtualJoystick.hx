@@ -2,11 +2,11 @@
 package firmament.ui;
 
 
-import nme.display.Sprite;
-import nme.events.MouseEvent;
+import flash.display.Sprite;
+import flash.events.MouseEvent;
 import firmament.core.FVector;
 import firmament.ui.FVirtualJoystick;
-import nme.events.Event;
+import flash.events.Event;
 
 class FAutoVirtualJoystick extends Sprite{
 

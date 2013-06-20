@@ -1,8 +1,8 @@
 package firmament.ui;
-import nme.display.Sprite;
-import nme.events.MouseEvent;
-import nme.events.Event;
-import nme.Lib;
+import flash.display.Sprite;
+import flash.events.MouseEvent;
+import flash.events.Event;
+import flash.Lib;
 /**
  * Class: FButton
  * @author Jordan Wambaugh

@@ -3,7 +3,7 @@ package com.firmamentengine.firmamenteditor.ui;
 import com.firmamentengine.firmamenteditor.ui.ConfigEditorField;
 import firmament.ui.FLineEdit;
 import com.firmamentengine.firmamenteditor.ui.ConfigEditorFieldEvent;
-import nme.events.Event;
+import flash.events.Event;
 class ConfigEditorStringField extends ConfigEditorField{
 
 

@@ -1,7 +1,7 @@
 package firmament.component.base;
 import firmament.core.FEntity;
-import nme.events.EventDispatcher;
-import nme.events.Event;
+import flash.events.EventDispatcher;
+import flash.events.Event;
 import firmament.util.FConfigHelper;
 /*
 	Class: FEntity Component
@@ -16,7 +16,7 @@ class FEntityComponent extends EventDispatcher
 
 	private var _config:Dynamic;
 	private var _entity:FEntity;
-	private var _listeners:Hash<Dynamic->Void>;
+	private var _listeners:Map<String,Dynamic->Void>;
 	private var _componentKey:String;
 	private var _configHelper:FConfigHelper;
 
@@ -24,7 +24,7 @@ class FEntityComponent extends EventDispatcher
 	{
 		_configHelper = null;
 		super();
-		_listeners = new Hash();
+		_listeners = new Map();
 
 	}
 	

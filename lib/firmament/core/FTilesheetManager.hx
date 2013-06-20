@@ -2,9 +2,9 @@ package firmament.core;
 
 import firmament.core.FTilesheet;
 import firmament.util.loader.FDataLoader;
-import nme.display.BitmapData;
-import nme.geom.Rectangle;
-import nme.geom.Point;
+import flash.display.BitmapData;
+import flash.geom.Rectangle;
+import flash.geom.Point;
 #if(cpp||neko)
 import com.firmamentengine.firmamenteditor.ResourceLoader;
 #end
@@ -18,12 +18,12 @@ class FTilesheetManager {
 	
 	static var _instance:FTilesheetManager;
 	var idCounter:Int;
-	var tilesheets:IntHash<FTilesheet>;
+	var tilesheets:Map<Int,FTilesheet>;
 	var _orderedTilesheets:Array<FTilesheet>;
 
 	private function new () {
 		idCounter = 0;
-		tilesheets = new IntHash<FTilesheet>();
+		tilesheets = new Map<Int,FTilesheet>();
 		_orderedTilesheets = new Array<FTilesheet>();
 		
 	}
@@ -86,7 +86,7 @@ class FTilesheetManager {
 		var imageIsFileName = false;
 		if (Std.is(image,String) && image != ''){
 			
-			bitmap = nme.Assets.getBitmapData(image);
+			bitmap = flash.Assets.getBitmapData(image);
 			
 			#if(cpp||neko)
 			if(bitmap==null){

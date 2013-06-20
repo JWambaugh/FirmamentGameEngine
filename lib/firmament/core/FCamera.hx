@@ -1,15 +1,15 @@
 package firmament.core;
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.component.render.FRenderComponentInterface;
-import nme.display.Sprite;
+import flash.display.Sprite;
 import firmament.core.FEntity;
 import firmament.world.FWorld;
-import nme.display.BitmapData;
-import nme.geom.Rectangle;
-import nme.Lib;
-import nme.display.Stage;
-import nme.events.Event;
-import nme.events.MouseEvent;
+import flash.display.BitmapData;
+import flash.geom.Rectangle;
+import flash.Lib;
+import flash.display.Stage;
+import flash.events.Event;
+import flash.events.MouseEvent;
 import firmament.component.render.FWireframeRenderComponent;
 import firmament.util.FConfigHelper;
 import firmament.core.FGame;
@@ -23,7 +23,7 @@ import firmament.core.FGame;
  * @author Jordan Wambaugh
  */
 
-class FCamera extends Sprite ,implements FWorldPositionalInterface 
+class FCamera extends Sprite implements FWorldPositionalInterface 
 {
 	public inline static var BEFORE_RENDER_EVENT = "beforeRenderEvent";
 	public inline static var AFTER_RENDER_EVENT = "afterRenderEvent";
@@ -76,7 +76,7 @@ class FCamera extends Sprite ,implements FWorldPositionalInterface
 
 	}
 	
-	public function render(worlds:Hash<FWorld>) {
+	public function render(worlds:Map<String,FWorld>) {
 		this.dispatchEvent(new Event(FCamera.BEFORE_RENDER_EVENT));
 		this.graphics.clear();
 		this.graphics.beginFill(0);

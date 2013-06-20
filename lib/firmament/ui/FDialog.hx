@@ -1,7 +1,7 @@
 package firmament.ui;
-import nme.display.Sprite;
-import nme.Lib;
-import nme.events.MouseEvent;
+import flash.display.Sprite;
+import flash.Lib;
+import flash.events.MouseEvent;
 /**
  * ...
  * @author Jordan Wambaugh

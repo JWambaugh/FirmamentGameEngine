@@ -1,5 +1,5 @@
 package firmament.ui;
-import nme.text.TextFieldType;
+import flash.text.TextFieldType;
 /**
  * ...
  * @author Jordan Wambaugh

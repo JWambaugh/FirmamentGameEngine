@@ -24,23 +24,23 @@ import firmament.util.loader.serializer.FSerializerFactory;
 import firmament.world.FWorld;
 import firmament.world.FWorldFactory;
 import haxe.Timer;
-import nme.Assets;
-import nme.display.Bitmap;
-import nme.display.Sprite;
-import nme.events.Event;
-import nme.events.EventDispatcher;
-import nme.events.TimerEvent;
-import nme.Lib;
-import nme.text.TextField;
-import nme.utils.Timer;
+import openfl.Assets;
+import flash.display.Bitmap;
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.events.EventDispatcher;
+import flash.events.TimerEvent;
+import flash.Lib;
+import flash.text.TextField;
+import flash.utils.Timer;
 
 /**
  * Class: FGame
  */
 class FGame extends EventDispatcher
 {
-	var cameras:Hash<FCamera>;
-	var worldHash:Hash<FWorld>; 
+	var cameras:Map<String,FCamera>;
+	var worldHash:Map<String,FWorld>; 
 	public var enableSimulation:Bool;
 	var _gameProcessManager:FProcessManager;
 	var _renderProcessManager:FProcessManager;
@@ -81,7 +81,7 @@ class FGame extends EventDispatcher
 	//CONCSTANT: DELETE_ENTITY
 	public static inline var DELETE_ENTITY = 'deleteEntity';
 
-	private static var _instances:Hash<FGame>;
+	private static var _instances:Map<String,FGame>;
 
 	/**
 	 * Constructor: new
@@ -91,8 +91,8 @@ class FGame extends EventDispatcher
 		super();
 		
 		this.enableSimulation = true;
-		worldHash = new Hash<FWorld>();
-		cameras = new Hash<FCamera>();
+		worldHash = new Map<String,FWorld>();
+		cameras = new Map<String,FCamera>();
 		var stage = Lib.current.stage;
 		this._gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
@@ -128,7 +128,7 @@ class FGame extends EventDispatcher
 	*/
 	public static function getInstance(?name:String='main'):FGame{
 		if(_instances == null){
-			_instances = new Hash();
+			_instances = new Map();
 		}
 		var instance = _instances.get(name);
 		if(instance == null){
@@ -157,7 +157,7 @@ class FGame extends EventDispatcher
 		return w;
 	}
 
-	public function getWorlds():Hash<FWorld>{
+	public function getWorlds():Map<String,FWorld>{
 		return this.worldHash;
 	}
 
@@ -331,7 +331,7 @@ class FGame extends EventDispatcher
 		for (world in worldHash){
 			world.destruct();
 		}
-		worldHash = new Hash();
+		worldHash = new Map();
 	}
 
 	/*
@@ -342,7 +342,7 @@ class FGame extends EventDispatcher
 		clearWorlds();
 		_gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
-		cameras = new Hash();
+		cameras = new Map();
 		this._gameProcessManager.addProcess(_gameTimerManager);
 	}
 

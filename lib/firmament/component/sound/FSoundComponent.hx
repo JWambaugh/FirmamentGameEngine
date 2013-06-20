@@ -3,8 +3,8 @@ package firmament.component.sound;
 
 import firmament.component.base.FEntityComponent;
 import firmament.sound.FSoundManager;
-import nme.events.Event;
-import nme.media.SoundTransform;
+import flash.events.Event;
+import flash.media.SoundTransform;
 
 
 

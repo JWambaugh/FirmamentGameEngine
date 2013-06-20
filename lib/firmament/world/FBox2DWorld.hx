@@ -16,7 +16,7 @@ import firmament.event.FPhysicsCollisionEvent;
 import firmament.ui.FDialog;
 import firmament.util.FConfigHelper;
 import firmament.world.FWorld;
-import nme.events.Event;
+import flash.events.Event;
 /**
  * ...
  * @author Jordan Wambaughz

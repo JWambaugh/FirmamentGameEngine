@@ -2,7 +2,7 @@ package firmament.util;
 
 import firmament.core.FVector;
 import firmament.util.FTracerVertex;
-import nme.display.BitmapData;
+import flash.display.BitmapData;
 import firmament.util.FPolySimplifier;
 /**
  * traces a given bitmap image and returns the resulting polygons

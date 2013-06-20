@@ -2,11 +2,11 @@
 package firmament.util.loader;
 import firmament.util.loader.FDataLoader;
 import firmament.core.FGame;
-import nme.Lib;
+import flash.Lib;
 import firmament.core.FCamera;
 import firmament.util.FConfigHelper;
 import firmament.util.loader.FEntityLoader;
-import nme.events.Event;
+import flash.events.Event;
 import firmament.sound.FSoundManager;
 
 class FSceneLoader {

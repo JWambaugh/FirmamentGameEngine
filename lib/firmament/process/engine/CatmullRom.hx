@@ -1,7 +1,7 @@
 
 package firmament.process.engine;
 
-import nme.geom.Point;
+import flash.geom.Point;
 import firmament.core.FVector;
 
 class SplinePoints {

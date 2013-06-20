@@ -1,6 +1,6 @@
 package firmament.ui;
-import nme.events.MouseEvent;
-import nme.events.Event;
+import flash.events.MouseEvent;
+import flash.events.Event;
 /**
  * ...
  * @author Jordan Wambaugh

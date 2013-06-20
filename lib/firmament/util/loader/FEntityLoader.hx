@@ -1,11 +1,11 @@
 package firmament.util.loader;
 import firmament.core.FEntity;
-import nme.events.EventDispatcher;
+import flash.events.EventDispatcher;
 import firmament.world.FWorld;
-import nme.events.Event;
+import flash.events.Event;
 import firmament.util.FMisc;
 import firmament.util.loader.serializer.FSerializerFactory;
-import nme.Assets;
+import openfl.Assets;
 import firmament.ui.FDialog;
 import firmament.core.FEntityFactory;
 import firmament.util.loader.FDataLoader;

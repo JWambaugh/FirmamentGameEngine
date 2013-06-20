@@ -1,9 +1,9 @@
 package firmament.component.render;
-import nme.display.BitmapData;
-import nme.geom.Matrix;
-import nme.display.IBitmapDrawable;
-import nme.geom.Point;
-import nme.events.EventDispatcher;
+import flash.display.BitmapData;
+import flash.geom.Matrix;
+import flash.display.IBitmapDrawable;
+import flash.geom.Point;
+import flash.events.EventDispatcher;
 
 
 /**
@@ -11,7 +11,7 @@ import nme.events.EventDispatcher;
  * @author Jordan Wambaugh
  */
 
-class FSpriteRenderComponent extends FEntityComponent ,implements FRenderComponentInterface
+class FSpriteRenderComponent extends FEntityComponent  implements FRenderComponentInterface
 {
 
 	public function new() 

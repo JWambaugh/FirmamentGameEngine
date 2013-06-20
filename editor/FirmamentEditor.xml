@@ -10,8 +10,7 @@
 	
 	<!-- classpath, haxe libs -->
 	<classpath name="../lib" />
-	<haxelib name="nme" />
-	<haxelib name="hx_nice_json" />
+	<haxelib name="OPENFL" />
 	<haxelib name="tjson" />
 	<!-- icons -->
 	

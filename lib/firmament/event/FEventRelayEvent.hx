@@ -1,6 +1,6 @@
 
 package firmament.event;
-import nme.events.Event;
+import flash.events.Event;
 import firmament.core.FEntity;
 class FEventRelayEvent extends Event {
 

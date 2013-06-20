@@ -6,11 +6,11 @@ import firmament.core.FEntityPool;
 
 class FEntityPoolManager {
 
-	var pools:Hash<FEntityPool>;
+	var pools:Map<String,FEntityPool>;
 
 
 	public function new(){
-		pools = new Hash<FEntityPool>();
+		pools = new Map<String,FEntityPool>();
 	}
 
 	public function getPool(entityTypeId:String){

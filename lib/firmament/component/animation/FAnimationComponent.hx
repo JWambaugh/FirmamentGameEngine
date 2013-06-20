@@ -5,14 +5,14 @@ import firmament.component.base.FEntityComponent;
 import firmament.core.FAnimation;
 import firmament.core.FAnimationManager;
 import firmament.core.FGame;
-import nme.events.Event;
+import flash.events.Event;
 import haxe.Timer;
 import firmament.component.render.FRenderComponentInterface;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.process.timer.FTimer;
 import firmament.core.FEntity;
 
-class FAnimationComponent extends FEntityComponent, implements FAnimationComponentInterface{
+class FAnimationComponent extends FEntityComponent implements FAnimationComponentInterface{
 	
 	var _currentAnimation:FAnimation;
 	var _currentFrame:Int;

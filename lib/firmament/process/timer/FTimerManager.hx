@@ -6,7 +6,7 @@ import firmament.process.base.FProcessManager;
 import firmament.process.timer.FTimer;
 import firmament.core.FSortedLinkedList;
 import firmament.core.FSortedLinkedListCell;
-import nme.events.Event;
+import flash.events.Event;
 import haxe.Timer;
 
 class FTimerManager extends FProcess {

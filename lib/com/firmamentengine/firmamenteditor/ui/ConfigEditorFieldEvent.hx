@@ -2,7 +2,7 @@ package com.firmamentengine.firmamenteditor.ui;
 
 
 
-import nme.events.Event;
+import flash.events.Event;
 
 
 class ConfigEditorFieldEvent extends Event{

@@ -1,7 +1,7 @@
 package firmament.component.render;
 
 import firmament.core.FCamera;
-import nme.display.BitmapData;
+import flash.display.BitmapData;
 /**
  * Class: FRenderer
  */
