@@ -130,7 +130,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		drawList[1] = ny;
 		drawList[2] = this._tile; // sprite index
 		drawList[3] = ratio;
-		drawList[4] = -physicsComponent.getAngle();
+		drawList[4] = physicsComponent.getAngle();
 		drawList[5] = 1;
 		
 		FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList);
