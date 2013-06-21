@@ -3,7 +3,7 @@ import haxe.Timer;
 import firmament.process.timer.FTimerManager;
 import firmament.core.FSortedLinkedListCell;
 class FTimer {
-	var _callback:Void->Dynamic;
+	var _callback:Void->Void;
 	var _endTime:Float;
 	var _callbackScope:Dynamic;
 	var _pausedTime:Float;
@@ -11,7 +11,7 @@ class FTimer {
 	var _listCell:FSortedLinkedListCell<FTimer>;
 	var _expired:Bool;
 
-	public function new(seconds:Float, cb:Void->Dynamic, scope:Dynamic, manager:FTimerManager){
+	public function new(seconds:Float, cb:Void->Void, scope:Dynamic, manager:FTimerManager){
 		_callback = cb;
 		_endTime = Timer.stamp() + seconds;
 		_callbackScope = scope;

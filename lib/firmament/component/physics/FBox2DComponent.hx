@@ -247,7 +247,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 
 		//we need to do this after the step to be safe.
 		if(world.insideStep()){
-			FMisc.doLater(function():Dynamic{deactivate();return null;});
+			FMisc.doLater(function(){deactivate();});
 		}else{
 			deactivate();
 		}

@@ -28,7 +28,7 @@ class FTimerManager extends FProcess {
 		//trace('TIMER BEFORE START');
 	}
 
-	public function addTimer(seconds:Float, cb:Void->Dynamic,?scope:Dynamic=null){
+	public function addTimer(seconds:Float, cb:Void->Void,?scope:Dynamic=null){
 		var timer = new FTimer(seconds,cb,scope,this);
 		var cell = _timers.add(timer,Timer.stamp()+seconds);
 		timer.setCell(cell);

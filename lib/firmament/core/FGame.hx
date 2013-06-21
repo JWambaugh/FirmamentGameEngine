@@ -359,7 +359,7 @@ class FGame extends EventDispatcher
 	 * @param seconds - number of seconds until timer times out
 	 *
 	 */
-	public function addGameTimer(seconds:Float, cb:Void->Dynamic, ?scope:Dynamic=null){
+	public function addGameTimer(seconds:Float, cb:Void->Void, ?scope:Dynamic=null){
 		return _gameTimerManager.addTimer(seconds, cb, scope);
 	}
 

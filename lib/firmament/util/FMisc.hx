@@ -91,7 +91,7 @@ class FMisc
 		return null; 
 	} 
 
-	public static function doLater(cb:Void->Dynamic){
+	public static function doLater(cb:Void->Void){
 		FGame.getInstance().getProcessManager().addProcess(new FCallbackProcess({step:function(){
 			cb();
 			return false;
