@@ -18,6 +18,8 @@ import firmament.component.sound.FSoundComponent;
 import firmament.component.ui.FButtonComponent;
 import firmament.component.system.FSceneLoaderComponent;
 
+import firmament.component.ui.FEntityContainerComponent;
+
 class FEntityComponentFactory{
 	public static function createComponent(type:String,?componentKey:String=''):FEntityComponent {
 		var className = getClassFromType(type);
@@ -49,6 +51,7 @@ class FEntityComponentFactory{
 			,"sound":"firmament.component.sound.FSoundComponent"
 			,"button":"firmament.component.ui.FButtonComponent"
 			,"sceneLoader":"firmament.component.system.FSceneLoaderComponent"
+			,"entityContainer":"firmament.component.ui.FEntityContainerComponent"
 		};
 
 		var cls = Reflect.field(map,type);

@@ -21,7 +21,7 @@ class FJsonSerializer implements FSerializerInterface
 	}
 	
 	public function serialize( object:Dynamic):String {
-		return TJSON.encode(object,'fancy');
+		return TJSON.encode(object,new FancyStyle());
 	}
 	
 	public function canProccessFileName(fileName:String):Bool {

@@ -8,7 +8,7 @@ import flash.events.Event;
 
 
 /**
- * s
+ * 
  */
 class FButtonComponent extends FEntityComponent  {
 	var _events:Dynamic;
