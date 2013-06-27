@@ -5,6 +5,8 @@ import firmament.component.base.FEntityComponent;
 import firmament.core.FVector;
 import firmament.core.FEntity;
 import firmament.core.FGame;
+import firmament.util.loader.FDataLoader;
+import firmament.core.FEntityFactory;
 import flash.events.Event;
 
 
@@ -25,10 +27,19 @@ class FEntityContainerComponent extends FEntityComponent  {
 
 	override public function init(config:Dynamic){
 		this.addEventListenerToEntity(FEntity.COMPONENTS_INITIALIZED,function(e:Event){
-			_position = _entity.getPhysicsComponent().getPosition();
+			_position = _entity.getPhysicsComponent().getPosition().copy();
 		});
 		_game = _entity.getGameInstance();
 		_game.addEventListener(FGame.AFTER_STEP,afterStep);
+		if(Std.is(config.entities,Array)){
+			for (ent in cast(config.entities,Array<Dynamic>)){
+				if(Std.is(ent,String)){
+					ent = FDataLoader.loadData(ent);
+				}
+				var childEntity = FEntityFactory.createEntity(ent);
+				this.addEntity(childEntity);
+			}
+		}
 	}
 
 	private function afterStep(e:Event){

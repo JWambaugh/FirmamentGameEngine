@@ -43,7 +43,15 @@ class FDataLoader
 			throw("Data could not be unserialized for "+fileName);
 		}
 		data.entityFile = fileName;
-
+		data = checkForExtension(data,fileName);
+		
+		_cache.set(fileName,FMisc.deepClone(data));
+		return data;
+	}
+	
+	//recursivly check for '_extends' directives
+	private static function checkForExtension(data:Dynamic,fileName):Dynamic{
+		if(!Reflect.isObject(data))return data;
 		if(Std.is(data._extends,String)){
 			_recursionCount++;
 			if(_recursionCount > 100 )throw "recursive _extends detected in "+fileName;
@@ -51,11 +59,15 @@ class FDataLoader
 			_recursionCount--;
 			FMisc.mergeInto(data,parent);
 			data = parent;
-			//trace(Std.string(data));
 		}
-		_cache.set(fileName,FMisc.deepClone(data));
+
+		for(field in Reflect.fields(data)){
+			var val = Reflect.field(data, field);
+			if(Reflect.isObject(val)){
+				checkForExtension(val,fileName);
+			}
+		}
 		return data;
 	}
-	
 
 }
