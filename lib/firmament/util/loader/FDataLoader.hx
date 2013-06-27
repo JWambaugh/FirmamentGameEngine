@@ -44,6 +44,7 @@ class FDataLoader
 		}
 		data.entityFile = fileName;
 		data = checkForExtension(data,fileName);
+		//trace(fileName+ ' '+Std.string(data));
 		
 		_cache.set(fileName,FMisc.deepClone(data));
 		return data;
@@ -51,22 +52,32 @@ class FDataLoader
 	
 	//recursivly check for '_extends' directives
 	private static function checkForExtension(data:Dynamic,fileName):Dynamic{
-		if(!Reflect.isObject(data))return data;
-		if(Std.is(data._extends,String)){
-			_recursionCount++;
-			if(_recursionCount > 100 )throw "recursive _extends detected in "+fileName;
-			var parent = loadData(data._extends);
-			_recursionCount--;
-			FMisc.mergeInto(data,parent);
-			data = parent;
-		}
-
-		for(field in Reflect.fields(data)){
-			var val = Reflect.field(data, field);
-			if(Reflect.isObject(val)){
-				checkForExtension(val,fileName);
+		if (Std.is(data,Array)){
+			var d:Array<Dynamic> = cast(data,Array<Dynamic>);
+			for(key in 0...d.length){
+				d[key] = checkForExtension(d[key],fileName);
 			}
 		}
+		else if(Reflect.isObject(data)){
+			if(Std.is(data._extends,String)){
+				trace(fileName+" extends "+ data._extends);
+				_recursionCount++;
+				if(_recursionCount > 1000 )throw "recursive _extends detected in "+fileName;
+				var parent = loadData(data._extends);
+				_recursionCount--;
+				FMisc.mergeInto(data,parent);
+				data = parent;
+				//trace(Std.string(data));
+			}
+
+			for(field in Reflect.fields(data)){
+				var val = Reflect.field(data, field);
+				if(Reflect.isObject(val)){
+					val = checkForExtension(val,fileName);
+				}
+			}
+		}
+		
 		return data;
 	}
 

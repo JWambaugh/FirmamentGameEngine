@@ -51,6 +51,8 @@ class FGame extends EventDispatcher
 
 	var _gameTimerManager:FTimerManager;
 
+	var _instanceName:String;
+
 	//Constant: COLLISION_PRE_SOLVE_EVENT
 	public static inline var COLLISION_PRE_SOLVE_EVENT = 'preSolveCollision';
 
@@ -133,6 +135,7 @@ class FGame extends EventDispatcher
 		var instance = _instances.get(name);
 		if(instance == null){
 			instance = new FGame();
+			instance._instanceName = name;
 			_instances.set(name,instance);
 		}
 		return instance;
@@ -361,6 +364,10 @@ class FGame extends EventDispatcher
 	 */
 	public function addGameTimer(seconds:Float, cb:Void->Void, ?scope:Dynamic=null){
 		return _gameTimerManager.addTimer(seconds, cb, scope);
+	}
+
+	public function getInstanceName():String{
+		return _instanceName;
 	}
 
 
