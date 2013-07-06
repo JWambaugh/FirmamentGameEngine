@@ -59,7 +59,7 @@ class FDataLoader
 			}
 		}
 		else if(Reflect.isObject(data) && !Std.is(data,String)){
-			if(Std.is(data._extends,String)){
+			if(data._extends!=null && Std.is(data._extends,String)){
 				trace(fileName+" extends "+ data._extends);
 				_recursionCount++;
 				if(_recursionCount > 1000 )throw "recursive _extends detected in "+fileName;
