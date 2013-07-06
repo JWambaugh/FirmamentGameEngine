@@ -58,7 +58,7 @@ class FDataLoader
 				d[key] = checkForExtension(d[key],fileName);
 			}
 		}
-		else if(Reflect.isObject(data)){
+		else if(Reflect.isObject(data) && !Std.is(data,String)){
 			if(Std.is(data._extends,String)){
 				trace(fileName+" extends "+ data._extends);
 				_recursionCount++;
