@@ -3,6 +3,7 @@ package firmament.world;
 import firmament.world.FNoPhysicsWorld;
 import firmament.world.FBox2DWorld;
 import firmament.world.FParticleWorld;
+import firmament.world.FGridWorld;
 
 class FWorldFactory{
 	public static function createWorld(type:String):FWorld {
