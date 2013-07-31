@@ -16,4 +16,7 @@ class FGridCell{
 	public function addEntity(ent:FEntity){
 		_entities.push(ent);
 	}
+	public function removeEntity(ent:FEntity){
+		_entities.remove(ent);
+	}
 }

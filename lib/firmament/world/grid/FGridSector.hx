@@ -21,13 +21,24 @@ class FGridWorldSector{
 		initializeGrid();
 	}
 
+
+	public function getLocalXFromWorldPosition(worldPosition:FVector){
+		return Math.floor(worldPosition.x-_topLeftPosition.x);
+	}
+	
+	public function getLocalYFromWorldPosition(worldPosition:FVector){
+		return Math.floor(worldPosition.y-_topLeftPosition.y);
+	}
+
 	/**
 	 * returns the FGridCell object for the provided sector-relative position
 	 *
 	 */
 	public function getCellAtSectorPos(x:Int,y:Int):FGridCell{
 		validateSectorPos(x,y);
-		return _grid[x][y];
+		var cell = _grid[x][y];
+		if(cell == null) throw "Cell at position "+x+','+y+' is null.';
+		return cell;
 	}
 
 	/**
@@ -36,6 +47,14 @@ class FGridWorldSector{
 	 */
 	public function getEntitiesAtSectorPos(x:Int,y:Int):Array<FEntity>{
 		return getCellAtSectorPos(x,y).getEntities();
+	}
+
+	public function addEntityAtSectorPos(ent:FEntity,x:Int,y:Int){
+		getCellAtSectorPos(x,y).addEntity(ent);
+	}
+
+	public function removeEntityAtSectorPos(ent:FEntity,x:Int,y:Int){
+		getCellAtSectorPos(x,y).removeEntity(ent);
 	}
 
 	private function initializeGrid(){

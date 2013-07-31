@@ -1,5 +1,5 @@
 {
-	"image": "assets/tilesheets/{{texture.fullName}}"
+	"image": "asset/tilesheet/{{texture.fullName}}"
 	,"tiles":[
 		{% for sprite in sprites %}
 		{

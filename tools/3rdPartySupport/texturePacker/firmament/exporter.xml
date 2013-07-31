@@ -9,7 +9,7 @@
     <description>Firmament Exporter</description>
 
     <!-- exporter version -->
-    <version>1.1</version>
+    <version>1.2</version>
 	
     <!-- currently only one file allowed - more to come with update -->
     <files>
