@@ -345,6 +345,8 @@ class FGame extends EventDispatcher
 		destroys or clears references to all entities, worlds, cameras, and processes.
 	*/
 	public function clearAll(){
+		if(_currentScene != null)_currentScene.destruct();
+		_currentScene = null;
 		clearWorlds();
 		_gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();

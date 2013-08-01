@@ -9,15 +9,21 @@ import flash.Lib;
 import firmament.core.FCamera;
 import firmament.util.loader.FEntityLoader;
 import firmament.sound.FSoundManager;
-
+import firmament.scene.FSceneComponentFactory;
 
 class FScene extends EventDispatcher{
 
 	var _components : Array<FSceneComponent>;
 	var _gameInstanceName:String;
+	var _game:FGame;
+
+	/**
+	 * event fired after all scene components are initialized.
+	 */
+	public static var COMPONENTS_INITIALIZED = "componentsInit"; 
 	public function new(){
 		super();
-		var _components = new Array();
+		_components = new Array();
 	}
 
 	public function init(config:Dynamic, ?gameInstanceName:String='main'){
@@ -26,11 +32,11 @@ class FScene extends EventDispatcher{
 			config = FDataLoader.loadData(config);
 		}
 
-		var game = FGame.getInstance(gameInstanceName);
+		_game = FGame.getInstance(gameInstanceName);
 		var stage = Lib.current.stage;
 		var configHelper = new FConfigHelper(config);
 		//clear any previous config
-		game.clearAll();
+		_game.clearAll();
 
 
 		//initialize cameras
@@ -41,13 +47,13 @@ class FScene extends EventDispatcher{
 				
 				camera.init(cameraDef);
 				
-				game.addCamera(c.getNotNull('name',String),camera);
+				_game.addCamera(c.getNotNull('name',String),camera);
 				stage.addChild(camera);
 			}
 		}else{
 			var camera = new FCamera(100,100,gameInstanceName);
 			camera.init({});
-			game.addCamera("main",camera);
+			_game.addCamera("main",camera);
 			stage.addChild(camera);
 			//resize camera when the stage gets resized
 			stage.addEventListener(Event.RESIZE, function(e:Event) { 
@@ -59,7 +65,7 @@ class FScene extends EventDispatcher{
 		if(Reflect.isObject(config.worlds)){
 			for(worldName in Reflect.fields(config.worlds)){
 				var worldConfig = Reflect.field(config.worlds,worldName);
-				game.getWorld(worldName).init(worldConfig);
+				_game.getWorld(worldName).init(worldConfig);
 			}
 		}
 
@@ -87,10 +93,48 @@ class FScene extends EventDispatcher{
 			}
 		}
 
+
+
 		//load map
 		if(Std.is(config.map,String)){
 			
 			loader.loadMap(config.map,null,gameInstanceName);
 		}
+
+		//load scene components
+		if(Std.is(config.components,Array)){
+			for(component in cast(config.components,Array<Dynamic>)){
+				if(Reflect.isObject(component)){
+					var c = new FConfigHelper(component);
+					var componentInstance = FSceneComponentFactory.createComponent(c.getNotNull("type"));
+					componentInstance.setScene(this);
+					componentInstance.init(component);
+					_components.push(componentInstance);
+				}
+			}
+		}
+		this.dispatchEvent(new Event(FScene.COMPONENTS_INITIALIZED));
+
+	}
+
+	public function getGame(){
+		return _game;
+	}
+
+	public function getComponents(){
+		return _components;
+	}
+
+	public function destruct(){
+		if(_components != null){
+			for(component in _components){
+				component.destruct();
+			}
+			while(_components.length>0){
+				_components.pop();
+			}
+		}
 	}
 }
+
+

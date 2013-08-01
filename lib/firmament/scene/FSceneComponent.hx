@@ -2,6 +2,8 @@ package firmament.scene;
 import flash.events.EventDispatcher;
 import flash.events.Event;
 import firmament.util.FConfigHelper;
+import firmament.scene.FScene;
+
 /*
 	Class: FEntity Component
 
@@ -16,7 +18,8 @@ class FSceneComponent extends EventDispatcher
 	private var _config:Dynamic;
 	private var _componentKey:String;
 	private var _configHelper:FConfigHelper;
-
+	private var _scene:FScene;
+	
 	public function new() 
 	{
 		_configHelper = null;
@@ -58,6 +61,10 @@ class FSceneComponent extends EventDispatcher
 
 	public function setComponentKey(key:String){
 		_componentKey = key;
+	}
+
+	public function setScene(scene:FScene){
+		_scene = scene;
 	}
 
 
