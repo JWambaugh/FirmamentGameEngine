@@ -3,13 +3,20 @@ import flash.events.EventDispatcher;
 import flash.events.Event;
 import firmament.util.FConfigHelper;
 import firmament.scene.FSceneComponent;
+import firmament.util.loader.FDataLoader;
+import firmament.core.FGame;
+import flash.Lib;
+import firmament.core.FCamera;
+import firmament.util.loader.FEntityLoader;
+import firmament.sound.FSoundManager;
 
 
 class FScene extends EventDispatcher{
 
-	var _components Array<FSceneComponent>;
+	var _components : Array<FSceneComponent>;
 	var _gameInstanceName:String;
 	public function new(){
+		super();
 		var _components = new Array();
 	}
 

@@ -23,6 +23,7 @@ import firmament.util.loader.FSceneLoader;
 import firmament.util.loader.serializer.FSerializerFactory;
 import firmament.world.FWorld;
 import firmament.world.FWorldFactory;
+import firmament.scene.FScene;
 import haxe.Timer;
 import openfl.Assets;
 import flash.display.Bitmap;
@@ -52,6 +53,8 @@ class FGame extends EventDispatcher
 	var _gameTimerManager:FTimerManager;
 
 	var _instanceName:String;
+
+	var _currentScene:FScene;
 
 	//Constant: COLLISION_PRE_SOLVE_EVENT
 	public static inline var COLLISION_PRE_SOLVE_EVENT = 'preSolveCollision';
@@ -368,6 +371,20 @@ class FGame extends EventDispatcher
 
 	public function getInstanceName():String{
 		return _instanceName;
+	}
+
+	/**
+	 * Loads a scene.
+	 */
+	public function loadScene(scene:Dynamic){
+		clearAll();
+		_currentScene = new FScene();
+		_currentScene.init(scene,getInstanceName());
+		return _currentScene;
+	}
+
+	public function getCurrentScene(){
+		return _currentScene;
 	}
 
 
