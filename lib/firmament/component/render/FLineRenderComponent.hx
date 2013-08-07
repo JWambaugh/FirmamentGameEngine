@@ -146,14 +146,32 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 			if(x>0)pos = pos.getPointAtAngle(_angle,stepDistance);
 			var nx = ((pos.x - cameraPos.x) *multiplier);
 			var ny = ((pos.y - cameraPos.y) *multiplier);
-			
+			/*
 			var index =0;
 			drawList[index] = nx;
 			drawList[index + 1] = ny;
 			drawList[index + 2] = this._tile; // sprite index
 			drawList[index + 3] = ratio;
 			drawList[index + 4] = -_angle;
-			drawList[index + 5] = 1;
+			drawList[index + 5] = 1;*/
+			var a:Float, b:Float,c:Float,d:Float;
+			
+			a = Math.cos(_angle)*ratio;
+			b = Math.sin(_angle)*ratio; 
+			c = -Math.sin(_angle)*ratio; 
+			d = Math.cos(_angle)*ratio;
+			drawList[0] = nx;
+			drawList[1] = ny;
+			drawList[2] = this._tile; // sprite index
+			drawList[3] = a;
+			drawList[4] = b;
+			drawList[5] = c;
+			drawList[6] = d;
+
+
+			//drawList[3] = ratio;
+			//drawList[4] = physicsComponent.getAngle();
+			drawList[7] = 1;
 			
 			FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList);
 

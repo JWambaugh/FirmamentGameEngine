@@ -60,7 +60,7 @@ class FTilesheetRenderHelper {
 			var camera = cast(e.currentTarget,FCamera);
 			
 			tilesheet.drawTiles(camera.graphics, list, true, 
-			Tilesheet.TILE_SCALE | Tilesheet.TILE_ROTATION | Tilesheet.TILE_ALPHA);
+			Tilesheet.TILE_TRANS_2x2 | Tilesheet.TILE_ALPHA);
 		}
 		
 	}

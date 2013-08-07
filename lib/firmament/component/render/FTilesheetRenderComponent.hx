@@ -34,6 +34,8 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 	var imageScale:Float;
 	var _tile:Int;
 	var _parallax:Float;
+	var _flipX:Bool;
+	var _flipY:Bool;
 		
 	public function new() {
 		imageScale=100;
@@ -41,7 +43,8 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		drawList = new Array<Float>();
 		_tile = 0;
 		_parallax = 1;
-		
+		_flipX = false;
+		_flipY = false;
 	}
 
 	override public function init(config:Dynamic){
@@ -62,6 +65,13 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 
 		if(Std.is(config.parallax,Float)){
 			_parallax = config.parallax;
+		}
+
+		if(Std.is(config.flipX,Bool)){
+			_flipX = config.flipX;
+		}
+		if(Std.is(config.flipY,Bool)){
+			_flipY = config.flipY;
 		}
 	}
 	
@@ -125,13 +135,29 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		var pos = physicsComponent.getPosition();
 		var nx = ((pos.x - cameraPos.x) *_parallax * camera.getZoom());
 		var ny = ((pos.y - cameraPos.y) *_parallax * camera.getZoom());
+		var a:Float, b:Float,c:Float,d:Float;
+		var angle =physicsComponent.getAngle();
+		//perform rotation and scale
+		a = Math.cos(angle)*ratio;
+		b = Math.sin(angle)*ratio; 
+		c = -Math.sin(angle)*ratio; 
+		d = Math.cos(angle)*ratio;
+
+		if(_flipX)a=-a;
+		if(_flipY)d=-d;
 		
 		drawList[0] = nx;
 		drawList[1] = ny;
 		drawList[2] = this._tile; // sprite index
-		drawList[3] = ratio;
-		drawList[4] = physicsComponent.getAngle();
-		drawList[5] = 1;
+		drawList[3] = a;
+		drawList[4] = b;
+		drawList[5] = c;
+		drawList[6] = d;
+
+
+		//drawList[3] = ratio;
+		//drawList[4] = physicsComponent.getAngle();
+		drawList[7] = 1;
 		
 		FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList);
 	}
