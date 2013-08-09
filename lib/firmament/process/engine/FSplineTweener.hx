@@ -42,7 +42,6 @@ class FSplineTweener extends FProcess {
 		_entity = entity;
 		if(_entity != null) {
 			_startPos = _entity.getPhysicsComponent().getPosition();
-			trace("Start position: X:"+_startPos.x+" y:"+_startPos.y);
 		}
 		_graphics = graphics;
 		

@@ -11,6 +11,7 @@ import firmament.core.FTilesheet;
 import firmament.core.FTilesheetManager;
 import firmament.core.FTilesheetRenderHelper;
 import firmament.component.animation.FAnimationComponent;
+import firmament.core.FVector;
 import openfl.Assets;
 import flash.display.BitmapData;
 import flash.display.IBitmapDrawable;
@@ -36,7 +37,10 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 	var _parallax:Float;
 	var _flipX:Bool;
 	var _flipY:Bool;
-		
+	
+	var _positionOffset:FVector;
+	var _angleOffset:Float;
+
 	public function new() {
 		imageScale=100;
 		super();
@@ -45,6 +49,8 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		_parallax = 1;
 		_flipX = false;
 		_flipY = false;
+		_positionOffset = new FVector(0,0);
+		_angleOffset = 0;
 	}
 
 	override public function init(config:Dynamic){
@@ -73,6 +79,8 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		if(Std.is(config.flipY,Bool)){
 			_flipY = config.flipY;
 		}
+
+
 	}
 	
 
@@ -133,19 +141,17 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		var cameraPos = camera.getTopLeftPosition(this._parallax);
 		var ratio = camera.getZoom() / imageScale;
 		var pos = physicsComponent.getPosition();
-		var nx = ((pos.x - cameraPos.x) *_parallax * camera.getZoom());
-		var ny = ((pos.y - cameraPos.y) *_parallax * camera.getZoom());
+		var nx = (((pos.x+_positionOffset.x) - cameraPos.x) *_parallax * camera.getZoom());
+		var ny = (((pos.y+_positionOffset.y) - cameraPos.y) *_parallax * camera.getZoom());
 		var a:Float, b:Float,c:Float,d:Float;
-		var angle =physicsComponent.getAngle();
+		var angle =physicsComponent.getAngle()+_angleOffset;
 		//perform rotation and scale
 		a = Math.cos(angle)*ratio;
 		b = Math.sin(angle)*ratio; 
 		c = -Math.sin(angle)*ratio; 
 		d = Math.cos(angle)*ratio;
-
-		if(_flipX)a=-a;
-		if(_flipY)d=-d;
-		
+		if(_flipX)a =- a;
+		if(_flipY)d =- d;
 		drawList[0] = nx;
 		drawList[1] = ny;
 		drawList[2] = this._tile; // sprite index

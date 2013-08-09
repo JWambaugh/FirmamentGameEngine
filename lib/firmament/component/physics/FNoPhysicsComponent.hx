@@ -49,6 +49,7 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		_linearVelocity = new FVector(0,0);
 		_zPosition = 0;
 		_deleted = false;
+		_angle = 0;
 	}
 	
 	override public function init(config:Dynamic):Void {
