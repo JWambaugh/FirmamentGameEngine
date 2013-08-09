@@ -74,9 +74,10 @@ class FSplineTweener extends FProcess {
 		FGame.getInstance().addProcess(name,this);
 	}
 
-	public function setEntity(entity:FEntity) {
-		//trace(Std.string(entity));
-		
+	public function setEntity(entity:FEntity): FEntity {
+		var oldEntity:FEntity = _entity;
+		_entity = entity;
+		return oldEntity;
 	}
 
 	public function setGraphics(g:Graphics) {
