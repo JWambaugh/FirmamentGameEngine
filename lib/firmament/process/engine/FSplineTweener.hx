@@ -39,6 +39,12 @@ class FSplineTweener extends FProcess {
 		}
 		spline = new CatmullRom(points, totalTime);
 		
+		//apply random start position if desired
+		if(parameters.get('randomStart',Bool,false)){
+			var startSeed = Math.random()*totalTime;
+			spline.update(startSeed);
+		}
+
 		_entity = entity;
 		if(_entity != null) {
 			_startPos = _entity.getPhysicsComponent().getPosition();
@@ -64,6 +70,7 @@ class FSplineTweener extends FProcess {
 		}
 
 		spline.setActive(true);
+		
 		FGame.getInstance().addProcess(name,this);
 	}
 

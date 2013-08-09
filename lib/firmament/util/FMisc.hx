@@ -36,7 +36,10 @@ class FMisc
 	public static function mergeInto(a:Dynamic,b:Dynamic){
 		for (f in Reflect.fields(a)) {
 			var val = Reflect.field(a, f);
-			if (Reflect.isObject(val) && !Std.is(val,String)) {
+			if(Std.is(val,Array)){
+				Reflect.setField(b, f, val); //doesn't merge arrays right now
+			}
+			else if (Reflect.isObject(val) && !Std.is(val,String)) {
 				if(!Reflect.isObject(Reflect.field(b,f))){
 					Reflect.setField(b,f,{});
 				}
