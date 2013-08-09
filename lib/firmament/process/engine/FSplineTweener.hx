@@ -23,6 +23,7 @@ class FSplineTweener extends FProcess {
     private var _entity:FEntity;
     private var _startPos:FVector;
     private var _draw:Bool;
+    private var _changeAngle:Bool;
 
 	public function new(?name:String="splineTweener",parameters:FConfigHelper, ?entity:FEntity=null,?graphics:Graphics=null) {
 		super();
@@ -30,7 +31,7 @@ class FSplineTweener extends FProcess {
 		var points:Array<FVector> = [];
 		var totalTime:Float = parameters.get('totalTime',Float,1.0);
 		var offset = parameters.get('offset',FVector,new FVector(0,0));
-
+		_changeAngle = parameters.get("changeAngle",Bool,true);
 		var args:Array<Dynamic> = parameters.get('points',Array,[]);
 		for ( pt in args ) {
 		    //trace(pt[0],",",pt[1]);
@@ -41,6 +42,7 @@ class FSplineTweener extends FProcess {
 		_entity = entity;
 		if(_entity != null) {
 			_startPos = _entity.getPhysicsComponent().getPosition();
+			trace("Start position: X:"+_startPos.x+" y:"+_startPos.y);
 		}
 		_graphics = graphics;
 		
@@ -85,7 +87,9 @@ class FSplineTweener extends FProcess {
 		    var qa = q.copy();
 		    qa.add(_startPos);
 			_entity.getPhysicsComponent().setPosition( q );
-			_entity.getPhysicsComponent().setAngle(Math.atan2(t.y,t.x));
+			if(_changeAngle){
+				_entity.getPhysicsComponent().setAngle(Math.atan2(t.y,t.x));
+			}
 		}
 
 		if(spline.isActive() == false ) {

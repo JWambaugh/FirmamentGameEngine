@@ -198,9 +198,9 @@ class FGame extends EventDispatcher
 		Example query:
 			{
 				selector: 'box'
-				topLeft: {x:-1,-1}
-				bottomRight:{1,1}
-				filters:{
+				,topLeft: {x:-1,-1}
+				,bottomRight:{1,1}
+				,filters:{
 					type:{
 						typeId: "enemy"
 					}
