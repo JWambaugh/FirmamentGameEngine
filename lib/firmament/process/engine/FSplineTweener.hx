@@ -86,7 +86,7 @@ class FSplineTweener extends FProcess {
 		if(_entity != null) {
 		    var qa = q.copy();
 		    qa.add(_startPos);
-			_entity.getPhysicsComponent().setPosition( q );
+			_entity.getPhysicsComponent().setPosition( qa );
 			if(_changeAngle){
 				_entity.getPhysicsComponent().setAngle(Math.atan2(t.y,t.x));
 			}
