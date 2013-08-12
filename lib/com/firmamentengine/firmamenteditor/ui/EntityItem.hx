@@ -46,7 +46,7 @@ class EntityItem extends Sprite
 	public function new(fileName:String,dir:String,config:Dynamic) 
 	{
 		//trace("intityItem constructor");
-
+		trace("processing entity "+fileName);
 		super();
 		this.filePath = dir+"/"+fileName;
 		this.config = config;

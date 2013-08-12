@@ -3,10 +3,9 @@ import firmament.ui.FWindow;
 import firmament.ui.layout.FHBox;
 import flash.display.Sprite;
 import sys.FileSystem;
-import firmament.util.loader.serializer.FJsonSerializer;
 import firmament.ui.FDialog;
 import sys.io.File;
-
+import firmament.util.loader.FDataLoader;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -39,7 +38,6 @@ class EntitySelector extends FWindow
 		var exeDir = Sys.getCwd();
 		Sys.setCwd(FirmamentEditor.cwd);
 		var files = FileSystem.readDirectory(entityDir);
-		var serializer = new FJsonSerializer();
 		for (file in files) {
 			if(FileSystem.isDirectory(entityDir + "/" + file)){
 				loadEntities(entityDir + "/" + file);
@@ -47,8 +45,8 @@ class EntitySelector extends FWindow
 			}
 			if(file.indexOf(".json")<0)continue;
 			try{
-				var str = File.getContent(entityDir + "/" + file);
-				var config = serializer.unserialize(str);
+				
+				var config = FDataLoader.loadData(entityDir + "/" + file);
 				ents.push(config);
 				layout.addChild(new EntityItem(file,entityDir, config));
 			}catch (e:Dynamic) {
