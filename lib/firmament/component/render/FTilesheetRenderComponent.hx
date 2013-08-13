@@ -58,6 +58,9 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		
 		initTilesheet();
 
+		if(_tilesheet == null){
+			throw 'tilesheet is still null after init';
+		}
 		if(Std.is(config.tile,Int)){
 			this._tile = config.tile;
 		}else if(Std.is(config.tile,String)){
@@ -89,7 +92,9 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		var imageIsFileName = false;
 		if(Std.is(_config.tilesheetFile,String)){
 			_tilesheet = FTilesheetManager.getInstance().getTilesheetFromDifinitionFile(_config.tilesheetFile);
-
+			if(_tilesheet == null){
+				throw('tilesheet file "'+_config.tilesheetFile+'" could not be loaded');
+			}
 		}
 		else if(image !=null){
 			if(Std.is(image,FTilesheet)){

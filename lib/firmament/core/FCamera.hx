@@ -257,6 +257,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	private function onClick(e:MouseEvent){
 		var ents = _game.getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
 		for(ent in ents){
+			if(ent.isActive())
 			ent.dispatchEvent(new Event(MouseEvent.CLICK));
 		}
 	}
