@@ -41,6 +41,11 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 	var _positionOffset:FVector;
 	var _angleOffset:Float;
 
+	var _r:Float=1;
+	var _g:Float=1;
+	var _b:Float=1;
+	var _alpha:Float=1;
+
 	public function new() {
 		imageScale=100;
 		super();
@@ -55,7 +60,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 
 	override public function init(config:Dynamic){
 		this._config = config;
-		
+		var ch = getConfigHelper();
 		initTilesheet();
 
 		if(_tilesheet == null){
@@ -82,6 +87,11 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		if(Std.is(config.flipY,Bool)){
 			_flipY = config.flipY;
 		}
+
+		_r=ch.get('red',Float,1.);
+		_g=ch.get('green',Float,1.);
+		_b=ch.get('blue',Float,1.);
+		_alpha=ch.get('alpha',Float,1.);
 
 
 	}
@@ -165,10 +175,12 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		drawList[5] = c;
 		drawList[6] = d;
 
-
+		drawList[7] = _r;
+		drawList[8] = _g;
+		drawList[9] = _b;
 		//drawList[3] = ratio;
 		//drawList[4] = physicsComponent.getAngle();
-		drawList[7] = 1;
+		drawList[10] = _alpha;
 		
 		FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList);
 	}
@@ -222,6 +234,28 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 
 	public function getParallaxMultiplier():Float{
 		return _parallax;
+	}
+
+	public function setRGB(r:Float,g:Float,b:Float){
+		_r=r;
+		_g=g;
+		_b=b;
+	}
+
+	public function getRGB(){
+		return {
+			r:_r
+			,g:_g
+			,b:_b
+		}
+	}
+
+	public function setAlpha(a:Float){
+		_alpha = a;
+	}
+
+	public function getAlpha(){
+		return _alpha;
 	}
 	
 	

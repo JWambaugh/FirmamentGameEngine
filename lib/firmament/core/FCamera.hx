@@ -39,7 +39,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	var _debugRenderer:FWireframeRenderComponent;
 	var _calculatedTopLeft:Bool;
 	var _game:FGame;
-
+	var _mouseOverEnts:Array<FEntity>;
 
 	/**
 	 * Constructor: new
@@ -60,6 +60,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		_debugRender = false;
 		_debugRenderer = new FWireframeRenderComponent();
 		_game = FGame.getInstance(gameInstanceName);
+		_mouseOverEnts = new Array();
 	}
 
 
@@ -254,11 +255,35 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		this.addEventListener(flash.events.MouseEvent.CLICK,onClick);
 	}
 
+	/**
+	 * Enables click events on this camera. Any entities under the point clicked on will receive a click event.
+	 *
+	 */
+	public function enableOverEvents(){
+		this.addEventListener(flash.events.MouseEvent.MOUSE_MOVE,function(e:MouseEvent){
+			var ents = _game.getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
+			for(ent in ents){
+				var alreadyOver = _mouseOverEnts.remove(ent);
+				if(ent.isActive() && !alreadyOver){
+					ent.dispatchEvent(new Event(MouseEvent.MOUSE_OVER));
+				}
+			}
+			//any ents left in _mouseOverEnts is now mouse_out
+			for(ent in _mouseOverEnts){
+				if(ent.isActive()){
+					ent.dispatchEvent(new Event(MouseEvent.MOUSE_OUT));
+				}
+			}
+			_mouseOverEnts = ents;
+		});
+	}
+
 	private function onClick(e:MouseEvent){
 		var ents = _game.getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
 		for(ent in ents){
-			if(ent.isActive())
-			ent.dispatchEvent(new Event(MouseEvent.CLICK));
+			if(ent.isActive()){
+				ent.dispatchEvent(new Event(MouseEvent.CLICK));
+			}
 		}
 	}
 	

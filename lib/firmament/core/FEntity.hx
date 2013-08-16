@@ -204,4 +204,5 @@ class FEntity extends flash.events.EventDispatcher
 		return _gameInstance;
 	}
 	
+	
 }

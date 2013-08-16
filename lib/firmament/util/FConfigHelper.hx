@@ -38,7 +38,8 @@ class FConfigHelper {
 		}
 	}
 
-	public function getVector(field:String,def:Dynamic){
+	public function getVector(field:String,?def:Dynamic=null){
+		if(def == null)def={x:0,y:0};
 		var v = vectorFromDynamic(Reflect.field(_config,field));
 		if(v == null) return vectorFromDynamic(def);
 		return v;

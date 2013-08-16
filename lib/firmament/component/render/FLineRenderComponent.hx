@@ -40,7 +40,10 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 	var _endPoint:FVector;
 	var _angle:Float;
 	var _distanceBetween:Float;
-		
+	var _r:Float=1;
+	var _g:Float=1;
+	var _b:Float=1;
+	var _alpha:Float=1;
 	public function new() {
 		imageScale=100;
 		super();
@@ -167,11 +170,12 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 			drawList[4] = b;
 			drawList[5] = c;
 			drawList[6] = d;
-
-
+			drawList[7] = _r;
+			drawList[8] = _g;
+			drawList[9] = _b;
 			//drawList[3] = ratio;
 			//drawList[4] = physicsComponent.getAngle();
-			drawList[7] = 1;
+			drawList[10] = _alpha;
 			
 			FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList);
 
