@@ -3,7 +3,7 @@ import flash.events.EventDispatcher;
 import flash.events.Event;
 import firmament.util.FConfigHelper;
 import firmament.scene.FScene;
-
+import firmament.core.FGame;
 /*
 	Class: FEntity Component
 
@@ -19,11 +19,14 @@ class FSceneComponent extends EventDispatcher
 	private var _componentKey:String;
 	private var _configHelper:FConfigHelper;
 	private var _scene:FScene;
+	private var _gameInstance:FGame;
 	
-	public function new() 
+	public function new(gameInstance:FGame) 
 	{
 		_configHelper = null;
 		super();
+		_gameInstance = gameInstance;
+
 
 	}
 	

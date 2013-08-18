@@ -106,7 +106,7 @@ class FScene extends EventDispatcher{
 			for(component in cast(config.components,Array<Dynamic>)){
 				if(Reflect.isObject(component)){
 					var c = new FConfigHelper(component);
-					var componentInstance = FSceneComponentFactory.createComponent(c.getNotNull("type"));
+					var componentInstance = FSceneComponentFactory.createComponent(c.getNotNull("type"),_game);
 					componentInstance.setScene(this);
 					componentInstance.init(component);
 					_components.push(componentInstance);

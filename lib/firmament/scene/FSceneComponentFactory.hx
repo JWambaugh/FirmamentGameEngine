@@ -1,16 +1,16 @@
 package firmament.scene;
 
 
-
+import firmament.core.FGame;
 
 class FSceneComponentFactory{
-	public static function createComponent(type:String,?componentKey:String=''):FSceneComponent {
+	public static function createComponent(type:String,game:FGame,?componentKey:String=''):FSceneComponent {
 		var className = getClassFromType(type);
 		var c =Type.resolveClass(className);
 		if(c==null){
 			throw "class "+className+" could not be found.";
 		}
-		var component:FSceneComponent = Type.createInstance(c,[]);
+		var component:FSceneComponent = Type.createInstance(c,[game]);
 		component.setComponentKey(componentKey);
 		if(component == null){
 			throw "Component of type "+type+" with class "+className+" could not be instantiated!";
