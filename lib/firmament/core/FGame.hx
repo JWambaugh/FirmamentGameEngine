@@ -88,6 +88,8 @@ class FGame extends EventDispatcher
 
 	private static var _instances:Map<String,FGame>;
 
+	private static var _scenes:Map<String,FScene>;
+
 	/**
 	 * Constructor: new
 	 */
@@ -380,11 +382,40 @@ class FGame extends EventDispatcher
 	 */
 	public function loadScene(scene:Dynamic){
 		clearAll();
-		_currentScene = new FScene();
-		_currentScene.init(scene,getInstanceName());
+		var instanceName = getInstanceName();
+		if(_scenes == null || (_currentScene = _scenes.get(instanceName)) == null) {
+			trace("loadScene: Creating new scene");
+			_currentScene = new FScene();
+			trace("loadScene: Loading instance data");
+			_currentScene.init(scene,instanceName);
+		}
 		return _currentScene;
 	}
 
+	/**
+	 * Switches to a preloaded a scene.
+	*/
+	public function switchScene(?name:String='main',?camName:String='main') {
+		return null;
+		var instance:FGame = null;
+		if( _instances == null || (instance = _instances.get(name)) == null ) {
+			return null;
+		}
+
+		if( _currentScene != null ) {
+			clearAll(); // this actually destroys the scene, which would need to be reallocated
+			            // all we need to do is stop all events and change to a new camera
+		}
+		
+		_currentScene = instance.loadScene(null); // you'd better exist!
+
+		var camera = instance.getCamera(camName);
+		camera.enableClickEvents();
+		camera.enableOverEvents();
+
+		return _currentScene;
+	}
+	
 	public function getCurrentScene(){
 		return _currentScene;
 	}
