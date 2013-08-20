@@ -124,8 +124,14 @@ class FTilesheetManager {
 					}
 					var label:String = null;
 					if(Std.is(tile.label,String))label = tile.label;
+					//flash is off by a bit for some reason... hack to make it work.
+					#if(flash)
+					t.addTileRectWithLabel(new Rectangle (tile.topLeft.x+.2, tile.topLeft.y+.2, tile.width, tile.height)
+						,new Point(center.x,center.y),label);
+					#else
 					t.addTileRectWithLabel(new Rectangle (tile.topLeft.x, tile.topLeft.y, tile.width, tile.height)
 						,new Point(center.x,center.y),label);
+					#end
 				}else{
 					throw "Found a tile that doesn't have a topLeft and/or height and width";
 				}

@@ -50,7 +50,7 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 		drawList = new Array<Float>();
 		_tile = 0;
 		_parallax = 1;
-		
+		_angle = 0;
 	}
 
 	override public function init(config:Dynamic){
@@ -72,11 +72,12 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 		if(Std.is(config.parallax,Float)){
 			_parallax = config.parallax;
 		}
-
 		setPoints(
 			new FVector(0,0)
 			,new FVector(0,-10)
-			);
+		);
+
+		
 	}
 	
 
@@ -85,7 +86,9 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 		var imageIsFileName = false;
 		if(Std.is(_config.tilesheetFile,String)){
 			_tilesheet = FTilesheetManager.getInstance().getTilesheetFromDifinitionFile(_config.tilesheetFile);
-
+			if(_tilesheet == null){
+				throw('tilesheet file "'+_config.tilesheetFile+'" could not be loaded');
+			}
 		}
 		else if(image !=null){
 			if(Std.is(image,FTilesheet)){
@@ -120,8 +123,6 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 	}
 
 	public function render(camera:FCamera):Void {
-		var TILE_FIELDS = 6; // x+y+index+scale+rotation+alpha
-		
 		//make sure we are currently active 
 		if(!_entity.isActive())return;
 
@@ -149,14 +150,7 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 			if(x>0)pos = pos.getPointAtAngle(_angle,stepDistance);
 			var nx = ((pos.x - cameraPos.x) *multiplier);
 			var ny = ((pos.y - cameraPos.y) *multiplier);
-			/*
-			var index =0;
-			drawList[index] = nx;
-			drawList[index + 1] = ny;
-			drawList[index + 2] = this._tile; // sprite index
-			drawList[index + 3] = ratio;
-			drawList[index + 4] = -_angle;
-			drawList[index + 5] = 1;*/
+			
 			var a:Float, b:Float,c:Float,d:Float;
 			
 			a = Math.cos(_angle)*ratio;
@@ -237,7 +231,19 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 		_startPoint = start;
 		_endPoint = end;
 		_angle = _startPoint.angleTo(_endPoint);
-		_distanceBetween = _startPoint.distanceTo(end);
+		_distanceBetween = round(_startPoint.distanceTo(end));
+		trace(_distanceBetween);
+
+
+	}
+
+	//rounds to 4 decimal places.
+	private function round(val:Float):Float{
+		var places:Int = 4;
+		var factor:Int = cast(Math.pow(10,places));
+		val = val*factor;
+		var tmp:Int = Math.round(val);
+		return tmp/factor;
 	}
 	
 }
