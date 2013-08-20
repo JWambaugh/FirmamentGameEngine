@@ -101,7 +101,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		var image = _config.image;
 		var imageIsFileName = false;
 		if(Std.is(_config.tilesheetFile,String)){
-			_tilesheet = FTilesheetManager.getInstance().getTilesheetFromDifinitionFile(_config.tilesheetFile);
+			_tilesheet = FTilesheetManager.getInstance().getTilesheetFromDefinitionFile(_config.tilesheetFile);
 			if(_tilesheet == null){
 				throw('tilesheet file "'+_config.tilesheetFile+'" could not be loaded');
 			}

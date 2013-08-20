@@ -77,7 +77,7 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 			,new FVector(0,-10)
 		);
 
-		
+		trace(_tile);
 	}
 	
 
@@ -85,7 +85,7 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 		var image = _config.image;
 		var imageIsFileName = false;
 		if(Std.is(_config.tilesheetFile,String)){
-			_tilesheet = FTilesheetManager.getInstance().getTilesheetFromDifinitionFile(_config.tilesheetFile);
+			_tilesheet = FTilesheetManager.getInstance().getTilesheetFromDefinitionFile(_config.tilesheetFile);
 			if(_tilesheet == null){
 				throw('tilesheet file "'+_config.tilesheetFile+'" could not be loaded');
 			}
@@ -144,7 +144,6 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 		var stepNum = Math.floor(_distanceBetween/stepDistance);
 		var pos = start;
 		var multiplier = _parallax * camera.getZoom();
-		//trace(stepNum);
 		for(x in 0 ... stepNum){
 			
 			if(x>0)pos = pos.getPointAtAngle(_angle,stepDistance);
@@ -231,19 +230,19 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 		_startPoint = start;
 		_endPoint = end;
 		_angle = _startPoint.angleTo(_endPoint);
-		_distanceBetween = round(_startPoint.distanceTo(end));
-		trace(_distanceBetween);
+		_distanceBetween = _startPoint.distanceTo(end);
+		//trace(_distanceBetween);
 
 
 	}
 
 	//rounds to 4 decimal places.
-	private function round(val:Float):Float{
+	/*private function round(val:Float):Float{
 		var places:Int = 4;
 		var factor:Int = cast(Math.pow(10,places));
 		val = val*factor;
 		var tmp:Int = Math.round(val);
 		return tmp/factor;
-	}
+	}*/
 	
 }

@@ -44,7 +44,7 @@ class FTilesheetManager {
 		return tilesheets.get(id);
 	}
 
-	public function getTilesheetFromDifinitionFile(fileName:String){
+	public function getTilesheetFromDefinitionFile(fileName:String){
 		for(tilesheet in this.tilesheets){
 			if(tilesheet.getDefinitionFileName() == fileName){
 				return tilesheet;

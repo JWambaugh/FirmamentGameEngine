@@ -17,7 +17,7 @@ class FAnimation {
 
 	public function init(config:Dynamic){
 		if(Std.is(config.tilesheetFile,String)){
-			_tilesheet = FTilesheetManager.getInstance().getTilesheetFromDifinitionFile(config.tilesheetFile);
+			_tilesheet = FTilesheetManager.getInstance().getTilesheetFromDefinitionFile(config.tilesheetFile);
 		}
 		else if(Std.is(config.tilesheet,FTilesheet)){
 			_tilesheet = config.tilesheet;
