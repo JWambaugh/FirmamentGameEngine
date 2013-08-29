@@ -174,7 +174,6 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		var pos = physicsComponent.getPosition();
 
 
-		var currentWidth:Float = 0;
 
 		for(letter in _positionData.letters){
 			
@@ -232,17 +231,18 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	}
 	
 	public function getBitmapData():BitmapData{
-		/*var sprite:Sprite = new Sprite();
-		var index =0;
-		drawList[index] = _tilesheet.getRectangle(_tile).width/2;
-		drawList[index + 1] = _tilesheet.getRectangle(_tile).height/2;
-		drawList[index + 2] = this._tile; // sprite index
-		drawList[index + 3] = 1;
-		_tilesheet.drawTiles(sprite.graphics, drawList, true, Tilesheet.TILE_ALPHA);
+		var sprite:Sprite = new Sprite();
+		
+		for(letter in _positionData.letters){
+			drawList[0] = letter.xOffset*100;
+			drawList[1] = letter.yOffset*100;
+			drawList[2] = letter.tile; // sprite index
+			drawList[3] = 1;
+			_tilesheet.drawTiles(sprite.graphics, drawList, true, Tilesheet.TILE_ALPHA);
+		}
 		var bd:BitmapData = new BitmapData(Std.int(sprite.width),Std.int(sprite.height));
 		bd.draw(sprite);
-		return bd;*/
-		return null;
+		return bd;
 	}
 	
 	override public function getType():String {
@@ -304,21 +304,33 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 				tile+='l';
 			}
 			var tileId = _tilesheet.getTileNumber(tile);
+			var tileWidth = _tilesheet.getRectangle(tileId).width/this.imageScale;
 			var letterData:LetterPositionData = {
 				tile:tileId
-				,xOffset:_positionData.width
+				,xOffset:_positionData.width+tileWidth/2
 				,yOffset:0
 			};
 			_positionData.letters.push(letterData);
-			_positionData.width+=((_tilesheet.getRectangle(tileId).width+_kerning) / this.imageScale);
+			_positionData.width+=((tileWidth )+_kerning);
 		}
 
-		if(_textAlign =='center'){
-			var diff = _positionData.width/2;
+		//adjust text positions for center or right alignment
+		if(_textAlign!='left'){
+			var diff:Float;
+			if(_textAlign =='center'){
+				diff = _positionData.width/2;
+			}else if(_textAlign == 'right'){
+				diff = _positionData.width;
+			}else{
+				throw "unsupported text align: "+_textAlign;
+			}
+
 			for(letter in _positionData.letters){
-				letter.xOffset-=diff;
+					letter.xOffset-=diff;
 			}
 		}
+
+		
 	}
 	
 	
