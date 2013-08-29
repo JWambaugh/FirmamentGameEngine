@@ -12,6 +12,7 @@ import firmament.component.physics.FParticleComponent;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.component.render.FWireframeRenderComponent;
 import firmament.component.render.FLineRenderComponent;
+import firmament.component.render.FTextRenderComponent;
 import firmament.component.spline.FSimpleFollowSplineComponent;
 
 import firmament.component.event.FCollisionEventMapperComponent;
@@ -54,6 +55,7 @@ class FEntityComponentFactory{
 			,"sceneLoader":"firmament.component.system.FSceneLoaderComponent"
 			,"entityContainer":"firmament.component.ui.FEntityContainerComponent"
 			,"followSpline":"firmament.component.spline.FSimpleFollowSplineComponent"
+			,"text":"firmament.component.render.FTextRenderComponent"
 		};
 
 		var cls = Reflect.field(map,type);
