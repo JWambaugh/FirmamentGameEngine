@@ -107,7 +107,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		_text = ch.get('text',String,"");
 		_tilePrefix = ch.get("tilePrefix",String,"");
 		_kerning = ch.get("kerning",Float,0);
-		_textAlign = ch.get("textAlign",String,"center");
+		_textAlign = ch.get("textAlign",String,"right");
 
 		calculatePositions();
 	}
@@ -232,16 +232,22 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	
 	public function getBitmapData():BitmapData{
 		var sprite:Sprite = new Sprite();
+		var tempAlignment = _textAlign;
+
+		_textAlign='left';
+		calculatePositions();
 		
 		for(letter in _positionData.letters){
 			drawList[0] = letter.xOffset*100;
-			drawList[1] = letter.yOffset*100;
+			drawList[1] = (letter.yOffset+_positionData.height)*100;
 			drawList[2] = letter.tile; // sprite index
 			drawList[3] = 1;
 			_tilesheet.drawTiles(sprite.graphics, drawList, true, Tilesheet.TILE_ALPHA);
 		}
 		var bd:BitmapData = new BitmapData(Std.int(sprite.width),Std.int(sprite.height));
 		bd.draw(sprite);
+		_textAlign = tempAlignment;
+		calculatePositions();
 		return bd;
 	}
 	
@@ -305,6 +311,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 			}
 			var tileId = _tilesheet.getTileNumber(tile);
 			var tileWidth = _tilesheet.getRectangle(tileId).width/this.imageScale;
+			var tileHeight = _tilesheet.getRectangle(tileId).height/this.imageScale;
 			var letterData:LetterPositionData = {
 				tile:tileId
 				,xOffset:_positionData.width+tileWidth/2
@@ -312,6 +319,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 			};
 			_positionData.letters.push(letterData);
 			_positionData.width+=((tileWidth )+_kerning);
+			if(tileHeight > _positionData.height)_positionData.height = tileHeight;
 		}
 
 		//adjust text positions for center or right alignment
