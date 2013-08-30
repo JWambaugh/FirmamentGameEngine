@@ -107,7 +107,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		_text = ch.get('text',String,"");
 		_tilePrefix = ch.get("tilePrefix",String,"");
 		_kerning = ch.get("kerning",Float,0);
-		_textAlign = ch.get("textAlign",String,"right");
+		_textAlign = ch.get("textAlign",String,"center");
 
 		calculatePositions();
 	}
