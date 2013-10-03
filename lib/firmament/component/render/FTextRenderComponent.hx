@@ -77,6 +77,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	}
 
 	override public function init(config:Dynamic){
+		trace(Std.string(config));
 		this._config = config;
 		var ch = getConfigHelper();
 		initTilesheet();
@@ -114,44 +115,25 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	
 
 	public function initTilesheet(){
-		var image = _config.image;
+		
 		var imageIsFileName = false;
-		if(Std.is(_config.tilesheetFile,String)){
-			_tilesheet = FTilesheetManager.getInstance().getTilesheetFromDefinitionFile(_config.tilesheetFile);
+		
+		var ch = getConfigHelper();
+		var tilesheetConfig = _config.tilesheet;
+		var fontKey:String = ch.getNotNull('fontKey',String);
+		if(Reflect.isObject(tilesheetConfig)){
+			_tilesheet = FTilesheetManager.getInstance().findTilesheetWithKey( fontKey );
 			if(_tilesheet == null){
-				throw('tilesheet file "'+_config.tilesheetFile+'" could not be loaded');
+				_tilesheet = FTilesheetManager.getInstance().createTilesheet(tilesheetConfig);
+				if(_tilesheet == null){
+					throw('Tilesheet is null after creation');
+				}
+				_tilesheet.setDefinitionFileName(fontKey);
+				FTilesheetManager.getInstance().addTileSheet(_tilesheet);
 			}
+
 		}
-		else if(image !=null){
-			if(Std.is(image,FTilesheet)){
-				_tilesheet = cast(image);
-			}else{
-				var bd:BitmapData;
-				if(Std.is(image,String)){
-					//trace("image: " + Std.string(image));
-					bd = Assets.getBitmapData(cast(image,String));
-					
-				}
-				else if(Std.is(image,BitmapData)){
-					bd = cast(image,BitmapData);
-				}
-				else{
-					throw("invalid tileSheetImage");
-				}
-				_tilesheet = new FTilesheet(bd);
-				if(imageIsFileName){
-					_tilesheet.setImageFileName(cast(image,String));
-				}
-				_tilesheet.addTileRect(new Rectangle (0, 0, bd.width, bd.height),new Point(bd.width/2,bd.height/2));
-			}
-		}else{
-			//try to get a tilesheet from the animation
-			var animationC = _entity.getComponent("animation");
-			if(animationC!=null){
-				var c = cast(animationC,FAnimationComponent);
-				c.jumpToFrame(0);
-			}
-		}
+		else throw("tilesheet not found in config");
 	}
 
 	public function render(camera:FCamera):Void {
@@ -161,7 +143,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 
 		FTilesheetRenderHelper.getInstance().initCamera(camera);
 		if (_tilesheet == null) {
-			trace('tilesheet is null');
+			throw ('tilesheet is null');
 			return;
 		}
 
@@ -304,11 +286,12 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		for(index in 0..._text.length){
 
 			var letter = _text.charAt(index);
+			var nextLetter = _text.charAt(index+1);
 			var tile = _tilePrefix + letter;
 			var code = letter.charCodeAt(0);
-			if(code >= 97 && code <= 122){ //add 'l' for lowercase chars
+			/*if(code >= 97 && code <= 122){ //add 'l' for lowercase chars
 				tile+='l';
-			}
+			}*/
 			var tileId = _tilesheet.getTileNumber(tile);
 			var tileWidth = _tilesheet.getRectangle(tileId).width/this.imageScale;
 			var tileHeight = _tilesheet.getRectangle(tileId).height/this.imageScale;

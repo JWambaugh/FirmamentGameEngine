@@ -16,6 +16,8 @@ class FDataLoader
 {
 	static var _cache:Map<String,Dynamic> = new Map<String,Dynamic>();
 	static var _recursionCount:Int;
+
+
 	public static function loadData(fileName:String, ?allowEmpty:Bool=false):Dynamic{
 
 		//trace("Processing: " + fileName);
@@ -39,6 +41,7 @@ class FDataLoader
 			throw("Error reading data from "+fileName);
 		}
 		var data = serializer.unserialize(string,fileName);
+
 		if (data == null) {
 			throw("Data could not be unserialized for "+fileName);
 		}
@@ -65,15 +68,15 @@ class FDataLoader
 				if(_recursionCount > 1000 )throw "recursive _extends detected in "+fileName;
 				var parent = loadData(data._extends);
 				_recursionCount--;
+				
 				FMisc.mergeInto(data,parent);
 				data = parent;
-				//trace(Std.string(data));
 			}
 
 			for(field in Reflect.fields(data)){
 				var val = Reflect.field(data, field);
-				if(Reflect.isObject(val)){
-					val = checkForExtension(val,fileName);
+				if(Reflect.isObject(val) && !Std.is(val,String)){
+					Reflect.setField(data,field, checkForExtension(val,fileName));
 				}
 			}
 		}

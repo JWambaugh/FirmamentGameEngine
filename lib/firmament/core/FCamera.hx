@@ -40,6 +40,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	var _calculatedTopLeft:Bool;
 	var _game:FGame;
 	var _mouseOverEnts:Array<FEntity>;
+	var _autoZoomToFit:Bool;
 
 	/**
 	 * Constructor: new
@@ -61,6 +62,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		_debugRenderer = new FWireframeRenderComponent();
 		_game = FGame.getInstance(gameInstanceName);
 		_mouseOverEnts = new Array();
+		_autoZoomToFit = false;
 	}
 
 
@@ -221,6 +223,9 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	
 	public function resizeToStage() {
 		var stage = Lib.current.stage;
+
+		var newZoom:Float = stage.stageWidth/this._displayWidth * this.getZoom();
+		this.setZoom(newZoom);
 		this._displayWidth = stage.stageWidth;
 		this._displayHeight = stage.stageHeight;
 		//this.width = this._displayWidth;

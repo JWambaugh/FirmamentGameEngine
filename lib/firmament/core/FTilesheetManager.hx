@@ -44,15 +44,22 @@ class FTilesheetManager {
 		return tilesheets.get(id);
 	}
 
-	public function getTilesheetFromDefinitionFile(fileName:String){
+	public function findTilesheetWithKey(fileName:String){
 		for(tilesheet in this.tilesheets){
 			if(tilesheet.getDefinitionFileName() == fileName){
 				return tilesheet;
 			}
 		}
+		return null;
+	}
+
+	public function getTilesheetFromDefinitionFile(fileName:String){
+		var t = findTilesheetWithKey(fileName);
+		if(t!=null) return t;
+
 		//didn't find one
 		var data = FDataLoader.loadData(fileName);
-		var t = createTilesheet(data);
+		t = createTilesheet(data);
 		t.setDefinitionFileName(fileName);
 		return t;
 	}
