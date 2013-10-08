@@ -59,7 +59,6 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 
 	var _text:String;
 	var _tilePrefix:String;
-	var _kerning:Float;
 	var _positionData:PositionData;
 
 	var _textAlign:String;
@@ -107,7 +106,6 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		_alpha=ch.get('alpha',Float,1.);
 		_text = ch.get('text',String,"");
 		_tilePrefix = ch.get("tilePrefix",String,"");
-		_kerning = ch.get("kerning",Float,0);
 		_textAlign = ch.get("textAlign",String,"center");
 
 		calculatePositions();
@@ -283,26 +281,39 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 			,height:0.0
 			,letters:[]
 		};
+		var lineHeight:Float = cast(_config.lineHeight,Float)/this.imageScale;
+		_positionData.height = lineHeight;
+		trace("preparting for text: "+_text);
 		for(index in 0..._text.length){
 
 			var letter = _text.charAt(index);
+			var letterConfig = Reflect.field(_config.glyphs,letter);
+			var advance:Int = letterConfig.advance;
+			if(letter == ' ')trace('got a space');
+			if(letterConfig == null) throw("No glyph config found for "+letter);
 			var nextLetter = _text.charAt(index+1);
 			var tile = _tilePrefix + letter;
 			var code = letter.charCodeAt(0);
-			/*if(code >= 97 && code <= 122){ //add 'l' for lowercase chars
-				tile+='l';
-			}*/
+			
 			var tileId = _tilesheet.getTileNumber(tile);
 			var tileWidth = _tilesheet.getRectangle(tileId).width/this.imageScale;
 			var tileHeight = _tilesheet.getRectangle(tileId).height/this.imageScale;
+
 			var letterData:LetterPositionData = {
 				tile:tileId
-				,xOffset:_positionData.width+tileWidth/2
-				,yOffset:0
+				,xOffset:_positionData.width+(cast(letterConfig.offset.x,Float)/this.imageScale)
+				,yOffset: lineHeight/2 - (cast(letterConfig.offset.y,Float)/this.imageScale)/2
 			};
+			trace("yOffset = "+letterData.yOffset);
+			if(nextLetter != null){
+				var kerning = Reflect.field(letterConfig.kerning,nextLetter);
+				if(Std.is(kerning,Int)){
+					_positionData.width+=cast(kerning,Float)/this.imageScale;
+				}
+			}
+			if(letter == ' ')trace("xAdvance: "+cast(letterConfig.xAdvance,Float)/this.imageScale);
 			_positionData.letters.push(letterData);
-			_positionData.width+=((tileWidth )+_kerning);
-			if(tileHeight > _positionData.height)_positionData.height = tileHeight;
+			_positionData.width+=(cast(letterConfig.xAdvance,Float)/this.imageScale);
 		}
 
 		//adjust text positions for center or right alignment
