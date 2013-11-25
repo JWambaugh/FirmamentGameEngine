@@ -76,7 +76,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	}
 
 	override public function init(config:Dynamic){
-		trace(Std.string(config));
+		//trace(Std.string(config));
 		this._config = config;
 		var ch = getConfigHelper();
 		initTilesheet();
@@ -283,7 +283,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		};
 		var lineHeight:Float = cast(_config.lineHeight,Float)/this.imageScale;
 		_positionData.height = lineHeight;
-		trace("preparting for text: "+_text);
+		//trace("preparting for text: "+_text);
 		for(index in 0..._text.length){
 
 			var letter = _text.charAt(index);
@@ -304,7 +304,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 				,xOffset:_positionData.width+(cast(letterConfig.offset.x,Float)/this.imageScale)
 				,yOffset: lineHeight/2 - (cast(letterConfig.offset.y,Float)/this.imageScale)/2
 			};
-			trace("yOffset = "+letterData.yOffset);
+			//trace("yOffset = "+letterData.yOffset);
 			if(nextLetter != null){
 				var kerning = Reflect.field(letterConfig.kerning,nextLetter);
 				if(Std.is(kerning,Int)){
