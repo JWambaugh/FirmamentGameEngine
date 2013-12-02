@@ -53,6 +53,7 @@ class FEntityComponentFactory{
 			,"sound":"firmament.component.sound.FSoundComponent"
 			,"button":"firmament.component.ui.FButtonComponent"
 			,"sceneLoader":"firmament.component.system.FSceneLoaderComponent"
+			,"state":"firmament.component.system.FStateComponent"
 			,"entityContainer":"firmament.component.ui.FEntityContainerComponent"
 			,"followSpline":"firmament.component.spline.FSimpleFollowSplineComponent"
 			,"text":"firmament.component.render.FTextRenderComponent"

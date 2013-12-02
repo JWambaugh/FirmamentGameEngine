@@ -11,6 +11,7 @@ import firmament.core.FCamera;
 import firmament.core.FEntity;
 import firmament.core.FEntityPoolManager;
 import firmament.core.FInput;
+import firmament.component.system.FStateComponent;
 import firmament.filter.entity.FEntityFilter;
 import firmament.filter.entity.FEntityFilterFactory;
 import firmament.process.base.FProcess;
@@ -41,7 +42,8 @@ import flash.utils.Timer;
 class FGame extends EventDispatcher
 {
 	var cameras:Map<String,FCamera>;
-	var worldHash:Map<String,FWorld>; 
+	var worldHash:Map<String,FWorld>;
+	var states:Map<String,FStateComponent>;
 	public var enableSimulation:Bool;
 	var _gameProcessManager:FProcessManager;
 	var _renderProcessManager:FProcessManager;
@@ -100,6 +102,7 @@ class FGame extends EventDispatcher
 		this.enableSimulation = true;
 		worldHash = new Map<String,FWorld>();
 		cameras = new Map<String,FCamera>();
+		states = new Map<String,FStateComponent>();
 		var stage = Lib.current.stage;
 		this._gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
@@ -267,6 +270,29 @@ class FGame extends EventDispatcher
 	 */
 	public function addProcess(?type:String,p:FProcess):Void {
 		this._gameProcessManager.addProcess(p);
+	}
+
+	/**
+	 * associates a state object with key, preferably the instance key
+	 * @param  name instance name state, defaults to 'main'
+	 */
+	public function addState(name:String,s:FStateComponent): Void {
+		this.states.set(name,s);
+	}
+
+	/**
+	 * returns the state associated with the game object
+	 * @param  ?name optional instance name state, defaults to 'main'
+	 * @return       returns a valid game state
+	 */
+	public function getState(?name:String='main'): FStateComponent {
+		if(! this.states.exists( name )) {
+			var state = new FStateComponent();
+			this.states.set(name,state);
+		}
+		// TODO: I'd like to build this automatically with the 
+		// config scripts
+		return this.states.get(name);
 	}
 
 	/**
