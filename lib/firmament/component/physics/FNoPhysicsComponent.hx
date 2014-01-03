@@ -3,17 +3,19 @@ package firmament.component.physics;
 
 import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
+import firmament.core.FComputedProperty;
 import firmament.core.FEntity;
 import firmament.core.FGame;
 import firmament.core.FPolygonShape;
+import firmament.core.FProperty;
 import firmament.core.FShape;
 import firmament.core.FVector;
 import firmament.core.FWorldPositionalInterface;
 import firmament.world.FBox2DWorld;
 import firmament.world.FNoPhysicsWorld;
 import firmament.world.FWorld;
-import haxe.Timer;
 import flash.events.Event;
+import haxe.Timer;
 
 
 /**
@@ -123,9 +125,21 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 			this.world.addToAlwaysRenderList(_entity);
 		}
 		this.world.addEntity(this._entity);
-
+		registerProperties();
 		buildShape();
 	}
+
+	function registerProperties(){
+		
+		_entity.registerProperty(new FComputedProperty<FVector>("position",setPosition,getPosition));
+		_entity.registerProperty(new FComputedProperty<Float>("positionX",setPositionX,getPositionX));
+		_entity.registerProperty(new FComputedProperty<Float>("positionY",setPositionY,getPositionY));
+		_entity.registerProperty(new FComputedProperty<Float>("angle",setAngle,getAngle));
+		_entity.registerProperty(new FComputedProperty<Float>("zPosition",setZPosition,getZPosition));
+		_entity.registerProperty(new FComputedProperty<Float>("angularVelocity",setAngularVelocity,getAngularVelocity));
+		_entity.registerProperty(new FComputedProperty<FVector>("linearVelocity",setLinearVelocity,getLinearVelocity));
+	}
+
 	private function buildShape(){
 		_shape = new FPolygonShape([
 			new FVector(-_width/2,-_height/2)
@@ -166,6 +180,13 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 
 	public function setPositionXY(x:Float,y:Float){
 		this.position.set(x,y);
+	}
+
+	public function setPositionX(x:Float){
+		this.position.set(x,this.position.y);
+	}
+	public function setPositionY(y:Float){
+		this.position.set(this.position.x,y);
 	}
 
 	public function getPositionX():Float{

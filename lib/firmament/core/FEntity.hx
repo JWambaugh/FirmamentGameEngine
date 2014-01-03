@@ -3,16 +3,18 @@ import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.component.render.FRenderComponentInterface;
 import firmament.component.render.FTilesheetRenderComponent;
-import firmament.world.FWorld;
 import firmament.core.FEntityPool;
+import firmament.core.FGame;
+import firmament.core.FProperty;
+import firmament.util.FGuidManager;
+import firmament.util.FMisc;
+import firmament.world.FWorld;
 import flash.display.BitmapData;
-import openfl.display.Tilesheet;
 import flash.events.Event;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import firmament.util.FMisc;
 import openfl.Assets;
-import firmament.core.FGame;
+import openfl.display.Tilesheet;
  
  /**
   * Core entity class for all entities/actors in the game.
@@ -36,6 +38,8 @@ class FEntity extends flash.events.EventDispatcher
 	var _listeners : Map<String,Dynamic>; 
 	var _tags:Array<String>;
 	var _gameInstance:FGame;
+	var _instanceId:String = null;
+	var _properties:Map<String,FProperty>;
 
 
 
@@ -51,6 +55,7 @@ class FEntity extends flash.events.EventDispatcher
 		if(config == null) config ={};
 		this._config = config;
 		this._componentsHash = new Map<String,Array<FEntityComponent>>();
+		_properties = new Map<String,FProperty>();
 		_components = new Array<FEntityComponent>();
 		_active = true;
 		if(!Std.is(config.typeId,String)){
@@ -58,6 +63,7 @@ class FEntity extends flash.events.EventDispatcher
 			
 		}
 		_typeId = config.typeId;
+		_instanceId = config.instanceId;
 		_listeners = new Map<String, Dynamic>();
 
 		if(Std.is(config.tags,Array)){
@@ -66,12 +72,33 @@ class FEntity extends flash.events.EventDispatcher
 			_tags = new Array<String>();
 		}
 		_gameInstance = FGame.getInstance(gameInstanceName);
-
 	}
 
 
 	public function getTypeId():String{
 		return _typeId;
+	}
+
+	/**
+	 * Returns the instanceId of this entity. If an instanceId is not set by the 'instanceId' config proprty,
+	 * a guid will be assigned (lazily)
+	 *
+	 */
+	public function getInstanceId():String{
+		if(_instanceId == null){
+			_instanceId = FGuidManager.getGuid();
+		}
+
+		return _instanceId;
+	}
+
+	/**
+	 * Sets the instanceId of this entity. If an instanceId is already set, throws an error.
+	 *
+	 */
+	public function setInstanceId(id:String){
+		if(_instanceId != null) throw "instanceId already set";
+		_instanceId = id;
 	}
 	
 	
@@ -200,9 +227,30 @@ class FEntity extends flash.events.EventDispatcher
 		}
 		return false;
 	}
+
 	public function getGameInstance():FGame{
 		return _gameInstance;
 	}
+
+	public function registerProperty(property:FProperty){
+		if(_properties.exists(property.getKey())) throw("Property already exists with key "+property.getKey());
+		_properties.set(property.getKey(),property);
+	}
 	
+	public function getProperty(key:String):FProperty{
+
+		var p = _properties.get(key);
+		if(p == null)throw("No property with key "+key);
+		return p;
+	}
+
+
+	public function getPropertyValue(key:String):Dynamic{
+		return getProperty(key).getDynamic();
+	}
+
+	public function setPropertyValue(key:String,value:Dynamic){
+		getProperty(key).set(value);
+	}
 	
 }

@@ -151,15 +151,13 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 
 		this._entity.dispatchEvent(new Event(FGame.BEFORE_RENDER));
 		
-		var physicsComponent:FPhysicsComponentInterface = this._entity.getPhysicsComponent();
-		if(physicsComponent == null) return;
 		var cameraPos = camera.getTopLeftPosition(this._parallax);
 		var ratio = camera.getZoom() / imageScale;
-		var pos = physicsComponent.getPosition();
+		var pos = _entity.getPropertyValue("position");
 		var nx = (((pos.x+_positionOffset.x) - cameraPos.x) *_parallax * camera.getZoom());
 		var ny = (((pos.y+_positionOffset.y) - cameraPos.y) *_parallax * camera.getZoom());
 		var a:Float, b:Float,c:Float,d:Float;
-		var angle =physicsComponent.getAngle()+_angleOffset;
+		var angle =_entity.getPropertyValue('angle')+_angleOffset;
 		//perform rotation and scale
 		a = Math.cos(angle)*ratio;
 		b = Math.sin(angle)*ratio; 

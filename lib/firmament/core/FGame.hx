@@ -58,6 +58,8 @@ class FGame extends EventDispatcher
 
 	var _currentScene:FScene;
 
+	
+
 	//Constant: COLLISION_PRE_SOLVE_EVENT
 	public static inline var COLLISION_PRE_SOLVE_EVENT = 'preSolveCollision';
 
@@ -445,6 +447,7 @@ class FGame extends EventDispatcher
 	public function getCurrentScene(){
 		return _currentScene;
 	}
+
 
 
 }

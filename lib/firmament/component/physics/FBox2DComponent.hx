@@ -4,6 +4,7 @@ package firmament.component.physics;
 import box2D.collision.shapes.B2CircleShape;
 import box2D.collision.shapes.B2PolygonShape;
 import box2D.collision.shapes.B2Shape;
+import box2D.collision.shapes.B2ShapeType;
 import box2D.common.math.B2Vec2;
 import box2D.dynamics.B2Body;
 import box2D.dynamics.B2BodyDef;
@@ -14,21 +15,22 @@ import box2D.dynamics.joints.B2RevoluteJointDef;
 import box2D.dynamics.joints.B2WeldJointDef;
 import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
-import firmament.world.FBox2DWorld;
 import firmament.core.FCircleShape;
+import firmament.core.FComputedProperty;
 import firmament.core.FEntity;
 import firmament.core.FEntityFactory;
 import firmament.core.FGame;
 import firmament.core.FPolygonShape;
+import firmament.core.FProperty;
 import firmament.core.FShape;
 import firmament.core.FVector;
-import firmament.world.FWorld;
 import firmament.core.FWorldPositionalInterface;
 import firmament.util.FMisc;
 import firmament.util.loader.FDataLoader;
-import haxe.Timer;
+import firmament.world.FBox2DWorld;
+import firmament.world.FWorld;
 import flash.events.Event;
-import box2D.collision.shapes.B2ShapeType;
+import haxe.Timer;
 /**
  * Class: FBox2DComponent
  * @author Jordan Wambaugh
@@ -169,7 +171,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		for (joint in cast(config.joints, Array<Dynamic>)) {
 			createJointEntity(joint);
 		}
-		
+		this.registerProperties();
 		this.world.addEntity(this._entity);
 	}
 		
@@ -179,6 +181,17 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	
 	private function removeEventHandlers(){
 		_entity.removeEventListener(FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
+	}
+
+	function registerProperties(){
+		
+		_entity.registerProperty(new FComputedProperty<FVector>("position",setPosition,getPosition));
+		_entity.registerProperty(new FComputedProperty<Float>("positionX",setPositionX,getPositionX));
+		_entity.registerProperty(new FComputedProperty<Float>("positionY",setPositionY,getPositionY));
+		_entity.registerProperty(new FComputedProperty<Float>("angle",setAngle,getAngle));
+		_entity.registerProperty(new FComputedProperty<Float>("zPosition",setZPosition,getZPosition));
+		_entity.registerProperty(new FComputedProperty<Float>("angularVelocity",setAngularVelocity,getAngularVelocity));
+		_entity.registerProperty(new FComputedProperty<FVector>("linearVelocity",setLinearVelocity,getLinearVelocity));
 	}
 
 	/*
@@ -274,6 +287,13 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 
 	public function setPositionXY(x:Float,y:Float){
 		this.position.set(x,y);
+	}
+
+	public function setPositionX(x:Float){
+		this.position.set(x,this.position.y);
+	}
+	public function setPositionY(y:Float){
+		this.position.set(this.position.x,y);
 	}
 
 	public function getPositionX():Float{
