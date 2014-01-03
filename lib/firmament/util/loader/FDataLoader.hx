@@ -28,14 +28,7 @@ class FDataLoader
 		if (serializer == null) {
 			throw ("Appropriate serializer for fileName "+fileName+" could not be found.");
 		}
-		var string = Assets.getText(fileName);
-		
-		#if (cpp || neko)
-			//trace('attempting load with file.getContents');
-			if (string == null || string == '') {
-				string = File.getContent(fileName);
-			}
-		#end
+		var string = loadFile(fileName);
 
 		if(string==null || (!allowEmpty && string == '')){
 			throw("Error reading data from "+fileName);
@@ -53,6 +46,17 @@ class FDataLoader
 		return data;
 	}
 	
+	public static function loadFile(fileName:String){
+		var string = Assets.getText(fileName);
+		
+		#if (cpp || neko)
+			trace('attempting load with file.getContents');
+			if (string == null || string == '') {
+				string = File.getContent(fileName);
+			}
+		#end
+		return string;
+	}
 	//recursivly check for '_extends' directives
 	private static function checkForExtension(data:Dynamic,fileName):Dynamic{
 		if (Std.is(data,Array)){

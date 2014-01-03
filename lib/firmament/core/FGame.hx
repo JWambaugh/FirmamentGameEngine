@@ -21,6 +21,7 @@ import firmament.process.engine.FWorldStepProcess;
 import firmament.process.timer.FTimerManager;
 import firmament.util.FConfigHelper;
 import firmament.util.loader.FSceneLoader;
+import firmament.util.loader.FDataLoader;
 import firmament.util.loader.serializer.FSerializerFactory;
 import firmament.world.FWorld;
 import firmament.world.FWorldFactory;
@@ -35,6 +36,7 @@ import flash.events.TimerEvent;
 import flash.Lib;
 import flash.text.TextField;
 import flash.utils.Timer;
+import hscript.Interp;
 
 /**
  * Class: FGame
@@ -57,6 +59,8 @@ class FGame extends EventDispatcher
 	var _instanceName:String;
 
 	var _currentScene:FScene;
+
+	var _interpreter:Interp;
 
 	
 
@@ -109,7 +113,7 @@ class FGame extends EventDispatcher
 		this._gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
 		stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
-		
+		initializeInterpreter();
 		_mainInput = new FInput(stage);
 		_poolManager = new FEntityPoolManager();
 		_gameTimerManager = new FTimerManager();
@@ -447,6 +451,36 @@ class FGame extends EventDispatcher
 	public function getCurrentScene(){
 		return _currentScene;
 	}
+
+	/**
+	 * Initializes the interpreter instance.
+	 *
+	 */
+	public function initializeInterpreter(){
+		_interpreter = new Interp();
+		_interpreter.variables.set("Math",Math);
+		_interpreter.variables.set("FGame",FGame);
+		_interpreter.variables.set("FSoundtrackManager",firmament.sound.FSoundtrackManager);
+
+	}
+	/**
+	 * returns the interpreter for this fgame instance.
+	 *
+	 */
+	public function getInterpreter(){
+		return _interpreter;
+	}
+
+	public function eval(script:String){
+		var parser = new hscript.Parser();
+		var program = parser.parseString(script);
+		return _interpreter.execute(program);
+	}
+
+	public function executeFile(fileName:String){
+		return eval(FDataLoader.loadFile(fileName));
+	}
+
 
 
 
