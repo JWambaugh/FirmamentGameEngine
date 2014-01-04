@@ -11,6 +11,7 @@ import firmament.core.FCamera;
 import firmament.core.FEntity;
 import firmament.core.FEntityPoolManager;
 import firmament.core.FInput;
+import firmament.core.FEntityCollection;
 import firmament.component.system.FStateComponent;
 import firmament.filter.entity.FEntityFilter;
 import firmament.filter.entity.FEntityFilterFactory;
