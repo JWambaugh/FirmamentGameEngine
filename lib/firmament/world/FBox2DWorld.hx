@@ -84,7 +84,8 @@ class FBox2DWorld extends FWorld
 	override public function init(config:Dynamic){
 		super.init(config);
 		var c = new FConfigHelper(config);
-		this._b2world.setGravity(c.getVector('gravity',{x:0,y:0}));
+		var vec = c.getVector('gravity',{x:0,y:0});
+		this._b2world.setGravity(new B2Vec2(vec.x,vec.y));
 	}
 	
 	override public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity>{
@@ -132,11 +133,12 @@ class FBox2DWorld extends FWorld
 	}
 	
 	public function rayCast(a:FVector, b:FVector, callbackMethod:B2Fixture -> B2Vec2 -> B2Vec2 -> Float -> Dynamic) {
-		this._b2world.rayCast(callbackMethod, a, b);
+		
+		this._b2world.rayCast(callbackMethod, new B2Vec2(a.x,a.y), new B2Vec2(a.x,a.y));
 	}
 	
-	override public function getEntitiesAtPoint(p:FVector):Array<FEntity> {
-		
+	override public function getEntitiesAtPoint(fvec:FVector):Array<FEntity> {
+		var p = new B2Vec2(fvec.x,fvec.y);
 		var ents:Array<FEntity> = this.getEntitiesInBox(p.x, p.y, p.x, p.y);
 		var filtered:Array<FEntity> = new Array<FEntity>();
 		
@@ -214,8 +216,8 @@ class FBox2DWorld extends FWorld
 		return "box2d";
 	}
 
-	override public function setGravity(gravity){
-		this._b2world.setGravity(gravity);
+	override public function setGravity(gravity:FVector){
+		this._b2world.setGravity(new B2Vec2(gravity.x,gravity.y));
 	}
 
 	override public function insideStep():Bool{

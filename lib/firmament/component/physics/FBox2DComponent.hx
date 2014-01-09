@@ -312,9 +312,17 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		return this.body.getAngle();
 	}
 
-	public function applyLinearForce(v:FVector,?point:FVector=null):Void {
+	public function applyLinearForce(fv:FVector,?fpoint:FVector=null):Void {
 		this.body.setAwake(true);
-		var applyAtPoint = point==null?this.body.getWorldCenter():point;
+		var v = new B2Vec2(fv.x,fv.y);
+		
+		var applyAtPoint:B2Vec2;
+		if(fpoint==null){
+			var p = this.body.getWorldCenter();
+			applyAtPoint = new B2Vec2(p.x,p.y);
+		}else{
+			applyAtPoint = new B2Vec2(fpoint.x,fpoint.y);
+		}
 		this.body.applyForce(v,applyAtPoint);
 	}
 	

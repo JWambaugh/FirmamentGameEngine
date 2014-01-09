@@ -1,5 +1,4 @@
 package firmament.world;
-import box2D.dynamics.B2World;
 import flash.events.Event;
 import firmament.core.FEntity;
 import haxe.Timer;

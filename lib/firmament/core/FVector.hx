@@ -1,13 +1,14 @@
 package firmament.core;
 
-import box2D.common.math.B2Vec2;
 /**
  * Class: FVector
  * @author Jordan Wambaugh
  */
 
-class FVector extends B2Vec2
+class FVector
 {
+	public var x:Float;
+	public var y:Float;
 
 	/**
 	 * Constructor: new
@@ -15,7 +16,8 @@ class FVector extends B2Vec2
 	 */
 	public function new(x:Float =0,y:Float =0) 
 	{
-		super(x, y);
+		this.x=x;
+		this.y=y;
 	}
 	
 	
@@ -61,9 +63,100 @@ class FVector extends B2Vec2
 		return unit;
 	}
 
-	override public function copy():FVector{
+	
+
+
+	public function setZero() : Void { x = 0.0; y = 0.0; }
+	public function set(x_:Float=0, y_:Float=0) : Void {x=x_; y=y_;}
+	public function setV(v:FVector) : Void {x=v.x; y=v.y;}
+
+	public function getNegative():FVector { return new FVector(-x, -y); }
+	public function negativeSelf():Void { x = -x; y = -y; }
+	
+	static public function make(x_:Float, y_:Float):FVector
+	{
+		return new FVector(x_, y_);
+	}
+	
+	public function copy():FVector{
 		return new FVector(x,y);
 	}
+	
+	public function add(v:FVector) : Void
+	{
+		x += v.x; y += v.y;
+	}
+	
+	public function subtract(v:FVector) : Void
+	{
+		x -= v.x; y -= v.y;
+	}
+
+	public function multiply(a:Float) : Void
+	{
+		x *= a; y *= a;
+	}
+	
+	
+	
+	public function crossVF(s:Float) : Void
+	{
+		var tX:Float = x;
+		x = s * y;
+		y = -s * tX;
+	}
+	
+	public function crossFV(s:Float) : Void
+	{
+		var tX:Float = x;
+		x = -s * y;
+		y = s * tX;
+	}
+	
+	public function minV(b:FVector) : Void
+	{
+		x = x < b.x ? x : b.x;
+		y = y < b.y ? y : b.y;
+	}
+	
+	public function maxV(b:FVector) : Void
+	{
+		x = x > b.x ? x : b.x;
+		y = y > b.y ? y : b.y;
+	}
+	
+	public function abs() : Void
+	{
+		if (x < 0) x = -x;
+		if (y < 0) y = -y;
+	}
+
+	public function length():Float
+	{
+		return Math.sqrt(x * x + y * y);
+	}
+	
+	public function lengthSquared():Float
+	{
+		return (x * x + y * y);
+	}
+
+	
+
+	public function isValid():Bool
+	{
+		return isValidFloat(x) && isValidFloat(y);
+	}
+
+	private function isValidFloat(x:Float) : Bool
+	{
+		if (Math.isNaN (x) || x == Math.NEGATIVE_INFINITY || x == Math.POSITIVE_INFINITY) {
+			return false;
+		}
+		return true;
+	}
+
+	
 	
 	
 }

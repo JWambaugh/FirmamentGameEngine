@@ -12,6 +12,7 @@ class TestAll {
         r.add(new TestSortedLinkedList());
         r.add(new TestGridWorld());
         r.add(new TestProperty());
+        r.add(new TestEntityCollection());
         // your can add others TestCase here
 
         // finally, run the tests
