@@ -179,28 +179,28 @@ class FGame extends EventDispatcher
 		return this.worldHash;
 	}
 
-	public function getAllEntities():Array<FEntity>{
+	public function getAllEntities():FEntityCollection{
 		var a = new Array<FEntity>();
 		for(world in getWorlds()){
 			a=a.concat(world.getAllEntities());
 		}
-		return a;
+		return new FEntityCollection(a);
 	}
 
-	public function getEntitiesAtPoint(p:FVector):Array<FEntity>{
+	public function getEntitiesAtPoint(p:FVector):FEntityCollection{
 		var a = new Array<FEntity>();
 		for(world in worldHash){
 			a=a.concat(world.getEntitiesAtPoint(p));
 		}
-		return a;
+		return new FEntityCollection(a);
 	}
 
-	public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity> {
+	public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):FEntityCollection {
 		var a = new Array<FEntity>();
 		for(world in worldHash){
 			a=a.concat(world.getEntitiesInBox(topLeftX,topLeftY,bottomRightX,bottomRightY));
 		}
-		return a;
+		return new FEntityCollection(a);
 	}
 	/*
 		Function: queryEntities
@@ -221,7 +221,7 @@ class FGame extends EventDispatcher
 			}
 
 	*/
-	public function queryEntities(query:Dynamic){
+	public function queryEntities(query:Dynamic):FEntityCollection{
 		var entities:Array<FEntity>;
 		var config = new FConfigHelper(query);
 		var selector:String = config.getNotNull("selector",String);
@@ -231,14 +231,14 @@ class FGame extends EventDispatcher
 			if(topLeft == null || bottomRight ==null){
 				throw "parameters topLeft or bottomRight are null.";
 			}
-			entities = getEntitiesInBox(topLeft.x,topLeft.y,bottomRight.x,bottomRight.y);
+			entities = getEntitiesInBox(topLeft.x,topLeft.y,bottomRight.x,bottomRight.y).get();
 		}else if(selector =="point"){
 			var point = config.getVector("point",null);
 			if(point == null){throw "parameter 'point' is missing or null";}
-			entities = getEntitiesAtPoint(point);
+			entities = getEntitiesAtPoint(point).get();
 		}else{
 			//default to select all
-			entities = getAllEntities();
+			entities = getAllEntities().get();
 		}
 
 		//run filters
@@ -250,7 +250,7 @@ class FGame extends EventDispatcher
 		}
 
 
-		return entities;
+		return new FEntityCollection(entities);
 	}
 
 	/**

@@ -3,11 +3,13 @@ package firmament.core;
 
 import firmament.core.FEntity;
 
-class FEntityCollection{
+class FEntityCollection implements ArrayAccess<FEntity>{
 	var _entities:Array<FEntity>;
 	var _this:FEntity;
 
-	public function new (a:Array<FEntity>, ?thisEntity:FEntity=null){
+	public var length(get_length,never):Int;
+
+	public function new (?a:Array<FEntity>=null, ?thisEntity:FEntity=null){
 		_entities = a;
 		_this = thisEntity;
 	}
@@ -87,6 +89,26 @@ class FEntityCollection{
 		return evalValue(a,ent)>evalValue(b[0],ent);
 	}
 
+	public function iterator(){
+		return _entities.iterator();
+	}
+
+	public function remove(e:FEntity){
+		return _entities.remove(e);
+	}
+
+	public function get_length(){
+		return _entities.length;
+	}
 
 
+	//array access
+	public function __get(x:Int){
+		return _entities[x];
+	}
+
+	public function __set(x:Int,v:FEntity){
+		return _entities[x] = v;
+	}
 }
+

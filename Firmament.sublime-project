@@ -1,0 +1,23 @@
+{
+	"build_systems":
+    [
+        
+        {
+            "name": "Run Engine Test"
+            ,"cmd": ["openfl","test","project.xml", "mac", "-debug"]
+            ,"working_dir": "$project_path/engine"
+        }
+        
+    ]
+	,"folders":
+	[
+		{
+			"folder_exclude_patterns":
+			[
+				"build"
+			],
+			"path": "."
+		}
+		
+	]
+}

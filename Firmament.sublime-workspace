@@ -1,0 +1,1806 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"FEnt",
+				"FEntityCollection	class"
+			],
+			[
+				"FE",
+				"FEntityCollection	firmament.core"
+			],
+			[
+				"appl",
+				"applyAtPoint	var"
+			],
+			[
+				"B2",
+				"B2Vec2	box2D.common.math"
+			],
+			[
+				"get",
+				"getNotNull(...)	Dynamic"
+			],
+			[
+				"le",
+				"letterData	var"
+			],
+			[
+				"_te",
+				"_text	var"
+			],
+			[
+				"lett",
+				"letter	var"
+			],
+			[
+				"let",
+				"letterData	var"
+			],
+			[
+				"position",
+				"_positionData	var"
+			],
+			[
+				"letter",
+				"letterConfig	var"
+			],
+			[
+				"chal",
+				"Chalkduster"
+			],
+			[
+				"tile",
+				"tilesheet	var"
+			],
+			[
+				"file",
+				"fileName	var"
+			],
+			[
+				"find",
+				"findTilesheetWithFileName	function"
+			],
+			[
+				"tilesh",
+				"tilesheetConfig	var"
+			],
+			[
+				"til",
+				"tilesheetConfig	var"
+			],
+			[
+				"ge",
+				"getZoom()	Float"
+			],
+			[
+				"set",
+				"setPlayer(...)	Unknown<15>"
+			],
+			[
+				"D",
+				"Dynamic"
+			],
+			[
+				"batt",
+				"battleId	var"
+			],
+			[
+				"SE",
+				"SET_BATTLE_OPPONENT	Unknown<1>"
+			],
+			[
+				"Cre",
+				"CreaturePart	pixelblit.pocketbots.common"
+			],
+			[
+				"partCon",
+				"partConfigArray	var"
+			],
+			[
+				"par",
+				"partConfigName"
+			],
+			[
+				"Confi",
+				"ConfigHelper	pixelblit.pocketbots.common"
+			],
+			[
+				"ba",
+				"battleId	var"
+			],
+			[
+				"cre",
+				"creatureTargetable	function"
+			],
+			[
+				"p",
+				"push(...)	Int"
+			],
+			[
+				"getP",
+				"getPlayer()	Unknown<10>"
+			],
+			[
+				"getEne",
+				"getEnemyCreatures	function"
+			],
+			[
+				"getT",
+				"getTargetType()	Unknown<5>"
+			],
+			[
+				"Single",
+				"SingleEnemy"
+			],
+			[
+				"Abili",
+				"AbilityTargetType	class"
+			],
+			[
+				"Abil",
+				"AbilityTargetType	class"
+			],
+			[
+				"game",
+				"gameSWF"
+			],
+			[
+				"con",
+				"ConfigHelper	class"
+			],
+			[
+				"ca",
+				"calculatePositions	function"
+			],
+			[
+				"tem",
+				"tempAlignment	var"
+			],
+			[
+				"y",
+				"yOffset	Float"
+			],
+			[
+				"x",
+				"xOffset	Float"
+			],
+			[
+				"_tex",
+				"_textAlign	var"
+			],
+			[
+				"_pos",
+				"_positionData	var"
+			],
+			[
+				"_po",
+				"_positionData	var"
+			],
+			[
+				"Pos",
+				"PositionData	class"
+			],
+			[
+				"curr",
+				"currentWidth	var"
+			],
+			[
+				"cu",
+				"currentWidth	var"
+			],
+			[
+				"getR",
+				"getRectangle( i : Int )	Unknown<2>"
+			],
+			[
+				"_til",
+				"_tilesheet	var"
+			],
+			[
+				"_t",
+				"_tilesheet	var"
+			],
+			[
+				"server",
+				"battleServer	var"
+			],
+			[
+				"CR",
+				"CreatureStatChange	class"
+			],
+			[
+				"com",
+				"common	package"
+			],
+			[
+				"CRE",
+				"CREATURE_STAT_CHANGE	Unknown<3>"
+			],
+			[
+				"ch",
+				"change	var"
+			],
+			[
+				"tar",
+				"target"
+			],
+			[
+				"Cr",
+				"CreatureStatChange"
+			],
+			[
+				"Obj",
+				"ObjectRegistry	pixelblit.pocketbots.common"
+			],
+			[
+				"Obje",
+				"ObjectWithKey	class"
+			],
+			[
+				"pla",
+				"playerId	var"
+			],
+			[
+				"_pa",
+				"_partStats	var"
+			],
+			[
+				"_is",
+				"_isDead	var"
+			],
+			[
+				"pro",
+				"processFields	function"
+			],
+			[
+				"fiel",
+				"field	var"
+			],
+			[
+				"fie",
+				"field"
+			],
+			[
+				"un",
+				"Unserializer	class"
+			],
+			[
+				"G",
+				"GET_BATTLE_LIST	Unknown<0>"
+			],
+			[
+				"Server",
+				"ServerActions"
+			],
+			[
+				"in",
+				"instances	var"
+			],
+			[
+				"upd",
+				"updateExpires	function"
+			],
+			[
+				"Mess",
+				"MessageEvent	pixelblit.pocketbots.client"
+			],
+			[
+				"for",
+				"forwardMessageEvent	function"
+			],
+			[
+				"Ser",
+				"ServerConnection	class"
+			],
+			[
+				"mess",
+				"messages	var"
+			],
+			[
+				"messa",
+				"message	var"
+			],
+			[
+				"mes",
+				"message	var"
+			],
+			[
+				"_",
+				"_expires	var"
+			],
+			[
+				"Date",
+				"DateTools	class"
+			],
+			[
+				"Se",
+				"ServerConnection	class"
+			],
+			[
+				"_da",
+				"_dataStr	var"
+			],
+			[
+				"curre",
+				"currentCreature	var"
+			],
+			[
+				"creatu",
+				"creature	var"
+			],
+			[
+				"_i",
+				"_isEquipped	var"
+			],
+			[
+				"GameSer",
+				"GameServerRemote	pixelblit.pocketbots.client"
+			],
+			[
+				"Gam",
+				"GameServerRemote	class"
+			],
+			[
+				"Me",
+				"MessageEvent	class"
+			],
+			[
+				"me",
+				"Message	class"
+			],
+			[
+				"Eve",
+				"EventDispatcher	flash.events"
+			],
+			[
+				"buil",
+				"buildPlayerCreatures	function"
+			],
+			[
+				"calcul",
+				"calculateEffectiveStats	function"
+			],
+			[
+				"creat",
+				"creature	var"
+			],
+			[
+				"componen",
+				"componentName"
+			],
+			[
+				"re",
+				"request( ?post : Null<Bool> )	Void"
+			],
+			[
+				"s",
+				"sendMessages(...)	Unknown<2>"
+			],
+			[
+				"Cli",
+				"ClientConnection	pixelblit.pocketbots.server"
+			],
+			[
+				"send",
+				"sendMessages	function"
+			],
+			[
+				"Loa",
+				"LoaderInfo	class"
+			],
+			[
+				"_ti",
+				"_tile	var"
+			],
+			[
+				"creature",
+				"creatureEntityMap	var"
+			],
+			[
+				"Ba",
+				"BattleSystemComponent	class"
+			],
+			[
+				"st",
+				"startServer"
+			],
+			[
+				"lo",
+				"localhost"
+			],
+			[
+				"ser",
+				"serverNeko"
+			],
+			[
+				"ex",
+				"executable"
+			],
+			[
+				"Run",
+				"runCommandWindows"
+			],
+			[
+				"di",
+				"dispatchEvent"
+			],
+			[
+				"partE",
+				"_partEntityMap"
+			],
+			[
+				"_st",
+				"_effectiveStats	var"
+			],
+			[
+				"g",
+				"getLevel()	Unknown<7>"
+			],
+			[
+				"abili",
+				"Ability	pixelblit.pocketbots.common"
+			],
+			[
+				"Tim",
+				"TimedActionQueue	pixelblit.pocketbots.client"
+			],
+			[
+				"Ac",
+				"ActionQueueItem	class"
+			],
+			[
+				"partma",
+				"_partEntityMap	var"
+			],
+			[
+				"getSta",
+				"getStatByKey	function"
+			],
+			[
+				"PLa",
+				"Player	pixelblit.pocketbots.common"
+			],
+			[
+				"Batt",
+				"BattleSystemComponent	pixelblit.pocketbots.client.component.scene"
+			],
+			[
+				"Choos",
+				"ChooseTargetState	pixelblit.pocketbots.client.battleuistate"
+			],
+			[
+				"Choo",
+				"ChooseTargetState	class"
+			],
+			[
+				"getEq",
+				"getEquippedCreatures"
+			],
+			[
+				"disa",
+				"disableAbilityIcons	function"
+			],
+			[
+				"Battle",
+				"BattleServerBase"
+			],
+			[
+				"_bat",
+				"_battleServer	var"
+			],
+			[
+				"_ba",
+				"_battleServer	var"
+			],
+			[
+				"Ability",
+				"AbilityButtonComponent"
+			],
+			[
+				"en",
+				"entity	var"
+			],
+			[
+				"_part",
+				"_partAbilityEntityMap	var"
+			],
+			[
+				"abi",
+				"abilityEntConfig={	var"
+			],
+			[
+				"part",
+				"partPos	var"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "engine/Source/Main.hx",
+			"settings":
+			{
+				"buffer_size": 1332,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/firmament/core/FEntityCollection.hx",
+			"settings":
+			{
+				"buffer_size": 2258,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/firmament/core/FGame.hx",
+			"settings":
+			{
+				"buffer_size": 12465,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/firmament/core/FCamera.hx",
+			"settings":
+			{
+				"buffer_size": 7914,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/com/firmamentengine/firmamenteditor/FirmamentEditor.hx",
+			"settings":
+			{
+				"buffer_size": 8682,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "engine/test.hx",
+			"settings":
+			{
+				"buffer_size": 26,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Firmament.sublime-project",
+			"settings":
+			{
+				"buffer_size": 328,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Run Engine Test",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"pac",
+				"Package Control: Enable Package"
+			],
+			[
+				"hax",
+				"HaXe: New Class"
+			],
+			[
+				"setmar",
+				"Set Syntax: Markdown"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"set json",
+				"Set Syntax: JSON"
+			],
+			[
+				"git stat",
+				"Git: Status"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/jordan/source/Firmament/lib/firmament/util/FAutoCrop.hx",
+		"/Users/jordan/source/Firmament/lib/com/firmamentengine/firmamenteditor/ui/EntityItem.hx",
+		"/Users/jordan/source/Firmament/docs/types/Enum.html",
+		"/Users/jordan/source/Firmament/engine/Source/Main.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FCamera.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FGame.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/component/physics/FPhysicsComponentInterface.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/world/FWorld.hx",
+		"/Users/jordan/source/Firmament/tests/TestAll.hx",
+		"/usr/lib/haxe/lib/box2d/1,2,0/box2D/common/math/B2Vec2.hx",
+		"/Users/jordan/source/Firmament/tests/TestEntityCollection.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FEntity.hx",
+		"/Users/jordan/source/Firmament/lib/com/firmamentengine/firmamenteditor/FEditorEntity.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FEntityPool.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/event/FEntityEvent.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/util/FEntityUtils.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/util/FEntityCompat.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FEntityFactory.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FEntityCollection.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/filter/entity/FEntityFilter.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/util/loader/FEntityLoader.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/component/base/FEntityComponent.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FEntityPoolManager.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/filter/entity/FEntityTagFilter.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/filter/entity/FEntityTypeFilter.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/filter/entity/FEntityRadiusFilter.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/filter/entity/FEntityFilterFactory.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/filter/entity/FEntityFilterInterface.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/component/base/FEntityComponentFactory.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/component/event/FEntityEmitterComponent.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/component/ui/FEntityContainerComponent.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/util/loader/FEntitySerializerInterface.hx",
+		"/Users/jordan/source/Firmament/lib/com/firmamentengine/firmamenteditor/ui/EntityWindow.hx",
+		"/Users/jordan/source/Firmament/lib/com/firmamentengine/firmamenteditor/ui/EntitySelector.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FBasicProperty.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/util/FRepository.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FProperty.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FComputedProperty.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/ui/FStyle.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/ui/FStyleHelper.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/event/FPhysicsCollisionEvent.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/world/FNoPhysicsWorld.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/process/base/FProcess.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FVector.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/world/FGridWorld.hx",
+		"/usr/lib/haxe/lib/box2d/1,2,0/box2D/common/math/B2Math.hx",
+		"/Users/jordan/source/PocketBots/client.xml",
+		"/Users/jordan/source/Firmament/lib/firmament/world/FBox2DWorld.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/component/physics/FBox2DComponent.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/client/Main.hx",
+		"/Users/jordan/source/Firmament/tools/documentation/Main.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/ui/FSmallButton.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/util/FMisc.hx",
+		"/Users/jordan/source/PocketBots/build.xml",
+		"/Users/jordan/source/PocketBots/test/Combat/lvl2tolvl1.csv",
+		"/Users/jordan/source/Firmament/lib/firmament/ui/FAutoVirtualJoystick.hx",
+		"/Users/jordan/source/PocketBots/config/enemy/player/enemy1.json",
+		"/Users/jordan/source/PocketBots/edit.bat",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/client/GameServerRemote.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/client/GameServerBase.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/client/component/scene/BattleSystemComponent.hx",
+		"/Users/jordan/source/PocketBots/config/map/BattleMap.json",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/CreaturePart.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/Stats.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/Creature.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/process/base/FProcessManager.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/server/Session.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/server/MessageController.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/server/message/BattleMessageController.hx",
+		"/Users/jordan/source/PocketBots/PocketBots.sublime-project",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/Player.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/server/controller/RootController.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/DataLoader.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FTilesheet.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/component/render/FTextRenderComponent.hx",
+		"/Users/jordan/source/Firmament/lib/firmament/core/FTilesheetManager.hx",
+		"/Users/jordan/source/PocketBots/config/entity/ui/battle/MessagePos.json",
+		"/Users/jordan/source/PocketBots/config/font/chalkduster_regular_32.json",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/client/battleuistate/ChooseTargetState.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/client/battleuistate/ChooseAbilityState.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/client/BattleServerLocal.hx",
+		"/Users/jordan/source/PocketBots/config/tilesheet/uiSheet1Front.json",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/client/battleuistate/BattleOverState.hx",
+		"/Users/jordan/source/PocketBots/config/entity/ui/world/BitCoinIcon1.json",
+		"/Users/jordan/source/PocketBots/config/entity/ui/battle/BattleCompleteScreenBackground.json",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/client/BattleServerBase.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/Message.hx",
+		"/Users/jordan/source/PocketBots/config/entity/ui/battle/BattleCompleteScreenBackground",
+		"/Users/jordan/source/Firmament/lib/firmament/util/loader/FDataLoader.hx",
+		"/Users/jordan/source/PocketBots/config/tilesheet/chalkduster_regular_32.json",
+		"/Users/jordan/source/PocketBots/original/original/chalkduster_regular_32.json",
+		"/Users/jordan/source/PocketBots/serverAssets/template/indexTemplate.html",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/server/message/PlayerMessageController.hx",
+		"/Users/jordan/source/PocketBots/config/part/middle/MiddleGorilla.json",
+		"/Users/jordan/source/PocketBots/config/part/bottom/BottomGorilla.json",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/client/component/scene/BattleListComponent.hx",
+		"/Users/jordan/source/PocketBots/config/enemy/class/beginnerClass.json",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/PlayerAi.hx",
+		"/Users/jordan/source/PocketBots/config/part/top/TopDeer.json",
+		"/Users/jordan/source/PocketBots/config/part/top/TopDog.json",
+		"/Users/jordan/source/PocketBots/config/part/top/TopGorilla.json",
+		"/Users/jordan/source/PocketBots/config/part/middle/MiddleDog.json",
+		"/Users/jordan/source/PocketBots/config/part/middle/MiddleDeer.json",
+		"/Users/jordan/source/PocketBots/config/part/bottom/BottomDog.json",
+		"/Users/jordan/source/PocketBots/config/part/bottom/BottomDeer.json",
+		"/Users/jordan/source/PocketBots/config/battleList.json",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/Battle.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/server/controller/GameController.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/CreatureStatChange.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/Ability.hx",
+		"/Users/jordan/source/PocketBots/config/ability/swipeAttack.json",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/ObjectRegistry.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/ability/DamageAbilityComponent.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/ability/HealAbilityComponent.hx",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/ability/AbilityComponent.hx",
+		"/Users/jordan/source/PocketBots/config/entity/creature/middle/MiddleAlligator.json",
+		"/Users/jordan/source/Diamond_2.cpp",
+		"/Users/jordan/Library/Application Support/Sublime Text 3/Packages/User/g++.sublime-build",
+		"/Users/jordan/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/jordan/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/client/BarManager.hx",
+		"/Users/jordan/source/PocketBots/config/entity/ui/world/MenuIcon.json",
+		"/Users/jordan/source/Firmament/lib/firmament/scene/FSceneComponentFactory.hx",
+		"/Users/jordan/source/PocketBots/config/entity/ui/world/ArenaSelectionBackground1.json",
+		"/Users/jordan/source/PocketBots/config/tilesheet/uiSheetBehind.json",
+		"/Users/jordan/source/PocketBots/config/tilesheet/uiSheet1.json",
+		"/Users/jordan/source/PocketBots/config/tilesheet/font1Front.json",
+		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/AffectComponent.hx"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"",
+			"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common",
+			"",
+			"*.hx",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"B2",
+			"fworld",
+			"fpoint",
+			"v",
+			"a",
+			"B2Vec2",
+			"loadPlayerF",
+			"xOffset",
+			"kernin",
+			"fontName",
+			"setPl",
+			"SET",
+			"equi",
+			"top",
+			"player",
+			"trace",
+			"helper",
+			"_helper",
+			"message",
+			"getBattleList",
+			"build",
+			"trace",
+			"uiSheetBehind",
+			"tileWidth",
+			"uiSheet1",
+			"currentWidth",
+			"_tile",
+			"Key",
+			"_objectKey",
+			"objectKey",
+			"Key",
+			"y",
+			"targetCreatureObjectId",
+			"Dynamic",
+			"sha1",
+			"Map",
+			"map",
+			"field",
+			"selectATarget",
+			"_extends",
+			"updateExpires",
+			"instance",
+			"_instace",
+			"public",
+			"CreaturePart",
+			"sstring",
+			"middle",
+			"top",
+			"player",
+			"_consumedEnergy",
+			"_request",
+			"FVector",
+			"name",
+			"parameters",
+			"trace",
+			"imageScale",
+			"tags:[",
+			"tags",
+			"WorldLockComponent",
+			"FGame",
+			"_game",
+			"FGame",
+			"game",
+			"Hilight",
+			"hilight",
+			"server",
+			"Client",
+			"client",
+			"Client",
+			"client",
+			"Over",
+			"pro",
+			"render",
+			"zPos",
+			"damage:",
+			"setAllCreaturesRGB",
+			"RGB",
+			"setCreatureRGB",
+			"setAllCreaturesRGB",
+			"8",
+			".3",
+			"time",
+			"timestamp",
+			"private",
+			"_battleServer",
+			"click",
+			"active",
+			"enabl",
+			"enab",
+			"enable",
+			"creature",
+			"debug",
+			"entityConfig",
+			"Int",
+			"description",
+			"package",
+			"component",
+			"Map",
+			"debu",
+			"_startPos",
+			"set",
+			"place",
+			"offset",
+			"getExperienceToNextLevel",
+			"To",
+			"entityConfigFile",
+			"'left'",
+			"middle",
+			"top",
+			"topEnt",
+			"middle",
+			"eventCallback",
+			"FMisc",
+			"package",
+			"=",
+			"switch",
+			"flipX",
+			"theta",
+			"sin",
+			"aite",
+			"statMap",
+			"function",
+			"var",
+			"Bot",
+			"var void",
+			"public",
+			"class",
+			"public class"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Creature",
+			"function",
+			"var",
+			"package pixelblit\\.pocketbots\\.common;\\n\\nclass",
+			"class",
+			"FParticle",
+			"world.FBox2DWorld",
+			"world.FWorld",
+			"/backgrounds/sun",
+			"/backgrounds/moon",
+			"/backgrounds/planet",
+			"/enemies/mercFighter.json",
+			"armor:{max:",
+			"shield",
+			"centipede",
+			"Centipede",
+			"",
+			"\\n, ",
+			"\\n,",
+			"assetSheet001.json",
+			"",
+			"\"label\":\"$1\"",
+			"\"$1\"\\t\\t:   $2,",
+			"bottomRight",
+			".y",
+			"bottomRight",
+			"options",
+			"filter",
+			"firmament.util",
+			"firmament.event.",
+			",",
+			"",
+			"Torque",
+			"\\t",
+			"updateState",
+			"height",
+			"angularVelocity",
+			"linearVelocity",
+			"com.celestia.",
+			"celestia.component",
+			"_b2world",
+			"\\n",
+			"\"\\t\\t\\t",
+			"\"$1",
+			"\\t\\t:",
+			",",
+			"\\n"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "engine/Source/Main.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1332,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1194,
+								1194
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 1.0,
+						"translation.y": 331.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "lib/firmament/core/FEntityCollection.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2258,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2230,
+								2230
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1223.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "lib/firmament/core/FGame.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12465,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6431,
+								6431
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4055.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "lib/firmament/core/FCamera.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7914,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7316,
+								7316
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4598.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "lib/com/firmamentengine/firmamenteditor/FirmamentEditor.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8682,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1890,
+								1842
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 470.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "engine/test.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 26,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								23,
+								23
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Firmament.sublime-project",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 328,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								150,
+								150
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 218.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "Firmament.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"fca",
+				"lib/firmament/core/FCamera.hx"
+			],
+			[
+				"fgam",
+				"lib/firmament/core/FGame.hx"
+			],
+			[
+				"entitycoll",
+				"lib/firmament/core/FEntityCollection.hx"
+			],
+			[
+				"fentity.hx",
+				"Firmament/lib/firmament/core/FEntity.hx"
+			],
+			[
+				"fcamera",
+				"Firmament/lib/firmament/core/FCamera.hx"
+			],
+			[
+				"fgame",
+				"Firmament/lib/firmament/core/FGame.hx"
+			],
+			[
+				"fphysics",
+				"Firmament/lib/firmament/component/physics/FPhysicsComponentInterface.hx"
+			],
+			[
+				"fwo",
+				"Firmament/lib/firmament/world/FWorld.hx"
+			],
+			[
+				"fworld",
+				"Firmament/lib/firmament/world/FWorld.hx"
+			],
+			[
+				"main",
+				"PocketBots/src/pixelblit/pocketbots/client/Main.hx"
+			],
+			[
+				"fbox2",
+				"Firmament/lib/firmament/component/physics/FBox2DComponent.hx"
+			],
+			[
+				"fbox",
+				"Firmament/lib/firmament/world/FBox2DWorld.hx"
+			],
+			[
+				"fve",
+				"Firmament/lib/firmament/core/FVector.hx"
+			],
+			[
+				"fvector",
+				"Firmament/lib/firmament/core/FVector.hx"
+			],
+			[
+				"buil",
+				"PocketBots/build.xml"
+			],
+			[
+				"player",
+				"PocketBots/src/pixelblit/pocketbots/common/Player.hx"
+			],
+			[
+				"battlemess",
+				"PocketBots/src/pixelblit/pocketbots/server/message/BattleMessageController.hx"
+			],
+			[
+				"mess",
+				"PocketBots/src/pixelblit/pocketbots/server/MessageController.hx"
+			],
+			[
+				"session",
+				"PocketBots/src/pixelblit/pocketbots/server/Session.hx"
+			],
+			[
+				"fprocessm",
+				"Firmament/lib/firmament/process/base/FProcessManager.hx"
+			],
+			[
+				"fprocess",
+				"Firmament/lib/firmament/process/base/FProcess.hx"
+			],
+			[
+				"creature",
+				"PocketBots/src/pixelblit/pocketbots/common/Creature.hx"
+			],
+			[
+				"stats",
+				"PocketBots/src/pixelblit/pocketbots/common/Stats.hx"
+			],
+			[
+				"cratpar",
+				"PocketBots/src/pixelblit/pocketbots/common/CreaturePart.hx"
+			],
+			[
+				"battle.json",
+				"PocketBots/config/map/BattleMap.json"
+			],
+			[
+				"battsys",
+				"PocketBots/src/pixelblit/pocketbots/client/component/scene/BattleSystemComponent.hx"
+			],
+			[
+				"ftextre",
+				"Firmament/lib/firmament/component/render/FTextRenderComponent.hx"
+			],
+			[
+				"gameserver",
+				"PocketBots/src/pixelblit/pocketbots/client/GameServerBase.hx"
+			],
+			[
+				"games",
+				"PocketBots/src/pixelblit/pocketbots/client/GameServerRemote.hx"
+			],
+			[
+				"battleme",
+				"PocketBots/src/pixelblit/pocketbots/server/message/BattleMessageController.hx"
+			],
+			[
+				"message",
+				"PocketBots/src/pixelblit/pocketbots/common/Message.hx"
+			],
+			[
+				"game",
+				"PocketBots/src/pixelblit/pocketbots/client/GameServerRemote.hx"
+			],
+			[
+				"battlesys",
+				"PocketBots/src/pixelblit/pocketbots/client/component/scene/BattleSystemComponent.hx"
+			],
+			[
+				"battleser",
+				"PocketBots/src/pixelblit/pocketbots/client/BattleServerBase.hx"
+			],
+			[
+				"battleserverlo",
+				"PocketBots/src/pixelblit/pocketbots/client/BattleServerLocal.hx"
+			],
+			[
+				"choo",
+				"PocketBots/src/pixelblit/pocketbots/client/battleuistate/ChooseTargetState.hx"
+			],
+			[
+				"cho",
+				"PocketBots/src/pixelblit/pocketbots/client/battleuistate/ChooseAbilityState.hx"
+			],
+			[
+				"dataloa",
+				"PocketBots/src/pixelblit/pocketbots/common/DataLoader.hx"
+			],
+			[
+				"ftextren",
+				"Firmament/lib/firmament/component/render/FTextRenderComponent.hx"
+			],
+			[
+				"fdata",
+				"Firmament/lib/firmament/util/loader/FDataLoader.hx"
+			],
+			[
+				"fmi",
+				"Firmament/lib/firmament/util/FMisc.hx"
+			],
+			[
+				"datalo",
+				"PocketBots/src/pixelblit/pocketbots/common/DataLoader.hx"
+			],
+			[
+				"ftil",
+				"Firmament/lib/firmament/core/FTilesheet.hx"
+			],
+			[
+				"ftileshe",
+				"Firmament/lib/firmament/core/FTilesheetManager.hx"
+			],
+			[
+				"ftext",
+				"Firmament/lib/firmament/component/render/FTextRenderComponent.hx"
+			],
+			[
+				"textre",
+				"Firmament/lib/firmament/component/render/FTextRenderComponent.hx"
+			],
+			[
+				"inde",
+				"PocketBots/serverAssets/template/indexTemplate.html"
+			],
+			[
+				"fcamer",
+				"Firmament/lib/firmament/core/FCamera.hx"
+			],
+			[
+				"playera",
+				"PocketBots/src/pixelblit/pocketbots/common/PlayerAi.hx"
+			],
+			[
+				"creat",
+				"PocketBots/src/pixelblit/pocketbots/common/Creature.hx"
+			],
+			[
+				"pl",
+				"PocketBots/src/pixelblit/pocketbots/common/Player.hx"
+			],
+			[
+				"battleserb",
+				"PocketBots/src/pixelblit/pocketbots/client/BattleServerBase.hx"
+			],
+			[
+				"gamecontro",
+				"PocketBots/src/pixelblit/pocketbots/server/controller/GameController.hx"
+			],
+			[
+				"gameserverba",
+				"PocketBots/src/pixelblit/pocketbots/client/GameServerBase.hx"
+			],
+			[
+				"gameserverre",
+				"PocketBots/src/pixelblit/pocketbots/client/GameServerRemote.hx"
+			],
+			[
+				"battlesy",
+				"PocketBots/src/pixelblit/pocketbots/client/component/scene/BattleSystemComponent.hx"
+			],
+			[
+				"pla",
+				"PocketBots/src/pixelblit/pocketbots/common/Player.hx"
+			],
+			[
+				"crea",
+				"PocketBots/src/pixelblit/pocketbots/common/Creature.hx"
+			],
+			[
+				"creaturepart",
+				"PocketBots/src/pixelblit/pocketbots/common/CreaturePart.hx"
+			],
+			[
+				"battlesyst",
+				"PocketBots/src/pixelblit/pocketbots/client/component/scene/BattleSystemComponent.hx"
+			],
+			[
+				"battle",
+				"PocketBots/src/pixelblit/pocketbots/common/Battle.hx"
+			],
+			[
+				"battleserver",
+				"PocketBots/src/pixelblit/pocketbots/client/BattleServerBase.hx"
+			],
+			[
+				"batt",
+				"PocketBots/src/pixelblit/pocketbots/common/Battle.hx"
+			],
+			[
+				"abili",
+				"PocketBots/src/pixelblit/pocketbots/common/Ability.hx"
+			],
+			[
+				"abil",
+				"PocketBots/src/pixelblit/pocketbots/common/Ability.hx"
+			],
+			[
+				"obje",
+				"PocketBots/src/pixelblit/pocketbots/common/ObjectRegistry.hx"
+			],
+			[
+				"playermess",
+				"PocketBots/src/pixelblit/pocketbots/server/message/PlayerMessageController.hx"
+			],
+			[
+				"creaturepar",
+				"PocketBots/src/pixelblit/pocketbots/common/CreaturePart.hx"
+			],
+			[
+				"text",
+				"Firmament/lib/firmament/component/render/FTextRenderComponent.hx"
+			],
+			[
+				"build",
+				"PocketBots/build.xml"
+			],
+			[
+				"playercon",
+				"PocketBots/src/pixelblit/pocketbots/server/message/PlayerMessageController.hx"
+			],
+			[
+				"battleli",
+				"PocketBots/config/battleList.json"
+			],
+			[
+				"batlleli",
+				"PocketBots/config/entity/creature/middle/MiddleAlligator.json"
+			],
+			[
+				"messagecon",
+				"PocketBots/src/pixelblit/pocketbots/server/MessageController.hx"
+			],
+			[
+				"battlecon",
+				"PocketBots/src/pixelblit/pocketbots/server/message/BattleMessageController.hx"
+			],
+			[
+				"fentitycompofacto",
+				"Firmament/lib/firmament/component/base/FEntityComponentFactory.hx"
+			],
+			[
+				"fencomfa",
+				"Firmament/lib/firmament/scene/FSceneComponentFactory.hx"
+			],
+			[
+				"ftilesh",
+				"Firmament/lib/firmament/core/FTilesheet.hx"
+			],
+			[
+				"choose",
+				"PocketBots/src/pixelblit/pocketbots/client/battleuistate/ChooseAbilityState.hx"
+			],
+			[
+				"battlesereb",
+				"PocketBots/src/pixelblit/pocketbots/client/BattleServerBase.hx"
+			],
+			[
+				"objectr",
+				"PocketBots/src/pixelblit/pocketbots/common/ObjectRegistry.hx"
+			],
+			[
+				"serverco",
+				"PocketBots/src/pixelblit/pocketbots/client/ServerConnection.hx"
+			],
+			[
+				"mes",
+				"PocketBots/src/pixelblit/pocketbots/common/Message.hx"
+			],
+			[
+				"un",
+				"PocketBots/src/pixelblit/pocketbots/common/Unserializer.hx"
+			],
+			[
+				"server",
+				"PocketBots/src/pixelblit/pocketbots/client/ServerConnection.hx"
+			],
+			[
+				"unser",
+				"PocketBots/src/pixelblit/pocketbots/common/Unserializer.hx"
+			],
+			[
+				"battlserlo",
+				"PocketBots/src/pixelblit/pocketbots/client/BattleServerLocal.hx"
+			],
+			[
+				"abilit",
+				"PocketBots/src/pixelblit/pocketbots/common/Ability.hx"
+			],
+			[
+				"dama",
+				"PocketBots/src/pixelblit/pocketbots/common/ability/DamageAbilityComponent.hx"
+			],
+			[
+				"serveri",
+				"PocketBots/src/pixelblit/pocketbots/client/ServerConnection.hx"
+			],
+			[
+				"cre",
+				"PocketBots/src/pixelblit/pocketbots/common/Creature.hx"
+			],
+			[
+				"damage",
+				"PocketBots/src/pixelblit/pocketbots/common/ability/DamageAbilityComponent.hx"
+			],
+			[
+				"battlmess",
+				"PocketBots/src/pixelblit/pocketbots/server/message/BattleMessageController.hx"
+			],
+			[
+				"playerme",
+				"PocketBots/src/pixelblit/pocketbots/server/message/PlayerMessageController.hx"
+			],
+			[
+				"sess",
+				"PocketBots/src/pixelblit/pocketbots/server/Session.hx"
+			],
+			[
+				"serverc",
+				"PocketBots/src/pixelblit/pocketbots/client/ServerConnection.hx"
+			],
+			[
+				"gameser",
+				"PocketBots/src/pixelblit/pocketbots/client/GameServerRemote.hx"
+			],
+			[
+				"battlemessa",
+				"PocketBots/src/pixelblit/pocketbots/server/message/BattleMessageController.hx"
+			],
+			[
+				"battlel",
+				"PocketBots/src/pixelblit/pocketbots/client/component/scene/BattleListComponent.hx"
+			],
+			[
+				"gamecon",
+				"PocketBots/src/pixelblit/pocketbots/server/controller/GameController.hx"
+			],
+			[
+				"wor",
+				"PocketBots/config/scene/worldScene.json"
+			],
+			[
+				"scene",
+				"PocketBots/config/scene/battleScene.json"
+			],
+			[
+				"gameserverr",
+				"PocketBots/src/pixelblit/pocketbots/client/GameServerRemote.hx"
+			],
+			[
+				"gamec",
+				"PocketBots/src/pixelblit/pocketbots/server/controller/GameController.hx"
+			],
+			[
+				"se",
+				"PocketBots/src/pixelblit/pocketbots/server/Session.hx"
+			],
+			[
+				"gameco",
+				"PocketBots/src/pixelblit/pocketbots/server/controller/GameController.hx"
+			],
+			[
+				"messa",
+				"PocketBots/src/pixelblit/pocketbots/client/MessageEvent.hx"
+			],
+			[
+				"admin",
+				"PocketBots/src/pixelblit/pocketbots/server/controller/AdminController.hx"
+			],
+			[
+				"root",
+				"PocketBots/src/pixelblit/pocketbots/server/controller/RootController.hx"
+			],
+			[
+				"client",
+				"PocketBots/src/pixelblit/pocketbots/server/ClientConnection.hx"
+			],
+			[
+				"playaer",
+				"PocketBots/src/pixelblit/pocketbots/server/message/PlayerMessageController.hx"
+			],
+			[
+				"gam",
+				"PocketBots/src/pixelblit/pocketbots/client/GameServerRemote.hx"
+			],
+			[
+				"creap",
+				"PocketBots/src/pixelblit/pocketbots/common/CreaturePart.hx"
+			],
+			[
+				"part",
+				"PocketBots/src/pixelblit/pocketbots/common/CreaturePart.hx"
+			],
+			[
+				"playerco",
+				"PocketBots/src/pixelblit/pocketbots/server/message/PlayerMessageController.hx"
+			],
+			[
+				"battles",
+				"PocketBots/src/pixelblit/pocketbots/client/component/scene/BattleSystemComponent.hx"
+			],
+			[
+				"serverm",
+				"PocketBots/src/pixelblit/pocketbots/server/ServerMain.hx"
+			],
+			[
+				"creaturep",
+				"PocketBots/src/pixelblit/pocketbots/common/CreaturePart.hx"
+			],
+			[
+				"main.",
+				"PocketBots/src/pixelblit/pocketbots/client/Main.hx"
+			],
+			[
+				"adminco",
+				"PocketBots/src/pixelblit/pocketbots/server/controller/AdminController.hx"
+			],
+			[
+				"fanim",
+				"Firmament/lib/firmament/core/FAnimation.hx"
+			],
+			[
+				"fcon",
+				"Firmament/lib/firmament/util/FConfigHelper.hx"
+			],
+			[
+				"bui",
+				"PocketBots/build.xml"
+			],
+			[
+				"html",
+				"PocketBots/serverAssets/template/indexTemplate.html"
+			],
+			[
+				"uis",
+				"PocketBots/config/tilesheet/uiSheet1.json"
+			],
+			[
+				"aish",
+				"PocketBots/original/texturePacker/uiSheet1.tps"
+			],
+			[
+				"abi",
+				"PocketBots/src/pixelblit/pocketbots/common/Ability.hx"
+			],
+			[
+				"ftiles",
+				"Firmament/lib/firmament/core/FTilesheet.hx"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"~/source/PocketBots/PocketBots.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 248.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -39,7 +39,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	var _debugRenderer:FWireframeRenderComponent;
 	var _calculatedTopLeft:Bool;
 	var _game:FGame;
-	var _mouseOverEnts:Array<FEntity>;
+	var _mouseOverEnts:firmament.core.FEntityCollection;
 	var _autoZoomToFit:Bool;
 
 	/**
@@ -61,7 +61,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		_debugRender = false;
 		_debugRenderer = new FWireframeRenderComponent();
 		_game = FGame.getInstance(gameInstanceName);
-		_mouseOverEnts = new Array();
+		_mouseOverEnts = new FEntityCollection();
 		_autoZoomToFit = false;
 	}
 
