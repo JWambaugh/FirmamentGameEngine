@@ -33,6 +33,10 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 		return this;
 	}
 
+	public function remove(entity:FEntity){
+		_entities.remove(entity);
+	}
+
 
 	private function doFilter(val:Array<Dynamic>){
 		var subject:Dynamic = val.shift();
