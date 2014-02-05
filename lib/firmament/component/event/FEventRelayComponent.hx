@@ -1,6 +1,7 @@
 package firmament.component.event;
 
 import firmament.component.base.FEntityComponent;
+import firmament.core.FEntityCollection;
 import firmament.core.FEntity;
 import firmament.core.FGame;
 import firmament.core.FVector;
@@ -13,10 +14,7 @@ import flash.events.Event;
 
 class FEventRelayComponent extends FEntityComponent{
 
-	
-
 	var _eventsToFire:Array<String>;
-
 	var _fireEvent:String;
 
 	public function new(){
@@ -51,7 +49,7 @@ class FEventRelayComponent extends FEntityComponent{
 			c.bottomRight = new FVector(c.bottomRight.x + c.point.x,c.bottomRight.y+c.point.y);
 		}
 
-		var entities = FGame.getInstance().queryEntities(c);
+		var entities:FEntityCollection = FGame.getInstance().queryEntities(c);
 		
 		for (ent in entities){
 			ent.dispatchEvent(new FEventRelayEvent(_fireEvent,_entity,_config));

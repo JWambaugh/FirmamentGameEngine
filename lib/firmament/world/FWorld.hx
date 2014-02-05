@@ -60,7 +60,7 @@ class FWorld
 	 * returns the elapsed time since the last step in seconds.
 	 **/
 	public function getTimeSinceLastStep():Float {
-			//trace(Timer.stamp() - this.lastStep);
+		//trace(Timer.stamp() - this.lastStep);
 		return Timer.stamp() - this.lastStep;
 		
 	}

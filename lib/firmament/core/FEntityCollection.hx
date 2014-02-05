@@ -13,7 +13,7 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 		// If this can be null ... don't all of the calls below have to be protected??
 		// we should create a dummy object if this isn't going to be the case ..
 		if(a == null) {
-			trace("Error: Passed in NULL as Array<FEntity> for FEntityCollection.new()");
+			trace("Warning: Passed in NULL for a:Array<FEntity>, creating new empty object");
 			a = new Array<FEntity>();
 		}
 		_entities = a;
