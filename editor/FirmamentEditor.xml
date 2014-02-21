@@ -13,6 +13,7 @@
 	<haxelib name="OPENFL" />
 	<haxelib name="tjson" />
 	<haxelib name="box2d" />
+	<haxelib name="hscript" />
 	<!-- icons -->
 	
 	<assets path="assets" include="*" exclude="" />
@@ -28,7 +29,6 @@
 
 	
 	
-	<ndll name="nme" haxelib="nme" />
 	
 	<!-- Windows app: hide console -->
 	<!--<setenv name="no_console" value="1" />-->

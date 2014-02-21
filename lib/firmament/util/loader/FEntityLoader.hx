@@ -54,11 +54,11 @@ class FEntityLoader extends EventDispatcher
 		
 		
 		if (overrideClass != null) {
-			data.className = overrideClass;
+			data['className'] = overrideClass;
 		}
 
-		if(!Std.is(data.typeId,String)){
-			data.typeId = fileName;
+		if(!Std.is(data['typeId'],String)){
+			data['typeId'] = fileName;
 		}
 		
 		ent = FEntityFactory.createEntity(data,gameInstanceName);
@@ -74,7 +74,7 @@ class FEntityLoader extends EventDispatcher
 	 * 
 	 **/
 	public function loadMap(fileName:String, ?overrideClass=null,?gameInstanceName:String='main') {
-		var data = FDataLoader.loadData(fileName);
+		var data:Dynamic = FDataLoader.loadData(fileName);
 		
 		
 		if (!Std.is(data.entities, Array)) {

@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"FEn",
+				"FEntity	firmament.core"
+			],
+			[
 				"FEnt",
 				"FEntityCollection	class"
 			],
@@ -510,10 +514,6 @@
 			[
 				"abi",
 				"abilityEntConfig={	var"
-			],
-			[
-				"part",
-				"partPos	var"
 			]
 		]
 	},
@@ -528,10 +528,51 @@
 			}
 		},
 		{
+			"file": "buildLib.sh",
+			"settings":
+			{
+				"buffer_size": 860,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/haxelib.xml",
+			"settings":
+			{
+				"buffer_size": 568,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/haxelib.json",
+			"settings":
+			{
+				"buffer_size": 424,
+				"line_ending": "Unix",
+				"name": "haxelib.json"
+			}
+		},
+		{
+			"file": "editor/FirmamentEditor.xml",
+			"settings":
+			{
+				"buffer_size": 1363,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/Cli.hx",
+			"settings":
+			{
+				"buffer_size": 5330,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "lib/firmament/core/FEntityCollection.hx",
 			"settings":
 			{
-				"buffer_size": 2258,
+				"buffer_size": 2914,
 				"line_ending": "Unix"
 			}
 		},
@@ -560,10 +601,13 @@
 			}
 		},
 		{
+			"contents": "trace(\"hey, this works!\");\n",
 			"file": "engine/test.hx",
+			"file_size": 26,
+			"file_write_time": 130338732310000000,
 			"settings":
 			{
-				"buffer_size": 26,
+				"buffer_size": 27,
 				"line_ending": "Unix"
 			}
 		},
@@ -571,7 +615,7 @@
 			"file": "Firmament.sublime-project",
 			"settings":
 			{
-				"buffer_size": 328,
+				"buffer_size": 342,
 				"line_ending": "Unix"
 			}
 		}
@@ -651,6 +695,8 @@
 	},
 	"file_history":
 	[
+		"/Users/jordan/source/Firmament/lib/firmament/core/FEntity.hx",
+		"/Users/jordan/source/Firmament/.gitignore",
 		"/Users/jordan/source/Firmament/lib/firmament/util/FAutoCrop.hx",
 		"/Users/jordan/source/Firmament/lib/com/firmamentengine/firmamenteditor/ui/EntityItem.hx",
 		"/Users/jordan/source/Firmament/docs/types/Enum.html",
@@ -662,7 +708,6 @@
 		"/Users/jordan/source/Firmament/tests/TestAll.hx",
 		"/usr/lib/haxe/lib/box2d/1,2,0/box2D/common/math/B2Vec2.hx",
 		"/Users/jordan/source/Firmament/tests/TestEntityCollection.hx",
-		"/Users/jordan/source/Firmament/lib/firmament/core/FEntity.hx",
 		"/Users/jordan/source/Firmament/lib/com/firmamentengine/firmamenteditor/FEditorEntity.hx",
 		"/Users/jordan/source/Firmament/lib/firmament/core/FEntityPool.hx",
 		"/Users/jordan/source/Firmament/lib/firmament/event/FEntityEvent.hx",
@@ -777,12 +822,11 @@
 		"/Users/jordan/source/PocketBots/config/entity/ui/world/ArenaSelectionBackground1.json",
 		"/Users/jordan/source/PocketBots/config/tilesheet/uiSheetBehind.json",
 		"/Users/jordan/source/PocketBots/config/tilesheet/uiSheet1.json",
-		"/Users/jordan/source/PocketBots/config/tilesheet/font1Front.json",
-		"/Users/jordan/source/PocketBots/src/pixelblit/pocketbots/common/AffectComponent.hx"
+		"/Users/jordan/source/PocketBots/config/tilesheet/font1Front.json"
 	],
 	"find":
 	{
-		"height": 26.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -801,6 +845,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"last",
 			"B2",
 			"fworld",
 			"fpoint",
@@ -927,8 +972,7 @@
 			"Bot",
 			"var void",
 			"public",
-			"class",
-			"public class"
+			"class"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -993,7 +1037,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1019,28 +1063,174 @@
 							"syntax": "Packages/Haxe/Haxe.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 1.0,
-						"translation.y": 331.0,
+						"translation.x": 0.0,
+						"translation.y": 213.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "lib/firmament/core/FEntityCollection.hx",
+					"file": "buildLib.sh",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2258,
+						"buffer_size": 860,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2230,
-								2230
+								679,
+								679
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "lib/haxelib.xml",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 568,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "lib/haxelib.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 424,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_name": "haxelib.json",
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "editor/FirmamentEditor.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1363,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								702,
+								702
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "tools/Cli.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5330,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								529,
+								529
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 5.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "lib/firmament/core/FEntityCollection.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2914,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2840,
+								2840
 							]
 						],
 						"settings":
@@ -1050,14 +1240,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1223.0,
+						"translation.y": 1508.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 7,
 					"file": "lib/firmament/core/FGame.hx",
 					"semi_transient": false,
 					"settings":
@@ -1083,11 +1273,11 @@
 						"translation.y": 4055.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 8,
 					"file": "lib/firmament/core/FCamera.hx",
 					"semi_transient": false,
 					"settings":
@@ -1110,14 +1300,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4598.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 9,
 					"file": "lib/com/firmamentengine/firmamenteditor/FirmamentEditor.hx",
 					"semi_transient": false,
 					"settings":
@@ -1143,24 +1333,24 @@
 						"translation.y": 470.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 10,
 					"file": "engine/test.hx",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 26,
+						"buffer_size": 27,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								23,
-								23
+								27,
+								27
 							]
 						],
 						"settings":
@@ -1172,24 +1362,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 11,
 					"file": "Firmament.sublime-project",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 328,
+						"buffer_size": 342,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								150,
-								150
+								307,
+								307
 							]
 						],
 						"settings":
@@ -1200,7 +1390,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
@@ -1256,6 +1446,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"fentio",
+				"lib/firmament/core/FEntityCollection.hx"
+			],
 			[
 				"fca",
 				"lib/firmament/core/FCamera.hx"
@@ -1763,10 +1957,6 @@
 			[
 				"abi",
 				"PocketBots/src/pixelblit/pocketbots/common/Ability.hx"
-			],
-			[
-				"ftiles",
-				"Firmament/lib/firmament/core/FTilesheet.hx"
 			]
 		],
 		"width": 0.0

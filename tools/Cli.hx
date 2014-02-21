@@ -1,6 +1,6 @@
 
-import neko.FileSystem;
-import neko.io.Path;
+
+import haxe.io.Path;
 import Sys;
 import neko.Lib;
 
@@ -14,7 +14,7 @@ class Cli {
 	static var projectHomeDir:String;
 	public static function main() {
 		var args:Array<String> = Sys.args();
-		var last:String = (new neko.io.Path(args.pop())).toString();
+		var last:String = (new haxe.io.Path(args.pop())).toString();
 		var slash = last.substr( -1);
 
 	
@@ -22,7 +22,7 @@ class Cli {
 		
 		if (slash=="/"|| slash=="\\") 
 			last = last.substr(0,last.length-1);
-		if (neko.FileSystem.exists(last) && neko.FileSystem.isDirectory(last)) {
+		if (FileSystem.exists(last) && FileSystem.isDirectory(last)) {
 			Sys.setCwd(last);
 		}
 		

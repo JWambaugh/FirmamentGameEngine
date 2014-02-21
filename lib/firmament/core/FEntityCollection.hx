@@ -117,5 +117,9 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 	public function __set(x:Int,v:FEntity){
 		return _entities[x] = v;
 	}
+
+	public function sort(f:FEntity ->FEntity ->Int):Void{
+		_entities.sort(f);
+	}
 }
 

@@ -1,6 +1,6 @@
 
 package firmament.util.loader;
-
+import firmament.core.*;
 import firmament.util.FMisc;
 import firmament.util.loader.serializer.FSerializerFactory;
 import openfl.Assets;
@@ -18,7 +18,7 @@ class FDataLoader
 	static var _recursionCount:Int;
 
 
-	public static function loadData(fileName:String, ?allowEmpty:Bool=false):Dynamic{
+	public static function loadData(fileName:String, ?allowEmpty:Bool=false):FConfig{
 
 		//trace("Processing: " + fileName);
 		if(_cache.exists(fileName)){

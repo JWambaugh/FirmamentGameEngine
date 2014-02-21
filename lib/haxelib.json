@@ -1,0 +1,16 @@
+{
+  "name": "Firmament",
+  "license": "GPL",
+  "tags": ["flash","openfl","game","engine","firmament","cpp","box2d","2d","physics"],
+  "description": "2D game engine using OpenFL.",
+  "contributors": ["martamius"],
+  "releasenote": "Support for encoding haxe lists",
+  "version": "2.0.2",
+  "url": "http://martamius.github.com/Firmament",
+  "dependencies": {
+  	"tjson":""
+  	,"openfl":""
+  	,"lime":""
+  	,"hscript":""
+  }
+}
