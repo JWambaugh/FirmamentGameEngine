@@ -1,4 +1,4 @@
-<project name="firmament" url="http://martamius.github.com/Firmament.hx/" license="GPL">
+<project name="firmament" url="http://martamius.github.com/Firmament/" license="GPL">
     <user name="martamius"/>
     <tag v="flash"/>
     <tag v="nme"/>
@@ -13,6 +13,6 @@
     <description>2D game engine using NME.</description>
     <version name="2.0.2">Neko fixes, built editor into command-line tool</version>
     <depends name="nme"/>
-    <depends name="hx_nice_json"/>
+    
     <depends name="tjson"/>
 </project>

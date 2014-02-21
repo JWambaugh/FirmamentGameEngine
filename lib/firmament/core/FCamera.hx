@@ -13,6 +13,7 @@ import flash.events.MouseEvent;
 import firmament.component.render.FWireframeRenderComponent;
 import firmament.util.FConfigHelper;
 import firmament.core.FGame;
+import firmament.core.FConfig;
 /**
  * Class: FCamera
  * 
@@ -41,6 +42,8 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	var _game:FGame;
 	var _mouseOverEnts:firmament.core.FEntityCollection;
 	var _autoZoomToFit:Bool;
+	var _fillColor:Int;
+	var _fillAlpha:Float;
 
 	/**
 	 * Constructor: new
@@ -66,16 +69,18 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	}
 
 
-	public function init(config:Dynamic){
-		var c= new FConfigHelper(config);
-		var pos = c.getVector('_position',{x:0,y:0});
+	public function init(config:FConfig){
+		
+		var pos = config.getVector('_position',{x:0,y:0});
 		this.x = pos.x;
 		this.y = pos.y;
 
 		var stage = Lib.current.stage;
-		this._displayWidth = c.getNotNull("width",Float,stage.stageWidth);
-		this._displayHeight = c.getNotNull("height",Float,stage.stageHeight);
+		this._displayWidth = config.getNotNull("width",Float,stage.stageWidth);
+		this._displayHeight = config.getNotNull("height",Float,stage.stageHeight);
 		this.calculateTopLeftPosition(1);
+		this._fillAlpha=config.get("fillAlpha",Float,1);
+		this._fillColor=config.get("fillColor",Int,0);
 
 	}
 	
@@ -83,10 +88,11 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		this.dispatchEvent(new Event(FCamera.BEFORE_RENDER_EVENT));
 		
 		this.graphics.clear();
-		
-		this.graphics.beginFill(0);
-		this.graphics.drawRect(0, 0, this._displayWidth, this._displayHeight);
-		this.graphics.endFill();
+		if(0 != _fillAlpha){
+			this.graphics.beginFill(_fillColor,_fillAlpha);
+			this.graphics.drawRect(0, 0, this._displayWidth, this._displayHeight);
+			this.graphics.endFill();
+		}
 		
 		//this.graphics.drawRect(0,0, this._displayWidth, this._displayHeight);
 		var entityList:Array<FEntity> = new Array<FEntity>();
