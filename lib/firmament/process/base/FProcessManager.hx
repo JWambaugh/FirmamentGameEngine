@@ -46,7 +46,7 @@ class FProcessManager extends flash.events.EventDispatcher
 	 * Runs a step for each registered process.
 	 */
 	public function step() {
-		if(_paused)return;
+		if( _paused ) return;
 		if(_lastTime == 0) {
 		    _lastTime = Timer.stamp();
 		} else {
@@ -56,6 +56,7 @@ class FProcessManager extends flash.events.EventDispatcher
 		}
 		_iteration++;
 		for (p in _processQueue) {
+			if( _paused ) return;
 			if(!p.isComplete()){
 				p.step();
 			}

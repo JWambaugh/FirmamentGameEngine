@@ -57,13 +57,11 @@ class FGame extends EventDispatcher
 
 	var _gameTimerManager:FTimerManager;
 
-	var _instanceName:String;
-
 	var _currentScene:FScene;
 
-	var _interpreter:Interp;
+	var _name:String;
 
-	
+	var _interpreter:Interp;
 
 	//Constant: COLLISION_PRE_SOLVE_EVENT
 	public static inline var COLLISION_PRE_SOLVE_EVENT = 'preSolveCollision';
@@ -92,8 +90,10 @@ class FGame extends EventDispatcher
 	//CONSTANT: AFTER_RENDER
 	public static inline var AFTER_RENDER = 'afterRender';
 
-	//CONCSTANT: DELETE_ENTITY
+	//CONSTANT: DELETE_ENTITY
 	public static inline var DELETE_ENTITY = 'deleteEntity';
+
+	private static var _instanceName:String = null;
 
 	private static var _instances:Map<String,FGame>;
 
@@ -119,10 +119,6 @@ class FGame extends EventDispatcher
 		_poolManager = new FEntityPoolManager();
 		_gameTimerManager = new FTimerManager();
 		this._gameProcessManager.addProcess(_gameTimerManager);
-		/*var timer = new Timer(33);
-		timer.addEventListener(TimerEvent.TIMER, this_step);
-		timer.start();
-		*/
 	}
 
 
@@ -142,15 +138,28 @@ class FGame extends EventDispatcher
 		returns an instance of FGame.
 		As of 2.1, has optional parameter 'key'
 		@param String - The name of the instance to get. Default name is 'main'
+		@param Bool - Set instance to active (use as default when calling this function)
 	*/
-	public static function getInstance(?name:String='main'):FGame{
+	public static function getInstance(?name:String=null,?activate:Bool=false):FGame{
 		if(_instances == null){
 			_instances = new Map();
 		}
+		if( name == null || name == "" ) { // use name if avail
+			name = FGame._instanceName; // default to active if avail
+			if( name == null || name == "" ) {  // use fallback if not
+				name = "main";
+				activate = true;
+			}
+		}
+
+		if(activate == true) {
+			FGame._instanceName = name;
+		}
+
 		var instance = _instances.get(name);
 		if(instance == null){
 			instance = new FGame();
-			instance._instanceName = name;
+			instance._name = name;
 			_instances.set(name,instance);
 		}
 		return instance;
@@ -339,12 +348,18 @@ class FGame extends EventDispatcher
 	
 	
 	private function doStep():Void {
-		if(!_gameProcessManager.isPaused()){ //don't fire step events if we are paused.
+		if(!_gameProcessManager.isPaused()){ // pause can 
 			this.dispatchEvent(new Event(FGame.BEFORE_STEP));
+		}
+		if(!_gameProcessManager.isPaused()){ //don't fire step events if we are paused.
 			this._gameProcessManager.step();
+		}
+		if(!_gameProcessManager.isPaused()){ //don't fire step events if we are paused.
 			this.dispatchEvent(new Event(FGame.AFTER_STEP));
 		}
-		this._renderProcessManager.step();
+		if(!this._renderProcessManager.isPaused()) {
+			this._renderProcessManager.step();
+		}
 		//trace('Simulation: '+_gameProcessManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
 	}
 
@@ -380,8 +395,13 @@ class FGame extends EventDispatcher
 		destroys or clears references to all entities, worlds, cameras, and processes.
 	*/
 	public function clearAll(){
-		if(_currentScene != null)_currentScene.destruct();
-		_currentScene = null;
+		_gameProcessManager.pause();
+		_renderProcessManager.pause();
+
+		if(_currentScene != null) {
+			_currentScene.destruct();
+			_currentScene = null;
+		}
 		clearWorlds();
 		_gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
@@ -407,7 +427,7 @@ class FGame extends EventDispatcher
 	}
 
 	public function getInstanceName():String{
-		return _instanceName;
+		return _name;
 	}
 
 	/**
@@ -429,8 +449,11 @@ class FGame extends EventDispatcher
 	 * Switches to a preloaded a scene.
 	*/
 	public function switchScene(?name:String='main',?camName:String='main') {
+
+		// Noop'd
 		return null;
-		var instance:FGame = null;
+
+		/*var instance:FGame = null;
 		if( _instances == null || (instance = _instances.get(name)) == null ) {
 			return null;
 		}
@@ -446,7 +469,7 @@ class FGame extends EventDispatcher
 		camera.enableClickEvents();
 		camera.enableOverEvents();
 
-		return _currentScene;
+		return _currentScene;*/
 	}
 	
 	public function getCurrentScene(){
