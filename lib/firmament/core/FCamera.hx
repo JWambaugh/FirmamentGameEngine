@@ -74,6 +74,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		var pos = config.getVector('position',{x:0,y:0});
 		this.x = pos.x;
 		this.y = pos.y;
+		_zoom = config.get('zoom',Float,100);
 
 		var stage = Lib.current.stage;
 		this._displayWidth = config.getNotNull("width",Float,stage.stageWidth);
