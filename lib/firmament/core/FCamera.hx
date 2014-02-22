@@ -71,7 +71,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 
 	public function init(config:FConfig){
 		
-		var pos = config.getVector('_position',{x:0,y:0});
+		var pos = config.getVector('position',{x:0,y:0});
 		this.x = pos.x;
 		this.y = pos.y;
 
