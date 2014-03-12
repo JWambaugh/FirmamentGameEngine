@@ -5,7 +5,7 @@ Copyright (C) 2012-2013 Jordan CM Wambaugh
 
 This is the Haxe 3/OpenFL version of Firmament. For the haxe 2/NME version of Firmament, please see the [Firmament.hx project](https://github.com/martamius/Firmament.hx).
 
-Firmament is an open-source, 2 dimensional game engine developed for the easy creation of video games. 
+Firmament is an open-source, 2 dimensional game engine developed for the easy creation of video games.
 It is currently under heavy development, so its feature list is constantly expanding. Its main features are:
 
 * Robust 2D physics engine for realistic 2-dimensional simulations. Make physics-based games like ‘Angry Birds’ with ease!
@@ -19,7 +19,7 @@ It is currently under heavy development, so its feature list is constantly expan
 For more information including news, blogs, and documentation, please check out the website at [firmament.atlassian.net/wiki](https://firmament.atlassian.net/wiki) (Note that this is a new location)
 
 ##Installation
-Please see the [Installation Guide](https://firmament.atlassian.net/wiki/display/FE/Installation) on our website for information on obtaining and installing Firmament. 
+Please see the [Installation Guide](https://firmament.atlassian.net/wiki/display/FE/Installation) on our website for information on obtaining and installing Firmament.
 
 ##Issues
 If you encounter any issues, wish to file a feature request, or want to help contribute to the project, please check out the project jira at [firmament.atlassian.net](https://firmament.atlassian.net/)
