@@ -44,10 +44,12 @@ import hscript.Interp;
  */
 class FGame extends EventDispatcher
 {
-	var cameras:Map<String,FCamera>;
-	var worldHash:Map<String,FWorld>;
-	var states:Map<String,FStateComponent>;
-	public var enableSimulation:Bool;
+	public var _enableSimulation:Bool;
+	
+	var _cameras:Map<String,FCamera>;
+	var _worldHash:Map<String,FWorld>;
+	var _states:Map<String,FStateComponent>;
+	
 	var _gameProcessManager:FProcessManager;
 	var _renderProcessManager:FProcessManager;
 
@@ -106,10 +108,10 @@ class FGame extends EventDispatcher
 	{
 		super();
 		
-		this.enableSimulation = true;
-		worldHash = new Map<String,FWorld>();
-		cameras = new Map<String,FCamera>();
-		states = new Map<String,FStateComponent>();
+		this._enableSimulation = true;
+		_worldHash = new Map<String,FWorld>();
+		_cameras = new Map<String,FCamera>();
+		_states = new Map<String,FStateComponent>();
 		var stage = Lib.current.stage;
 		this._gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
@@ -171,11 +173,11 @@ class FGame extends EventDispatcher
 	 * Returns: an FWorld object of the type provided
 	 */
 	public function getWorld(type:String):FWorld{
-		if(worldHash.exists(type)){
-			return worldHash.get(type);
+		if(_worldHash.exists(type)){
+			return _worldHash.get(type);
 		}
 		var w = FWorldFactory.createWorld(type);
-		worldHash.set(type, w);
+		_worldHash.set(type, w);
 
 		//set up process for it
 		var p = new FWorldStepProcess(w,this);
@@ -185,7 +187,7 @@ class FGame extends EventDispatcher
 	}
 
 	public function getWorlds():Map<String,FWorld>{
-		return this.worldHash;
+		return this._worldHash;
 	}
 
 	public function getAllEntities():FEntityCollection{
@@ -198,7 +200,7 @@ class FGame extends EventDispatcher
 
 	public function getEntitiesAtPoint(p:FVector):FEntityCollection{
 		var a = new Array<FEntity>();
-		for(world in worldHash){
+		for(world in _worldHash){
 			a=a.concat(world.getEntitiesAtPoint(p));
 		}
 		return new FEntityCollection(a);
@@ -206,7 +208,7 @@ class FGame extends EventDispatcher
 
 	public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):FEntityCollection {
 		var a = new Array<FEntity>();
-		for(world in worldHash){
+		for(world in _worldHash){
 			a=a.concat(world.getEntitiesInBox(topLeftX,topLeftY,bottomRightX,bottomRightY));
 		}
 		return new FEntityCollection(a);
@@ -293,7 +295,7 @@ class FGame extends EventDispatcher
 	 * @param  name instance name state, defaults to 'main'
 	 */
 	public function addState(name:String,s:FStateComponent): Void {
-		this.states.set(name,s);
+		this._states.set(name,s);
 	}
 
 	/**
@@ -302,13 +304,13 @@ class FGame extends EventDispatcher
 	 * @return       returns a valid game state
 	 */
 	public function getState(?name:String='main'): FStateComponent {
-		if(! this.states.exists( name )) {
+		if(! this._states.exists( name )) {
 			var state = new FStateComponent();
-			this.states.set(name,state);
+			this._states.set(name,state);
 		}
 		// TODO: I'd like to build this automatically with the 
 		// config scripts
-		return this.states.get(name);
+		return this._states.get(name);
 	}
 
 	/**
@@ -321,7 +323,7 @@ class FGame extends EventDispatcher
 	 *	c - <FCamera> The camera to add
 	 */
 	public function addCamera(name:String,c:FCamera):Void {
-		this.cameras.set(name,c);
+		this._cameras.set(name,c);
 		this._renderProcessManager.addProcess(new FCameraRenderProcess(c,this));
 	}
 
@@ -333,7 +335,7 @@ class FGame extends EventDispatcher
 	 *	Returns: <FCamera>
 	*/
 	public function getCamera(name:String):FCamera{
-		return this.cameras.get(name);
+		return this._cameras.get(name);
 	}
 	
 
@@ -384,14 +386,14 @@ class FGame extends EventDispatcher
 
 	*/
 	public function clearWorlds(){
-		for (world in worldHash){
+		for (world in _worldHash){
 			world.destruct();
 		}
-		worldHash = new Map();
+
+		_worldHash = new Map();
 	}
 
 	/*
-		Function: clearAll
 		destroys or clears references to all entities, worlds, cameras, and processes.
 	*/
 	public function clearAll(){
@@ -405,7 +407,7 @@ class FGame extends EventDispatcher
 		clearWorlds();
 		_gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
-		cameras = new Map();
+		_cameras = new Map();
 		this._gameProcessManager.addProcess(_gameTimerManager);
 	}
 
