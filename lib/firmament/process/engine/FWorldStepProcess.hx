@@ -14,7 +14,7 @@ class FWorldStepProcess extends FProcess {
 	}
 
 	override public function step(){
-		if(game.enableSimulation){
+		if(game._enableSimulation){
 			this.world.step();
 		}
 	}
