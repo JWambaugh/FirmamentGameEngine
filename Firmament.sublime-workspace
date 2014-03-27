@@ -539,7 +539,7 @@
 			"file": "lib/haxelib.xml",
 			"settings":
 			{
-				"buffer_size": 568,
+				"buffer_size": 535,
 				"line_ending": "Unix"
 			}
 		},
@@ -580,7 +580,7 @@
 			"file": "lib/firmament/core/FGame.hx",
 			"settings":
 			{
-				"buffer_size": 12465,
+				"buffer_size": 13301,
 				"line_ending": "Unix"
 			}
 		},
@@ -588,7 +588,7 @@
 			"file": "lib/firmament/core/FCamera.hx",
 			"settings":
 			{
-				"buffer_size": 7914,
+				"buffer_size": 8157,
 				"line_ending": "Unix"
 			}
 		},
@@ -1104,7 +1104,7 @@
 					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 568,
+						"buffer_size": 535,
 						"regions":
 						{
 						},
@@ -1148,7 +1148,9 @@
 						"settings":
 						{
 							"auto_name": "haxelib.json",
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1252,15 +1254,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12465,
+						"buffer_size": 13301,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6431,
-								6431
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1282,15 +1284,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7914,
+						"buffer_size": 8157,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7316,
-								7316
+								0,
+								0
 							]
 						],
 						"settings":

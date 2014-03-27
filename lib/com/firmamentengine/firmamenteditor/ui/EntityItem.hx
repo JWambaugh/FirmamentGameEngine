@@ -58,7 +58,9 @@ class EntityItem extends Sprite
 			throw "invalid entity config";
 		}
 		
+
 		if(config.components.render == null){
+			
 			config.components.render={
 				componentName:'tilesheet'
 				,image:Assets.getBitmapData("assets/images/default-icon.png")

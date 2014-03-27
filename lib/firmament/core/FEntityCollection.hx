@@ -10,10 +10,7 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 	public var length(get_length,never):Int;
 
 	public function new (?a:Array<FEntity>=null, ?thisEntity:FEntity=null){
-		// If this can be null ... don't all of the calls below have to be protected??
-		// we should create a dummy object if this isn't going to be the case ..
 		if(a == null) {
-			trace("Warning: Passed in NULL for a:Array<FEntity>, creating new empty object");
 			a = new Array<FEntity>();
 		}
 		_entities = a;

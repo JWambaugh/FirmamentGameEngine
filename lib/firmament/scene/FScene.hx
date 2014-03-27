@@ -35,10 +35,8 @@ class FScene extends EventDispatcher{
 		_game = FGame.getInstance(gameInstanceName);
 		var stage = Lib.current.stage;
 		var configHelper = new FConfigHelper(config);
-		//clear any previous config
-		_game.clearAll();
 
-
+		
 		//initialize cameras
 		if(Std.is(config.cameras,Array)){
 			for(cameraDef in cast(config.cameras,Array<Dynamic>)){
@@ -126,6 +124,7 @@ class FScene extends EventDispatcher{
 	}
 
 	public function destruct(){
+		trace('scene destructed!');
 		if(_components != null){
 			for(component in _components){
 				component.destruct();
@@ -134,6 +133,7 @@ class FScene extends EventDispatcher{
 				_components.pop();
 			}
 		}
+		_components = new Array();
 	}
 }
 

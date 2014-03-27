@@ -22,7 +22,7 @@ import openfl.display.Tilesheet;
   * 
   * 
   */
-class FEntity extends flash.events.EventDispatcher
+class FEntity extends flash.events.EventDispatcher 
 {
 
 	//events
@@ -175,8 +175,8 @@ class FEntity extends flash.events.EventDispatcher
 			}
 			this._components = null;
 			this._config = null;
-		}	
-		//this.removeListeners();
+		}
+		this._active=false;
 	}
 
 	public function setActive(active:Bool){
@@ -232,6 +232,8 @@ class FEntity extends flash.events.EventDispatcher
 		return _gameInstance;
 	}
 
+	//property functions
+
 	public function registerProperty(property:FProperty){
 		if(_properties.exists(property.getKey())) throw("Property already exists with key "+property.getKey());
 		_properties.set(property.getKey(),property);
@@ -252,5 +254,30 @@ class FEntity extends flash.events.EventDispatcher
 	public function setPropertyValue(key:String,value:Dynamic){
 		getProperty(key).set(value);
 	}
+
+	//property helper functions
+	/**
+	 * Registers a property in the entity. This must be done before the property can be read or written.
+	 */
+	public function registerProp(key:String, type:Dynamic){
+		var prop = FProperty.createBasic(key,type);
+		this.registerProperty(prop);
+	}
+	
+	/**
+	 * Returns the value of the given property
+	 */
+	public function getProp(key:String){
+		return getProperty(key).getDynamic();
+	}
+
+	/**
+	 * sets the value of the property
+	 */
+	public function setProp(key:String,value:Dynamic){
+		getProperty(key).set(value);
+	}
+
+
 	
 }

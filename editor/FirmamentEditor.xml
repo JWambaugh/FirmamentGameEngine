@@ -10,10 +10,11 @@
 	
 	<!-- classpath, haxe libs -->
 	<classpath name="../lib" />
-	<haxelib name="OPENFL" />
+	<haxelib name="openfl" />
 	<haxelib name="tjson" />
 	<haxelib name="box2d" />
 	<haxelib name="hscript" />
+	<haxelib name="haxeui" />
 	<!-- icons -->
 	
 	<assets path="assets" include="*" exclude="" />

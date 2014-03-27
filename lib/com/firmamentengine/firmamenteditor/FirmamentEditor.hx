@@ -8,7 +8,7 @@ import com.firmamentengine.firmamenteditor.ui.ToolBar;
 
 import com.firmamentengine.firmamenteditor.ui.ConfigEditor;
 
-
+import com.firmamentengine.firmamenteditor.controller.MainMenuController;
 
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.world.FBox2DWorld;
@@ -30,6 +30,13 @@ import flash.events.MouseEvent;
 import flash.Lib;
 import flash.text.Font;
 import flash.net.SharedObject;
+
+
+import haxe.ui.toolkit.core.Macros;
+import haxe.ui.toolkit.core.Toolkit;
+import haxe.ui.toolkit.core.Root;
+import haxe.ui.toolkit.controls.Button;
+import haxe.ui.toolkit.events.UIEvent;
 
 /**
  * ...
@@ -53,11 +60,14 @@ class FirmamentEditor
 	public static var dragOffset:FVector;
     public static function main()
     {
+    	var _root:Root;
 	    #if (flash9 || flash10)
 		haxe.Log.trace = function(v,?pos) { untyped __global__["trace"](pos.className+"#"+pos.methodName+"("+pos.lineNumber+"):",v); }
 		#elseif flash
 		haxe.Log.trace = function(v,?pos) { flash.Lib.trace(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"): "+v); }
 		#end
+
+		trace("test!!!");
 
 
 		var executableDir:String = Sys.executablePath();
@@ -104,12 +114,27 @@ class FirmamentEditor
 		stage.quality = StageQuality.BEST;
 		camera = new FCamera(stage.stageWidth,stage.stageHeight);
 		camera.setDebugMode(true);
+		camera.resizeToStage();
+		camera.setFillColor(0);
+		camera.setFillAlpha(1);
 		game  = FGame.getInstance();
 		
-		game.enableSimulation = false;
+		//game.enableSimulation = false;
 		game.addCamera("main",camera);
-		stage.addChild(camera);
+		//stage.addChild(camera);
 		
+		stage.addChild(camera);
+		Macros.addStyleSheet("styles/gradient/gradient.css");
+        Toolkit.init();
+        Toolkit.openFullscreen(function(root:Root) {
+            _root = root;
+            root.addChild(new MainMenuController().view);
+            //root.style.alpha=0;
+            trace("UI is loaded");
+       });
+
+        
+
 		toolBar = new ToolBar();
 		if(Reflect.isObject(settings.data.windowPositions) && Reflect.isObject(settings.data.windowPositions.toolBar)){
 			toolBar.x = settings.data.windowPositions.toolBar.x;
@@ -258,10 +283,11 @@ class FirmamentEditor
 			windowPositions.entitySelector.y=entitySelector.y;
 			windowPositions.entitySelector.expanded=entitySelector.isExpanded();
 
-			settings.data.windowPositions = windowPositions;
-			settings.flush();
+			//settings.data.windowPositions = windowPositions;
+			//settings.flush();
 			Lib.close();
 		};
+
 
 		Sys.setCwd(cwd);
 		//FDialog.prompt("Howdy! please put somthing in here.", function(s) { } ,"Please enter your name","jordan");

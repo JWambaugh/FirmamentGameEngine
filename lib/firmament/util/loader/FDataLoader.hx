@@ -47,15 +47,19 @@ class FDataLoader
 	}
 	
 	public static function loadFile(fileName:String){
-		var string = Assets.getText(fileName);
+
+		var str:String=null;
+		if(Assets.exists(fileName)){
+			str = Assets.getText(fileName);
+		} 
 		
 		#if (cpp || neko)
-			trace('attempting load with file.getContents');
-			if (string == null || string == '') {
-				string = File.getContent(fileName);
+//			trace('attempting load with file.getContents');
+			if (str == null || str == '') {
+				str = File.getContent(fileName);
 			}
 		#end
-		return string;
+		return str;
 	}
 	//recursivly check for '_extends' directives
 	private static function checkForExtension(data:Dynamic,fileName):Dynamic{
@@ -67,7 +71,7 @@ class FDataLoader
 		}
 		else if(Reflect.isObject(data) && !Std.is(data,String)){
 			if(data._extends!=null && Std.is(data._extends,String)){
-				trace(fileName+" extends "+ data._extends);
+			//	trace(fileName+" extends "+ data._extends);
 				_recursionCount++;
 				if(_recursionCount > 1000 )throw "recursive _extends detected in "+fileName;
 				var parent = loadData(data._extends);

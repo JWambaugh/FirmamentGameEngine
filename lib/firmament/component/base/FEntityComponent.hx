@@ -3,6 +3,8 @@ import firmament.core.FEntity;
 import flash.events.EventDispatcher;
 import flash.events.Event;
 import firmament.util.FConfigHelper;
+import firmament.core.FProperty;
+
 /*
 	Class: FEntity Component
 
@@ -90,6 +92,20 @@ class FEntityComponent extends EventDispatcher
 
 	public function setComponentKey(key:String){
 		_componentKey = key;
+	}
+
+	//entity property helpers
+	public function registerProp(key:String, type:Dynamic){
+		var prop = FProperty.createBasic(key,type);
+		_entity.registerProperty(prop);
+	}
+
+	public function getProp(key:String){
+		return _entity.getProperty(key).getDynamic();
+	}
+
+	public function setProp(key:String,value:Dynamic){
+		_entity.getProperty(key).set(value);
 	}
 
 

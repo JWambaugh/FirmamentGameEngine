@@ -110,10 +110,12 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 			if(Std.is(image,FTilesheet)){
 				_tilesheet = cast(image);
 			}else{
-				var bd:BitmapData;
+				var bd:BitmapData = null;
 				if(Std.is(image,String)){
 					//trace("image: " + Std.string(image));
-					bd = Assets.getBitmapData(cast(image,String));
+					if(Assets.exists(cast(image,String))){
+						bd = Assets.getBitmapData(cast(image,String));
+					}
 					
 				}
 				else if(Std.is(image,BitmapData)){

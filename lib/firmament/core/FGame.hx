@@ -48,7 +48,7 @@ class FGame extends EventDispatcher
 	
 	var _cameras:Map<String,FCamera>;
 	var _worldHash:Map<String,FWorld>;
-	var _states:Map<String,FStateComponent>;
+	
 	
 	var _gameProcessManager:FProcessManager;
 	var _renderProcessManager:FProcessManager;
@@ -99,7 +99,10 @@ class FGame extends EventDispatcher
 
 	private static var _instances:Map<String,FGame>;
 
-	private static var _scenes:Map<String,FScene>;
+
+	private var _inStep:Bool;
+
+	private var _deferredFunctions:List<Void->Void>;
 
 	/**
 	 * Constructor: new
@@ -109,9 +112,11 @@ class FGame extends EventDispatcher
 		super();
 		
 		this._enableSimulation = true;
+		_inStep = false;
+		_deferredFunctions = new List();
 		_worldHash = new Map<String,FWorld>();
 		_cameras = new Map<String,FCamera>();
-		_states = new Map<String,FStateComponent>();
+		
 		var stage = Lib.current.stage;
 		this._gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
@@ -290,28 +295,6 @@ class FGame extends EventDispatcher
 		this._gameProcessManager.addProcess(p);
 	}
 
-	/**
-	 * associates a state object with key, preferably the instance key
-	 * @param  name instance name state, defaults to 'main'
-	 */
-	public function addState(name:String,s:FStateComponent): Void {
-		this._states.set(name,s);
-	}
-
-	/**
-	 * returns the state associated with the game object
-	 * @param  ?name optional instance name state, defaults to 'main'
-	 * @return       returns a valid game state
-	 */
-	public function getState(?name:String='main'): FStateComponent {
-		if(! this._states.exists( name )) {
-			var state = new FStateComponent();
-			this._states.set(name,state);
-		}
-		// TODO: I'd like to build this automatically with the 
-		// config scripts
-		return this._states.get(name);
-	}
 
 	/**
 	 * Function: addCamera
@@ -337,7 +320,6 @@ class FGame extends EventDispatcher
 	public function getCamera(name:String):FCamera{
 		return this._cameras.get(name);
 	}
-	
 
 	/*
 		Function: getMainInput
@@ -350,9 +332,11 @@ class FGame extends EventDispatcher
 	
 	
 	private function doStep():Void {
+		_inStep = true;
 		if(!_gameProcessManager.isPaused()){ // pause can 
 			this.dispatchEvent(new Event(FGame.BEFORE_STEP));
 		}
+		
 		if(!_gameProcessManager.isPaused()){ //don't fire step events if we are paused.
 			this._gameProcessManager.step();
 		}
@@ -362,6 +346,12 @@ class FGame extends EventDispatcher
 		if(!this._renderProcessManager.isPaused()) {
 			this._renderProcessManager.step();
 		}
+		_inStep = false;
+		for(func in _deferredFunctions){
+			func();
+		}
+		_deferredFunctions.clear();
+
 		//trace('Simulation: '+_gameProcessManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
 	}
 
@@ -393,22 +383,28 @@ class FGame extends EventDispatcher
 		_worldHash = new Map();
 	}
 
+	public function clearCameras(){
+		for(camera in _cameras){
+			camera.destruct();
+		}
+	}
+
 	/*
 		destroys or clears references to all entities, worlds, cameras, and processes.
 	*/
 	public function clearAll(){
 		_gameProcessManager.pause();
 		_renderProcessManager.pause();
-
-		if(_currentScene != null) {
-			_currentScene.destruct();
-			_currentScene = null;
-		}
+		if(_currentScene!=null)_currentScene.destruct();
+		_currentScene=null;
 		clearWorlds();
 		_gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
 		_cameras = new Map();
+		_gameTimerManager = new FTimerManager();
 		this._gameProcessManager.addProcess(_gameTimerManager);
+		clearCameras();
+		trace("FGAME CLEARED-----------------------------------");
 	}
 
 	/**
@@ -435,16 +431,22 @@ class FGame extends EventDispatcher
 	/**
 	 * Loads a scene.
 	 */
-	public function loadScene(scene:Dynamic){
+	public function loadScene(scene:FConfig){
+		if(_inStep){
+			_deferredFunctions.push(function(){
+				loadScene(scene);
+			});
+			return ;
+		}
 		clearAll();
 		var instanceName = getInstanceName();
-		if(_scenes == null || (_currentScene = _scenes.get(instanceName)) == null) {
-			trace("loadScene: Creating new scene");
-			_currentScene = new FScene();
-			trace("loadScene: Loading instance data");
-			_currentScene.init(scene,instanceName);
-		}
-		return _currentScene;
+		
+		trace("loadScene: Creating new scene");
+		_currentScene = new FScene();
+		trace("loadScene: Loading instance data");
+		_currentScene.init(scene,instanceName);
+		
+		return;
 	}
 
 	/**
@@ -487,6 +489,7 @@ class FGame extends EventDispatcher
 		_interpreter.variables.set("Math",Math);
 		_interpreter.variables.set("FGame",FGame);
 		_interpreter.variables.set("FSoundtrackManager",firmament.sound.FSoundtrackManager);
+		_interpreter.variables.set("FCamera",FCamera);
 
 	}
 	/**
@@ -507,6 +510,9 @@ class FGame extends EventDispatcher
 		return eval(FDataLoader.loadFile(fileName));
 	}
 
+	public function doAfterStep(func:Void->Void){
+		_deferredFunctions.push(func);
+	}
 
 
 
