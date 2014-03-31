@@ -1,9 +1,9 @@
 
 package firmament.event;
 
-import flash.events.Event;
+import firmament.core.FEvent;
 import firmament.core.FEntity;
-class FEntityEvent extends Event {
+class FEntityEvent extends FEvent {
 
 	var _entity:FEntity;
 

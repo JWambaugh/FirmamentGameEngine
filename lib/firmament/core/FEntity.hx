@@ -15,6 +15,8 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import openfl.Assets;
 import openfl.display.Tilesheet;
+import firmament.core.FObject;
+import firmament.core.FEvent;
  
  /**
   * Core entity class for all entities/actors in the game.
@@ -22,7 +24,7 @@ import openfl.display.Tilesheet;
   * 
   * 
   */
-class FEntity extends flash.events.EventDispatcher 
+class FEntity extends FObject
 {
 
 	//events
@@ -35,7 +37,6 @@ class FEntity extends flash.events.EventDispatcher
 	var _pool:FEntityPool;
 	var _active:Bool;
 	var _typeId:String;
-	var _listeners : Map<String,Dynamic>; 
 	var _tags:Array<String>;
 	var _gameInstance:FGame;
 	var _instanceId:String = null;
@@ -64,7 +65,7 @@ class FEntity extends flash.events.EventDispatcher
 		}
 		_typeId = config.typeId;
 		_instanceId = config.instanceId;
-		_listeners = new Map<String, Dynamic>();
+		
 
 		if(Std.is(config.tags,Array)){
 			_tags = config.tags;
@@ -168,7 +169,7 @@ class FEntity extends flash.events.EventDispatcher
 	 * Deletes the entity
 	**/
 	public function delete():Void{
-		this.dispatchEvent(new Event(FGame.DELETE_ENTITY));
+		this.trigger(new FEvent(FGame.DELETE_ENTITY));
 		if(_components!=null){
 			for(c in _components){
 				c.destruct();
@@ -182,7 +183,7 @@ class FEntity extends flash.events.EventDispatcher
 	public function setActive(active:Bool){
 		if(active!=_active){
 			_active = active;
-			this.dispatchEvent(new Event(ACTIVE_STATE_CHANGE));
+			this.trigger(new FEvent(ACTIVE_STATE_CHANGE));
 		}
 	}
 

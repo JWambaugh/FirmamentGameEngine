@@ -1,9 +1,10 @@
 package firmament.component.base;
 import firmament.core.FEntity;
 import flash.events.EventDispatcher;
-import flash.events.Event;
+import firmament.core.FEvent;
 import firmament.util.FConfigHelper;
 import firmament.core.FProperty;
+import firmament.core.FObject;
 
 /*
 	Class: FEntity Component
@@ -13,12 +14,11 @@ import firmament.core.FProperty;
 	@author Jordan Wambaugh
  */
 
-class FEntityComponent extends EventDispatcher
+class FEntityComponent extends FObject
 {
 
 	private var _config:Dynamic;
 	private var _entity:FEntity;
-	private var _listeners:Map<String,Dynamic->Void>;
 	private var _componentKey:String;
 	private var _configHelper:FConfigHelper;
 
@@ -26,7 +26,7 @@ class FEntityComponent extends EventDispatcher
 	{
 		_configHelper = null;
 		super();
-		_listeners = new Map();
+		
 
 	}
 	
@@ -67,27 +67,19 @@ class FEntityComponent extends EventDispatcher
 	}
 
 	
-	public function destruct(){
-		removeAllEventListenersFromEntity();
+	override public function destruct(){
+		_entity.getGameInstance().removeEventListener(this);
+		_entity.removeEventListener(this);
+		super.destruct();
 	}
 	
 
-	public function addEventListenerToEntity(event:String,listener:Dynamic->Void):Void{
-		//is it safe to assume a single component won't have multiple listeners for the same event on an entity?
-		//I can't think of a reason why you'd ever want to do that.
-		_listeners.set(event,listener);
-		_entity.addEventListener(event,listener);
-	}
-
 	public function removeEventListenerFromEntity(event:String){
-		_entity.removeEventListener(event,_listeners.get(event));
-		_listeners.remove(event);
+		_entity.removeEventListener(event,this);
 	}
 
 	public function removeAllEventListenersFromEntity(){
-		for(event in _listeners.keys()){
-			removeEventListenerFromEntity(event);
-		}
+		_entity.removeEventListener(this);
 	}
 
 	public function setComponentKey(key:String){

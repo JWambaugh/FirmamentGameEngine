@@ -7,7 +7,8 @@ import firmament.core.FEntity;
 import firmament.core.FGame;
 import firmament.util.loader.FDataLoader;
 import firmament.core.FEntityFactory;
-import flash.events.Event;
+import firmament.core.FEvent;
+
 
 
 
@@ -26,11 +27,11 @@ class FEntityContainerComponent extends FEntityComponent  {
 	}
 
 	override public function init(config:Dynamic){
-		this.addEventListenerToEntity(FEntity.COMPONENTS_INITIALIZED,function(e:Event){
+		on(_entity,FEntity.COMPONENTS_INITIALIZED,function(e:FEvent){
 			_position = _entity.getPhysicsComponent().getPosition().copy();
 		});
 		_game = _entity.getGameInstance();
-		_game.addEventListener(FGame.AFTER_STEP,afterStep);
+		on(_game,FGame.AFTER_STEP,afterStep);
 		if(Std.is(config.entities,Array)){
 			for (ent in cast(config.entities,Array<Dynamic>)){
 				if(Std.is(ent,String)){
@@ -43,7 +44,7 @@ class FEntityContainerComponent extends FEntityComponent  {
 		}
 	}
 
-	private function afterStep(e:Event){
+	private function afterStep(e:FEvent){
 		var diff:FVector = _entity.getPhysicsComponent().getPosition().copy();
 		diff.subtract(_position);
 		for(entity in _entities){

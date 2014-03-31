@@ -27,6 +27,9 @@ import firmament.util.loader.serializer.FSerializerFactory;
 import firmament.world.FWorld;
 import firmament.world.FWorldFactory;
 import firmament.scene.FScene;
+import firmament.core.FObject;
+import firmament.core.FEvent;
+
 import haxe.Timer;
 import openfl.Assets;
 import flash.display.Bitmap;
@@ -42,7 +45,7 @@ import hscript.Interp;
 /**
  * Class: FGame
  */
-class FGame extends EventDispatcher
+class FGame extends FObject
 {
 	public var _enableSimulation:Bool;
 	
@@ -334,14 +337,14 @@ class FGame extends EventDispatcher
 	private function doStep():Void {
 		_inStep = true;
 		if(!_gameProcessManager.isPaused()){ // pause can 
-			this.dispatchEvent(new Event(FGame.BEFORE_STEP));
+			this.trigger(new FEvent(FGame.BEFORE_STEP));
 		}
 		
 		if(!_gameProcessManager.isPaused()){ //don't fire step events if we are paused.
 			this._gameProcessManager.step();
 		}
 		if(!_gameProcessManager.isPaused()){ //don't fire step events if we are paused.
-			this.dispatchEvent(new Event(FGame.AFTER_STEP));
+			this.trigger(new FEvent(FGame.AFTER_STEP));
 		}
 		if(!this._renderProcessManager.isPaused()) {
 			this._renderProcessManager.step();
@@ -403,6 +406,7 @@ class FGame extends EventDispatcher
 		_cameras = new Map();
 		_gameTimerManager = new FTimerManager();
 		this._gameProcessManager.addProcess(_gameTimerManager);
+		//this.removeAllListeners();
 		clearCameras();
 		trace("FGAME CLEARED-----------------------------------");
 	}

@@ -10,7 +10,7 @@ import firmament.core.FEntity;
 import firmament.core.FGame;
 import firmament.core.FVector;
 import firmament.world.FWorld;
-import flash.events.Event;
+import firmament.core.FEvent;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -23,7 +23,7 @@ enum FCollisionEventType{
 	endContact;
 }
 
-class FPhysicsCollisionEvent extends Event
+class FPhysicsCollisionEvent extends FEvent
 {
 	var _world:FWorld;
 	var _collisionType:FCollisionEventType;

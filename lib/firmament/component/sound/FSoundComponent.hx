@@ -3,7 +3,8 @@ package firmament.component.sound;
 
 import firmament.component.base.FEntityComponent;
 import firmament.sound.FSoundManager;
-import flash.events.Event;
+import firmament.core.FEvent;
+
 import flash.media.SoundTransform;
 
 
@@ -35,7 +36,7 @@ class FSoundComponent extends FEntityComponent  {
 		}
 
 		for(event in Reflect.fields(_events)){
-			addEventListenerToEntity(event,function(e:Event){
+			on(_entity,event,function(e:FEvent){
 				var eventConfig = Reflect.field(_events,event);
 				var sound = FSoundManager.getSound(Reflect.field(eventConfig,"fileName"));
 				

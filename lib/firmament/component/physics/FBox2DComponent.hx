@@ -29,7 +29,7 @@ import firmament.util.FMisc;
 import firmament.util.loader.FDataLoader;
 import firmament.world.FBox2DWorld;
 import firmament.world.FWorld;
-import flash.events.Event;
+import firmament.core.FEvent;
 import haxe.Timer;
 /**
  * Class: FBox2DComponent
@@ -176,11 +176,11 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	}
 		
 	private function registerEventHandlers(){
-		_entity.addEventListener(FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
+		on(_entity,FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
 	}
 	
 	private function removeEventHandlers(){
-		_entity.removeEventListener(FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
+		_entity.removeEventListener(this);
 	}
 
 	function registerProperties(){
@@ -252,11 +252,11 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 
 			physWorld.getB2World().createJoint(def);
 		}
-		childEntity.dispatchEvent(new Event('ParentJointCreated'));
+		childEntity.trigger(new FEvent('ParentJointCreated'));
 		return childEntity;
 	}
 
-	public function onActiveStateChange(e:Event){
+	public function onActiveStateChange(e:FEvent){
 
 		//we need to do this after the step to be safe.
 		if(world.insideStep()){
@@ -268,7 +268,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 
 	}
 
-	function deactivate(?e:Event=null){
+	function deactivate(e:FEvent=null){
 			this.body.setActive(_entity.isActive());
 			//trace("deactivated:"+_entity.isActive());
 		}

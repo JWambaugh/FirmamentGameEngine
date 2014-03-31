@@ -5,7 +5,7 @@ import firmament.component.base.FEntityComponent;
 import firmament.core.FAnimation;
 import firmament.core.FAnimationManager;
 import firmament.core.FGame;
-import flash.events.Event;
+import firmament.core.FEvent;
 import haxe.Timer;
 import firmament.component.render.FRenderComponentInterface;
 import firmament.component.render.FTilesheetRenderComponent;
@@ -31,10 +31,10 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
 		if(_entity.isActive()){
 			_timer = FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
 		}
-		this.addEventListenerToEntity(FEntity.ACTIVE_STATE_CHANGE,stateChange);
+		on(_entity,FEntity.ACTIVE_STATE_CHANGE,stateChange);
 	}
 
-	public function stateChange(e:Event){
+	public function stateChange(e:FEvent){
 		if(_entity.isActive()){
 			if(_timer!=null)_timer.cancel();
 			_currentFrame=0;

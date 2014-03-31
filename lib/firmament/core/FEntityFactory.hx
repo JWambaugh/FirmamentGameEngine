@@ -4,7 +4,7 @@ import firmament.core.FEntity;
 import firmament.component.base.FEntityComponent;
 import firmament.component.base.FEntityComponentFactory;
 import firmament.util.loader.FDataLoader;
-import flash.events.Event;
+import firmament.core.FObject;
 
 class FEntityFactory{
 
@@ -34,7 +34,7 @@ class FEntityFactory{
 		}
 		applyComponents(entity,config);
 		initComponents(entity,config);
-		entity.dispatchEvent(new Event(FEntity.COMPONENTS_INITIALIZED));
+		entity.trigger(new FEvent(FEntity.COMPONENTS_INITIALIZED));
 		return entity;
 	}
 

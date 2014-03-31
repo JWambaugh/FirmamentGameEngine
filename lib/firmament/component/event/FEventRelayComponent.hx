@@ -10,7 +10,7 @@ import firmament.filter.entity.FEntityFilterFactory;
 import firmament.filter.entity.FEntityFilterInterface;
 import firmament.util.FConfigHelper;
 import firmament.util.FMisc;
-import flash.events.Event;
+import firmament.core.FEvent;
 
 class FEventRelayComponent extends FEntityComponent{
 
@@ -27,7 +27,7 @@ class FEventRelayComponent extends FEntityComponent{
 
 		var events:Array<String> = ch.getNotNull("listenEvents",Array);
 		for(e in events){
-			addEventListenerToEntity(e,eventFired);
+			on(_entity,e,eventFired);
 		}
 		
 		_fireEvent = ch.getNotNull("fireEvent");
@@ -38,7 +38,7 @@ class FEventRelayComponent extends FEntityComponent{
 		return "eventRelay";
 	}
 
-	private function eventFired(e:Event){
+	private function eventFired(e:FEvent){
 		var c = FMisc.deepClone(_config);
 		c.point = _entity.getPhysicsComponent().getPosition();
 		if(Reflect.isObject(c.topLeft)){
@@ -52,7 +52,7 @@ class FEventRelayComponent extends FEntityComponent{
 		var entities:FEntityCollection = FGame.getInstance().queryEntities(c);
 		
 		for (ent in entities){
-			ent.dispatchEvent(new FEventRelayEvent(_fireEvent,_entity,_config));
+			ent.trigger(new FEventRelayEvent(_fireEvent,_entity,_config));
 		}
 
 	}

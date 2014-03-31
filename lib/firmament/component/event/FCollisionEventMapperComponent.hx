@@ -1,7 +1,9 @@
 
 package firmament.component.event;
 import firmament.component.base.FEntityComponent;
-import flash.events.Event;
+import firmament.core.FObject;
+import firmament.core.FEvent;
+
 import firmament.event.FPhysicsCollisionEvent;
 
 
@@ -28,18 +30,18 @@ class FCollisionEventMapperComponent extends FEntityComponent{
 		}
 
 		for(item in Reflect.fields(_map)){
-			addEventListenerToEntity(item,function(e:FPhysicsCollisionEvent){
+			on(_entity,item,function(e:FPhysicsCollisionEvent){
 				if(_types!=null){
 					var otherEnt = e.getOtherEntity(_entity);
 					var entType = otherEnt.getTypeId();
 					for(type in _types){
 						if(type == entType){
-							_entity.dispatchEvent(new Event(Reflect.field(_map,e.type)));
+							_entity.trigger(new FEvent(Reflect.field(_map,e.name)));
 							return;
 						}
 					}
 				}else{
-					_entity.dispatchEvent(new Event(Reflect.field(_map,e.type)));
+					_entity.trigger(new FEvent(Reflect.field(_map,e.name)));
 				}
 			});
 		}

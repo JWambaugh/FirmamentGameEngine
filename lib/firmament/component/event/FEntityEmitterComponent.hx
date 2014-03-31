@@ -1,7 +1,7 @@
 
 package firmament.component.event;
 import firmament.component.base.FEntityComponent;
-import flash.events.Event;
+import firmament.core.FEvent;
 import firmament.util.FEntityUtils;
 import firmament.util.FConfigHelper;
 import firmament.core.FEntityFactory;
@@ -25,7 +25,7 @@ class FEntityEmitterComponent extends FEntityComponent{
 
 				if(Reflect.isObject(emitter)){
 					var ec = new FConfigHelper(emitter);
-					addEventListenerToEntity(event,function(e:Event){
+					on(_entity,event,function(e:FEvent){
 						var ent = FEntityFactory.createEntity(ec.getNotNull('entity',Dynamic));
 						var angle:Float;
 						if(ec.get("angleOffset",String)=="random"){

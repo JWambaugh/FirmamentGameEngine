@@ -16,7 +16,7 @@ import firmament.event.FPhysicsCollisionEvent;
 import firmament.ui.FDialog;
 import firmament.util.FConfigHelper;
 import firmament.world.FWorld;
-import flash.events.Event;
+import firmament.core.FEvent;
 /**
  * ...
  * @author Jordan Wambaughz
@@ -36,16 +36,16 @@ class FPhysicsWorldContactListener extends B2ContactListener {
 
 		var bodyA:FBox2DComponent = contact.getFixtureA().getBody().getUserData();
 		var bodyB:FBox2DComponent = contact.getFixtureB().getBody().getUserData();
-		bodyA.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact));
-		bodyB.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact));
+		bodyA.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact));
+		bodyB.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact));
 		//trace("beginContact "+bodyA.getEntity().getTypeId() + " > "+bodyB.getEntity().getTypeId());
 	}
 
 	override public function endContact(contact:B2Contact):Void {
 		var bodyA:FBox2DComponent = contact.getFixtureA().getBody().getUserData();
 		var bodyB:FBox2DComponent = contact.getFixtureB().getBody().getUserData();
-		bodyA.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.endContact,contact));
-		bodyB.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.endContact,contact));
+		bodyA.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.endContact,contact));
+		bodyB.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.endContact,contact));
 	}
 
 	override public function preSolve(contact:B2Contact, oldManifold:B2Manifold):Void {
@@ -57,8 +57,8 @@ class FPhysicsWorldContactListener extends B2ContactListener {
 		
 		var bodyA:FBox2DComponent = contact.getFixtureA().getBody().getUserData();
 		var bodyB:FBox2DComponent = contact.getFixtureB().getBody().getUserData();
-		bodyA.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.preSolve,contact));
-		bodyB.getEntity().dispatchEvent(new FBox2DCollisionEvent(world,FCollisionEventType.preSolve,contact));
+		bodyA.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.preSolve,contact));
+		bodyB.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.preSolve,contact));
 	}
 }
  

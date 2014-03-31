@@ -2,8 +2,8 @@
 package firmament.component.ui;
 
 import firmament.component.base.FEntityComponent;
+import firmament.core.FEvent;
 
-import flash.events.Event;
 
 
 
@@ -25,12 +25,11 @@ class FButtonComponent extends FEntityComponent  {
 		}
 
 		for(event in Reflect.fields(_events)){
-			addEventListenerToEntity(event,function(e:Event){
+			on(_entity,event,function(e:FEvent){
 				var eventValue = Reflect.field(_events,event);
 				if(Std.is(eventValue,String)){
-					_entity.dispatchEvent(new Event(eventValue));
+					_entity.trigger(new FEvent(eventValue));
 				}
-
 			});
 		}
 	}

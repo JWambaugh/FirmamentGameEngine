@@ -14,7 +14,7 @@ import firmament.core.FWorldPositionalInterface;
 import firmament.world.FBox2DWorld;
 import firmament.world.FNoPhysicsWorld;
 import firmament.world.FWorld;
-import flash.events.Event;
+import firmament.core.FEvent;
 import haxe.Timer;
 
 
@@ -150,18 +150,18 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	}
 		
 	private function registerEventHandlers(){
-		_entity.addEventListener(FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
+		on(_entity,FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
 	}
 
 	private function removeEventHandlers(){
-		_entity.removeEventListener(FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
+		_entity.removeEventListener(this);
 	}	
 	
-	public function onActiveStateChange(e:Event){
+	public function onActiveStateChange(e:FEvent){
 			deactivate();
 	}
 
-	function deactivate(?e:Event=null){
+	function deactivate(?e:FEvent=null){
 		this._isActive = _entity.isActive();
 	}
 

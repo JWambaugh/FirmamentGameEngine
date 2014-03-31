@@ -10,7 +10,7 @@ import firmament.core.FEntity;
 import firmament.core.FGame;
 import firmament.world.FWorld;
 import firmament.event.FPhysicsCollisionEvent;
-import flash.events.Event;
+import firmament.core.FEvent;
 /**
  * ...
  * @author Jordan Wambaugh

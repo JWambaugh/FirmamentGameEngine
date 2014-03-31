@@ -1,8 +1,8 @@
 
 package firmament.event;
-import flash.events.Event;
+import firmament.core.FEvent;
 import firmament.core.FEntity;
-class FEventRelayEvent extends Event {
+class FEventRelayEvent extends FEvent {
 
 	private var _config:Dynamic;
 	private var _entity:FEntity;

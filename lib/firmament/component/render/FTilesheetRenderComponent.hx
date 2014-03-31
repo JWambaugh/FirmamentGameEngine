@@ -21,6 +21,8 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import firmament.core.FEvent;
+
 
 
 
@@ -151,7 +153,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 			return;
 		}
 
-		this._entity.dispatchEvent(new Event(FGame.BEFORE_RENDER));
+		this._entity.trigger(new FEvent(FGame.BEFORE_RENDER));
 		
 		var cameraPos = camera.getTopLeftPosition(this._parallax);
 		var ratio = camera.getZoom() / imageScale;

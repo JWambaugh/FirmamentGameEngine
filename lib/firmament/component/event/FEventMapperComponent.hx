@@ -1,7 +1,7 @@
 
 package firmament.component.event;
 import firmament.component.base.FEntityComponent;
-import flash.events.Event;
+import firmament.core.FEvent;
 
 
 /*
@@ -23,8 +23,8 @@ class FEventMapperComponent extends FEntityComponent{
 		}
 
 		for(item in Reflect.fields(_map)){
-			addEventListenerToEntity(item,function(e:Event){
-				_entity.dispatchEvent(new Event(Reflect.field(_map,e.type)));
+			on(_entity,item,function(e:FEvent){
+				_entity.trigger(new FEvent(Reflect.field(_map,e.name)));
 			});
 		}
 	}

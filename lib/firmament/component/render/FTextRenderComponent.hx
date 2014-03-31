@@ -17,8 +17,7 @@ import flash.display.BitmapData;
 import flash.display.IBitmapDrawable;
 import flash.display.Sprite;
 import openfl.display.Tilesheet;
-import flash.events.Event;
-import flash.events.EventDispatcher;
+import firmament.core.FEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
@@ -145,7 +144,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 			return;
 		}
 
-		this._entity.dispatchEvent(new Event(FGame.BEFORE_RENDER));
+		_entity.trigger(new FEvent(FGame.BEFORE_RENDER));
 		
 		var physicsComponent:FPhysicsComponentInterface = this._entity.getPhysicsComponent();
 		if(physicsComponent == null) return;

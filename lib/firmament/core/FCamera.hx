@@ -285,13 +285,13 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 			for(ent in ents){
 				var alreadyOver = _mouseOverEnts.remove(ent);
 				if(ent.isActive() && !alreadyOver){
-					ent.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_OVER));
+					ent.trigger(new FEvent(MouseEvent.MOUSE_OVER));
 				}
 			}
 			//any ents left in _mouseOverEnts is now mouse_out
 			for(ent in _mouseOverEnts){
 				if(ent.isActive()){
-					ent.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_OUT));
+					ent.trigger(new FEvent(MouseEvent.MOUSE_OUT));
 				}
 			}
 			_mouseOverEnts = ents;
@@ -302,7 +302,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		var ents = _game.getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
 		for(ent in ents){
 			if(ent.isActive()){
-				ent.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+				ent.trigger(new FEvent(MouseEvent.CLICK));
 			}
 		}
 	}
