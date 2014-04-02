@@ -50,5 +50,13 @@ class FEntityPool {
 		}
 	}
 
+	public function destruct(){
+		for(ent in _entities){
+			ent.destruct();
+		}
+		_entities=null;
+		_entityConfig=null;
+	}
+
 
 }

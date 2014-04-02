@@ -116,7 +116,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		var imageIsFileName = false;
 		
 		var ch = getConfigHelper();
-		var tilesheetConfig = _config.tilesheet;
+		var tilesheetConfig = _config['tilesheet'];
 		var fontKey:String = ch.getNotNull('fontKey',String);
 		if(Reflect.isObject(tilesheetConfig)){
 			_tilesheet = FTilesheetManager.getInstance().findTilesheetWithKey( fontKey );
@@ -280,13 +280,13 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 			,height:0.0
 			,letters:[]
 		};
-		var lineHeight:Float = cast(_config.lineHeight,Float)/this.imageScale;
+		var lineHeight:Float = cast(_config['lineHeight'],Float)/this.imageScale;
 		_positionData.height = lineHeight;
 		//trace("preparting for text: "+_text);
 		for(index in 0..._text.length){
 
 			var letter = _text.charAt(index);
-			var letterConfig = Reflect.field(_config.glyphs,letter);
+			var letterConfig = Reflect.field(_config['glyphs'],letter);
 			var advance:Int = letterConfig.advance;
 			if(letter == ' ')trace('got a space');
 			if(letterConfig == null) throw("No glyph config found for "+letter);

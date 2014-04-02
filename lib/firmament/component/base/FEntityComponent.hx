@@ -5,6 +5,7 @@ import firmament.core.FEvent;
 import firmament.util.FConfigHelper;
 import firmament.core.FProperty;
 import firmament.core.FObject;
+import firmament.core.FConfig;
 
 /*
 	Class: FEntity Component
@@ -14,19 +15,40 @@ import firmament.core.FObject;
 	@author Jordan Wambaugh
  */
 
-class FEntityComponent extends FObject
+class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
 {
 
-	private var _config:Dynamic;
+	private var _config:FConfig;
 	private var _entity:FEntity;
 	private var _componentKey:String;
 	private var _configHelper:FConfigHelper;
+	private var _usesStep:Bool;
 
 	public function new() 
 	{
 		_configHelper = null;
 		super();
-		
+		_usesStep = false;
+
+	}
+
+	public function useStep(u:Bool = true){
+		if(_usesStep && !u){
+			_entity.getGameInstance().removeStepSubscriber(this);
+		}else{
+			_entity.getGameInstance().addStepSubscriber(this);
+		}
+		_usesStep = u;
+	}
+
+	//called by FGame instance
+	public function _doStep(delta:Float){
+		if(_entity.isActive() && _usesStep){
+			step(delta);
+		}
+	}
+
+	public function step(delta:Float){
 
 	}
 	
@@ -70,6 +92,7 @@ class FEntityComponent extends FObject
 	override public function destruct(){
 		_entity.getGameInstance().removeEventListener(this);
 		_entity.removeEventListener(this);
+		if(_usesStep)_entity.getGameInstance().removeStepSubscriber(this);
 		super.destruct();
 	}
 	

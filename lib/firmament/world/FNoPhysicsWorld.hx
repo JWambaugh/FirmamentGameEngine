@@ -31,9 +31,11 @@ class FNoPhysicsWorld extends FWorld
 	
 	var _activeAwakeEntities:Array<FEntity>;
 	var _rtree:RTree<FEntity>;
+	var _deleted:Bool;
 	public function new() 
 	{
 		super();
+		_deleted = false;
 		_inStep=false;
 		_activeAwakeEntities = new Array<FEntity>();
 		_rtree = new RTree<FEntity>(Math.NEGATIVE_INFINITY, Math.NEGATIVE_INFINITY, Math.POSITIVE_INFINITY, Math.POSITIVE_INFINITY, 25, 1e-10, -1e6, -1e6, 1e6, 1e6);
@@ -41,6 +43,9 @@ class FNoPhysicsWorld extends FWorld
 	
 	
 	override public function step():Void {
+		if(_deleted){
+			trace("______________TRYING TO STEP IN DELETED NOPHYSICS WORLD");
+		}
 		_inStep = true;
 		var elapsedTime = FGame.getInstance().getProcessManager().getFrameDelta();
 		for(ent in _activeAwakeEntities){
@@ -75,6 +80,9 @@ class FNoPhysicsWorld extends FWorld
 	}
 
 	public function updatePositionState(component:FNoPhysicsComponent,oldTopX:Float,oldTopY:Float){
+		if(_deleted){
+			trace("______________TRYING TO POSITION DELETED NOPHYSICS WORLD");
+		}
 		_rtree.updateObject(component.getEntity(),oldTopX,oldTopY,component.getTopX(), component.getTopY(), component.getBottomX(), component.getBottomY());
 	}
 	
@@ -119,12 +127,16 @@ class FNoPhysicsWorld extends FWorld
 	
 	override public function deleteEntity(ent:FEntity) {
 		var component:FNoPhysicsComponent = cast(ent.getPhysicsComponent());
-		_rtree.deleteObject(ent,component.getTopX(),component.getTopY());
+		if(component !=null && _rtree !=null){
+			_rtree.deleteObject(ent,component.getTopX(),component.getTopY());
+		}
 		super.deleteEntity(ent);
 	}
 
 
 	override public function destruct(){
+		trace("___________NO PHYSICS WORLD DELETED___________");
+		_deleted = true;
 		super.destruct();
 		_rtree = null;
 	}

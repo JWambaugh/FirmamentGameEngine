@@ -66,8 +66,10 @@ class FWorld
 	}
 	
 	public function deleteEntity(ent:FEntity) {
-		this.entities.remove(ent);
-		_alwaysRenderEntities.remove(ent);
+		if(entities!=null)
+			this.entities.remove(ent);
+		if(_alwaysRenderEntities != null)
+			_alwaysRenderEntities.remove(ent);
 	}
 
 	public function getType():String{

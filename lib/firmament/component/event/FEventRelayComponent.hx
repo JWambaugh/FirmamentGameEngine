@@ -40,13 +40,13 @@ class FEventRelayComponent extends FEntityComponent{
 
 	private function eventFired(e:FEvent){
 		var c = FMisc.deepClone(_config);
-		c.point = _entity.getPhysicsComponent().getPosition();
-		if(Reflect.isObject(c.topLeft)){
-			c.topLeft = new FVector(c.topLeft.x + c.point.x,c.topLeft.y+c.point.y);
+		c['point'] = _entity.getPhysicsComponent().getPosition();
+		if(Reflect.isObject(c['topLeft'])){
+			c['topLeft'] = new FVector(c['topLeft.x'] + c['point.x'],c['topLeft.y']+c['point.y']);
 		}
 
-		if(Reflect.isObject(c.bottomRight)){
-			c.bottomRight = new FVector(c.bottomRight.x + c.point.x,c.bottomRight.y+c.point.y);
+		if(Reflect.isObject(c['bottomRight'])){
+			c['bottomRight'] = new FVector(c['bottomRight.x'] + c['point.x'],c['bottomRight'].y+c['point'].y);
 		}
 
 		var entities:FEntityCollection = FGame.getInstance().queryEntities(c);

@@ -28,6 +28,7 @@ import firmament.world.FWorld;
 import firmament.world.FWorldFactory;
 import firmament.scene.FScene;
 import firmament.core.FObject;
+import firmament.component.base.FEntityComponent;
 import firmament.core.FEvent;
 
 import haxe.Timer;
@@ -67,6 +68,8 @@ class FGame extends FObject
 	var _name:String;
 
 	var _interpreter:Interp;
+
+	var _stepSubscribers:List<FStepSubscriber>;
 
 	//Constant: COLLISION_PRE_SOLVE_EVENT
 	public static inline var COLLISION_PRE_SOLVE_EVENT = 'preSolveCollision';
@@ -119,7 +122,7 @@ class FGame extends FObject
 		_deferredFunctions = new List();
 		_worldHash = new Map<String,FWorld>();
 		_cameras = new Map<String,FCamera>();
-		
+		_stepSubscribers = new List();
 		var stage = Lib.current.stage;
 		this._gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
@@ -131,6 +134,13 @@ class FGame extends FObject
 		this._gameProcessManager.addProcess(_gameTimerManager);
 	}
 
+	public function addStepSubscriber(c:FStepSubscriber){
+		_stepSubscribers.push(c);
+	}
+
+	public function removeStepSubscriber(c:FStepSubscriber){
+		_stepSubscribers.remove(c);
+	}
 
 
 	public function loadGameConfig(fileName:String){
@@ -336,8 +346,15 @@ class FGame extends FObject
 	
 	private function doStep():Void {
 		_inStep = true;
+		var delta = _gameProcessManager.getFrameDelta();
 		if(!_gameProcessManager.isPaused()){ // pause can 
 			this.trigger(new FEvent(FGame.BEFORE_STEP));
+		}
+
+		for(c in _stepSubscribers){
+			if(!_gameProcessManager.isPaused()){ // pause can 
+				c._doStep(delta);
+			}
 		}
 		
 		if(!_gameProcessManager.isPaused()){ //don't fire step events if we are paused.
@@ -396,18 +413,28 @@ class FGame extends FObject
 		destroys or clears references to all entities, worlds, cameras, and processes.
 	*/
 	public function clearAll(){
+		Lib.current.stage.removeEventListener(Event.ENTER_FRAME, this_onEnterFrame);
 		_gameProcessManager.pause();
 		_renderProcessManager.pause();
 		if(_currentScene!=null)_currentScene.destruct();
 		_currentScene=null;
+		
+		while(_stepSubscribers.length>0){
+			_stepSubscribers.pop();
+		}
+		_stepSubscribers = new List();
+
 		clearWorlds();
 		_gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
 		_cameras = new Map();
 		_gameTimerManager = new FTimerManager();
 		this._gameProcessManager.addProcess(_gameTimerManager);
+		_poolManager.destruct();
+		_poolManager = new FEntityPoolManager();
 		//this.removeAllListeners();
 		clearCameras();
+		Lib.current.stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
 		trace("FGAME CLEARED-----------------------------------");
 	}
 

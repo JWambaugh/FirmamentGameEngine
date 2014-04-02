@@ -20,4 +20,12 @@ class FEntityPoolManager {
 	public function addPool(pool:FEntityPool){
 		pools.set(pool.getEntityTypeId(),pool);
 	}
+
+	public function destruct(){
+		for(pool in pools){
+			pool.destruct();
+		}
+		pools = null;
+
+	}
 }

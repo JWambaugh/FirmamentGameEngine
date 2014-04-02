@@ -180,6 +180,11 @@ class FEntity extends FObject
 		this._active=false;
 	}
 
+	override public function destruct(){
+		delete();
+		super.destruct();
+	}
+
 	public function setActive(active:Bool){
 		if(active!=_active){
 			_active = active;
