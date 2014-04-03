@@ -163,6 +163,7 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 
 	function deactivate(?e:FEvent=null){
 		this._isActive = _entity.isActive();
+		world.updateSleepState(this);
 	}
 
 	public function  getPosition() {

@@ -71,7 +71,7 @@ class FNoPhysicsWorld extends FWorld
 	}
 	
 	public function updateSleepState(component:FNoPhysicsComponent){
-		if(component.isSleeping()){
+		if(component.isSleeping() || !component.getEntity().isActive()){
 			_activeAwakeEntities.remove(component.getEntity());
 		} else{
 			_activeAwakeEntities.remove(component.getEntity());
@@ -85,6 +85,8 @@ class FNoPhysicsWorld extends FWorld
 		}
 		_rtree.updateObject(component.getEntity(),oldTopX,oldTopY,component.getTopX(), component.getTopY(), component.getBottomX(), component.getBottomY());
 	}
+
+	
 	
 	override public function getType():String{
 		return "noPhysics";
