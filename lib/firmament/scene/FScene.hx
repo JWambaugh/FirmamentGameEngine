@@ -47,11 +47,14 @@ class FScene extends EventDispatcher{
 				
 				_game.addCamera(c.getNotNull('name',String),camera);
 				stage.addChild(camera);
+				stage.addEventListener(Event.RESIZE, function(e:Event) { 
+					camera.resizeToStage(); 
+				});
 			}
 		}else{
 			var camera = new FCamera(100,100,gameInstanceName);
 			camera.init({});
-			_game.addCamera("main",camera);
+			_game.addCamera(gameInstanceName,camera);
 			stage.addChild(camera);
 			//resize camera when the stage gets resized
 			stage.addEventListener(Event.RESIZE, function(e:Event) { 
@@ -94,7 +97,7 @@ class FScene extends EventDispatcher{
 
 
 		//load map
-		if(Std.is(config.map,String)){
+		if(config.map != null){
 			
 			loader.loadMap(config.map,null,gameInstanceName);
 		}

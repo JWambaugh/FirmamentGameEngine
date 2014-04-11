@@ -325,13 +325,19 @@ class FGame extends FObject
 
 
 	/**
-	 *	Function: getCamera
 	 *	Parameters:
 	 *		name - String the name of the camera to retrieve
 	 *	Returns: <FCamera>
 	*/
 	public function getCamera(name:String):FCamera{
 		return this._cameras.get(name);
+	}
+
+	/**
+	 * Returns all the cameras attached to this
+	 */
+	public function getCameras(){
+		return _cameras;
 	}
 
 	/*
@@ -541,10 +547,40 @@ class FGame extends FObject
 		return eval(FDataLoader.loadFile(fileName));
 	}
 
+	/**
+	 * Schedule a function to execute after a step is complete.
+	 */
 	public function doAfterStep(func:Void->Void){
 		_deferredFunctions.push(func);
 	}
 
+	override public function destruct(){
+		Lib.current.stage.removeEventListener(Event.ENTER_FRAME, this_onEnterFrame);
+		_gameProcessManager.pause();
+		_renderProcessManager.pause();
+		if(_currentScene!=null)_currentScene.destruct();
+		_currentScene=null;
+		
+		while(_stepSubscribers.length>0){
+			_stepSubscribers.pop();
+		}
+		_stepSubscribers = null;
+
+		clearWorlds();
+		_gameProcessManager = null;
+		_renderProcessManager = null;
+		_cameras = null;
+		_gameTimerManager = null;
+		
+		_poolManager.destruct();
+		_poolManager = null;
+		//this.removeAllListeners();
+		clearCameras();
+		FGame._instances.remove(_name);
+		_cameras = null; 
+		trace("FGAME DESTRUCTED-----------------------------------");
+		super.destruct();
+	}
 
 
 }

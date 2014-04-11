@@ -11,6 +11,7 @@ import firmament.core.FEntityFactory;
 import firmament.util.loader.FDataLoader;
 import firmament.core.FGame;
 import firmament.core.FEntityPool;
+import firmament.core.FConfig;
 /**
  * ...
  * @author Jordan Wambaugh
@@ -46,13 +47,16 @@ class FEntityLoader extends EventDispatcher
 	/**
 	 * Function: loadEntity
 	 */
-	public function loadEntity(fileName:String, config:Dynamic,?overrideClass=null,?gameInstanceName:String='main'):FEntity {
-		var data = FDataLoader.loadData(fileName);
-		FMisc.mergeInto(config,data);
-		
-		var ent:FEntity;
-		
-		
+	public function loadEntity(fileName:String = null, config:FConfig,?overrideClass=null,?gameInstanceName:String='main'):FEntity {
+		var data:FConfig;
+
+		if(fileName != null) {
+			data = FDataLoader.loadData(fileName);
+			FMisc.mergeInto(config,data);
+		} else {
+			data = config;
+		}
+
 		if (overrideClass != null) {
 			data['className'] = overrideClass;
 		}
@@ -61,6 +65,8 @@ class FEntityLoader extends EventDispatcher
 			data['typeId'] = fileName;
 		}
 		
+		var ent:FEntity;
+
 		ent = FEntityFactory.createEntity(data,gameInstanceName);
 		this.dispatchEvent(new FEntityLoadEvent(ENTITY_LOADED,ent));
 		return ent;
@@ -73,8 +79,17 @@ class FEntityLoader extends EventDispatcher
 	 * 
 	 * 
 	 **/
-	public function loadMap(fileName:String, ?overrideClass=null,?gameInstanceName:String='main') {
-		var data:Dynamic = FDataLoader.loadData(fileName);
+	public function loadMap(map:Dynamic, ?overrideClass=null,?gameInstanceName:String='main') {
+		var data:Dynamic;
+		var fileName:String='[data]';
+		if(Std.is(map,String)){
+			data = FDataLoader.loadData(map);
+			fileName = map;
+		} else if (Std.is(map, FConfig) || Reflect.isObject(map)){
+			data = map;
+		} else {
+			throw "map is invalid";
+		}
 		
 		
 		if (!Std.is(data.entities, Array)) {
@@ -82,17 +97,19 @@ class FEntityLoader extends EventDispatcher
 		}
 		
 		for (ent in cast(data.entities,Array<Dynamic>)) {
-				if (!Std.is(ent.entityFile, String)) {
-					throw("entityFile missing for entity while loading " + fileName);
-				}
-				var config:Dynamic;
-				if (Reflect.isObject(ent.config)) {
-					config = ent.config;
-				}else {
-					config = { };
-				}
-				
+
+			
+			var config:Dynamic;
+			if (Reflect.isObject(ent.config)) {
+				config = ent.config;
+			}else {
+				config = { };
+			}
+			if(ent.entityFile != null && Std.is(ent.entityFile, String)){
 				loadEntity(ent.entityFile, config,overrideClass, gameInstanceName);
+			} else{
+				loadEntity(null,config,overrideClass, gameInstanceName);
+			}
 		}
 	}
 	

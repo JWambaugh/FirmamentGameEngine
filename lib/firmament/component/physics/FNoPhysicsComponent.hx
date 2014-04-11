@@ -127,6 +127,7 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		this.world.addEntity(this._entity);
 		registerProperties();
 		buildShape();
+		trace('noPhysics component initialized');
 	}
 
 	function registerProperties(){

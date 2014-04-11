@@ -10,7 +10,6 @@ class FEntityFactory{
 
 	public static function createEntity(config:Dynamic,?gameInstanceName:String='main'):FEntity{
 		var entity:FEntity;
-
 		//if config is a string, assume it's a file name to be loaded.
 		if(Std.is(config,String)){
 			//pool support
@@ -40,7 +39,7 @@ class FEntityFactory{
 
 
 	public static function applyComponents(entity:FEntity, config:Dynamic){
-		if(!Std.is(config.components,Dynamic)){
+		if(!Std.is(config.components,Dynamic) || config.components == null){
 			throw("no components specified in entity config.");
 		}
 		for(componentKey in Reflect.fields(config.components)){
