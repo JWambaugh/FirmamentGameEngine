@@ -91,7 +91,6 @@ class FEntityLoader extends EventDispatcher
 			throw "map is invalid";
 		}
 		
-		
 		if (!Std.is(data.entities, Array)) {
 			throw "Entities property is not a valid array. Cannot load map "+fileName;
 		}

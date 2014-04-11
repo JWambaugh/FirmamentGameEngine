@@ -10,7 +10,6 @@ class FEntityFactory{
 
 	public static function createEntity(config:Dynamic,?gameInstanceName:String='main'):FEntity{
 		var entity:FEntity;
-		//if config is a string, assume it's a file name to be loaded.
 		if(Std.is(config,String)){
 			//pool support
 			var str:String = config;

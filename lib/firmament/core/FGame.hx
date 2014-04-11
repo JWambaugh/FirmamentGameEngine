@@ -385,7 +385,6 @@ class FGame extends FObject
 
 	private function this_onEnterFrame (event:Event):Void {
 		//trace('this is called.');
-		
 		//var start = haxe.Timer.stamp();
 		this.doStep();
 		//trace("step time: "+(haxe.Timer.stamp() - start));
@@ -410,6 +409,7 @@ class FGame extends FObject
 	}
 
 	public function clearCameras(){
+		if(_cameras != null)
 		for(camera in _cameras){
 			camera.destruct();
 		}

@@ -30,14 +30,18 @@ class FMisc
 	/**
 	 * Function: mergeInto
 	 * merges one object (a) into another (b). does not remove fields from b that aren't in a.
-	 * does a deep merge.
+	 * does a deep merge. When comes accross 2 arrays, it does a shallow concat.
 	 */
 
 	public static function mergeInto(a:Dynamic,b:Dynamic){
 		for (f in Reflect.fields(a)) {
 			var val = Reflect.field(a, f);
 			if(Std.is(val,Array)){
-				Reflect.setField(b, f, val); //doesn't merge arrays right now
+				if(Std.is( Reflect.field(b, f), Array )){ 
+					Reflect.setField(b,f,cast(Reflect.field(b, f), Array<Dynamic>).concat(val));
+				} else {
+					Reflect.setField(b, f, val);
+				}
 			}
 			else if (Reflect.isObject(val) && !Std.is(val,String)) {
 				if(!Reflect.isObject(Reflect.field(b,f))){
