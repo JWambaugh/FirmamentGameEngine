@@ -33,9 +33,9 @@ class FMisc
 	 * does a deep merge. When comes accross 2 arrays, it does a shallow concat.
 	 */
 
-	public static function mergeInto(a:Dynamic,b:Dynamic){
+	public static function mergeInto(a:{},b:{}){
 		for (f in Reflect.fields(a)) {
-			var val = Reflect.field(a, f);
+			var val:Dynamic = Reflect.field(a, f);
 			if(Std.is(val,Array)){
 				if(Std.is( Reflect.field(b, f), Array )){ 
 					Reflect.setField(b,f,cast(Reflect.field(b, f), Array<Dynamic>).concat(val));
