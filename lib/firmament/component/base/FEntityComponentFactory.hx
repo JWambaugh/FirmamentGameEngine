@@ -14,6 +14,7 @@ import firmament.component.render.FWireframeRenderComponent;
 import firmament.component.render.FLineRenderComponent;
 import firmament.component.render.FTextRenderComponent;
 import firmament.component.spline.FSimpleFollowSplineComponent;
+import firmament.component.system.FComponentFactoryComponent;
 
 import firmament.component.event.FCollisionEventMapperComponent;
 import firmament.component.sound.FSoundComponent;
@@ -57,6 +58,7 @@ class FEntityComponentFactory{
 			,"entityContainer":"firmament.component.ui.FEntityContainerComponent"
 			,"followSpline":"firmament.component.spline.FSimpleFollowSplineComponent"
 			,"text":"firmament.component.render.FTextRenderComponent"
+			,"componentFactory":"firmament.component.system.FComponentFactoryComponent"
 		};
 
 		var cls = Reflect.field(map,type);
