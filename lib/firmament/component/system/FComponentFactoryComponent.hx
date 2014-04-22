@@ -26,7 +26,6 @@ class FComponentFactoryComponent extends FEntityComponent{
 
 				for(eventName in Reflect.fields(_event)){
 					on(_entity,eventName,function(e:FEvent){
-						trace ("woot im here!");
 						var cConfig = Reflect.field(_event, eventName);
 						var component = FEntityComponentFactory.createComponent(cConfig.componentName,"FComponentFactoryComponent");
 						component.setConfig(cConfig);
