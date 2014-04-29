@@ -1,26 +1,24 @@
 package firmament.component.base;
 
-
 import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
+import firmament.component.event.FCollisionEventMapperComponent;
 import firmament.component.event.FEntityEmitterComponent;
 import firmament.component.event.FEventMapperComponent;
 import firmament.component.event.FEventRelayComponent;
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.physics.FNoPhysicsComponent;
 import firmament.component.physics.FParticleComponent;
-import firmament.component.render.FTilesheetRenderComponent;
-import firmament.component.render.FWireframeRenderComponent;
 import firmament.component.render.FLineRenderComponent;
 import firmament.component.render.FTextRenderComponent;
+import firmament.component.render.FTilesheetRenderComponent;
+import firmament.component.render.FWireframeRenderComponent;
+import firmament.component.sound.FSoundComponent;
 import firmament.component.spline.FSimpleFollowSplineComponent;
 import firmament.component.system.FComponentFactoryComponent;
-
-import firmament.component.event.FCollisionEventMapperComponent;
-import firmament.component.sound.FSoundComponent;
-import firmament.component.ui.FButtonComponent;
+import firmament.component.system.FEntityScriptComponent;
 import firmament.component.system.FSceneLoaderComponent;
-
+import firmament.component.ui.FButtonComponent;
 import firmament.component.ui.FEntityContainerComponent;
 
 class FEntityComponentFactory{
@@ -59,6 +57,7 @@ class FEntityComponentFactory{
 			,"followSpline":"firmament.component.spline.FSimpleFollowSplineComponent"
 			,"text":"firmament.component.render.FTextRenderComponent"
 			,"componentFactory":"firmament.component.system.FComponentFactoryComponent"
+			,"script":"firmament.component.system.FEntityScriptComponent"
 		};
 
 		var cls = Reflect.field(map,type);

@@ -1,22 +1,21 @@
 
-package firmament.scene;
+package firmament.component.system;
 
 import firmament.util.loader.FDataLoader;
-import firmament.scene.FSceneComponent;
-import firmament.core.FGame;
+import firmament.component.base.FEntityComponent;
 import firmament.core.FConfig;
 import firmament.core.FEvent;
 
-class FSceneScriptComponent extends FSceneComponent {
+class FEntityScriptComponent extends FEntityComponent {
 
 	private var events:FConfig;
 
-	public function new(gameInstance:FGame) 
-	{
-		super(gameInstance);
+	public function new() {
+		super();
 	}
 
-	override public function init(config:FConfig):Void {
+	override public function init(conf:Dynamic) {
+		var config:FConfig = conf;
 		if(Reflect.isObject(config['events'])){
 			events = config['events'];
 		}else{
@@ -31,14 +30,15 @@ class FSceneScriptComponent extends FSceneComponent {
 			}
 
 			if( scriptText != null ) {
-				on(key,function(e:FEvent){
-					return _gameInstance.eval(scriptText);
+				on(_entity,key,function(e:FEvent){
+					return _entity.getGameInstance().eval(scriptText);
 				});
 			}
 		}
 	}
 
-	public function getType() {
+	override public function getType() {
 		return "script";
 	}
+
 }

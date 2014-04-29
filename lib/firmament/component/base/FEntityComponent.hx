@@ -56,7 +56,6 @@ class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
 		throw "This needs to be overwritten in a subclass.";
 	}
 	
-
 	public function getType():String {
 		throw "this needs to be overwritten in a subclass.";
 		return "";
