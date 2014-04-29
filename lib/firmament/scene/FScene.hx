@@ -1,6 +1,7 @@
 package firmament.scene;
-import flash.events.EventDispatcher;
 import flash.events.Event;
+import firmament.core.FObject;
+import firmament.core.FEvent;
 import firmament.util.FConfigHelper;
 import firmament.scene.FSceneComponent;
 import firmament.util.loader.FDataLoader;
@@ -11,7 +12,7 @@ import firmament.util.loader.FEntityLoader;
 import firmament.sound.FSoundManager;
 import firmament.scene.FSceneComponentFactory;
 
-class FScene extends EventDispatcher{
+class FScene extends FObject{
 
 	var _components : Array<FSceneComponent>;
 	var _gameInstanceName:String;
@@ -114,7 +115,7 @@ class FScene extends EventDispatcher{
 				}
 			}
 		}
-		this.dispatchEvent(new Event(FScene.COMPONENTS_INITIALIZED));
+		this.trigger(new FEvent(FScene.COMPONENTS_INITIALIZED));
 
 	}
 
@@ -126,7 +127,7 @@ class FScene extends EventDispatcher{
 		return _components;
 	}
 
-	public function destruct(){
+	override public function destruct(){
 		trace('scene destructed!');
 		if(_components != null){
 			for(component in _components){
@@ -137,6 +138,7 @@ class FScene extends EventDispatcher{
 			}
 		}
 		_components = new Array();
+		super.destruct();
 	}
 }
 
