@@ -1,18 +1,22 @@
 package firmament.scene;
+
 import flash.events.EventDispatcher;
 import flash.events.Event;
 import firmament.util.FConfigHelper;
 import firmament.scene.FScene;
 import firmament.core.FGame;
+import firmament.core.FObject;
+import firmament.core.FConfig;
+
 /*
-	Class: FEntity Component
+	Class: FScene Component
 
 
-	FEntityComponents are the components that make up an entity.
+	FSceneComponents are the components that make up an scene.
 	@author Jordan Wambaugh
  */
 
-class FSceneComponent extends EventDispatcher
+class FSceneComponent extends FObject
 {
 
 	private var _config:Dynamic;
@@ -30,7 +34,7 @@ class FSceneComponent extends EventDispatcher
 
 	}
 	
-	public function init(config:Dynamic):Void {
+	public function init(config:FConfig):Void {
 		throw "This needs to be overwritten in a subclass.";
 	}
 	
@@ -56,11 +60,9 @@ class FSceneComponent extends EventDispatcher
 	/**
 	 * Should be overridden to implement a destructor
 	 */
-	public function destruct(){
+	override public function destruct(){
+		super.destruct();
 	}
-	
-
-	
 
 	public function setComponentKey(key:String){
 		_componentKey = key;

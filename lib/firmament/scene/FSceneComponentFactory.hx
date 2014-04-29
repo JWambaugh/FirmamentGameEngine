@@ -1,7 +1,7 @@
 package firmament.scene;
 
-
 import firmament.core.FGame;
+import firmament.scene.FSceneScriptComponent;
 
 class FSceneComponentFactory{
 	public static function createComponent(type:String,game:FGame,?componentKey:String=''):FSceneComponent {
@@ -20,7 +20,7 @@ class FSceneComponentFactory{
 
 	public static function getClassFromType(type:String){
 		var map = {
-			"box2d":"firmament.component.physics.FBox2DComponent"
+			"script":"firmament.scene.FSceneScriptComponent"
 		};
 
 		var cls = Reflect.field(map,type);
