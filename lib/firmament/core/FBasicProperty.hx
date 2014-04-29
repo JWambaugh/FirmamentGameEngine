@@ -5,7 +5,7 @@ class FBasicProperty<T> extends FProperty{
 	
 	private var _value:T;
 
-	private function new(key:String){
+	public function new(key:String){
 		super(key);
 	}
 
