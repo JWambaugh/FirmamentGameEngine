@@ -22,15 +22,22 @@ class FEntityScriptComponent extends FEntityComponent {
 			throw "events property missing for eventMap";
 		}
 
-		for(key in Reflect.fields(events)){
-			var value:FConfig = events[key], scriptText:String;
-			scriptText = value.get("eval","String",null);
-			if( scriptText == null ) {
-				scriptText = FDataLoader.loadFile(value.get("file","String",null));
+		for(event in Reflect.fields(events)){
+			var value:FConfig = events[event], scriptText:String = null;
+			for( field in Reflect.fields(value) ) {
+				var val = value.get(field,String,null);
+				switch(field) {
+					case "file":
+						scriptText = FDataLoader.loadFile(val);
+						break;
+					default:
+						scriptText = val;
+						break;
+				}
 			}
-
+			trace("Processing <"+event+"> -> " + scriptText );
 			if( scriptText != null ) {
-				on(_entity,key,function(e:FEvent){
+				on(_entity,event,this,function(e:FEvent){
 					return _entity.getGameInstance().eval(scriptText);
 				});
 			}
