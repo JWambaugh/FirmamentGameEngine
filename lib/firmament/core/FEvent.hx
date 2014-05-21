@@ -8,7 +8,7 @@ class FEvent{
 	private var _name:String;
 	private var _data:Dynamic;
 
-	public function new(name:String,?data:Dynamic = null){
+	public function new(name:String,data:Dynamic = null){
 		_name = name;
 		_data = data;
 	}

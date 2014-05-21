@@ -33,6 +33,7 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 
 
 	public function filter(val:Array<Dynamic>){
+		doFilter(val);
 		return this;
 	}
 
@@ -62,6 +63,7 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 			}
 			else if(strVal.indexOf("@")==0){
 				var propertyKey = strVal.substr(1);
+				//trace(ent.getPropertyValue(propertyKey));
 				return ent.getPropertyValue(propertyKey);
 			}
 			else{
@@ -117,6 +119,10 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 
 	public function sort(f:FEntity ->FEntity ->Int):Void{
 		_entities.sort(f);
+	}
+
+	public function first():FEntity{
+		return _entities[0];
 	}
 }
 

@@ -11,6 +11,7 @@ import firmament.core.FTilesheet;
 import firmament.core.FTilesheetManager;
 import firmament.core.FTilesheetRenderHelper;
 import firmament.component.animation.FAnimationComponent;
+import firmament.core.FComputedProperty;
 import firmament.core.FVector;
 import openfl.Assets;
 import flash.display.BitmapData;
@@ -106,7 +107,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		_text = ch.get('text',String,"");
 		_tilePrefix = ch.get("tilePrefix",String,"");
 		_textAlign = ch.get("textAlign",String,"center");
-
+		_entity.registerProperty(new FComputedProperty<String>("text",setText,getText));
 		calculatePositions();
 	}
 	

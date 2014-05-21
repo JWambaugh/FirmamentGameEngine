@@ -73,11 +73,16 @@ class FEntity extends FObject
 			_tags = new Array<String>();
 		}
 		_gameInstance = FGame.getInstance(gameInstanceName);
+		registerProperty(new FComputedProperty<String>("typeId",setTypeId,getTypeId));
 	}
 
 
 	public function getTypeId():String{
 		return _typeId;
+	}
+
+	public function setTypeId(typeId:String){
+		_typeId = typeId;
 	}
 
 	/**
