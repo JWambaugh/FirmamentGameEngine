@@ -42,7 +42,7 @@ class FScene extends FObject{
 		if(Std.is(config.cameras,Array)){
 			for(cameraDef in cast(config.cameras,Array<Dynamic>)){
 				var c = new FConfigHelper(cameraDef);
-				var camera = new FCamera();
+				var camera = new FCamera(100,100,gameInstanceName);
 				
 				camera.init(cameraDef);
 				

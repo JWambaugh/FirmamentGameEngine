@@ -100,7 +100,6 @@ class FGame extends FObject
 	//CONSTANT: DELETE_ENTITY
 	public static inline var DELETE_ENTITY = 'deleteEntity';
 
-	private static var _instanceName:String = null;
 
 	private static var _instances:Map<String,FGame>;
 
@@ -159,22 +158,13 @@ class FGame extends FObject
 		@param String - The name of the instance to get. Default name is 'main'
 		@param Bool - Set instance to active (use as default when calling this function)
 	*/
-	public static function getInstance(?name:String=null,?activate:Bool=false):FGame{
+	public static function getInstance(?name:String=null):FGame{
 		if(_instances == null){
 			_instances = new Map();
 		}
 		if( name == null || name == "" ) { // use name if avail
-			name = FGame._instanceName; // default to active if avail
-			if( name == null || name == "" ) {  // use fallback if not
-				name = "main";
-				activate = true;
-			}
+			name = "main";
 		}
-
-		if(activate == true) {
-			FGame._instanceName = name;
-		}
-
 		var instance = _instances.get(name);
 		if(instance == null){
 			instance = new FGame();
@@ -474,8 +464,9 @@ class FGame extends FObject
 			});
 			return ;
 		}
-		clearAll();
 		var instanceName = getInstanceName();
+		clearAll();
+		
 		
 		trace("loadScene: Creating new scene");
 		_currentScene = new FScene();

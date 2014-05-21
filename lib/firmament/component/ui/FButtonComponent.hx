@@ -21,7 +21,7 @@ class FButtonComponent extends FEntityComponent  {
 		if(Reflect.isObject(config.events)){
 			_events = config.events;
 		}else{
-			throw "events property missing for sound component";
+			throw "events property missing for button component";
 		}
 
 		for(event in Reflect.fields(_events)){
