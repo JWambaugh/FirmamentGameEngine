@@ -44,6 +44,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	var _autoZoomToFit:Bool;
 	var _fillColor:Int;
 	var _fillAlpha:Float;
+	var _clickEventsEnabled:Bool = false;
 
 	/**
 	 * Constructor: new
@@ -66,6 +67,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		_game = FGame.getInstance(gameInstanceName);
 		_mouseOverEnts = new FEntityCollection();
 		_autoZoomToFit = false;
+		enableClickEvents();
 	}
 
 
@@ -272,6 +274,8 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	 *
 	 */
 	public function enableClickEvents(){
+		if(_clickEventsEnabled)return;
+		_clickEventsEnabled = true;
 		this.addEventListener(flash.events.MouseEvent.CLICK,onClick);
 	}
 
