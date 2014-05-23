@@ -232,7 +232,7 @@ class FirmamentEditor
 		
 		var input = new FInput(stage);
 		
-		game.addEventListener(FGame.BEFORE_STEP, function(e:Event) {
+		game.on(FGame.BEFORE_STEP, function(e:Event) {
 			
 			//trace(input.getStageX());
 			

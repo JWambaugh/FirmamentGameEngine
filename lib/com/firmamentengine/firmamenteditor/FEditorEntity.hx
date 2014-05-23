@@ -76,16 +76,15 @@ class FEditorEntity extends FEntity
 		var base = { 
 			entityFile:this.fileName
 			,config: {
-				components:{
-					physics:{
-						position: {x:p.getPositionX(),y:getPositionY()}
-						,angle: p.getAngle()
-						}
-					}
+				properties:{
+					positionX:p.getPositionX()
+					,positionY:getPositionY()
+					,angle:p.getAngle()
 				}
-			};
+			}
+		};
 		FMisc.mergeInto(_modifications,base.config);
-		base.config.components.physics.position={x:p.getPositionX(),y:getPositionY()};
+		//base.config.components.physics.position={x:p.getPositionX(),y:getPositionY()};
 		return base;
 		
 	}

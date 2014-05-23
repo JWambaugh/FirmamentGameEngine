@@ -32,6 +32,8 @@ class FEntityFactory{
 		}
 		applyComponents(entity,config);
 		initComponents(entity,config);
+		applyProperties(entity, config);
+
 		entity.trigger(new FEvent(FEntity.COMPONENTS_INITIALIZED));
 		return entity;
 	}
@@ -53,6 +55,14 @@ class FEntityFactory{
 	public static function initComponents(entity:FEntity, config:Dynamic){
 		for(component in entity.getAllComponents()){
 			component.init(component.getConfig());
+		}
+	}
+
+	public static function applyProperties(entity:FEntity, config:Dynamic){
+		if(config.properties != null && Reflect.isObject(config.properties)){
+			for (key in Reflect.fields(config.properties)){
+				entity.setProp(key,Reflect.field(config.properties,key));
+			}
 		}
 	}
 
