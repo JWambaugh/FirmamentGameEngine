@@ -181,14 +181,20 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	}
 
 	public function setPositionXY(x:Float,y:Float){
-		this.position.set(x,y);
+		if(_deleted)return;
+		var oldTopX = position.x - _width/2;
+		var oldTopY = position.y - _height/2;
+		
+		this.position.x=x;
+		this.position.y=y;
+		world.updatePositionState(this,oldTopX,oldTopY);
 	}
 
 	public function setPositionX(x:Float){
-		this.position.set(x,this.position.y);
+		setPositionXY(x, this.position.y);
 	}
 	public function setPositionY(y:Float){
-		this.position.set(this.position.x,y);
+		setPositionXY(this.position.x, y);
 	}
 
 	public function getPositionX():Float{
