@@ -36,6 +36,9 @@ import haxe.ui.toolkit.core.Macros;
 import haxe.ui.toolkit.core.Toolkit;
 import haxe.ui.toolkit.core.Root;
 import haxe.ui.toolkit.controls.Button;
+import haxe.ui.toolkit.controls.MenuItem;
+import haxe.ui.toolkit.controls.Menu;
+import haxe.ui.toolkit.controls.MenuButton;
 import haxe.ui.toolkit.events.UIEvent;
 
 /**
@@ -51,7 +54,6 @@ class FirmamentEditor
 	public static var projectEditor:ProjectSettings;
 	public static var game:FGame;
 	public static var entitySelector:EntitySelector;
-	public static var toolBar:ToolBar;
 	public static var entityWindow:EntityWindow;
 
 	public static var settings:SharedObject;
@@ -66,8 +68,6 @@ class FirmamentEditor
 		#elseif flash
 		haxe.Log.trace = function(v,?pos) { flash.Lib.trace(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"): "+v); }
 		#end
-
-		trace("test!!!");
 
 
 		var executableDir:String = Sys.executablePath();
@@ -123,6 +123,7 @@ class FirmamentEditor
 		game.addCamera("main",camera);
 		//stage.addChild(camera);
 		
+		
 		stage.addChild(camera);
 		Macros.addStyleSheet("styles/gradient/gradient.css");
         Toolkit.init();
@@ -130,19 +131,15 @@ class FirmamentEditor
             _root = root;
             root.addChild(new MainMenuController().view);
             //root.style.alpha=0;
-            trace("UI is loaded");
+            //var button:Button = _root.findChild('button1',Button,true);
+            //button.addEventListener(MouseEvent.CLICK,function(e:Event){trace('clicked!');});
+
+
+            
        });
 
         
-
-		toolBar = new ToolBar();
-		if(Reflect.isObject(settings.data.windowPositions) && Reflect.isObject(settings.data.windowPositions.toolBar)){
-			toolBar.x = settings.data.windowPositions.toolBar.x;
-			toolBar.y = settings.data.windowPositions.toolBar.y;
-			if(settings.data.windowPositions.toolBar.expanded)toolBar.expand();
-			else toolBar.collapse();
-		}
-		stage.addChild(toolBar);
+		
 	  
 	    
 		projectEditor = new ProjectSettings();
@@ -273,10 +270,7 @@ class FirmamentEditor
 			windowPositions.projectEditor.y=projectEditor.y;
 			windowPositions.projectEditor.expanded=projectEditor.isExpanded();
 
-			windowPositions.toolBar={};
-			windowPositions.toolBar.x=toolBar.x;
-			windowPositions.toolBar.y=toolBar.y;
-			windowPositions.toolBar.expanded=toolBar.isExpanded();
+			
 
 			windowPositions.entitySelector={};
 			windowPositions.entitySelector.x=entitySelector.x;

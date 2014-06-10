@@ -19,22 +19,16 @@ import firmament.core.FGame;
  * @author Jordan Wambaugh
  */
 using StringTools;
-class ToolBar extends FWindow
+class ToolBar 
 {
 
 	var layout:FLayout;
 	public function new() 
 	{
-		super(false);
-		this.setTitle('map');
-		this.layout = new FHBox([
-			new FButton("Save", 0, 0, save)
-			,new FButton("Load",0,0,load)
-		]);
-		this.setCanvas(layout);
+		
 	}
 	
-	private function save(e:MouseEvent) {
+	public static function save() {
 		FDialog.prompt("Please enter the name of the map you wish to save.", function(fileName) { 
 			FirmamentEditor.projectEditor.setLastOpenedMap(fileName);
 			//get all entities
@@ -57,14 +51,14 @@ class ToolBar extends FWindow
 	}
 	
 	
-	private function load(e:MouseEvent) {
+	public static function load() {
 		FDialog.prompt("Please enter the name of the map you wish to load.", function(fileName) { 
-			this.loadMap(fileName);
+			loadMap(fileName);
 		},"Load Map", FirmamentEditor.projectEditor.getLastOpenedMap() );
 	}
 
 
-	public function loadMap(fileName:String){
+	public static function loadMap(fileName:String){
 		FirmamentEditor.projectEditor.setLastOpenedMap(fileName);
 		var path = FirmamentEditor.projectEditor.getMapDir() + "/" + fileName;
 		//FDialog.alert(path);
