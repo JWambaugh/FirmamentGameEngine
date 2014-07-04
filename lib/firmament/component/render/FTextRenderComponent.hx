@@ -42,7 +42,7 @@ typedef PositionData={
  */
 class FTextRenderComponent extends FEntityComponent  implements FRenderComponentInterface 
 {
-	var drawList:Array<Float>;
+	
 	var _tilesheet:FTilesheet;
 	var imageScale:Float;
 	var _parallax:Float;
@@ -67,7 +67,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	public function new() {
 		imageScale=100;
 		super();
-		drawList = new Array<Float>();
+		
 		_parallax = 1;
 		_flipX = false;
 		_flipY = false;
@@ -153,8 +153,8 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		var ratio = camera.getZoom() / imageScale;
 		var pos = physicsComponent.getPosition();
 
-
-
+		var drawList:Array<Float> = new Array();
+		var count:Int = 0;
 		for(letter in _positionData.letters){
 			
 			var nx = (((pos.x+_positionOffset.x + letter.xOffset) - cameraPos.x) *_parallax * camera.getZoom());
@@ -168,23 +168,24 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 			d = Math.cos(angle)*ratio;
 			if(_flipX)a =- a;
 			if(_flipY)d =- d;
-			drawList[0] = nx;
-			drawList[1] = ny;
-			drawList[2] = letter.tile; // sprite index
-			drawList[3] = a;
-			drawList[4] = b;
-			drawList[5] = c;
-			drawList[6] = d;
+			drawList[count++] = nx;
+			drawList[count++] = ny;
+			drawList[count++] = letter.tile; // sprite index
+			drawList[count++] = a;
+			drawList[count++] = b;
+			drawList[count++] = c;
+			drawList[count++] = d;
 
-			drawList[7] = _r;
-			drawList[8] = _g;
-			drawList[9] = _b;
-			//drawList[3] = ratio;
-			//drawList[4] = physicsComponent.getAngle();
-			drawList[10] = _alpha;
+			drawList[count++] = _r;
+			drawList[count++] = _g;
+			drawList[count++] = _b;
+			//drawList[count++] = ratio;
+			//drawList[count++] = physicsComponent.getAngle();
+			drawList[count++] = _alpha;
 			
-			FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList);
+			FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList, _entity.getProp('positionZ'));
 		}
+		FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList, _entity.getProp('positionZ'));
 	}
 
 	
@@ -216,7 +217,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 
 		_textAlign='left';
 		calculatePositions();
-		
+		var drawList:Array<Float> = new Array();
 		for(letter in _positionData.letters){
 			drawList[0] = letter.xOffset*100;
 			drawList[1] = (letter.yOffset+_positionData.height)*100;

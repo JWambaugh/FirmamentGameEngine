@@ -67,7 +67,7 @@ interface FPhysicsComponentInterface{
 	 */
 	public function setAngle(a:Float):Void ;
 	
-	public function getZPosition():Float;
+	public function getPositionZ():Float;
 
 	public function setZPosition(p:Float):Void;
 

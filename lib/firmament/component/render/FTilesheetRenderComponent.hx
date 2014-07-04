@@ -184,7 +184,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		//drawList[4] = physicsComponent.getAngle();
 		drawList[10] = _alpha;
 		
-		FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList);
+		FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList, _entity.getProp('positionZ'));
 	}
 
 	public function setTile(t:Int){

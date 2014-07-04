@@ -114,7 +114,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 				entityList=entityList.concat(entities);
 		}
 		entityList.sort(function(a:FEntity,b:FEntity):Int{
-			var cmp = a.getPhysicsComponent().getZPosition() -b.getPhysicsComponent().getZPosition();
+			var cmp = a.getPhysicsComponent().getPositionZ() -b.getPhysicsComponent().getPositionZ();
 			if (cmp==0) {
 				return 0;	
 			} else if (cmp > 0) return 1;

@@ -40,7 +40,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 {
 
 	public var body:B2Body;
-	private var zPosition:Float;
+	private var positionZ:Float;
 	private var position:FVector;
 	private var world:FWorld;
 	private var _parentEntity:FEntity;
@@ -49,7 +49,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		super();
 		
 		this.position = new FVector(0,0);
-		zPosition = 0;
+		positionZ = 0;
 		_parentEntity = null;
 	}
 	
@@ -71,9 +71,10 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		def.userData = this;
 		
 		
-		if(Std.is(config.zPosition,Float)){
-			this.setZPosition(config.zPosition);
+		if(Std.is(config.positionZ,Float)){
+			this.setZPosition(config.positionZ);
 		}
+
 
 		if(config.type == 'dynamic')
 			def.type = B2Body.b2_dynamicBody;
@@ -189,7 +190,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		_entity.registerProperty(new FComputedProperty<Float>("positionX",setPositionX,getPositionX));
 		_entity.registerProperty(new FComputedProperty<Float>("positionY",setPositionY,getPositionY));
 		_entity.registerProperty(new FComputedProperty<Float>("angle",setAngle,getAngle));
-		_entity.registerProperty(new FComputedProperty<Float>("zPosition",setZPosition,getZPosition));
+		_entity.registerProperty(new FComputedProperty<Float>("positionZ",setZPosition,getPositionZ));
 		_entity.registerProperty(new FComputedProperty<Float>("angularVelocity",setAngularVelocity,getAngularVelocity));
 		_entity.registerProperty(new FComputedProperty<FVector>("linearVelocity",setLinearVelocity,getLinearVelocity));
 	}
@@ -214,8 +215,8 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 			mergeConfig.components.physics.position = getPosition();
 		}
 
-		if(Std.is(joint.zPositionOffset,Float)){
-			mergeConfig.components.physics.zPosition=getZPosition()+joint.zPositionOffset;
+		if(Std.is(joint.positionZOffset,Float)){
+			mergeConfig.components.physics.positionZ=getPositionZ()+joint.positionZOffset;
 		}
 
 		if(Std.is(joint.angleOffset,Float)){
@@ -349,11 +350,11 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	    this.body.setAngularVelocity(ome+omega);
 	}
 	
-	public function getZPosition():Float {
-		return zPosition;
+	public function getPositionZ():Float {
+		return positionZ;
 	}
 	public function setZPosition(p:Float):Void {
-		zPosition = p;
+		positionZ = p;
 	}
 	public function setWorld(world:FWorld):Void{
 		this.world = world;

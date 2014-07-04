@@ -195,7 +195,7 @@ class FirmamentEditor
 					}
 					
 					try{
-					 	var cmp = cast(bc,FPhysicsComponentInterface).getZPosition() - cast(ac,FPhysicsComponentInterface).getZPosition();
+					 	var cmp = cast(bc,FPhysicsComponentInterface).getPositionZ() - cast(ac,FPhysicsComponentInterface).getPositionZ();
 					 	if (cmp==0) {
 						return 0;	
 						} else if (cmp > 0) return 1;

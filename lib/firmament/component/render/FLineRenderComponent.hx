@@ -30,7 +30,6 @@ import firmament.core.FVector;
  */
 class FLineRenderComponent extends FEntityComponent  implements FRenderComponentInterface 
 {
-	var drawList:Array<Float>;
 	var _tilesheet:FTilesheet;
 	var imageScale:Float;
 	var _tile:Int;
@@ -47,7 +46,7 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 	public function new() {
 		imageScale=100;
 		super();
-		drawList = new Array<Float>();
+
 		_tile = 0;
 		_parallax = 1;
 		_angle = 0;
@@ -145,6 +144,9 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 		var stepNum = Math.floor(_distanceBetween/stepDistance);
 		var pos = start;
 		var multiplier = _parallax * camera.getZoom();
+		var count:Int = 0;
+		var drawList:Array<Float> = new Array();
+
 		for(x in 0 ... stepNum){
 			
 			if(x>0)pos = pos.getPointAtAngle(_angle,stepDistance);
@@ -157,21 +159,22 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 			b = Math.sin(_angle)*ratio; 
 			c = -Math.sin(_angle)*ratio; 
 			d = Math.cos(_angle)*ratio;
-			drawList[0] = nx;
-			drawList[1] = ny;
-			drawList[2] = this._tile; // sprite index
-			drawList[3] = a;
-			drawList[4] = b;
-			drawList[5] = c;
-			drawList[6] = d;
-			drawList[7] = _r;
-			drawList[8] = _g;
-			drawList[9] = _b;
-			//drawList[3] = ratio;
-			//drawList[4] = physicsComponent.getAngle();
-			drawList[10] = _alpha;
+			drawList[count++] = nx;
+			drawList[count++] = ny;
+			drawList[count++] = this._tile; // sprite index
+			drawList[count++] = a;
+			drawList[count++] = b;
+			drawList[count++] = c;
+			drawList[count++] = d;
+
+			drawList[count++] = _r;
+			drawList[count++] = _g;
+			drawList[count++] = _b;
+			//drawList[count++] = ratio;
+			//drawList[count++] = physicsComponent.getAngle();
+			drawList[count++] = _alpha;
 			
-			FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList);
+			FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList, _entity.getProp('positionZ'));
 
 		}
 	}
@@ -209,6 +212,8 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 	public function getBitmapData():BitmapData{
 		var sprite:Sprite = new Sprite();
 		var index =0;
+		var drawList:Array<Float> = new Array();
+
 		drawList[index] = _tilesheet.getRectangle(_tile).width/2;
 		drawList[index + 1] = _tilesheet.getRectangle(_tile).height/2;
 		drawList[index + 2] = this._tile; // sprite index

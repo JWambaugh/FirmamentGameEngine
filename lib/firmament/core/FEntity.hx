@@ -278,7 +278,7 @@ class FEntity extends FObject
 	/**
 	 * Returns the value of the given property
 	 */
-	public function getProp(key:String){
+	public function getProp(key:String):Dynamic{
 		return getProperty(key).getDynamic();
 	}
 

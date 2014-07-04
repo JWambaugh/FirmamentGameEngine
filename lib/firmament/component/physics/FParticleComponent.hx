@@ -25,7 +25,7 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 {
 	
 	
-	private var _zPosition:Float;
+	private var _positionZ:Float;
 	private var position:FVector;
 	private var world:FParticleWorld;
 	private var _angle:Float;
@@ -49,7 +49,7 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 		_isSleeping = false;
 		_isActive = true;
 		_linearVelocity = new FVector(0,0);
-		_zPosition = 0;
+		_positionZ = 0;
 		_deleted = false;
 	}
 	
@@ -110,8 +110,8 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 			_allowSleep = config.allowSleep;
 		}
 
-		if(Std.is(config.zPosition,Float)){
-			_zPosition = config.zPosition;
+		if(Std.is(config.positionZ,Float)){
+			_positionZ = config.positionZ;
 		}
 
 		if (Std.is(config.maxLifeSeconds, Float)) {
@@ -132,7 +132,7 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 		_entity.registerProperty(new FComputedProperty<Float>("positionX",setPositionX,getPositionX));
 		_entity.registerProperty(new FComputedProperty<Float>("positionY",setPositionY,getPositionY));
 		_entity.registerProperty(new FComputedProperty<Float>("angle",setAngle,getAngle));
-		_entity.registerProperty(new FComputedProperty<Float>("zPosition",setZPosition,getZPosition));
+		_entity.registerProperty(new FComputedProperty<Float>("positionZ",setZPosition,getPositionZ));
 		_entity.registerProperty(new FComputedProperty<Float>("angularVelocity",setAngularVelocity,getAngularVelocity));
 		_entity.registerProperty(new FComputedProperty<FVector>("linearVelocity",setLinearVelocity,getLinearVelocity));
 	}
@@ -230,12 +230,12 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 	    this.setAngularVelocity(ome+omega);	
 	}
 	
-	public function getZPosition():Float {
-		return _zPosition;
+	public function getPositionZ():Float {
+		return _positionZ;
 	}
 
 	public function setZPosition(p:Float):Void {
-		_zPosition = p;
+		_positionZ = p;
 	}
 
 	public function setWorld(world:FWorld):Void{
