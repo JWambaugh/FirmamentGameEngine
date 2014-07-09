@@ -1,7 +1,7 @@
 package firmament.core;
 
-import firmament.core.FTilesheet;
-import firmament.core.FTilesheetManager;
+import firmament.tilesheet.FTilesheet;
+import firmament.tilesheet.FTilesheetManager;
 
 class FAnimation {
 

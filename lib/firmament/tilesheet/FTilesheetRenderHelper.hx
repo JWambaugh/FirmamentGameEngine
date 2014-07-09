@@ -1,7 +1,7 @@
 
-package firmament.core;
+package firmament.tilesheet;
 
-import firmament.core.FTilesheet;
+import firmament.tilesheet.FTilesheet;
 import firmament.core.FCamera;
 import flash.events.Event;
 import openfl.display.Tilesheet;

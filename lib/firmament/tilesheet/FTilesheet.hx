@@ -1,6 +1,6 @@
-package firmament.core;
+package firmament.tilesheet;
 import openfl.display.Tilesheet;
-import firmament.core.FTilesheetManager;
+import firmament.tilesheet.FTilesheetManager;
 import flash.display.BitmapData;
 import flash.geom.Rectangle;
 import flash.geom.Point;
