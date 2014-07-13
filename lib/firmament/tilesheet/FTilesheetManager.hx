@@ -11,6 +11,11 @@ import firmament.core.FConfig;
 import com.firmamentengine.firmamenteditor.ResourceLoader;
 #end
 
+typedef SpriteTilesheet = {
+	var tilesheetId:Int;
+	var tileId:Int;
+};
+
 /**
  * ...
  * @author jordan wambaugh
@@ -23,12 +28,20 @@ class FTilesheetManager {
 	var tilesheets:Map<Int,FTilesheet>;
 	var _orderedTilesheets:Array<FTilesheet>;
 
+	//tracks which tilesheet an asset is in
+	var tilesheetMap:Map<String,SpriteTilesheet>;
+
+	var tilesheetAutoQueue:Array<String>;
+
 	private function new () {
 		idCounter = 0;
 		tilesheets = new Map<Int,FTilesheet>();
 		_orderedTilesheets = new Array<FTilesheet>();
+		tilesheetMap = new Map();
+		tilesheetAutoQueue = new Array();
 		
 	}
+
 	
 	public static function getInstance(){
 		if (_instance == null) {
@@ -36,6 +49,8 @@ class FTilesheetManager {
 		}
 		return _instance;
 	}
+
+
 
 	public function genTilesheetId(){
 		return this.idCounter++;
@@ -70,24 +85,7 @@ class FTilesheetManager {
 		this.tilesheets.set(tilesheet.getId(),tilesheet);
 	}
 
-	public function getOrderedTilesheets():Array<FTilesheet>{
-		if(idCounter > _orderedTilesheets.length){
-			//trace("building ordered tilesheet list");
-			_orderedTilesheets = new Array<FTilesheet>();
-			for(tilesheet in tilesheets){
-				_orderedTilesheets.push(tilesheet);
-			}
-			this._orderedTilesheets.sort(function(a:FTilesheet,b:FTilesheet):Int{
-				var cmp = a.getRenderPriority()- b.getRenderPriority();
-				if (cmp==0) {
-					return 0;	
-				} else if (cmp > 0) return 1;
-				return -1;
-			});
-		}
-		return _orderedTilesheets;
-	}
-
+	
 
 	public function createTilesheet(config:Dynamic){
 		var image = config.image;
@@ -119,6 +117,7 @@ class FTilesheetManager {
 			for(tile in cast(config.tiles,Array<Dynamic>)){
 				var rect:Rectangle = null;
 				var center:Dynamic = null;
+				var path:String = null;
 				if(Reflect.isObject(tile.center)){
 					center = tile.center;
 				}
@@ -139,6 +138,7 @@ class FTilesheetManager {
 				}else if(Std.is(tile.fileName,String) && packer != null){
 					//tile definition defines filename, build tilesheet dynamically
 					var img = loadImage(tile.fileName);
+					path = tile.fileName;
 			
 					rect = packer.addBitmapData(img,label);
 					if(label == null)label = tile.fileName;
@@ -152,6 +152,7 @@ class FTilesheetManager {
 					rect: rect
 					,center: new Point(center.x,center.y)
 					,label: label
+					,path: path
 				});
 			}
 		}
@@ -159,18 +160,19 @@ class FTilesheetManager {
 		//support an 'includeAll option that includes all images in a asset folder'
 		var search = c.get("includeAll",String,null);
 		if( search  != null){
-			trace('includAll found!');
+			//trace('includAll found!');
 			var mainList:Array<String> = openfl.Assets.list(IMAGE);
 			var matchList:Array<String> = new Array<String>();
 			for(fileName in mainList){
 				if(fileName.indexOf(search) != -1){
-					trace("adding "+fileName);
+					//trace("adding "+fileName);
 					var p = new haxe.io.Path(fileName);
 					var img:BitmapData = loadImage(fileName);
 					entries.push({
 						rect: packer.addBitmapData(img,p.file)
 						,center: new Point(Math.floor((img.width)/2),Math.floor((img.height)/2))
 						,label: p.file
+						,path: fileName
 					});
 				}
 			}
@@ -182,13 +184,25 @@ class FTilesheetManager {
 		}
 
 		for(entry in entries){
-				t.addTileRectWithLabel(entry.rect,entry.center,entry.label);
+				var tileId = t.addTileRectWithLabel(entry.rect,entry.center,entry.label);
+				if(entry.path != null){
+					tilesheetMap.set(entry.path,{
+						tilesheetId: t.getId()
+						,tileId: tileId
+					});
+				}
 			}
 		return t;
 
 	}
 	
 	
+	public function addToTilesheetMap(path, tilesheetId, tileId){
+		tilesheetMap.set(path,{
+			tilesheetId: tilesheetId
+			,tileId: tileId
+		});
+	}
 	
 	
 	private function loadImage(fileName:String){
@@ -200,6 +214,42 @@ class FTilesheetManager {
 		}
 		#end
 		return img;
+	}
+
+
+	//////////automatic tilesheet system
+
+	public function getTilesheetForPath(path:String){
+		return tilesheetMap.get(path);
+	}
+
+	public function queueTilesheetForPath(path:String){
+		tilesheetAutoQueue.push(path);
+	}
+
+	public function getTilesheetForQueuedPath(path:String){
+		//check to see if it's already been generated
+		var data = getTilesheetForPath(path);
+		if(data!=null) return data;
+		var maxTilesheetNum = 10;
+		while(tilesheetAutoQueue.length>0 && maxTilesheetNum-- > 0){
+			//not already generated, so process queue into tilesheets
+			trace("Creating a new tilesheet!");
+			var packer = new FTilesheetPacker(2048,2048);
+			while(tilesheetAutoQueue.length > 0){
+				var fileName = tilesheetAutoQueue[0];
+				try{
+					var p = new haxe.io.Path(fileName);
+					packer.addBitmapData(loadImage(fileName), p.file, fileName);
+					tilesheetAutoQueue.shift();
+				}catch(e:Dynamic){
+					trace("Error auto generating tilesheet for "+ fileName+" Perhaps current tilesheet is full? Will try another");
+					break;
+				}
+			}
+			var tilesheet = packer.getTilesheet();
+		}
+		return getTilesheetForPath(path);
 	}
 	
 

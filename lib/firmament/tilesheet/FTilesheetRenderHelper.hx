@@ -48,27 +48,16 @@ class FTilesheetRenderHelper {
 		drawList.push(di);
 	}
 
-	/*
-		Function: initCamera
-		initializes itself on the specified camera if not already done.
-	*/
-	public function initCamera(camera:FCamera){
-		if(isCameraInitialized(camera)){
-			return;
-		}
-		this.initializedCameras.push(camera);
-		camera.addEventListener(FCamera.BEFORE_RENDER_EVENT,this.preRender);
-		camera.addEventListener(FCamera.AFTER_RENDER_EVENT,this.postRender);
-	}
+	
 
-	public function preRender(e:Event){
+	public function preRender(){
 		//move all draw items back to the pool
 		while(drawList.length>0){
 			drawItemPool.push(drawList.pop());
 		}
 	}
 
-	public function postRender(e:Event){
+	public function postRender(camera:FCamera){
 		if(drawList.length < 1) return;
 		//sort draw list by z position first, then tilesheet
 		drawList.sort(function(a:DrawItem,b:DrawItem){
@@ -78,7 +67,6 @@ class FTilesheetRenderHelper {
 			if(a.tilesheet.getId() < b.tilesheet.getId()) return -1;
 			else return 0;
 		});
-		var camera = cast(e.currentTarget,FCamera);
 		var currentSheet:FTilesheet = drawList[0].tilesheet;
 		var l:Array<Float> = new Array();
 		var i:Int=0;

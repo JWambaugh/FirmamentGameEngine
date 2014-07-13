@@ -139,7 +139,6 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		//make sure we are currently active 
 		if(!_entity.isActive())return;
 
-		FTilesheetRenderHelper.getInstance().initCamera(camera);
 		if (_tilesheet == null) {
 			throw ('tilesheet is null');
 			return;

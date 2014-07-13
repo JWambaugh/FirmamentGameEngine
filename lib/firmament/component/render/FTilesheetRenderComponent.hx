@@ -147,7 +147,6 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		//make sure we are currently active 
 		if(!_entity.isActive())return;
 
-		FTilesheetRenderHelper.getInstance().initCamera(camera);
 		if (_tilesheet == null) {
 			trace('tilesheet is null');
 			return;

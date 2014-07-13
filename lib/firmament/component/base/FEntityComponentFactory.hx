@@ -20,6 +20,8 @@ import firmament.component.system.FEntityScriptComponent;
 import firmament.component.system.FSceneLoaderComponent;
 import firmament.component.ui.FButtonComponent;
 import firmament.component.ui.FEntityContainerComponent;
+import firmament.component.render.FSpriteRenderComponent;
+
 
 class FEntityComponentFactory{
 	public static function createComponent(type:String,?componentKey:String=''):FEntityComponent {
@@ -58,6 +60,7 @@ class FEntityComponentFactory{
 			,"text":"firmament.component.render.FTextRenderComponent"
 			,"componentFactory":"firmament.component.system.FComponentFactoryComponent"
 			,"script":"firmament.component.system.FEntityScriptComponent"
+			,"sprite":"firmament.component.render.FSpriteRenderComponent"
 		};
 
 		var cls = Reflect.field(map,type);

@@ -14,6 +14,7 @@ import firmament.component.render.FWireframeRenderComponent;
 import firmament.util.FConfigHelper;
 import firmament.core.FGame;
 import firmament.core.FConfig;
+import firmament.tilesheet.FTilesheetRenderHelper;
 /**
  * Class: FCamera
  * 
@@ -89,7 +90,8 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	
 	public function render(worlds:Map<String,FWorld>) {
 		this.dispatchEvent(new Event(FCamera.BEFORE_RENDER_EVENT));
-		
+		var rh = FTilesheetRenderHelper.getInstance();
+		rh.preRender();
 		this.graphics.clear();
 		if(0 != _fillAlpha){
 			this.graphics.beginFill(_fillColor,_fillAlpha);
@@ -113,13 +115,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 			if(entities!=null)
 				entityList=entityList.concat(entities);
 		}
-		entityList.sort(function(a:FEntity,b:FEntity):Int{
-			var cmp = a.getPhysicsComponent().getPositionZ() -b.getPhysicsComponent().getPositionZ();
-			if (cmp==0) {
-				return 0;	
-			} else if (cmp > 0) return 1;
-			return -1;
-		});
+		
 		for (ent in entityList) {
 			var components = ent.getComponent("render");
 			if(components!=null)
@@ -128,6 +124,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 			}
 		}
 		this.dispatchEvent(new Event(FCamera.AFTER_RENDER_EVENT));
+		rh.postRender(this);
 		if(_debugRender){
 			for (ent in entityList) {
 				_debugRenderer.setEntity(ent);
