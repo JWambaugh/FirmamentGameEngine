@@ -22,8 +22,8 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
 
 	public function new() 
 	{
-		imageScale=100;
 		super();
+		imageScale=100;
 		drawList = new Array<Float>();
 		_tile = 0;
 		_parallax = 1;
