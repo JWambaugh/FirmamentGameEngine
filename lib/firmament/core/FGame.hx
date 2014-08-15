@@ -30,6 +30,9 @@ import firmament.core.FObject;
 import firmament.component.base.FEntityComponent;
 import firmament.core.FEvent;
 
+import firmament.util.FRepository;
+import firmament.core.FConfig;
+
 import haxe.Timer;
 import openfl.Assets;
 import flash.display.Bitmap;
@@ -498,7 +501,9 @@ class FGame extends FObject
 		_interpreter.variables.set("FGame",FGame);
 		_interpreter.variables.set("FSoundtrackManager",firmament.sound.FSoundtrackManager);
 		_interpreter.variables.set("FCamera",FCamera);
-
+        _interpreter.variables.set("FRepository",FRepository);
+        _interpreter.variables.set("FConfig",FConfig);
+        _interpreter.variables.set("FDataLoader",FDataLoader);
 	}
 	/**
 	 * returns the interpreter for this fgame instance.
