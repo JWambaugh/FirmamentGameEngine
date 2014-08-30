@@ -56,7 +56,7 @@ class FTimerManager extends FProcess {
 	}
 
 	public function pause(e:Event){
-		trace("Timer Paused");
+		//trace("Timer Paused");
 		var timerCell:FSortedLinkedListCell<FTimer>;
 
 		timerCell = _timers.getLowestCell();
@@ -67,7 +67,7 @@ class FTimerManager extends FProcess {
 	}
 
 	public function unPause(e:Event){
-		trace("Timer UnPaused");
+		//trace("Timer UnPaused");
 
 		var timerCell:FSortedLinkedListCell<FTimer>;
 

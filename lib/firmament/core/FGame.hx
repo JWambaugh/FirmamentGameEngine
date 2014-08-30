@@ -433,7 +433,7 @@ class FGame extends FObject
 		//this.removeAllListeners();
 		clearCameras();
 		Lib.current.stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
-		trace("FGAME CLEARED-----------------------------------");
+		//trace("FGAME CLEARED-----------------------------------");
 	}
 
 	/**
@@ -471,9 +471,9 @@ class FGame extends FObject
 		clearAll();
 		
 		
-		trace("loadScene: Creating new scene");
+		//trace("loadScene: Creating new scene");
 		_currentScene = new FScene();
-		trace("loadScene: Loading instance data");
+		//trace("loadScene: Loading instance data");
 		_currentScene.init(scene,instanceName);
 		
 		return;
@@ -554,7 +554,7 @@ class FGame extends FObject
 		clearCameras();
 		FGame._instances.remove(_name);
 		_cameras = null; 
-		trace("FGAME DESTRUCTED-----------------------------------");
+		//trace("FGAME DESTRUCTED-----------------------------------");
 		super.destruct();
 	}
 
