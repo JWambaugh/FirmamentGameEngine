@@ -29,4 +29,8 @@ class FRepository {
 	public function get(key:String):Dynamic{
 		return _hash.get(key);
 	}
+
+	public function getAll(){
+		return _hash;
+	}
 }

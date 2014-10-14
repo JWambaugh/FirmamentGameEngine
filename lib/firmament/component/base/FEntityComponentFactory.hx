@@ -21,6 +21,8 @@ import firmament.component.system.FSceneLoaderComponent;
 import firmament.component.ui.FButtonComponent;
 import firmament.component.ui.FEntityContainerComponent;
 import firmament.component.render.FSpriteRenderComponent;
+import firmament.component.entity.FDecrementComponent;
+import firmament.component.entity.FDestroyEntityComponent;
 
 
 class FEntityComponentFactory{
@@ -61,6 +63,9 @@ class FEntityComponentFactory{
 			,"componentFactory":"firmament.component.system.FComponentFactoryComponent"
 			,"script":"firmament.component.system.FEntityScriptComponent"
 			,"sprite":"firmament.component.render.FSpriteRenderComponent"
+            ,"decrement":"firmament.component.entity.FDecrementComponent"
+            ,"destroy":"firmament.component.entity.FDestroyEntityComponent"
+
 		};
 
 		var cls = Reflect.field(map,type);

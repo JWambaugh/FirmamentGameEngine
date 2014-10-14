@@ -31,7 +31,7 @@ class FInput{
 		this.stageY = 0;
 		this.keyStatus = new Array<Bool>();
 		this._touching = false;
-		this.defineKeyMap();
+		//this.defineKeyMap();
 		//initialize our array. there must be a better way to do this.
 		for(i in 0...300){
 			keyStatus.push(false);
@@ -134,7 +134,7 @@ class FInput{
 
 	//Flash keymap. 
 	//from http://people.uncw.edu/tompkinsj/112/FlashActionScript/keyCodes.htm
-	
+	/*
 	private function defineKeyMap(){
 		_keyMap = {
 			"backspace"		:	8,
@@ -291,7 +291,7 @@ class FInput{
 			"F12"			:	123
 		};
 	}
-	
+	*/
 
 
 
