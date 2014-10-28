@@ -123,19 +123,57 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 			this.world.addToAlwaysRenderList(_entity);
 		}
 		this.world.addEntity(this._entity);
-		registerProperties();
+	
 		buildShape();
 	}
 
-	function registerProperties(){
-		_entity.registerProperty(new FComputedProperty<FVector>("position",setPosition,getPosition));
-		_entity.registerProperty(new FComputedProperty<Float>("positionX",setPositionX,getPositionX));
-		_entity.registerProperty(new FComputedProperty<Float>("positionY",setPositionY,getPositionY));
-		_entity.registerProperty(new FComputedProperty<Float>("angle",setAngle,getAngle));
-		_entity.registerProperty(new FComputedProperty<Float>("positionZ",setZPosition,getPositionZ));
-		_entity.registerProperty(new FComputedProperty<Float>("angularVelocity",setAngularVelocity,getAngularVelocity));
-		_entity.registerProperty(new FComputedProperty<FVector>("linearVelocity",setLinearVelocity,getLinearVelocity));
-	}
+	override public function getProperties():Array<PropertyDefinition>{
+        var props:Array<PropertyDefinition> = [
+            {
+                key:'position'
+                ,type:FVector
+                ,getter:getPosition
+                ,setter:setPosition
+            }
+            ,{
+                key:"positionX"
+                ,type:Float
+                ,getter:getPositionX
+                ,setter:setPositionX
+            }
+            ,{
+                key:"positionY"
+                ,type:Float
+                ,getter:getPositionY
+                ,setter:setPositionY
+            }
+            ,{
+                key:"positionZ"
+                ,type:Float
+                ,getter:getPositionZ
+                ,setter:setPositionZ
+            }
+            ,{
+                key:"angle"
+                ,type:Float
+                ,getter:getAngle
+                ,setter:setAngle
+            }
+            ,{
+                key:"angularVelocity"
+                ,type:Float
+                ,getter:getAngularVelocity
+                ,setter:setAngularVelocity
+            }
+            ,{
+                key:"linearVelocity"
+                ,type:FVector
+                ,getter:getLinearVelocity
+                ,setter:setLinearVelocity
+            }
+        ];
+        return props;
+    }
 
 	private function buildShape(){
 		_shape = new FPolygonShape([
@@ -234,7 +272,7 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 		return _positionZ;
 	}
 
-	public function setZPosition(p:Float):Void {
+	public function setPositionZ(p:Float):Void {
 		_positionZ = p;
 	}
 

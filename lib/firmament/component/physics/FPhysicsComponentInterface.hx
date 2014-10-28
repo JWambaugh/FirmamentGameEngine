@@ -69,7 +69,7 @@ interface FPhysicsComponentInterface{
 	
 	public function getPositionZ():Float;
 
-	public function setZPosition(p:Float):Void;
+	public function setPositionZ(p:Float):Void;
 
 	public function setWorld(world:FWorld):Void;
 

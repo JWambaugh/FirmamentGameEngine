@@ -31,8 +31,9 @@ class FEntityFactory{
 			entity = new FEntity(config,gameInstanceName);
 		}
 		applyComponents(entity,config);
+        entity.registerComponentProperties();
+        applyProperties(entity, config);
 		initComponents(entity,config);
-		applyProperties(entity, config);
 
 		entity.trigger(new FEvent(FEntity.COMPONENTS_INITIALIZED));
 		return entity;

@@ -51,6 +51,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		this.position = new FVector(0,0);
 		positionZ = 0;
 		_parentEntity = null;
+        this.world = null;
 	}
 	
 	override public function init(config:Dynamic):Void {
@@ -72,7 +73,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		
 		
 		if(Std.is(config.positionZ,Float)){
-			this.setZPosition(config.positionZ);
+		  this.setPositionZ(config.positionZ);
 		}
 
 
@@ -172,7 +173,6 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		for (joint in cast(config.joints, Array<Dynamic>)) {
 			createJointEntity(joint);
 		}
-		this.registerProperties();
 		this.world.addEntity(this._entity);
 	}
 		
@@ -184,16 +184,53 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		_entity.removeEventListener(this);
 	}
 
-	function registerProperties(){
-		
-		_entity.registerProperty(new FComputedProperty<FVector>("position",setPosition,getPosition));
-		_entity.registerProperty(new FComputedProperty<Float>("positionX",setPositionX,getPositionX));
-		_entity.registerProperty(new FComputedProperty<Float>("positionY",setPositionY,getPositionY));
-		_entity.registerProperty(new FComputedProperty<Float>("angle",setAngle,getAngle));
-		_entity.registerProperty(new FComputedProperty<Float>("positionZ",setZPosition,getPositionZ));
-		_entity.registerProperty(new FComputedProperty<Float>("angularVelocity",setAngularVelocity,getAngularVelocity));
-		_entity.registerProperty(new FComputedProperty<FVector>("linearVelocity",setLinearVelocity,getLinearVelocity));
-	}
+	override public function getProperties():Array<PropertyDefinition>{
+        var props:Array<PropertyDefinition> = [
+            {
+                key:'position'
+                ,type:FVector
+                ,getter:getPosition
+                ,setter:setPosition
+            }
+            ,{
+                key:"positionX"
+                ,type:Float
+                ,getter:getPositionX
+                ,setter:setPositionX
+            }
+            ,{
+                key:"positionY"
+                ,type:Float
+                ,getter:getPositionY
+                ,setter:setPositionY
+            }
+            ,{
+                key:"positionZ"
+                ,type:Float
+                ,getter:getPositionZ
+                ,setter:setPositionZ
+            }
+            ,{
+                key:"angle"
+                ,type:Float
+                ,getter:getAngle
+                ,setter:setAngle
+            }
+            ,{
+                key:"angularVelocity"
+                ,type:Float
+                ,getter:getAngularVelocity
+                ,setter:setAngularVelocity
+            }
+            ,{
+                key:"linearVelocity"
+                ,type:FVector
+                ,getter:getLinearVelocity
+                ,setter:setLinearVelocity
+            }
+        ];
+        return props;
+    }
 
 	/*
 		Function: createJointEntity
@@ -353,7 +390,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	public function getPositionZ():Float {
 		return positionZ;
 	}
-	public function setZPosition(p:Float):Void {
+	public function setPositionZ(p:Float):Void {
 		positionZ = p;
 	}
 	public function setWorld(world:FWorld):Void{

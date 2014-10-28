@@ -107,11 +107,20 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		_text = ch.get('text',String,"");
 		_tilePrefix = ch.get("tilePrefix",String,"");
 		_textAlign = ch.get("textAlign",String,"center");
-		_entity.registerProperty(new FComputedProperty<String>("text",setText,getText));
 		calculatePositions();
 	}
 	
-
+     override public function getProperties():Array<PropertyDefinition>{
+        var props:Array<PropertyDefinition> = [
+            {
+                key:'text'
+                ,type:String
+                ,getter:getText
+                ,setter:setText
+            }
+        ];
+        return props;
+    }
 	public function initTilesheet(){
 		
 		var imageIsFileName = false;

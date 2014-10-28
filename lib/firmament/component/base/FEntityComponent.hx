@@ -7,6 +7,14 @@ import firmament.core.FProperty;
 import firmament.core.FObject;
 import firmament.core.FConfig;
 
+
+typedef PropertyDefinition={
+    key:String,
+    type:Dynamic,
+    setter:Dynamic->Void,
+    getter:Void->Dynamic
+};
+
 /*
 	Class: FEntity Component
 
@@ -77,6 +85,10 @@ class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
 		return _config;
 	}
 
+    public function getProperties():Array<PropertyDefinition>{
+        return [];
+    }
+
 	/**
 	 * Returns a config helper object for the component's config
 	 */
@@ -109,9 +121,9 @@ class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
 	}
 
 	//entity property helpers
-	public function registerProp(key:String, type:Dynamic){
-		var prop = FProperty.createBasic(key,type);
-		_entity.registerProperty(prop);
+	public function registerProp(key:String, type:Dynamic, getter:Void->Dynamic=null, setter:Dynamic->Void=null){
+		
+		_entity.registerProp(key,type,getter,setter);
 	}
 
 	public function getProp(key:String){

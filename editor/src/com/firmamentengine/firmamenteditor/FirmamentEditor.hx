@@ -279,7 +279,7 @@ class FirmamentEditor
 
 			//settings.data.windowPositions = windowPositions;
 			//settings.flush();
-			Lib.close();
+			
 		};
 
 

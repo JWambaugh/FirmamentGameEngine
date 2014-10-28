@@ -41,6 +41,8 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	private var _height:Float;
 	private var _shape:FPolygonShape;
 	private var _deleted:Bool;
+
+
 	public function new() 
 	{
 		super();
@@ -52,6 +54,9 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		_positionZ = 0;
 		_deleted = false;
 		_angle = 0;
+        _width=0;
+        _height=0;
+        this.world = null;
 	}
 	
 	override public function init(config:Dynamic):Void {
@@ -125,20 +130,58 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 			this.world.addToAlwaysRenderList(_entity);
 		}
 		this.world.addEntity(this._entity);
-		registerProperties();
+		
 		buildShape();
 	}
 
-	function registerProperties(){
-		
-		_entity.registerProperty(new FComputedProperty<FVector>("position",setPosition,getPosition));
-		_entity.registerProperty(new FComputedProperty<Float>("positionX",setPositionX,getPositionX));
-		_entity.registerProperty(new FComputedProperty<Float>("positionY",setPositionY,getPositionY));
-		_entity.registerProperty(new FComputedProperty<Float>("angle",setAngle,getAngle));
-		_entity.registerProperty(new FComputedProperty<Float>("positionZ",setZPosition,getPositionZ));
-		_entity.registerProperty(new FComputedProperty<Float>("angularVelocity",setAngularVelocity,getAngularVelocity));
-		_entity.registerProperty(new FComputedProperty<FVector>("linearVelocity",setLinearVelocity,getLinearVelocity));
-	}
+
+    override public function getProperties():Array<PropertyDefinition>{
+        var props:Array<PropertyDefinition> = [
+            {
+                key:'position'
+                ,type:FVector
+                ,getter:getPosition
+                ,setter:setPosition
+            }
+            ,{
+                key:"positionX"
+                ,type:Float
+                ,getter:getPositionX
+                ,setter:setPositionX
+            }
+            ,{
+                key:"positionY"
+                ,type:Float
+                ,getter:getPositionY
+                ,setter:setPositionY
+            }
+            ,{
+                key:"positionZ"
+                ,type:Float
+                ,getter:getPositionZ
+                ,setter:setPositionZ
+            }
+            ,{
+                key:"angle"
+                ,type:Float
+                ,getter:getAngle
+                ,setter:setAngle
+            }
+            ,{
+                key:"angularVelocity"
+                ,type:Float
+                ,getter:getAngularVelocity
+                ,setter:setAngularVelocity
+            }
+            ,{
+                key:"linearVelocity"
+                ,type:FVector
+                ,getter:getLinearVelocity
+                ,setter:setLinearVelocity
+            }
+        ];
+        return props;
+    }
 
 	private function buildShape(){
 		_shape = new FPolygonShape([
@@ -181,18 +224,22 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 
 	public function setPositionXY(x:Float,y:Float){
 		if(_deleted)return;
+        trace('setPositionXY called');
+
 		var oldTopX = position.x - _width/2;
 		var oldTopY = position.y - _height/2;
 		
 		this.position.x=x;
 		this.position.y=y;
-		world.updatePositionState(this,oldTopX,oldTopY);
+        if(world!=null)        
+		  world.updatePositionState(this,oldTopX,oldTopY);
 	}
 
 	public function setPositionX(x:Float){
 		setPositionXY(x, this.position.y);
 	}
 	public function setPositionY(y:Float){
+        trace('setPositionY called');
 		setPositionXY(this.position.x, y);
 	}
 
@@ -248,7 +295,7 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		return _positionZ;
 	}
 
-	public function setZPosition(p:Float):Void {
+	public function setPositionZ(p:Float):Void {
 		_positionZ = p;
 	}
 

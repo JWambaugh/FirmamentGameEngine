@@ -29,7 +29,10 @@ class FDecrementComponent extends FEntityComponent{
         _propertyName = config.getNotNull('property',String);
         _decSize = config.get('decrementSize', Int, 1);
         _min = config.get('min', Int, 0);
-        _entity.registerProperty(new firmament.core.FBasicProperty<Int>(_propertyName));
+
+        //register the property if it doesn't exist
+        if(!_entity.hasProperty(_propertyName))
+            _entity.registerProperty(new firmament.core.FBasicProperty<Int>(_propertyName));
         _entity.setProp(_propertyName, _startValue);
         _entity.on(dEvent,onDecEvent);
     }

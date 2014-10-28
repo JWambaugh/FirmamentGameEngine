@@ -9,7 +9,8 @@
 	<set name="BUILD_DIR" value="bin" />
 	
 	<!-- classpath, haxe libs -->
-	<classpath name="../lib" />
+    <classpath name="../lib" />
+	<classpath name="src" />
 	<haxelib name="openfl" />
 	<haxelib name="tjson" />
 	<haxelib name="box2d" />

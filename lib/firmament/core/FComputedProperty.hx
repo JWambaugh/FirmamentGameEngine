@@ -6,7 +6,7 @@ class FComputedProperty<T> extends FProperty{
 	private var _setter:T->Void;
 	private var _getter:Void->T;
 
-	public function new(key:String, setter:T->Void, getter:Void->T){
+	public function new(key:String, getter:Void->T, setter:T->Void){
 		super(key);
 		_setter = setter;
 		_getter = getter;

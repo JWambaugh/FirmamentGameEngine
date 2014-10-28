@@ -73,7 +73,7 @@ class FEntity extends FObject
 			_tags = new Array<String>();
 		}
 		_gameInstance = FGame.getInstance(gameInstanceName);
-		registerProperty(new FComputedProperty<String>("typeId",setTypeId,getTypeId));
+		registerProperty(new FComputedProperty<String>("typeId",getTypeId,setTypeId));
 	}
 
 
@@ -103,7 +103,7 @@ class FEntity extends FObject
 	 *
 	 */
 	public function setInstanceId(id:String){
-		if(_instanceId != null) throw "instanceId already set";
+		if(_instanceId != null) throw dbgMsg()+"instanceId already set";
 		_instanceId = id;
 	}
 	
@@ -213,7 +213,7 @@ class FEntity extends FObject
 		this.setActive(false);
 		
 		if(_pool == null){
-			throw "Can't return to pool. Pool is null";
+			throw dbgMsg()+"Can't return to pool. Pool is null";
 		}else{
 			_pool.addEntity(this);
 		}
@@ -246,14 +246,18 @@ class FEntity extends FObject
 	//property functions
 
 	public function registerProperty(property:FProperty){
-		if(_properties.exists(property.getKey())) throw("Property already exists with key "+property.getKey());
+		if(_properties.exists(property.getKey())) throw(dbgMsg()+"Property already exists with key "+property.getKey());
 		_properties.set(property.getKey(),property);
 	}
+
+    public function hasProperty(key:String){
+        return _properties.exists(key);
+    }
 	
 	public function getProperty(key:String):FProperty{
 
 		var p = _properties.get(key);
-		if(p == null)throw("No property with key "+key);
+		if(p == null)throw(dbgMsg()+"No property with key "+key);
 		return p;
 	}
 
@@ -270,8 +274,12 @@ class FEntity extends FObject
 	/**
 	 * Registers a property in the entity. This must be done before the property can be read or written.
 	 */
-	public function registerProp(key:String, type:Dynamic){
-		var prop = FProperty.createBasic(key,type);
+	public function registerProp(key:String, type:Dynamic, getter:Void->Dynamic=null, setter:Dynamic->Void=null){
+        var prop;
+        if(getter==null&&setter==null)
+            prop = FProperty.createBasic(key,type);
+        else
+            prop = FProperty.createComputed(key,type,getter,setter);
 		this.registerProperty(prop);
 	}
 	
@@ -289,6 +297,21 @@ class FEntity extends FObject
 		getProperty(key).set(value);
 	}
 
+    public function registerComponentProperties(){
+        for(c in _components){
+            var props = c.getProperties();
+            for (p in props){
+                if(!hasProperty(p.key)){
+                    trace('registered '+p.key);
+                    registerProp(p.key,p.type,p.getter,p.setter);
+                }
+            }
+        }
+    }
+
+    private function dbgMsg(){
+        return "Entity '"+_typeId+"':'"+_instanceId+"': "; 
+    }
 
 	
 }
