@@ -8,7 +8,7 @@ import flash.geom.Point;
 import firmament.tilesheet.packer.FTilesheetPacker;
 import firmament.core.FConfig;
 #if(cpp||neko)
-import com.firmamentengine.firmamenteditor.ResourceLoader;
+import firmament.util.ResourceLoader;
 #end
 
 typedef SpriteTilesheet = {

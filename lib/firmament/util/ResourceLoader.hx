@@ -1,4 +1,4 @@
-package com.firmamentengine.firmamenteditor;
+package firmament.util;
 import flash.display.Loader;
 import flash.display.Sprite;
 import flash.events.IOErrorEvent;
