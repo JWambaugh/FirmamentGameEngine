@@ -21,12 +21,7 @@ class [*PROJECT_NAME*]
 	
 	static public function main() 
 	{
-		//make traces go to flash log
-		#if (flash9 || flash10)
-		haxe.Log.trace = function(v,?pos) { untyped __global__["trace"](pos.className+"#"+pos.methodName+"("+pos.lineNumber+"):",v); }
-		#elseif flash
-		haxe.Log.trace = function(v,?pos) { flash.Lib.trace(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"): "+v); }
-		#end
+		
 		
 		
 		var stage = Lib.current.stage;

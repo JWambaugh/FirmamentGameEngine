@@ -16,7 +16,7 @@ class TestProperty extends haxe.unit.TestCase {
  		for(x in 0...10000000){
  			var x = getVal();
  		}
- 		trace(Sys.cpuTime() - t);
+ 		firmament.util.FLog.debug(Sys.cpuTime() - t);
 
  		var property = FProperty.createBasic("test",Int);
  		property.set(1);
@@ -24,13 +24,13 @@ class TestProperty extends haxe.unit.TestCase {
 		for(x in 0...10000000){
  			var x=property.getInt();
  		}
- 		trace(Sys.cpuTime() - t);
+ 		firmament.util.FLog.debug(Sys.cpuTime() - t);
 
  		var t = Sys.cpuTime();
 		for(x in 0...10000000){
  			var x=property.getDynamic();
  		}
- 		trace(Sys.cpuTime() - t);
+ 		firmament.util.FLog.debug(Sys.cpuTime() - t);
 
 
  		property.set(1);
@@ -38,7 +38,7 @@ class TestProperty extends haxe.unit.TestCase {
 		for(x in 0...10000000){
  			var x=property.getString();
  		}
- 		trace(Sys.cpuTime() - t);
+ 		firmament.util.FLog.debug(Sys.cpuTime() - t);
 
  		assertEquals(1,1);
     }*/

@@ -370,16 +370,16 @@ class FGame extends FObject
 		}
 		_deferredFunctions.clear();
 
-		//trace('Simulation: '+_gameProcessManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
+		//firmament.util.FLog.debug('Simulation: '+_gameProcessManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
 	}
 
 
 
 	private function this_onEnterFrame (event:Event):Void {
-		//trace('this is called.');
+		//firmament.util.FLog.debug('this is called.');
 		//var start = haxe.Timer.stamp();
 		this.doStep();
-		//trace("step time: "+(haxe.Timer.stamp() - start));
+		//firmament.util.FLog.debug("step time: "+(haxe.Timer.stamp() - start));
 		
 	} 
 
@@ -433,7 +433,7 @@ class FGame extends FObject
 		//this.removeAllListeners();
 		clearCameras();
 		Lib.current.stage.addEventListener(Event.ENTER_FRAME, this_onEnterFrame);
-		//trace("FGAME CLEARED-----------------------------------");
+		//firmament.util.FLog.debug("FGAME CLEARED-----------------------------------");
 	}
 
 	/**
@@ -471,9 +471,9 @@ class FGame extends FObject
 		clearAll();
 		
 		
-		//trace("loadScene: Creating new scene");
+		//firmament.util.FLog.debug("loadScene: Creating new scene");
 		_currentScene = new FScene();
-		//trace("loadScene: Loading instance data");
+		//firmament.util.FLog.debug("loadScene: Loading instance data");
 		_currentScene.init(scene,instanceName);
 		
 		return;
@@ -554,7 +554,7 @@ class FGame extends FObject
 		clearCameras();
 		FGame._instances.remove(_name);
 		_cameras = null; 
-		//trace("FGAME DESTRUCTED-----------------------------------");
+		//firmament.util.FLog.debug("FGAME DESTRUCTED-----------------------------------");
 		super.destruct();
 	}
 

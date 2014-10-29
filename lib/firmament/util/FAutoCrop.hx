@@ -25,7 +25,7 @@ class FAutoCrop
 		var left:Int =0;
 		var right:Int =0;
 		
-		trace('w: '+bitmap.width+"  h:"+bitmap.height);
+		firmament.util.FLog.debug('w: '+bitmap.width+"  h:"+bitmap.height);
 		//find left
 		for (x in 0 ... bitmap.width) {
 			for (y in 0 ... bitmap.height) {
@@ -45,7 +45,7 @@ class FAutoCrop
 		while (x-- >= 0) {
 			
 			for (y in 0...bitmap.height) {
-				//trace("x:"+x+"  y:"+y);
+				//firmament.util.FLog.debug("x:"+x+"  y:"+y);
 				if (isContent( bitmap.getPixel32(x, y))) {
 					right = x;
 					break;
@@ -79,10 +79,10 @@ class FAutoCrop
 			if (bottom != 0) break;
 		}
 		
-		trace('top:'+top);
-		trace('bottom:'+bottom);
-		trace('left:'+left);
-		trace('right:'+right);
+		firmament.util.FLog.debug('top:'+top);
+		firmament.util.FLog.debug('bottom:'+bottom);
+		firmament.util.FLog.debug('left:'+left);
+		firmament.util.FLog.debug('right:'+right);
 		var width = right - left;
 		var height = bottom - top;
 		var newBitmap = new BitmapData(width, height, true, 0);

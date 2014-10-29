@@ -63,7 +63,7 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 			}
 			else if(strVal.indexOf("@")==0){
 				var propertyKey = strVal.substr(1);
-				//trace(ent.getPropertyValue(propertyKey));
+				//firmament.util.FLog.debug(ent.getPropertyValue(propertyKey));
 				return ent.getPropertyValue(propertyKey);
 			}
 			else{
@@ -120,6 +120,16 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 	public function sort(f:FEntity ->FEntity ->Int):Void{
 		_entities.sort(f);
 	}
+
+    public function sortByZPosition(){
+        sort(function(x,y){
+            var xz=x.getProp("positionZ");
+            var yz=y.getProp("positionZ");
+            if(xz<yz)return 1;
+            if(xz>yz)return -1;
+            return 0;
+        });
+    }
 
 	public function first():FEntity{
 		return _entities[0];

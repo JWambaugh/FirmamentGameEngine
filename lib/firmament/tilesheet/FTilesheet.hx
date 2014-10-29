@@ -84,7 +84,7 @@ class FTilesheet extends Tilesheet {
 	public function addTileRectWithLabel(rectangle:Rectangle, centerPoint:Point = null, label:String=null):Int{
 		super.addTileRect(rectangle,centerPoint);
 		if(label!=null){
-			//trace("LENGTH:"+_rects.length);
+			//firmament.util.FLog.debug("LENGTH:"+_rects.length);
 			_labelMap.set(label,_rects.length);
 		}
 		_rects.push(rectangle);

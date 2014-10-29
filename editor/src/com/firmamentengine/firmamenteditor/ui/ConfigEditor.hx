@@ -26,7 +26,7 @@ class ConfigEditor extends FWidget{
 		this.addChild(_root);
 		_hasChild = true;
 		this.dispatchEvent(new Event(FWidget.RESIZED));
-		//trace(this.height);
+		//firmament.util.FLog.debug(this.height);
 	}
 
 	public function setValue(path:Array<String>, value:Dynamic){

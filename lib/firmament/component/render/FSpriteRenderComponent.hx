@@ -83,7 +83,7 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
 	
 	override public function render(camera:FCamera):Void {
 		if(_tilesheet == null){
-			trace("tilesheet is null");
+			//firmament.util.FLog.debug("tilesheet is null");
 			var tm = FTilesheetManager.getInstance();
 			var tdata = tm.getTilesheetForQueuedPath(_currentImagePath);
 			if(tdata == null)throw "There was apparently a problem with auto-generating our tilesheet!";

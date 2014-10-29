@@ -102,7 +102,7 @@ class ProjectSettings extends FWindow
 			this.lastOpenedMap = settings.lastOpenedMap;
 		}catch(e:Dynamic){
 			FDialog.alert("Error loading file " + projectFileTxt.text);
-			trace("******* "+Std.string(e));
+			firmament.util.FLog.debug("******* "+Std.string(e));
 			return;
 		}
 		
@@ -124,13 +124,13 @@ class ProjectSettings extends FWindow
 		data.baseDir = this.baseDirTxt.text;
 		data.lastOpenedMap = this.lastOpenedMap;
 		var str = serializer.serialize(data);
-		trace(str);
+		firmament.util.FLog.debug(str);
 		
 		try{
 			File.saveContent(projectFileTxt.text, str);
 			
 		}catch (e:Dynamic) {
-			trace(e);
+			firmament.util.FLog.debug(e);
 			FDialog.alert("Error saving file " + projectFileTxt.text);
 			return;
 		}

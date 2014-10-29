@@ -43,7 +43,7 @@ class FJsonSerializer implements FSerializerInterface
 			var code = Assets.getText(path);
 		
 			#if (cpp || neko)
-				//trace('attempting load with file.getContents');
+				//firmament.util.FLog.debug('attempting load with file.getContents');
 				if (code == null || code == '') {
 					code = File.getContent(path);
 				}

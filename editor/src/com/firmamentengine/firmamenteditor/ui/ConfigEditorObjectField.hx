@@ -41,7 +41,7 @@ class ConfigEditorObjectField extends ConfigEditorField{
 
 				var minimizeButton:FSmallButton = new FSmallButton("-",0,0);
 				minimizeButton.addEventListener(MouseEvent.CLICK, function(e:MouseEvent){
-					trace(ihb);
+					firmament.util.FLog.debug(ihb);
 					
 					if(minimizeButton.getText() == '-'){
 						ihb.removeChild(value);

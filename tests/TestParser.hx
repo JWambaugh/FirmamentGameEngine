@@ -49,7 +49,7 @@ class TestParser extends haxe.unit.TestCase{
 
 			}';
 		var o = TJSON.parse(data);
-		//trace(Std.string(o));
+		//firmament.util.FLog.debug(Std.string(o));
 		assertEquals("value with a 
 					newline in the middle!", o.keyWithNoString.keyWithsinglequote);
 		assertEquals(300,Reflect.field(o.keyWithNoString,'k2'));

@@ -74,7 +74,7 @@ class FInput{
 
 	public function keyboardEventDown(e:KeyboardEvent) {
 		this.keyStatus[e.keyCode] = true;
-		//trace(e.keyCode);
+		//firmament.util.FLog.debug(e.keyCode);
 	}
 	public function keyboardEventUp(e:KeyboardEvent) {
 		this.keyStatus[e.keyCode]=false;

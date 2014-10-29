@@ -7,6 +7,7 @@ import firmament.util.FConfigHelper;
 import firmament.core.FEntityFactory;
 import firmament.core.FEntity;
 import firmament.event.FEntityEvent;
+import firmament.util.FLog;
 /*
 	Class: FEntityEmitterComponent
 	emits the specified entities when an event is fired.
@@ -24,29 +25,34 @@ class FEntityEmitterComponent extends FEntityComponent{
 				var emitter = Reflect.field(config.emitters,event);
 
 				if(Reflect.isObject(emitter)){
-					var ec = new FConfigHelper(emitter);
+					var ec:firmament.core.FConfig = emitter;
 					on(_entity,event,function(e:FEvent){
-						var ent = FEntityFactory.createEntity(ec.getNotNull('entity',Dynamic));
-						var angle:Float;
-						if(ec.get("angleOffset",String)=="random"){
-							angle = Math.random()*6.28318530718;
-						}else{
-							angle=ec.get("angleOffset",Float);
-						}
-						
-						var originEntity = _entity;
-						
-						//if event received is an entity event, use that entity as the origin instead
-						if(Std.is(e,FEntityEvent)){
-							originEntity = cast(e,FEntityEvent).getEntity();
-						}
-						
-						FEntityUtils.emitEntity(originEntity
-							,ent
-							,ec.get("speed",Float)
-							,angle
-							,ec.get("distanceOffset",Float) ); 
-						ent.setActive(true);
+                        
+                        var amount:Int = ec.get('amount', Int, 1);
+                        FLog.debug("amount to spawn: "+amount);
+                        for(n in 0...amount){
+    						var ent = FEntityFactory.createEntity(ec.getNotNull('entity',Dynamic));
+    						var angle:Float;
+    						if(ec.get("angleOffset",String)=="random"){
+    							angle = Math.random()*6.28318530718;
+    						}else{
+    							angle=ec.get("angleOffset",Float);
+    						}
+    						
+    						var originEntity = _entity;
+    						
+    						//if event received is an entity event, use that entity as the origin instead
+    						if(Std.is(e,FEntityEvent)){
+    							originEntity = cast(e,FEntityEvent).getEntity();
+    						}
+    						
+    						FEntityUtils.emitEntity(originEntity
+    							,ent
+    							,ec.get("speed",Float,0)
+    							,angle
+    							,ec.get("distanceOffset",Float,0.01) ); 
+    						ent.setActive(true);
+                        }
 					});
 				}else throw "emitter type of '"+event+"' is not an object";
 			}

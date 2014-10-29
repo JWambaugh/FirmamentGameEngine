@@ -1,5 +1,6 @@
 package firmament.core;
 import firmament.core.FVector;
+import firmament.util.FLog;
 
 abstract FConfig({}) from {} to {} {
 	public function new(o:Dynamic){
@@ -13,6 +14,16 @@ abstract FConfig({}) from {} to {} {
     @:arrayAccess public inline function arrayWrite<T>(key:String, value:T):T {
         Reflect.setField(this, key, value);
         return value;
+    }
+
+    public function hasField(field:String, type:Dynamic = null){
+        if(! Reflect.hasField(this,field)) return false;
+        if(type != null){
+            return Std.is(Reflect.field(this,field),type);
+        } 
+        return true;
+
+
     }
 
     public function get(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
@@ -37,7 +48,16 @@ abstract FConfig({}) from {} to {} {
 				if(Std.is(entry,type)){
 						return entry;
 				}else{
-					return def;
+					if(type==Int && Reflect.isObject(entry)){
+                        return parseIntObject(entry);
+                    }
+                    else if(type==Float && Reflect.isObject(entry)){
+                        return parseFloatObject(entry);
+                    } else{
+                        FLog.warning("field "+field+" is not type expected! Returning default.");
+                        return def;
+                    }
+                   
 				}
 			}
 		}
@@ -49,6 +69,28 @@ abstract FConfig({}) from {} to {} {
 		if(v == null) return vectorFromDynamic(def);
 		return v;
 	}
+
+
+    private function parseFloatObject(v:Dynamic):Float{
+        if(!Reflect.hasField(v,"min") && !Reflect.hasField(v,"max")){
+             FLog.error("Can't find min and max for Float in object"+Std.string(v)+". Returning 0.");
+             return 0;
+        }
+        var min:Float = Reflect.field(v,"min");
+        var max:Float = Reflect.field(v,"max");
+        return min+Math.random()*(max-min);
+    }
+
+    private function parseIntObject(v:Dynamic):Int{
+       if(!Reflect.hasField(v,"min") && !Reflect.hasField(v,"max")){
+             FLog.error("Can't find min and max for Int in object"+Std.string(v)+". Returning 0.");
+             return 0;
+        }
+        var min:Int = Reflect.field(v,"min");
+        var max:Int = Reflect.field(v,"max");
+        firmament.util.FLog.debug("RandomInt: min"+min+" max"+max);
+        return min+Math.floor(Math.random()*(max-min));
+    }
 
 	private function vectorFromDynamic(d:Dynamic):FVector{
 		if(Std.is(d,FVector)) return d;

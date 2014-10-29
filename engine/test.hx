@@ -1,1 +1,1 @@
-trace("hey, this works!");
+firmament.util.FLog.debug("hey, this works!");

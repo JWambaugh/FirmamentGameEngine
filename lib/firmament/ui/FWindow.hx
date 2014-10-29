@@ -79,7 +79,7 @@ class FWindow extends FWidget
 		
 		
 
-		trace(this.width);
+		firmament.util.FLog.debug(this.width);
 	}
 	
 	

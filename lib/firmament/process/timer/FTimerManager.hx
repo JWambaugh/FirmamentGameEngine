@@ -25,7 +25,7 @@ class FTimerManager extends FProcess {
 		super.beforeStart(processManager);
 		processManager.addEventListener(FProcessManager.PAUSED,pause);
 		processManager.addEventListener(FProcessManager.UNPAUSED,unPause);
-		//trace('TIMER BEFORE START');
+		//firmament.util.FLog.debug('TIMER BEFORE START');
 	}
 
 	public function addTimer(seconds:Float, cb:Void->Void,?scope:Dynamic=null){
@@ -36,7 +36,7 @@ class FTimerManager extends FProcess {
 	}
 
 	override public function step(){
-		//trace("TimeManager step");
+		//firmament.util.FLog.debug("TimeManager step");
 		var timerCell:FSortedLinkedListCell<FTimer>;
 
 		timerCell = _timers.getLowestCell();
@@ -52,11 +52,11 @@ class FTimerManager extends FProcess {
 			
 		}
 		super.step();
-		//trace(_timers.getCellCount());
+		//firmament.util.FLog.debug(_timers.getCellCount());
 	}
 
 	public function pause(e:Event){
-		//trace("Timer Paused");
+		//firmament.util.FLog.debug("Timer Paused");
 		var timerCell:FSortedLinkedListCell<FTimer>;
 
 		timerCell = _timers.getLowestCell();
@@ -67,7 +67,7 @@ class FTimerManager extends FProcess {
 	}
 
 	public function unPause(e:Event){
-		//trace("Timer UnPaused");
+		//firmament.util.FLog.debug("Timer UnPaused");
 
 		var timerCell:FSortedLinkedListCell<FTimer>;
 

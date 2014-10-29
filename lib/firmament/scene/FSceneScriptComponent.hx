@@ -36,7 +36,7 @@ class FSceneScriptComponent extends FSceneComponent {
 						break;
 				}
 			}
-			trace("Processing <"+event+"> -> " + scriptText );
+			firmament.util.FLog.debug("Processing <"+event+"> -> " + scriptText );
 			if( scriptText != null ) {
 				on(_scene, event, this,function(e:FEvent){
 					return _gameInstance.eval(scriptText);

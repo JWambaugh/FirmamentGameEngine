@@ -41,9 +41,18 @@ class FParticleWorld extends FWorld
 		_inStep = true;
 		var elapsedTime = FGame.getInstance().getProcessManager().getFrameDelta();
 		for(ent in _activeAwakeEntities){
-			var pc = ent.getPhysicsComponent();
+			var pc:FParticleComponent = cast(ent.getPhysicsComponent());
+
+            var gravity:FVector = pc.getGravity();
+            if(gravity != null){
+                gravity = new FVector(gravity.x*elapsedTime,gravity.y*elapsedTime);
+               
+                pc.getLinearVelocity().add(gravity);
+            }
+
 			var lv = pc.getLinearVelocity();
 			var av = pc.getAngularVelocity();
+
 
 			if(av!=0){
 				pc.setAngle(pc.getAngle() + av * elapsedTime);

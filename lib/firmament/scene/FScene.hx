@@ -78,7 +78,7 @@ class FScene extends FObject{
 			for(poolConfig in cast(config.entityPools,Array<Dynamic>)){
 				var pool = new FConfigHelper(poolConfig);
 				//load non-map entities we need
-				//trace("entFile: "+pool.getNotNull('entityFile',String));
+				//firmament.util.FLog.debug("entFile: "+pool.getNotNull('entityFile',String));
 				loader.loadPool(pool.getNotNull('entityFile',String),pool.get("amount",Int,10));
 			}
 		}
@@ -88,7 +88,7 @@ class FScene extends FObject{
 			for(sound in cast(config.sounds,Array<Dynamic>)){
 				if(Std.is(sound,String)){
 					if(FSoundManager.getSound(sound) == null){
-						trace("config loader warning: Sound not found: "+sound);
+						firmament.util.FLog.debug("config loader warning: Sound not found: "+sound);
 					}
 				}
 				
@@ -128,7 +128,7 @@ class FScene extends FObject{
 	}
 
 	override public function destruct(){
-		trace('scene destructed!');
+		firmament.util.FLog.debug('scene destructed!');
 		if(_components != null){
 			for(component in _components){
 				component.destruct();

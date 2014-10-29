@@ -20,7 +20,7 @@ class FDataLoader
 
 	public static function loadData(fileName:String, ?allowEmpty:Bool=false):FConfig{
 
-		//trace("Processing: " + fileName);
+		//firmament.util.FLog.debug("Processing: " + fileName);
 		if(_cache.exists(fileName)){
 			return FMisc.deepClone(_cache.get(fileName));
 		}
@@ -40,7 +40,7 @@ class FDataLoader
 		}
 		data.entityFile = fileName;
 		data = checkForExtension(data,fileName);
-		//trace(fileName+ ' '+Std.string(data));
+		//firmament.util.FLog.debug(fileName+ ' '+Std.string(data));
 		
 		_cache.set(fileName,FMisc.deepClone(data));
 		return data;
@@ -54,7 +54,7 @@ class FDataLoader
 		} 
 		
 		#if (cpp || neko)
-//			trace('attempting load with file.getContents');
+//			firmament.util.FLog.debug('attempting load with file.getContents');
 			if (str == null || str == '') {
 				str = File.getContent(fileName);
 			}
@@ -71,7 +71,7 @@ class FDataLoader
 		}
 		else if(Reflect.isObject(data) && !Std.is(data,String)){
 			if(data._extends!=null && Std.is(data._extends,String)){
-			//	trace(fileName+" extends "+ data._extends);
+			//	firmament.util.FLog.debug(fileName+" extends "+ data._extends);
 				_recursionCount++;
 				if(_recursionCount > 1000 )throw "recursive _extends detected in "+fileName;
 				var parent = loadData(data._extends);

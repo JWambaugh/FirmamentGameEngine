@@ -79,7 +79,7 @@ class EntityWindow extends FWindow
 				_configEditor.setValue(['components','physics','position','x'],selectedEntity.getPositionX());
 				_configEditor.setValue(['components','physics','position','y'],selectedEntity.getPositionY());
 			}catch(error:String){
-				trace(error);
+				firmament.util.FLog.debug(error);
 			}
 		} );
 		

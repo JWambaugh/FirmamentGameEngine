@@ -160,12 +160,12 @@ class FTilesheetManager {
 		//support an 'includeAll option that includes all images in a asset folder'
 		var search = c.get("includeAll",String,null);
 		if( search  != null){
-			//trace('includAll found!');
+			//firmament.util.FLog.debug('includAll found!');
 			var mainList:Array<String> = openfl.Assets.list(IMAGE);
 			var matchList:Array<String> = new Array<String>();
 			for(fileName in mainList){
 				if(fileName.indexOf(search) != -1){
-					//trace("adding "+fileName);
+					//firmament.util.FLog.debug("adding "+fileName);
 					var p = new haxe.io.Path(fileName);
 					var img:BitmapData = loadImage(fileName);
 					entries.push({
@@ -234,7 +234,7 @@ class FTilesheetManager {
 		var maxTilesheetNum = 10;
 		while(tilesheetAutoQueue.length>0 && maxTilesheetNum-- > 0){
 			//not already generated, so process queue into tilesheets
-			trace("Creating a new tilesheet!");
+			firmament.util.FLog.debug("Creating a new tilesheet!");
 			var packer = new FTilesheetPacker(2048,2048);
 			while(tilesheetAutoQueue.length > 0){
 				var fileName = tilesheetAutoQueue[0];
@@ -243,7 +243,7 @@ class FTilesheetManager {
 					packer.addBitmapData(loadImage(fileName), p.file, fileName);
 					tilesheetAutoQueue.shift();
 				}catch(e:Dynamic){
-					trace("Error auto generating tilesheet for "+ fileName+" Perhaps current tilesheet is full? Will try another");
+					firmament.util.FLog.debug("Error auto generating tilesheet for "+ fileName+" Perhaps current tilesheet is full? Will try another");
 					break;
 				}
 			}

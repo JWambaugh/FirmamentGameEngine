@@ -38,7 +38,7 @@ class FLinearTweener extends FProcess {
 	 	_endAngle = _object.getAngle();
 		_infinite = infinite;
 
-		trace("FLinearTweener: init, " + parameters);
+		firmament.util.FLog.debug("FLinearTweener: init, " + parameters);
 
 		if( parameters.start != null) {
 			initStart(parameters.start);

@@ -30,19 +30,19 @@ class FSimpleFollowSplineComponent extends FEntityComponent {
 	override public function init(config:Dynamic){
 		_config = config;
 		_camera = FGame.getInstance().getCamera("main");
-		//trace("Dumping SimpleFollowSpline Config");
+		//firmament.util.FLog.debug("Dumping SimpleFollowSpline Config");
 
 		on(_entity,FEntity.COMPONENTS_INITIALIZED,postInit);
 		_camera.addEventListener(FCamera.AFTER_RENDER_EVENT,this.postRender);
 	}
 
 	public function postInit(e:FEvent){
-//		trace(Std.string(_entity));
+//		firmament.util.FLog.debug(Std.string(_entity));
 		/*
 		{ totalTime : 10.1, componentName : com.celestia.component.SimpleFollowSpline, points : [[0,0],[10,20],[20,0],[30,40],[40,0],[50,-80],[60,0]], offset : { y : 50, x : -50 } }
 		*/
 
-		//trace(Std.string(_config));
+		//firmament.util.FLog.debug(Std.string(_config));
 		var cfgHelper = new FConfigHelper(_config);
 		_path = new FSplineTweener(_componentKey,cfgHelper,_entity,_camera.graphics);
 	}

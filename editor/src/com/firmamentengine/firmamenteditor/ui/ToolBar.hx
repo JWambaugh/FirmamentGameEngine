@@ -41,10 +41,10 @@ class ToolBar
 			var c = {
 				entities:entC
 				};
-			trace(c);
+			firmament.util.FLog.debug(c);
 			var serializer = new FJsonSerializer();
 			var data:String = serializer.serialize(c).replace("\\/","/");
-			trace(data);
+			firmament.util.FLog.debug(data);
 			File.saveContent(FirmamentEditor.projectEditor.getMapDir() + "/" +fileName, data);
 		},"Save Map", FirmamentEditor.projectEditor.getLastOpenedMap());
 		

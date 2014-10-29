@@ -44,7 +44,7 @@ class FNoPhysicsWorld extends FWorld
 	
 	override public function step():Void {
 		if(_deleted){
-			trace("______________TRYING TO STEP IN DELETED NOPHYSICS WORLD");
+			firmament.util.FLog.debug("______________TRYING TO STEP IN DELETED NOPHYSICS WORLD");
 		}
 		_inStep = true;
 		var elapsedTime = FGame.getInstance().getProcessManager().getFrameDelta();
@@ -81,7 +81,7 @@ class FNoPhysicsWorld extends FWorld
 
 	public function updatePositionState(component:FNoPhysicsComponent,oldTopX:Float,oldTopY:Float){
 		if(_deleted){
-			trace("______________TRYING TO POSITION DELETED NOPHYSICS WORLD");
+			firmament.util.FLog.debug("______________TRYING TO POSITION DELETED NOPHYSICS WORLD");
 		}
 		_rtree.updateObject(component.getEntity(),oldTopX,oldTopY,component.getTopX(), component.getTopY(), component.getBottomX(), component.getBottomY());
 	}
@@ -137,7 +137,7 @@ class FNoPhysicsWorld extends FWorld
 
 
 	override public function destruct(){
-		trace("___________NO PHYSICS WORLD DELETED___________");
+		firmament.util.FLog.debug("___________NO PHYSICS WORLD DELETED___________");
 		_deleted = true;
 		super.destruct();
 		_rtree = null;

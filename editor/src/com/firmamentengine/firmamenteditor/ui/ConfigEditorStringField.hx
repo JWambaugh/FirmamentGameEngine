@@ -20,7 +20,7 @@ class ConfigEditorStringField extends ConfigEditorField{
 		}else{
 			_field = new FLineEdit(_value);
 			_field.addEventListener(Event.CHANGE, function(e:Event) {
-				trace(this.getPath());
+				firmament.util.FLog.debug(this.getPath());
 				_editor.dispatchEvent(new ConfigEditorFieldEvent(this.getPath(),_field.text)); } );
 			this.addChild(_field);
 		}

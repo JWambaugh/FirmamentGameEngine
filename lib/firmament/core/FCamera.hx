@@ -135,7 +135,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	}
 
 	private function calculateTopLeftPosition(?parallax:Float=1) {
-		//trace(this.width);
+		//firmament.util.FLog.debug(this.width);
 		this._topLeftPosition.x=this._position.x-(this._displayWidth/this._zoom/parallax)/2;
 		this._topLeftPosition.y = this._position.y - (this._displayHeight / this._zoom/parallax) / 2;
 		this._calculatedTopLeft = true;
@@ -301,10 +301,14 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 
 	private function onClick(e:MouseEvent){
 		var ents = _game.getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
+        ents.sortByZPosition();
+        var event = new FEvent(MouseEvent.CLICK);
+        event.bubbles = false;
 		for(ent in ents){
 			if(ent.isActive()){
-				ent.trigger(new FEvent(MouseEvent.CLICK));
+				ent.trigger(event);
 			}
+
 		}
 	}
 

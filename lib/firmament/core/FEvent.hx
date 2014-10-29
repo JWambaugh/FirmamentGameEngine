@@ -5,8 +5,19 @@ class FEvent{
 	public var name(get,set):String;
 	public var data(get,set):Dynamic;
 
+
+    //if true, all objects receiving this single event will trigger listeners.
+    //If set to false, bubbling will not happen unless a listener sets handled to false.
+    public var bubbles:Bool=true;
+
+    //if bubbles is false, event handlers will have to set this to false to allow other listeners to receive it.
+    public var handled:Bool=false;
+
+
 	private var _name:String;
 	private var _data:Dynamic;
+
+
 
 	public function new(name:String,data:Dynamic = null){
 		_name = name;

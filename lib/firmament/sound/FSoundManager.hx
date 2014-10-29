@@ -29,7 +29,7 @@ class FSoundManager{
 		if(_config == null) {
 			// this totally isn't the way I want to do this in the end but for 
 			// now is ok.
-trace("Parse the conf file ");
+firmament.util.FLog.debug("Parse the conf file ");
 			_config = FDataLoader.loadData("config/audio/sounds.json");
 		}
 	}
@@ -53,12 +53,12 @@ trace("Parse the conf file ");
 	public static function convertNameToPath(name:String):String {
 		// I need to know the avail formats (as a list)
 		// the first one I find is the one I'll use
-trace("Parsing ", _config);
+        firmament.util.FLog.debug("Parsing "+ _config);
 		var supportedFormats:Array<String> = _repository.get('soundFormats'); // prolly only need to do this once
-trace("Supported formats ", supportedFormats);
+        firmament.util.FLog.debug("Supported formats "+ supportedFormats);
 		var asset:Dynamic = null;
 		var sounds:Array<Dynamic> = _config["sounds"];
-trace("Sound configurations ", sounds);
+        firmament.util.FLog.debug("Sound configurations "+ sounds);
 		var sound:FConfig = null, format:String = null;
 		for( raw in sounds ) {
 			sound = raw;
@@ -80,12 +80,12 @@ trace("Sound configurations ", sounds);
 		if( asset == null ) { return ""; }
 
 		var assetPath:String = new String(sound["format"]);
-trace("Format ", assetPath);
+        firmament.util.FLog.debug("Format "+ assetPath);
 		// build the correct path
 		assetPath = StringTools.replace( assetPath, "{basedir}", sound["basedir"]);
 		assetPath = StringTools.replace( assetPath, "{name}", sound["name"]);
 		assetPath = StringTools.replace( assetPath, "{format}", format);
-trace("Format ", assetPath);
+        firmament.util.FLog.debug("Format "+ assetPath);
 
 		// find the asset with the correct name
 		return assetPath;

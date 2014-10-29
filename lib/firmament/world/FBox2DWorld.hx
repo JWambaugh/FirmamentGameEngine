@@ -38,7 +38,7 @@ class FPhysicsWorldContactListener extends B2ContactListener {
 		var bodyB:FBox2DComponent = contact.getFixtureB().getBody().getUserData();
 		bodyA.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact));
 		bodyB.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact));
-		//trace("beginContact "+bodyA.getEntity().getTypeId() + " > "+bodyB.getEntity().getTypeId());
+		//firmament.util.FLog.debug("beginContact "+bodyA.getEntity().getTypeId() + " > "+bodyB.getEntity().getTypeId());
 	}
 
 	override public function endContact(contact:B2Contact):Void {
@@ -184,7 +184,7 @@ class FBox2DWorld extends FWorld
 			entA.dispatchEvent(new FBox2DCollisionEvent(this,contact));
 			entB.dispatchEvent(new FBox2DCollisionEvent(this,contact));
 			contact = contact.getNext();
-			//trace('collision');
+			//firmament.util.FLog.debug('collision');
 		}*/
 		var ent;
 		//Delete any entities waiting for deletion.

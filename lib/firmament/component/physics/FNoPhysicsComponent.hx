@@ -4,7 +4,9 @@ package firmament.component.physics;
 import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.core.FComputedProperty;
+import firmament.core.FConfig;
 import firmament.core.FEntity;
+import firmament.core.FEvent;
 import firmament.core.FGame;
 import firmament.core.FPolygonShape;
 import firmament.core.FProperty;
@@ -14,9 +16,7 @@ import firmament.core.FWorldPositionalInterface;
 import firmament.world.FBox2DWorld;
 import firmament.world.FNoPhysicsWorld;
 import firmament.world.FWorld;
-import firmament.core.FEvent;
 import haxe.Timer;
-
 
 /**
  * FBox2DComponent
@@ -28,8 +28,8 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	
 	
 	private var _positionZ:Float;
-	private var position:FVector;
-	private var world:FNoPhysicsWorld;
+	private var _position:FVector;
+	private var _world:FNoPhysicsWorld;
 	private var _angle:Float;
 	private var _fixedRotation:Bool;
 	private var _allowSleep:Bool;
@@ -47,7 +47,7 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	{
 		super();
 		
-		this.position = new FVector(0,0);
+		_position = new FVector(0,0);
 		_isSleeping = false;
 		_isActive = true;
 		_linearVelocity = new FVector(0,0);
@@ -56,80 +56,34 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		_angle = 0;
         _width=0;
         _height=0;
-        this.world = null;
+        _world = null;
 	}
 	
-	override public function init(config:Dynamic):Void {
-		this.world = cast(_entity.getGameInstance().getWorld("noPhysics"),FNoPhysicsWorld);
+	override public function init(config:FConfig):Void {
+		_world = cast(_entity.getGameInstance().getWorld("noPhysics"),FNoPhysicsWorld);
 		registerEventHandlers();
 		
 		
-		if(Std.is(config.position,FVector)){
-			this.position = config.position;
-		}
-		else if(Reflect.isObject(config.position)){
-			this.position = new FVector(config.position.x,config.position.y);
-		}
-		else {
-			this.position = new FVector(0, 0);
-		}
-
-		if(Std.is(config.width,Float)){
-			_width = config.width;
-		}else{
-			throw "no width specified.";
-		}
-		
-		if(Std.is(config.height,Float)){
-			_height = config.height;
-		}else{
-			throw "no height specified.";
-		}
-
-		if(Std.is(config.linearVelocity,FVector)){
-			this._linearVelocity = config.linearVelocity;
-		}
-		else if(Reflect.isObject(config.linearVelocity)){
-			this._linearVelocity = new FVector(config.linearVelocity.x,config.linearVelocity.y);
-		}
-		else {
-			this._linearVelocity = new FVector(0, 0);
-		}
+		_position = config.getVector('position');
+		_width = config.getNotNull('width',Float);
+		_height = config.getNotNull('height',Float);
+		_linearVelocity = config.getVector('linearVelocity');
+		_angularVelocity = config.get('angularVelocity',Float,0);
+		_angle = config.get('angle');
+		_fixedRotation = config.get('fixedRotation',Bool,false);
+		_allowSleep = config.get('allowSleep',Bool,true);
+		_positionZ = config.get('positionZ');
 
 
-		if(Std.is(config.angularVelocity,Float)){
-			this._angularVelocity =  config.angularVelocity;
-		}
-		else {
-			this._angularVelocity = 0;
-		}
-		
-	
-		if(Std.is(config.angle,Float))
-			_angle = config.angle;
-		_fixedRotation = false;
-
-		if(Std.is(config.fixedRotation,Bool)){
-			_fixedRotation = config.fixedRotation;
-		}
-
-		if (Std.is(config.allowSleep, Bool)) {
-			_allowSleep = config.allowSleep;
-		}
-
-		if(Std.is(config.positionZ,Float)){
-			_positionZ = config.positionZ;
-		}
-
-		if (Std.is(config.maxLifeSeconds, Float)) {
-			Timer.delay(function() { this._entity.delete(); }, Math.floor(config.maxLifeSeconds * 1000));
+		if (config.hasField('maxLifeSeconds')) {
+			Timer.delay(function() { this._entity.delete(); }, Math.floor(config.get('maxLifeSeconds',Float) * 1000));
 		}
 		
 		
-		if(Std.is(config.alwaysRender,Bool) && config.alwaysRender==true){
-			this.world.addToAlwaysRenderList(_entity);
+		if(config.get('alwaysRender',Bool,false) ){
+			_world.addToAlwaysRenderList(_entity);
 		}
-		this.world.addEntity(this._entity);
+		_world.addEntity(this._entity);
 		
 		buildShape();
 	}
@@ -206,41 +160,41 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 
 	function deactivate(?e:FEvent=null){
 		this._isActive = _entity.isActive();
-		world.updateSleepState(this);
+		_world.updateSleepState(this);
 	}
 
 	public function  getPosition() {
-		return this.position;
+		return _position;
 	}
 	
 	public function setPosition(pos:FVector) {
 		if(_deleted)return;
-		var oldTopX = position.x - _width/2;
-		var oldTopY = position.y - _height/2;
+		var oldTopX = _position.x - _width/2;
+		var oldTopY = _position.y - _height/2;
 		
-		this.position=pos;
-		world.updatePositionState(this,oldTopX,oldTopY);
+		_position=pos;
+		_world.updatePositionState(this,oldTopX,oldTopY);
 	}
 
 	public function setPositionXY(x:Float,y:Float){
 		if(_deleted)return;
-        trace('setPositionXY called');
+        firmament.util.FLog.debug('setPositionXY called');
 
-		var oldTopX = position.x - _width/2;
-		var oldTopY = position.y - _height/2;
+		var oldTopX = _position.x - _width/2;
+		var oldTopY = _position.y - _height/2;
 		
-		this.position.x=x;
-		this.position.y=y;
-        if(world!=null)        
-		  world.updatePositionState(this,oldTopX,oldTopY);
+		_position.x=x;
+		_position.y=y;
+        if(_world!=null)        
+		  _world.updatePositionState(this,oldTopX,oldTopY);
 	}
 
 	public function setPositionX(x:Float){
-		setPositionXY(x, this.position.y);
+		setPositionXY(x, _position.y);
 	}
 	public function setPositionY(y:Float){
-        trace('setPositionY called');
-		setPositionXY(this.position.x, y);
+        firmament.util.FLog.debug('setPositionY called');
+		setPositionXY(_position.x, y);
 	}
 
 	public function getPositionX():Float{
@@ -261,14 +215,14 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	
 	public function applyLinearForce(v:FVector,?point:FVector=null):Void {
 		_isSleeping = false;
-		world.updateSleepState(this);
+		_world.updateSleepState(this);
 		_linearVelocity.add(v);
 		// TODO (JCMW): Support second param
 	}
 
 	public function setLinearVelocity(vel:FVector) {
 		_isSleeping = false;
-		world.updateSleepState(this);
+		_world.updateSleepState(this);
 		_linearVelocity = vel;
 	}
 	
@@ -277,7 +231,7 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	}
 
 	public function setAngularVelocity(omega:Float):Void {
-		world.updateSleepState(this);
+		_world.updateSleepState(this);
 	    _angularVelocity = omega;
 	}
 
@@ -300,11 +254,11 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	}
 
 	public function setWorld(world:FWorld):Void{
-		this.world = cast(world);
+		_world = cast(world);
 	}
 
 	public function getWorld(){
-		return this.world;
+		return _world;
 	}
 
 	override public function getType():String {
@@ -328,26 +282,26 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	}
 
 	public function getTopX(){
-		return this.position.x - _width/2;
+		return _position.x - _width/2;
 	}
 
 	public function getTopY(){
-		return this.position.y - _height/2;
+		return _position.y - _height/2;
 	}
 
 	public function getBottomX(){
-		return this.position.x + _width/2;
+		return _position.x + _width/2;
 	}
 
 	public function getBottomY(){
-		return this.position.y + _height/2;
+		return _position.y + _height/2;
 	}
 	public function getShapes():Array<FShape>{
 		return [_shape];
 	}
 	override public function destruct(){
 		_deleted = true;
-		world.deleteEntity(_entity);
+		_world.deleteEntity(_entity);
 		removeEventHandlers();
 	}
 

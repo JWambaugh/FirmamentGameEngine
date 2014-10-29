@@ -55,10 +55,10 @@ class FMisc
 	}
 
 	/*public static function deepClone(o:Dynamic){
-		trace("INPUT "+Std.string(o));
+		firmament.util.FLog.debug("INPUT "+Std.string(o));
 		var a:Dynamic={};
 		mergeInto(o,a);
-		trace("OUTPUT "+Std.string(a));
+		firmament.util.FLog.debug("OUTPUT "+Std.string(a));
 
 		return a;
 	}*/

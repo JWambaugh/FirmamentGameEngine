@@ -45,8 +45,8 @@ class EntityItem extends Sprite
 	var dragging:Bool;
 	public function new(fileName:String,dir:String,config:Dynamic) 
 	{
-		//trace("intityItem constructor");
-		//trace("processing entity "+fileName);
+		//firmament.util.FLog.debug("intityItem constructor");
+		//firmament.util.FLog.debug("processing entity "+fileName);
 		super();
 		this.filePath = dir+"/"+fileName;
 		this.config = config;

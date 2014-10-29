@@ -262,7 +262,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 			mergeConfig.components.physics.angle = getAngle();
 		}
 		FMisc.mergeInto(mergeConfig,joint.entity);
-		//trace(Std.string(joint.entity));
+		//firmament.util.FLog.debug(Std.string(joint.entity));
 		var childEntity = FEntityFactory.createEntity(joint.entity);
 		cast(childEntity.getPhysicsComponent(), FBox2DComponent).setParentEntity(_entity);
 
@@ -308,7 +308,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 
 	function deactivate(e:FEvent=null){
 			this.body.setActive(_entity.isActive());
-			//trace("deactivated:"+_entity.isActive());
+			//firmament.util.FLog.debug("deactivated:"+_entity.isActive());
 		}
 
 	public function  getPosition() {

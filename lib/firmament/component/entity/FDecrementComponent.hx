@@ -43,11 +43,11 @@ class FDecrementComponent extends FEntityComponent{
     }
 
     public function onDecEvent(e:FEvent){
-        trace("got click!");
+        firmament.util.FLog.debug("got click!");
         var h = _entity.getProp(_propertyName);
         h-=_decSize;
         if(h<=_min && !_triggered){
-            trace("you died");
+            firmament.util.FLog.debug("you died");
             h=_min;
             _triggered = true;
             _entity.setProp(_propertyName, h);

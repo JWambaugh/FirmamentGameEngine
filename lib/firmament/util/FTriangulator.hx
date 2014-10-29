@@ -149,7 +149,7 @@ class FTriangulator
 			
 			return null;
 		}
-		trace(res.length);
+		firmament.util.FLog.debug(res.length);
 		var triangleCount:Int = Math.floor(res.length/3);
 		for(x in 0...triangleCount){
 			triangles.push(

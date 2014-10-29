@@ -29,10 +29,14 @@ class FObject{
 	}
 
 	public function trigger(event:FEvent){
+
+        //if the event doesn't bubble and has been handled by another object already, then do nothing.
+        if(event.bubbles == false && event.handled)return;
 		var l = __listeners.get(event.name);
 		if(l != null){
+            event.handled = true; //default to event was handled by this object. Listener can set this to false to allow it to bubble further.
 			for(connection in l){
-				connection.callback(event);
+                connection.callback(event);
 			}
 		}
 	}
@@ -65,7 +69,7 @@ class FObject{
 			}
 			while(itemsToRemove.length>0){
 				var item = itemsToRemove.pop();
-				trace("Removing listener with target of "+Type.getClassName(Type.getClass(item.listeningObject))+" From "+Type.getClassName(Type.getClass(this)));
+				firmament.util.FLog.debug("Removing listener with target of "+Type.getClassName(Type.getClass(item.listeningObject))+" From "+Type.getClassName(Type.getClass(this)));
 				while(l.remove(item)){}
 			}
 			

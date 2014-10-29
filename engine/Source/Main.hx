@@ -24,7 +24,7 @@ class Main extends Sprite{
 		#if (flash9 || flash10)
 		haxe.Log.trace = function(v,?pos) { untyped __global__["trace"](pos.className+"#"+pos.methodName+"("+pos.lineNumber+"):",v); }
 		#elseif flash
-		haxe.Log.trace = function(v,?pos) { flash.Lib.trace(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"): "+v); }
+		haxe.Log.trace = function(v,?pos) { flash.Lib.firmament.util.FLog.debug(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"): "+v); }
 		#end
 	}
 
@@ -35,7 +35,7 @@ class Main extends Sprite{
 		this.addChild(splashScreen);
 		splashScreen.x = (stage.stageWidth - splashScreen.width) / 2;
 		splashScreen.y = (stage.stageHeight - splashScreen.height) / 2;
-		trace(splashScreen.x);
+		firmament.util.FLog.debug(splashScreen.x);
 	}
 
 	private function setupEngine(){
@@ -44,13 +44,13 @@ class Main extends Sprite{
 
 
 		var args = Sys.args();
-		trace(args);
+		firmament.util.FLog.debug(args);
 		var executableDir:String = Sys.executablePath();
 
 		//HACKS
 		Sys.setCwd("../../../../../../../");
-		trace(Sys.getCwd());
+		firmament.util.FLog.debug(Sys.getCwd());
 		//load the scene via script!!!
-		trace(game.executeFile("test.hx"));
+		firmament.util.FLog.debug(game.executeFile("test.hx"));
 	}
 }

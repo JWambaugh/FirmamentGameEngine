@@ -45,17 +45,17 @@ class FWireframeRenderComponent extends FEntityComponent implements FRenderCompo
 		camera.graphics.lineStyle(1,0xFF00FF);
 		var cameraPos = camera.getTopLeftPosition();
 		
-		//trace(cameraPos.y);
+		//firmament.util.FLog.debug(cameraPos.y);
 		
 		//draw entity location
 		camera.graphics.drawCircle((pos.x-cameraPos.x)*camera.getZoom(),(pos.y-cameraPos.y)*camera.getZoom(),5);
 		
 		var shapes:Array<FShape> = physicsComponent.getShapes();
-		//trace(shapes.length);
+		//firmament.util.FLog.debug(shapes.length);
 		for (shape in shapes) {
-			//trace(shape.getType());
+			//firmament.util.FLog.debug(shape.getType());
 			if (Std.is(shape,FPolygonShape)) {
-				//trace('poly!');
+				//firmament.util.FLog.debug('poly!');
 				var pshape:FPolygonShape = cast(shape);
 				var counter:Int = 0;
 				var pvec:FVector;

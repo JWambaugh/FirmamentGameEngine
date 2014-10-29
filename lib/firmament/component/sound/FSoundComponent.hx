@@ -50,7 +50,7 @@ class FSoundComponent extends FEntityComponent  {
 					soundChannel.soundTransform = transform;
 				}
 				else{
-					trace("Can't find sound "+Reflect.field(_events,event));
+					firmament.util.FLog.debug("Can't find sound "+Reflect.field(_events,event));
 				}
 
 			});

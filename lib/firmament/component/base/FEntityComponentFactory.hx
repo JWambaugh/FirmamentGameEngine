@@ -2,14 +2,18 @@ package firmament.component.base;
 
 import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
+import firmament.component.entity.FDecrementComponent;
+import firmament.component.entity.FDestroyEntityComponent;
 import firmament.component.event.FCollisionEventMapperComponent;
 import firmament.component.event.FEntityEmitterComponent;
 import firmament.component.event.FEventMapperComponent;
 import firmament.component.event.FEventRelayComponent;
+import firmament.component.event.FTimerComponent;
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.physics.FNoPhysicsComponent;
 import firmament.component.physics.FParticleComponent;
 import firmament.component.render.FLineRenderComponent;
+import firmament.component.render.FSpriteRenderComponent;
 import firmament.component.render.FTextRenderComponent;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.component.render.FWireframeRenderComponent;
@@ -20,9 +24,6 @@ import firmament.component.system.FEntityScriptComponent;
 import firmament.component.system.FSceneLoaderComponent;
 import firmament.component.ui.FButtonComponent;
 import firmament.component.ui.FEntityContainerComponent;
-import firmament.component.render.FSpriteRenderComponent;
-import firmament.component.entity.FDecrementComponent;
-import firmament.component.entity.FDestroyEntityComponent;
 
 
 class FEntityComponentFactory{
@@ -42,30 +43,30 @@ class FEntityComponentFactory{
 
 	public static function getClassFromType(type:String){
 		var map = {
-			"box2d":"firmament.component.physics.FBox2DComponent"
-			,"noPhysics":"firmament.component.physics.FNoPhysicsComponent"
-			,"particle":"firmament.component.physics.FParticleComponent"
-			,"wireframe":"firmament.component.render.FWireframeRenderComponent"
-			,"tilesheet":"firmament.component.render.FTilesheetRenderComponent"
-			,"line":"firmament.component.render.FLineRenderComponent"
-			,"animation":"firmament.component.animation.FAnimationComponent"
-			,"eventMapper":"firmament.component.event.FEventMapperComponent"
-			,"entityEmitter":"firmament.component.event.FEntityEmitterComponent"
-			,"eventRelay":"firmament.component.event.FEventRelayComponent"
-			,"collisionEventMapper":"firmament.component.event.FCollisionEventMapperComponent"
-			,"sound":"firmament.component.sound.FSoundComponent"
-			,"button":"firmament.component.ui.FButtonComponent"
-			,"sceneLoader":"firmament.component.system.FSceneLoaderComponent"
-			,"state":"firmament.component.system.FStateComponent"
-			,"entityContainer":"firmament.component.ui.FEntityContainerComponent"
-			,"followSpline":"firmament.component.spline.FSimpleFollowSplineComponent"
-			,"text":"firmament.component.render.FTextRenderComponent"
-			,"componentFactory":"firmament.component.system.FComponentFactoryComponent"
-			,"script":"firmament.component.system.FEntityScriptComponent"
-			,"sprite":"firmament.component.render.FSpriteRenderComponent"
+            "animation":"firmament.component.animation.FAnimationComponent"
+            ,"box2d":"firmament.component.physics.FBox2DComponent"
+            ,"button":"firmament.component.ui.FButtonComponent"
+            ,"collisionEventMapper":"firmament.component.event.FCollisionEventMapperComponent"
+            ,"componentFactory":"firmament.component.system.FComponentFactoryComponent"
             ,"decrement":"firmament.component.entity.FDecrementComponent"
             ,"destroy":"firmament.component.entity.FDestroyEntityComponent"
-
+            ,"entityContainer":"firmament.component.ui.FEntityContainerComponent"
+            ,"entityEmitter":"firmament.component.event.FEntityEmitterComponent"
+            ,"eventMapper":"firmament.component.event.FEventMapperComponent"
+            ,"eventRelay":"firmament.component.event.FEventRelayComponent"
+            ,"followSpline":"firmament.component.spline.FSimpleFollowSplineComponent"
+            ,"line":"firmament.component.render.FLineRenderComponent"
+            ,"noPhysics":"firmament.component.physics.FNoPhysicsComponent"
+            ,"particle":"firmament.component.physics.FParticleComponent"
+            ,"sceneLoader":"firmament.component.system.FSceneLoaderComponent"
+            ,"script":"firmament.component.system.FEntityScriptComponent"
+            ,"sound":"firmament.component.sound.FSoundComponent"
+            ,"sprite":"firmament.component.render.FSpriteRenderComponent"
+            ,"state":"firmament.component.system.FStateComponent"
+            ,"text":"firmament.component.render.FTextRenderComponent"
+            ,"tilesheet":"firmament.component.render.FTilesheetRenderComponent"
+            ,"timer":"firmament.component.event.FTimerComponent"
+            ,"wireframe":"firmament.component.render.FWireframeRenderComponent"
 		};
 
 		var cls = Reflect.field(map,type);

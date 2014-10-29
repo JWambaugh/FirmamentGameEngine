@@ -76,7 +76,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	}
 
 	override public function init(config:Dynamic){
-		//trace(Std.string(config));
+		//firmament.util.FLog.debug(Std.string(config));
 		this._config = config;
 		var ch = getConfigHelper();
 		initTilesheet();
@@ -292,13 +292,13 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		};
 		var lineHeight:Float = cast(_config['lineHeight'],Float)/this.imageScale;
 		_positionData.height = lineHeight;
-		//trace("preparting for text: "+_text);
+		//firmament.util.FLog.debug("preparting for text: "+_text);
 		for(index in 0..._text.length){
 
 			var letter = _text.charAt(index);
 			var letterConfig = Reflect.field(_config['glyphs'],letter);
 			var advance:Int = letterConfig.advance;
-			if(letter == ' ')trace('got a space');
+			if(letter == ' ')firmament.util.FLog.debug('got a space');
 			if(letterConfig == null) throw("No glyph config found for "+letter);
 			var nextLetter = _text.charAt(index+1);
 			var tile = _tilePrefix + letter;
@@ -313,14 +313,14 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 				,xOffset:_positionData.width+(cast(letterConfig.offset.x,Float)/this.imageScale)
 				,yOffset: lineHeight/2 - (cast(letterConfig.offset.y,Float)/this.imageScale)/2
 			};
-			//trace("yOffset = "+letterData.yOffset);
+			//firmament.util.FLog.debug("yOffset = "+letterData.yOffset);
 			if(nextLetter != null){
 				var kerning = Reflect.field(letterConfig.kerning,nextLetter);
 				if(Std.is(kerning,Int)){
 					_positionData.width+=cast(kerning,Float)/this.imageScale;
 				}
 			}
-			if(letter == ' ')trace("xAdvance: "+cast(letterConfig.xAdvance,Float)/this.imageScale);
+			if(letter == ' ')firmament.util.FLog.debug("xAdvance: "+cast(letterConfig.xAdvance,Float)/this.imageScale);
 			_positionData.letters.push(letterData);
 			_positionData.width+=(cast(letterConfig.xAdvance,Float)/this.imageScale);
 		}

@@ -28,7 +28,6 @@ class FEntityPool {
 			var ent:FEntity = FEntityFactory.createEntity(_entityConfig);
 			ent.setPool(this);
 			ent.returnToPool();
-
 		}
 	}
 
@@ -37,7 +36,7 @@ class FEntityPool {
 	}
 
 	public function getEntity():FEntity{
-		//trace(_entityConfig.typeId+"poolSize: "+_entities.length);
+		//firmament.util.FLog.debug(_entityConfig.typeId+"poolSize: "+_entities.length);
 		var ent = _entities.pop();
 
 		if(ent!=null) {

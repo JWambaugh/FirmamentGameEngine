@@ -34,7 +34,7 @@ class FSplineTweener extends FProcess {
 		_changeAngle = parameters.get("changeAngle",Bool,true);
 		var args:Array<Dynamic> = parameters.get('points',Array,[]);
 		for ( pt in args ) {
-		    //trace(pt[0],",",pt[1]);
+		    //firmament.util.FLog.debug(pt[0],",",pt[1]);
 		    points.push( new FVector(pt[0],pt[1]) );
 		}
 		spline = new CatmullRom(points, totalTime);
@@ -107,7 +107,7 @@ class FSplineTweener extends FProcess {
 
 	public function render() {
 		if(_draw == false) { return; }
-		//trace( Type.getClassName(Type.getClass(this)));
+		//firmament.util.FLog.debug( Type.getClassName(Type.getClass(this)));
 
         var points:Array<FVector> = spline.getPoints();
 

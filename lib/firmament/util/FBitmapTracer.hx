@@ -42,7 +42,7 @@ class FBitmapTracer
 	}
 	
 	public function getPolys() {
-		var verts = this.trace();
+		var verts = this.firmament.util.FLog.debug();
 		return this.vertexesToPolys(verts);
 	}
 	
@@ -89,24 +89,24 @@ class FBitmapTracer
 		}
 		//center all vectors
 		var diff = new FVector();
-		trace("min: " + min.x + " " + min.y);
-		trace("max: " + max.x + " " + max.y);
+		firmament.util.FLog.debug("min: " + min.x + " " + min.y);
+		firmament.util.FLog.debug("max: " + max.x + " " + max.y);
 		diff.x = (min.x - max.x )/2 - min.x;
 		diff.y = (min.y - max.y) / 2 - min.y;
-		trace("diff: " + diff.x + " " + diff.y);
-		trace("before: " + vectors[0].x + " " + vectors[0].y);
+		firmament.util.FLog.debug("diff: " + diff.x + " " + diff.y);
+		firmament.util.FLog.debug("before: " + vectors[0].x + " " + vectors[0].y);
 		for (vect in vectors) {
 			vect.x += diff.x;
 			vect.y += diff.y;
 		}
-		trace("after: " + vectors[0].x + " " + vectors[0].y);
+		firmament.util.FLog.debug("after: " + vectors[0].x + " " + vectors[0].y);
 		
 		
 		return vectors;
 	}
 	
 	
-	private function trace():Array<FTracerVertex> {
+	private function firmament.util.FLog.debug():Array<FTracerVertex> {
 		var vArray:Array<FTracerVertex> = new Array<FTracerVertex>();
 		
 		//get first edge

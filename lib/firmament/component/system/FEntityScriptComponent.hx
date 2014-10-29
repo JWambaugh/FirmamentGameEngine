@@ -35,7 +35,7 @@ class FEntityScriptComponent extends FEntityComponent {
 						break;
 				}
 			}
-			trace("Processing <"+event+"> -> " + scriptText );
+			firmament.util.FLog.debug("Processing <"+event+"> -> " + scriptText );
 			if( scriptText != null ) {
 				on(_entity,event,this,function(e:FEvent){
 					return _entity.getGameInstance().eval(scriptText);

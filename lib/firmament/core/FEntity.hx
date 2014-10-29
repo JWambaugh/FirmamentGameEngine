@@ -302,7 +302,6 @@ class FEntity extends FObject
             var props = c.getProperties();
             for (p in props){
                 if(!hasProperty(p.key)){
-                    trace('registered '+p.key);
                     registerProp(p.key,p.type,p.getter,p.setter);
                 }
             }

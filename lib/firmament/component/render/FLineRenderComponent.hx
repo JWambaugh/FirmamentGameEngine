@@ -76,7 +76,7 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 			,new FVector(0,-10)
 		);
 
-		trace(_tile);
+		firmament.util.FLog.debug(_tile);
 	}
 	
 
@@ -95,7 +95,7 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 			}else{
 				var bd:BitmapData=null;
 				if(Std.is(image,String)){
-					//trace("image: " + Std.string(image));
+					//firmament.util.FLog.debug("image: " + Std.string(image));
 					if(Assets.exists(cast(image,String))){
 						bd = Assets.getBitmapData(cast(image,String));
 					}
@@ -127,7 +127,7 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 		if(!_entity.isActive())return;
 
 		if (_tilesheet == null) {
-			trace('tilesheet is null');
+			firmament.util.FLog.debug('tilesheet is null');
 			return;
 		}
 
@@ -236,7 +236,7 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 		_endPoint = end;
 		_angle = _startPoint.angleTo(_endPoint);
 		_distanceBetween = _startPoint.distanceTo(end);
-		//trace(_distanceBetween);
+		//firmament.util.FLog.debug(_distanceBetween);
 
 
 	}

@@ -37,7 +37,7 @@ class FEntityContainerComponent extends FEntityComponent  {
 				if(Std.is(ent,String)){
 					ent = FDataLoader.loadData(ent);
 				}
-				//trace(Std.string(ent));
+				//firmament.util.FLog.debug(Std.string(ent));
 				var childEntity = FEntityFactory.createEntity(ent,_entity.getGameInstance().getInstanceName());
 				this.addEntity(childEntity);
 			}

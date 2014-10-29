@@ -111,10 +111,11 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		else if(image !=null){
 			if(Std.is(image,FTilesheet)){
 				_tilesheet = cast(image);
+                firmament.util.FLog.warning('using tilesheet '+_tilesheet.getId());
 			}else{
 				var bd:BitmapData = null;
 				if(Std.is(image,String)){
-					//trace("image: " + Std.string(image));
+					//firmament.util.FLog.debug("image: " + Std.string(image));
 					if(Assets.exists(cast(image,String))){
 						bd = Assets.getBitmapData(cast(image,String));
 					}
@@ -148,7 +149,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		if(!_entity.isActive())return;
 
 		if (_tilesheet == null) {
-			trace('tilesheet is null');
+			firmament.util.FLog.debug('tilesheet is null');
 			return;
 		}
 

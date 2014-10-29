@@ -66,7 +66,7 @@ class FirmamentEditor
 	    #if (flash9 || flash10)
 		haxe.Log.trace = function(v,?pos) { untyped __global__["trace"](pos.className+"#"+pos.methodName+"("+pos.lineNumber+"):",v); }
 		#elseif flash
-		haxe.Log.trace = function(v,?pos) { flash.Lib.trace(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"): "+v); }
+		haxe.Log.trace = function(v,?pos) { flash.Lib.firmament.util.FLog.debug(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"): "+v); }
 		#end
 
 
@@ -74,7 +74,7 @@ class FirmamentEditor
 
 		if(Sys.getEnv("FirmamentEditorCWD") != null && Sys.getEnv("FirmamentEditorCWD") != ""){
 			Sys.setCwd(Sys.getEnv("FirmamentEditorCWD"));
-			trace("set cwd to "+Sys.getEnv("FirmamentEditorCWD"));
+			firmament.util.FLog.debug("set cwd to "+Sys.getEnv("FirmamentEditorCWD"));
 		}
 
 		if(Sys.getEnv("FirmamentEditorPath") != null && Sys.getEnv("FirmamentEditorPath") != ""){
@@ -90,8 +90,8 @@ class FirmamentEditor
 		//set styles
 
 		cwd = Sys.getCwd();
-		trace(executableDir);
-		trace(cwd);
+		firmament.util.FLog.debug(executableDir);
+		firmament.util.FLog.debug(cwd);
 		//temporarily changeworking directory while we load our font
 		Sys.setCwd(executableDir);
 	
@@ -132,7 +132,7 @@ class FirmamentEditor
             root.addChild(new MainMenuController().view);
             //root.style.alpha=0;
             //var button:Button = _root.findChild('button1',Button,true);
-            //button.addEventListener(MouseEvent.CLICK,function(e:Event){trace('clicked!');});
+            //button.addEventListener(MouseEvent.CLICK,function(e:Event){firmament.util.FLog.debug('clicked!');});
 
 
             
@@ -180,7 +180,7 @@ class FirmamentEditor
 		
 		//enable auto resize
 		stage.addEventListener(Event.RESIZE, function(e:Event) { camera.resizeToStage(); } );
-		trace(stage.stageWidth);
+		firmament.util.FLog.debug(stage.stageWidth);
 		
 		camera.addEventListener(MouseEvent.MOUSE_DOWN, function(e:MouseEvent) { 
 			var point:FVector = camera.getWorldPosition(e.localX, e.localY);
@@ -190,7 +190,7 @@ class FirmamentEditor
 					var bc = b.getPhysicsComponent();
 					var ac = a.getPhysicsComponent();
 					if(bc == null || ac == null){
-						trace('null physics component!');
+						firmament.util.FLog.debug('null physics component!');
 						return 0;
 					}
 					
@@ -201,9 +201,9 @@ class FirmamentEditor
 						} else if (cmp > 0) return 1;
 						return -1;
 					}catch(e:Dynamic){
-						trace('exception: '+e);
-						trace(Type.getClass(bc));
-						trace(Type.getClass(ac));
+						firmament.util.FLog.debug('exception: '+e);
+						firmament.util.FLog.debug(Type.getClass(bc));
+						firmament.util.FLog.debug(Type.getClass(ac));
 						return 0;
 					}
 					
@@ -231,7 +231,7 @@ class FirmamentEditor
 		
 		game.on(FGame.BEFORE_STEP, function(e:Event) {
 			
-			//trace(input.getStageX());
+			//firmament.util.FLog.debug(input.getStageX());
 			
 			if (input.isKeyPressed(38)) {
 				camera.setPosition(new FVector(camera.getPositionX(),camera.getPositionY()-.2));
