@@ -121,12 +121,22 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 		_entities.sort(f);
 	}
 
-    public function sortByZPosition(){
+    public function sortByPropertyAsc(property:String){
         sort(function(x,y){
-            var xz=x.getProp("positionZ");
-            var yz=y.getProp("positionZ");
+            var xz=x.getProp(property);
+            var yz=y.getProp(property);
             if(xz<yz)return 1;
             if(xz>yz)return -1;
+            return 0;
+        });
+    }
+
+    public function sortByPropertyDesc(property:String){
+        sort(function(x,y){
+            var xz=x.getProp(property);
+            var yz=y.getProp(property);
+            if(xz>yz)return 1;
+            if(xz<yz)return -1;
             return 0;
         });
     }
