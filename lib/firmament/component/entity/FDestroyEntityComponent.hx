@@ -21,7 +21,7 @@ class FDestroyEntityComponent extends FEntityComponent{
 
     override public function init(config:firmament.core.FConfig){
         _destroyAction = config.get("destroyAction",String,"destroy");
-        var event:String = config.getNotNull("event",String);
+        var event:String = config.getNotNull("listen",String);
         _entity.on(event,destroyEvent);
     }
 

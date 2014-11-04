@@ -23,7 +23,7 @@ class FTimerComponent extends FEntityComponent{
         var startOn:String = config.get('startOn',String);
         
         var callbackFunc = function(){
-            _entity.trigger(new FEvent(config.getNotNull('event',String)));
+            _entity.trigger(new FEvent(config.getNotNull('trigger',String)));
         }
 
         var startTimerFunc = function(E:FEvent=null){
