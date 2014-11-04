@@ -64,15 +64,15 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		registerEventHandlers();
 		
 		
-		_position = config.getVector('position');
+		_position = config.getVector('position',_position);
 		_width = config.getNotNull('width',Float);
 		_height = config.getNotNull('height',Float);
-		_linearVelocity = config.getVector('linearVelocity');
-		_angularVelocity = config.get('angularVelocity',Float,0);
+		_linearVelocity = config.getVector('linearVelocity',_linearVelocity);
+		_angularVelocity = config.get('angularVelocity',Float,_angularVelocity);
 		_angle = config.get('angle');
-		_fixedRotation = config.get('fixedRotation',Bool,false);
+		_fixedRotation = config.get('fixedRotation',Bool,_fixedRotation);
 		_allowSleep = config.get('allowSleep',Bool,true);
-		_positionZ = config.get('positionZ');
+		_positionZ = config.get('positionZ',Float,_positionZ);
 
 
 		if (config.hasField('maxLifeSeconds')) {
