@@ -315,5 +315,13 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	public function destruct(){
 		parent.removeChild(this);
 	}
+
+    public function getDisplayWidth(){
+        return _displayWidth;
+    }
+
+     public function getDisplayHeight(){
+        return _displayHeight;
+    }
 	
 }

@@ -218,16 +218,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 	}
 	
 	public function getBitmapData():BitmapData{
-		var sprite:Sprite = new Sprite();
-		var index =0;
-		drawList[index] = _tilesheet.getRectangle(_tile).width/2;
-		drawList[index + 1] = _tilesheet.getRectangle(_tile).height/2;
-		drawList[index + 2] = this._tile; // sprite index
-		drawList[index + 3] = 1;
-		_tilesheet.drawTiles(sprite.graphics, drawList, true, Tilesheet.TILE_ALPHA);
-		var bd:BitmapData = new BitmapData(Std.int(sprite.width),Std.int(sprite.height));
-		bd.draw(sprite);
-		return bd;
+		return _tilesheet.getTileBitmap(_tile);
 	}
 	
 	override public function getType():String {

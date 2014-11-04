@@ -220,24 +220,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	}
 	
 	public function getBitmapData():BitmapData{
-		var sprite:Sprite = new Sprite();
-		var tempAlignment = _textAlign;
-
-		_textAlign='left';
-		calculatePositions();
-		var drawList:Array<Float> = new Array();
-		for(letter in _positionData.letters){
-			drawList[0] = letter.xOffset*100;
-			drawList[1] = (letter.yOffset+_positionData.height)*100;
-			drawList[2] = letter.tile; // sprite index
-			drawList[3] = 1;
-			_tilesheet.drawTiles(sprite.graphics, drawList, true, Tilesheet.TILE_ALPHA);
-		}
-		var bd:BitmapData = new BitmapData(Std.int(sprite.width),Std.int(sprite.height));
-		bd.draw(sprite);
-		_textAlign = tempAlignment;
-		calculatePositions();
-		return bd;
+        return _tilesheet.getTileBitmap(_positionData.letters[0].tile);
 	}
 	
 	override public function getType():String {

@@ -11,6 +11,7 @@ import firmament.core.FConfig;
 import firmament.util.ResourceLoader;
 #end
 
+
 typedef SpriteTilesheet = {
 	var tilesheetId:Int;
 	var tileId:Int;
@@ -27,7 +28,8 @@ class FTilesheetManager {
 	var idCounter:Int;
 	var tilesheets:Map<Int,FTilesheet>;
 	var _orderedTilesheets:Array<FTilesheet>;
-
+ 
+    
 	//tracks which tilesheet an asset is in
 	var tilesheetMap:Map<String,SpriteTilesheet>;
 
