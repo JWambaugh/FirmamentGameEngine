@@ -72,22 +72,22 @@ abstract FConfig({}) from {} to {} {
 
 
     private function parseFloatObject(v:Dynamic):Float{
-        if(!Reflect.hasField(v,"min") && !Reflect.hasField(v,"max")){
+        if(!Reflect.hasField(v,"*min*") && !Reflect.hasField(v,"*max*")){
              FLog.error("Can't find min and max for Float in object"+Std.string(v)+". Returning 0.");
              return 0;
         }
-        var min:Float = Reflect.field(v,"min");
-        var max:Float = Reflect.field(v,"max");
+        var min:Float = Reflect.field(v,"*min*");
+        var max:Float = Reflect.field(v,"*max*");
         return min+Math.random()*(max-min);
     }
 
     private function parseIntObject(v:Dynamic):Int{
-       if(!Reflect.hasField(v,"min") && !Reflect.hasField(v,"max")){
+       if(!Reflect.hasField(v,"*min*") && !Reflect.hasField(v,"*max*")){
              FLog.error("Can't find min and max for Int in object"+Std.string(v)+". Returning 0.");
              return 0;
         }
-        var min:Int = Reflect.field(v,"min");
-        var max:Int = Reflect.field(v,"max");
+        var min:Int = Reflect.field(v,"*min*");
+        var max:Int = Reflect.field(v,"*max*");
         firmament.util.FLog.debug("RandomInt: min"+min+" max"+max);
         return min+Math.floor(Math.random()*(max-min));
     }

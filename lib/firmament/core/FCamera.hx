@@ -14,6 +14,7 @@ import firmament.component.render.FWireframeRenderComponent;
 import firmament.util.FConfigHelper;
 import firmament.core.FGame;
 import firmament.core.FConfig;
+import firmament.event.FMouseEvent;
 import firmament.tilesheet.FTilesheetRenderHelper;
 /**
  * Class: FCamera
@@ -302,7 +303,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	private function onClick(e:MouseEvent){
 		var ents = _game.getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
         ents.sortByPropertyAsc("positionZ");
-        var event = new FEvent(MouseEvent.CLICK);
+        var event = new FMouseEvent(MouseEvent.CLICK, this, new firmament.core.FVector(e.localX, e.localY));
         event.bubbles = false;
 		for(ent in ents){
 			if(ent.isActive()){
@@ -310,6 +311,11 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 			}
 
 		}
+
+        //send event to scene components
+        var event = new FMouseEvent(MouseEvent.CLICK, this, new firmament.core.FVector(e.localX, e.localY));
+        _game.getCurrentScene().trigger(event);
+
 	}
 
 	public function destruct(){
