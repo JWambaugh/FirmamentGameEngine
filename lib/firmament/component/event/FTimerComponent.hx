@@ -21,14 +21,10 @@ class FTimerComponent extends FEntityComponent{
 
     override public function init(config:FConfig){
         var startOn:String = config.get('startOn',String);
-        
-        var callbackFunc = function(){
-            _entity.trigger(new FEvent(config.getNotNull('trigger',String)));
-        }
 
         var startTimerFunc = function(E:FEvent=null){
             var tm = _entity.getGameInstance().getGameTimerManager();
-            timer = tm.addTimer(config.getNotNull('seconds',Float),callbackFunc,this);
+            timer = tm.addTimer(config.getNotNull('seconds',Float),this.triggerOnExpire,this);
         }
 
         //start timer now unless specified
@@ -50,14 +46,15 @@ class FTimerComponent extends FEntityComponent{
                 if(timer!=null)timer.cancel();
                 timer = null;
             }
-
         });
 
-        
     }
 
     override public function getType(){
         return "timer";
-    }   
+    }
 
+    private function triggerOnExpire(){
+        _entity.trigger(new FEvent(this._config.getNotNull('trigger',String)));
+    }
 }
