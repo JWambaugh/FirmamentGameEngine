@@ -53,7 +53,11 @@ abstract FConfig({}) from {} to {} {
                     }
                     else if(type==Float && Reflect.isObject(entry)){
                         return parseFloatObject(entry);
-                    } else{
+                    } 
+                    else if(type==String && Reflect.isObject(entry)){
+                        return parseStringObject(entry);
+                    } 
+                    else{
                         FLog.warning("field "+field+" is not type expected! Returning default.");
                         return def;
                     }
@@ -72,24 +76,39 @@ abstract FConfig({}) from {} to {} {
 
 
     private function parseFloatObject(v:Dynamic):Float{
-        if(!Reflect.hasField(v,"*min*") && !Reflect.hasField(v,"*max*")){
-             FLog.error("Can't find min and max for Float in object"+Std.string(v)+". Returning 0.");
-             return 0;
+        if(Reflect.hasField(v,"*min*") && Reflect.hasField(v,"*max*")){
+            var min:Float = Reflect.field(v,"*min*");
+            var max:Float = Reflect.field(v,"*max*");
+            return min+Math.random()*(max-min);
         }
-        var min:Float = Reflect.field(v,"*min*");
-        var max:Float = Reflect.field(v,"*max*");
-        return min+Math.random()*(max-min);
+        if(Reflect.hasField(v,"random")){
+            var a:Array<Float> = cast Reflect.field(v,"random");
+            return a[Math.floor(Math.random()*a.length-1)];
+        }
+        return 0.0;
     }
 
     private function parseIntObject(v:Dynamic):Int{
-       if(!Reflect.hasField(v,"*min*") && !Reflect.hasField(v,"*max*")){
-             FLog.error("Can't find min and max for Int in object"+Std.string(v)+". Returning 0.");
-             return 0;
+       if(Reflect.hasField(v,"*min*") && Reflect.hasField(v,"*max*")){
+            var min:Int = Reflect.field(v,"*min*");
+            var max:Int = Reflect.field(v,"*max*");
+            return min+Math.floor(Math.random()*(max-min));
         }
-        var min:Int = Reflect.field(v,"*min*");
-        var max:Int = Reflect.field(v,"*max*");
-        firmament.util.FLog.debug("RandomInt: min"+min+" max"+max);
-        return min+Math.floor(Math.random()*(max-min));
+        if(Reflect.hasField(v,"random")){
+            var a:Array<Int> = cast Reflect.field(v,"random");
+            return a[Math.floor(Math.random()*a.length-1)];
+        }
+        return 0;
+        
+    }
+
+    private function parseStringObject(v:Dynamic):String{
+       
+        if(Reflect.hasField(v,"random")){
+            var a:Array<String> = cast Reflect.field(v,"random");
+            return a[Math.floor(Math.random()*a.length-1)];
+        }
+        return "";
     }
 
 	private function vectorFromDynamic(d:Dynamic):FVector{
