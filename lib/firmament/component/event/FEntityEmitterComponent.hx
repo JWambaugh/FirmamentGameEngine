@@ -23,7 +23,7 @@ class FEntityEmitterComponent extends FEntityComponent{
 
 	override public function init(config:FConfig){
 
-		on(_entity,config.get('listen',String),function(e:FEvent){
+		on(_entity,config.get('listen',String),this,function(e:FEvent){
             
             var amount:Int = config.get('amount', Int, 1);
             FLog.debug("amount to spawn: "+amount);

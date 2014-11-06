@@ -68,9 +68,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		else if(Reflect.isObject(config.position) && Std.is(config.position.x,Float) && Std.is(config.position.y,Float)){
 			def.position = new B2Vec2(config.position.x,config.position.y);
 		}
-		else {
-			def.position = new B2Vec2(0,0);
-		}
+		
 		def.userData = this;
 		
 		
@@ -331,14 +329,15 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	}
 
 	public function setPositionXY(x:Float,y:Float){
-		this.position.set(x,y);
+		setPosition(new FVector(x,y));
 	}
 
 	public function setPositionX(x:Float){
-		this.position.set(x,this.position.y);
+        setPosition(new FVector(x,this.position.y));
+	
 	}
 	public function setPositionY(y:Float){
-		this.position.set(this.position.x,y);
+        setPosition(new FVector(this.position.x,y));
 	}
 
 	public function getPositionX():Float{
@@ -390,7 +389,10 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	}
 
 	public function setAngularVelocity(omega:Float):Void {
-	    this.body.setAngularVelocity(omega);	
+        if(body!=null)
+	       this.body.setAngularVelocity(omega);	
+        else
+            def.angularVelocity =omega;
 	}
 
 	public function getAngularVelocity():Float {
