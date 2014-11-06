@@ -44,6 +44,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	private var position:FVector;
 	private var world:FWorld;
 	private var _parentEntity:FEntity;
+    private var def:B2BodyDef;
 	public function new() 
 	{
 		super();
@@ -52,12 +53,13 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		positionZ = 0;
 		_parentEntity = null;
         this.world = null;
+        def = new B2BodyDef();
 	}
 	
 	override public function init(config:Dynamic):Void {
 		this.world = _entity.getGameInstance().getWorld("box2d");
 		registerEventHandlers();
-		var def:B2BodyDef = new B2BodyDef();
+		
 		var fixtureDef:B2FixtureDef = new B2FixtureDef();
 		
 		if(Std.is(config.position,FVector)){
@@ -67,7 +69,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 			def.position = new B2Vec2(config.position.x,config.position.y);
 		}
 		else {
-			def.position = cast(new FVector(0, 0),B2Vec2);
+			def.position = new B2Vec2(0,0);
 		}
 		def.userData = this;
 		
@@ -319,8 +321,13 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	}
 	
 	public function setPosition(pos:FVector) {
-		this.body.setPosition(new B2Vec2(pos.x, pos.y));
-		this.position=pos;
+        this.position=pos;
+        var p = new B2Vec2(pos.x, pos.y);
+        if(body!=null)
+		  this.body.setPosition(p);
+        else
+            def.position = p;
+		
 	}
 
 	public function setPositionXY(x:Float,y:Float){
@@ -343,7 +350,11 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	}
 	
 	public function setAngle(a:Float):Void {
-		this.body.setAngle(a);
+        if(body!=null)
+            this.body.setAngle(a);
+        else
+            def.angle = a;
+
 	}
 	
 	public function getAngle():Float {
@@ -365,8 +376,13 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	}
 	
 	public function setLinearVelocity(vel:FVector) {
-		this.body.setAwake(true);
-		this.body.setLinearVelocity(new B2Vec2(vel.x, vel.y));
+        var v =new B2Vec2(vel.x, vel.y);
+        if(body!=null){
+    		this.body.setAwake(true);
+    		this.body.setLinearVelocity(v);
+        }else{
+            def.linearVelocity = v;
+        }
 	}
 	
 	public function getLinearVelocity():FVector {
