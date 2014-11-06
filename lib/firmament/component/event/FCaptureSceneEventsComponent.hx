@@ -27,13 +27,13 @@ class FCaptureSceneEventsComponent extends FEntityComponent{
 		var scene:FScene = FGame.getInstance().getCurrentScene();
 	    var events:Array<String> = config.getNotNull("events");
 		for(event in events) {
-			FLog.msg("Adding entity listener for " + event);
-			scene.on(scene,event,this.bubbleEvent);
+			FLog.debug("Adding entity listener for " + event);
+			scene.on(event,this,this.bubbleEvent);
 		}
 	}
 
 	public function bubbleEvent(e:FEvent) {
-	    FLog.msg("Bubbling event " + e);
+	    FLog.debug("Bubbling event " + e);
 		_entity.trigger(e);
 	}
 
