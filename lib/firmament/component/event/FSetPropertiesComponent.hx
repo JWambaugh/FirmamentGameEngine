@@ -25,19 +25,12 @@ class FSetPropertiesComponent extends FEntityComponent{
         // walk through the properties
         var fields:Array<String> = Reflect.fields(properties);
         for( key in fields ) {
-            var value:Dynamic = null;
-            switch(key){
-                case "positionY":
-                    value = properties.get(key,Int);
-                case "speed":
-                    value = properties.get(key,Float);
-                default:
-                    value = properties.get(key);
-            }
             try {
-                _entity.setPropertyValue( key, value );
-            } catch(e : Dynamic) {
-                FLog.error( haxe.Json.stringify(e) );
+                var eprop = _entity.getProperty(key);
+                _entity.setPropertyValue( 
+                        key, properties.get(key, eprop.type ) );
+            } catch (e : Dynamic) {
+                FLog.error( e );
             }
         }
 

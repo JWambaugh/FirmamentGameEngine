@@ -26,6 +26,7 @@ import firmament.component.system.FEntityScriptComponent;
 import firmament.component.system.FSceneLoaderComponent;
 import firmament.component.ui.FButtonComponent;
 import firmament.component.ui.FEntityContainerComponent;
+import firmament.component.event.FCaptureSceneEventsComponent;
 
 
 class FEntityComponentFactory{
@@ -71,6 +72,7 @@ class FEntityComponentFactory{
             ,"loopingTimer":"firmament.component.event.FLoopingTimerComponent"
             ,"wireframe":"firmament.component.render.FWireframeRenderComponent"
             ,"setProperties":"firmament.component.event.FSetPropertiesComponent"
+            ,"captureSceneEvents":"firmament.component.event.FCaptureSceneEventsComponent"
 		};
 
 		var cls = Reflect.field(map,type);
