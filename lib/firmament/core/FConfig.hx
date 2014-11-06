@@ -83,7 +83,7 @@ abstract FConfig({}) from {} to {} {
         }
         if(Reflect.hasField(v,"random")){
             var a:Array<Float> = cast Reflect.field(v,"random");
-            return a[Math.floor(Math.random()*a.length-1)];
+            return a[Math.floor(Math.random()*a.length)];
         }
         return 0.0;
     }
@@ -96,7 +96,9 @@ abstract FConfig({}) from {} to {} {
         }
         if(Reflect.hasField(v,"random")){
             var a:Array<Int> = cast Reflect.field(v,"random");
-            return a[Math.floor(Math.random()*a.length-1)];
+            var key = Math.floor(Math.random()* a.length);
+            FLog.debug('using key '+key);
+            return a[key];
         }
         return 0;
         
@@ -106,7 +108,7 @@ abstract FConfig({}) from {} to {} {
        
         if(Reflect.hasField(v,"random")){
             var a:Array<String> = cast Reflect.field(v,"random");
-            return a[Math.floor(Math.random()*a.length-1)];
+            return a[Math.floor(Math.random()*a.length)];
         }
         return "";
     }
