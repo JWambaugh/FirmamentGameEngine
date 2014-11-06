@@ -10,6 +10,7 @@ import firmament.component.event.FEventMapperComponent;
 import firmament.component.event.FEventRelayComponent;
 import firmament.component.event.FTimerComponent;
 import firmament.component.event.FLoopingTimerComponent;
+import firmament.component.event.FSetPropertiesComponent;
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.physics.FNoPhysicsComponent;
 import firmament.component.physics.FParticleComponent;
@@ -67,8 +68,9 @@ class FEntityComponentFactory{
             ,"text":"firmament.component.render.FTextRenderComponent"
             ,"tilesheet":"firmament.component.render.FTilesheetRenderComponent"
             ,"timer":"firmament.component.event.FTimerComponent"
-            ,"loopingtimer":"firmament.component.event.FLoopingTimerComponent"
+            ,"loopingTimer":"firmament.component.event.FLoopingTimerComponent"
             ,"wireframe":"firmament.component.render.FWireframeRenderComponent"
+            ,"setProperties":"firmament.component.event.FSetPropertiesComponent"
 		};
 
 		var cls = Reflect.field(map,type);

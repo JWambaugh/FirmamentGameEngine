@@ -1,6 +1,7 @@
 
 package firmament.component.event;
 
+import firmament.util.FLog;
 import firmament.component.base.FEntityComponent;
 import firmament.core.FConfig;
 import firmament.core.FEntity;
@@ -28,10 +29,11 @@ class FTimerComponent extends FEntityComponent{
         }
 
         //start timer now unless specified
-        if(startOn == null && !_entity.isActive()){
+        if(startOn == null && _entity.isActive()){
+            FLog.debug("Starting timer");
             startTimerFunc();
-               
         }else{
+            FLog.debug("Delaying timer start");
             _entity.on(startOn,this,startTimerFunc);
         }
 
@@ -39,11 +41,15 @@ class FTimerComponent extends FEntityComponent{
         _entity.on(FEntity.ACTIVE_STATE_CHANGE,this,function(e:FEvent){
             if(_entity.isActive()){
                 if(config.get('startOn',String)==null){
+                    FLog.debug("Starting timer");
                     startTimerFunc();
                 }
             
             }else{
-                if(timer!=null)timer.cancel();
+                if(timer!=null) {
+                    FLog.debug("Stopping timer");
+                    timer.cancel();
+                }
                 timer = null;
             }
         });

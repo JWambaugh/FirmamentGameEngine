@@ -5,6 +5,7 @@ import firmament.component.base.FEntityComponent;
 import firmament.core.FConfig;
 import firmament.core.FEntity;
 import firmament.core.FEvent;
+import firmament.util.FLog;
 import firmament.process.timer.FTimer;
 /*
     Class: FEventMapperComponent
@@ -23,20 +24,37 @@ class FSetPropertiesComponent extends FEntityComponent{
     
         // walk through the properties
         var fields:Array<String> = Reflect.fields(properties);
-        for( var key in fields ) {
-            _entity.setPropertyValue( key, properties.get(key) ); // what is the type??
+        for( key in fields ) {
+            var value:Dynamic = null;
+            switch(key){
+                case "positionY":
+                    value = properties.get(key,Int);
+                case "speed":
+                    value = properties.get(key,Float);
+                default:
+                    value = properties.get(key);
+            }
+            try {
+                _entity.setPropertyValue( key, value );
+            } catch(e : Dynamic) {
+                FLog.error( haxe.Json.stringify(e) );
+            }
         }
 
         // trigger event
-        _entity.trigger(new FEvent(this._config.getNotNull('trigger',String)));
+        try {
+            _entity.trigger(
+                new FEvent(this._config.getNotNull('trigger',String)));
+        } catch(e:Dynamic) {
+            FLog.error( e );
+        }
     }
 
     override public function init(config:FConfig){
-
         properties = config.getNotNull('properties');
 
         var eventListen:String = config.getNotNull('listen',String);
-        if( eventListen ) { // not optional
+        if( eventListen != null ) { // not optional
             _entity.on(eventListen,this,listenEventFunc);
         }
     }

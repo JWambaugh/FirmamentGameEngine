@@ -1,5 +1,7 @@
 package firmament.core;
 
+import firmament.util.FLog;
+
 import firmament.core.FEvent;
 typedef FObjectConnection={
 	listeningObject:FObject
@@ -36,7 +38,11 @@ class FObject{
 		if(l != null){
             event.handled = true; //default to event was handled by this object. Listener can set this to false to allow it to bubble further.
 			for(connection in l){
-                connection.callback(event);
+				try {
+                	connection.callback(event);
+				} catch (e:Dynamic) {
+					FLog.error( Std.string(connection) + "\n  " + Std.string(e) );
+				}
 			}
 		}
 	}

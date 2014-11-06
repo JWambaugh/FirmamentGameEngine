@@ -10,7 +10,7 @@ class FLog {
 
     public static var logLevel:Int = 3;
 
-    public static var loggers:Array<FLogger> = [new FTraceLogger()];
+    public static var loggers:Array<FLogger> = [/*new FTraceLogger(),*/ new FStdoutLogger() ];
 
     public static function error(message:Dynamic,?pos : haxe.PosInfos){
         if(logLevel&ERROR > 0){
@@ -31,7 +31,7 @@ class FLog {
     }
 
 
-    private static function msg(message:String, pos : haxe.PosInfos){
+    public static function msg(message:String, ?pos : haxe.PosInfos){
         for (logger in loggers){
             logger.log(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"):"+message);
         }
@@ -45,7 +45,7 @@ interface FLogger{
     public function log(message:String):Void;
 }
 
-class FTraceLogger implements FLogger{
+class FStdoutLogger implements FLogger{
     public function new(){
 
     }
@@ -64,3 +64,13 @@ class FTraceLogger implements FLogger{
 
 }
 
+class FTraceLogger implements FLogger{
+    public function new(){
+
+    }
+
+    public function log(message:String){
+        trace(message);
+    }
+
+}

@@ -5,6 +5,7 @@ import firmament.component.base.FEntityComponent;
 import firmament.core.FConfig;
 import firmament.core.FEntity;
 import firmament.core.FEvent;
+import firmament.util.FLog;
 import firmament.process.timer.FTimer;
 /*
     Class: FEventMapperComponent
@@ -18,6 +19,7 @@ class FLoopingTimerComponent extends FTimerComponent{
     }
 
     override public function init(config:FConfig){
+        FLog.debug("Initialized loopingtimer");
         super.init(config);
     }
 
@@ -26,6 +28,7 @@ class FLoopingTimerComponent extends FTimerComponent{
     }
 
     override private function triggerOnExpire() {
+        FLog.debug("Trigger Expired");
         super.triggerOnExpire();
         super.init(this._config);
     }

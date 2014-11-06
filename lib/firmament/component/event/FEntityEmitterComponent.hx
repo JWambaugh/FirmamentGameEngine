@@ -28,7 +28,8 @@ class FEntityEmitterComponent extends FEntityComponent{
             var amount:Int = config.get('amount', Int, 1);
             FLog.debug("amount to spawn: "+amount);
             for(n in 0...amount){
-				var ent = FEntityFactory.createEntity(config.getNotNull('entity',Dynamic));
+				var ent = FEntityFactory.createEntity(
+						config.getNotNull('entity',Dynamic));
 				var angle:Float;
 				if(config.get("angleOffset",String)=="random"){
 					angle = Math.random()*6.28318530718;
