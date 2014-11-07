@@ -53,6 +53,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		positionZ = 0;
 		_parentEntity = null;
         this.world = null;
+        this.body = null;
         def = new B2BodyDef();
 	}
 	

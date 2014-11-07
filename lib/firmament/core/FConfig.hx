@@ -22,8 +22,10 @@ abstract FConfig({}) from {} to {} {
             return Std.is(Reflect.field(this,field),type);
         } 
         return true;
+    }
 
-
+    public function fields(){
+        return Reflect.fields(this);
     }
 
     public function get(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{

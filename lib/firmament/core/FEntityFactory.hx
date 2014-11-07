@@ -5,7 +5,7 @@ import firmament.component.base.FEntityComponent;
 import firmament.component.base.FEntityComponentFactory;
 import firmament.util.loader.FDataLoader;
 import firmament.core.FObject;
-
+import firmament.core.FConfig;
 class FEntityFactory{
 
 	public static function createEntity(config:Dynamic,?gameInstanceName:String='main'):FEntity{
@@ -59,10 +59,14 @@ class FEntityFactory{
 		}
 	}
 
-	public static function applyProperties(entity:FEntity, config:Dynamic){
-		if(config.properties != null && Reflect.isObject(config.properties)){
-			for (key in Reflect.fields(config.properties)){
-				entity.setProp(key,Reflect.field(config.properties,key));
+	public static function applyProperties(entity:FEntity, config:FConfig){
+        
+		if(config.hasField('properties')){
+            var props:FConfig = config.get('properties');
+			for (key in props.fields()){
+                var property = entity.getProperty(key);
+                firmament.util.FLog.error(props.get(key,property.type));
+				entity.setProp(key,props.get(key,property.type));
 			}
 		}
 	}
