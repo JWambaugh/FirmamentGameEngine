@@ -65,7 +65,7 @@ class FEntityFactory{
             var props:FConfig = config.get('properties');
 			for (key in props.fields()){
                 var property = entity.getProperty(key);
-                firmament.util.FLog.error(props.get(key,property.type));
+                firmament.util.FLog.debug(props.get(key,property.type));
 				entity.setProp(key,props.get(key,property.type));
 			}
 		}

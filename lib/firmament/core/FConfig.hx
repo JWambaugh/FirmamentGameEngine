@@ -60,16 +60,16 @@ abstract FConfig({}) from {} to {} {
 						return entry;
 				}else{
 					if(type==Int && Reflect.isObject(entry)){
-                        return parseIntObject(entry);
+                        return parseIntObject(entry,def);
                     }
                     else if(type==Float && Reflect.isObject(entry)){
-                        return parseFloatObject(entry);
+                        return parseFloatObject(entry,def);
                     } 
                     else if(type==String && Reflect.isObject(entry)){
-                        return parseStringObject(entry);
+                        return parseStringObject(entry,def);
                     }
                     else if(type==FVector && Reflect.isObject(entry)){
-                        return parseVectorObject(entry);
+                        return parseVectorObject(entry,def);
                     } 
                     else{
                         FLog.warning("field "+field+" is not type expected! Returning default.");
@@ -92,7 +92,7 @@ abstract FConfig({}) from {} to {} {
         return parseVectorObject(d);
     }
 
-    private function parseVectorObject(v:Dynamic):FVector {
+    private function parseVectorObject(v:Dynamic,d:FVector=null):FVector {
         // vector is { x: Float, y: Float }
         //           [ Float, Float ], 
         //           [ Float ]
@@ -106,17 +106,17 @@ abstract FConfig({}) from {} to {} {
             if(Std.is(v,Array)) {
                 var length = v.length;
                 if(length>=1) {
-                    a[0] = parseFloatObject(v[0]);
+                    a[0] = parseFloat(v[0]);
                 }
                 if(length>=2) {
-                    a[1] = parseFloatObject(v[1]);
+                    a[1] = parseFloat(v[1]);
                 }
             } else if( Std.is(v,Dynamic) ){
                 if(Reflect.hasField(v,'x')) {
-                    a[0] = parseFloatObject(v.x);
+                    a[0] = parseFloat(v.x);
                 }
                 if(Reflect.hasField(v,'y')) {
-                    a[1] = parseFloatObject(v.y);
+                    a[1] = parseFloat(v.y);
                 }
             } else {
                 error = true;
@@ -132,8 +132,24 @@ abstract FConfig({}) from {} to {} {
         return new FVector(a[0], a[1]);
     }
 
+    private function parseFloat(v:Dynamic):Float {
+        if(Std.is(v,Float)) {
+            return v;
+        }
+        if(Std.is(v,Int)) {
+            return v + 0.0;
+        }
+        if(Std.is(v,String) ) {
+            return parseFloat(v);
+        } 
+        else if(Reflect.isObject(v)) {
+            return parseFloatObject(v);
+        }
+        throw "Unexpected value passed as float <"+v+">";
+    }
 
-    private function parseFloatObject(v:Dynamic):Float{
+
+    private function parseFloatObject(v:Dynamic,d:Float=0.0):Float{
         if(Reflect.hasField(v,"*min*") && Reflect.hasField(v,"*max*")){
             var min:Float = Reflect.field(v,"*min*");
             var max:Float = Reflect.field(v,"*max*");
@@ -143,10 +159,32 @@ abstract FConfig({}) from {} to {} {
             var a:Array<Float> = cast Reflect.field(v,"random");
             return a[Math.floor(Math.random()*a.length)];
         }
-        return 0.0;
+        if(Reflect.hasField(v,"weighted")){
+            var a:Array<Dynamic> = cast Reflect.field(v,"weighted");
+            var k:Array<String> = new Array();
+            var sum:Float=0;
+            for( o in a ) {
+                var f:String = Reflect.fields(o)[0];
+                k.push(f);
+                sum += Std.parseFloat(f);
+            }
+            var rand:Float = Math.random() * sum;
+            var target:Float = rand;
+            for( i in 0...a.length) {
+                var o = a[i];
+                var w = k[i];
+                target -= Std.parseFloat(w);
+                if( target <= 0 ) {
+                    var value:Float = Std.parseFloat(Reflect.field(o,w));
+                    FLog.debug("Weighted Value " + value + "("+ w +")");
+                    return value;
+                }
+            }
+        }
+        return d; // I didn't know what you were
     }
 
-    private function parseIntObject(v:Dynamic):Int{
+    private function parseIntObject(v:Dynamic,d:Int=0):Int{
        if(Reflect.hasField(v,"*min*") && Reflect.hasField(v,"*max*")){
             var min:Int = Reflect.field(v,"*min*");
             var max:Int = Reflect.field(v,"*max*");
@@ -158,17 +196,42 @@ abstract FConfig({}) from {} to {} {
             FLog.debug('using key '+key);
             return a[key];
         }
-        return 0;
+        if(Reflect.hasField(v,"weighted")){
+            var a:Array<Dynamic> = cast Reflect.field(v,"weighted");
+            var k:Array<String> = new Array();
+            var sum:Int=0;
+            for( o in a ) {
+                var f:String = Reflect.fields(o)[0];
+                k.push(f);
+                sum += Std.parseInt(f);
+            }
+            var rand:Int = Std.random(sum);
+            var target:Int = rand;
+            for( i in 0...a.length) {
+                var o = a[i];
+                var w = k[i];
+                target -= Std.parseInt(w);
+                if( target <= 0 ) {
+                    var value:Int = Std.parseInt(Reflect.field(o,w));
+                    FLog.debug("Weighted Value " + value + "("+ w +")");
+                    return value;
+                }
+            }
+        }
+        return d; // I didn't know what you were
         
     }
 
-    private function parseStringObject(v:Dynamic):String{
+    private function parseStringObject(v:Dynamic,d:String):String{
        
         if(Reflect.hasField(v,"random")){
             var a:Array<String> = cast Reflect.field(v,"random");
             return a[Math.floor(Math.random()*a.length)];
         }
-        return "";
+        if(Std.is(v,String)) {
+            return v;
+        }
+        return d;
     }
 
 	public function getNotNull(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
