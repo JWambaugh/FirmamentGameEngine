@@ -4,13 +4,14 @@ import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
 import firmament.component.entity.FDecrementComponent;
 import firmament.component.entity.FDestroyEntityComponent;
+import firmament.component.event.FCaptureSceneEventsComponent;
 import firmament.component.event.FCollisionEventMapperComponent;
 import firmament.component.event.FEntityEmitterComponent;
 import firmament.component.event.FEventMapperComponent;
 import firmament.component.event.FEventRelayComponent;
-import firmament.component.event.FTimerComponent;
 import firmament.component.event.FLoopingTimerComponent;
 import firmament.component.event.FSetPropertiesComponent;
+import firmament.component.event.FTimerComponent;
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.physics.FNoPhysicsComponent;
 import firmament.component.physics.FParticleComponent;
@@ -26,8 +27,6 @@ import firmament.component.system.FEntityScriptComponent;
 import firmament.component.system.FSceneLoaderComponent;
 import firmament.component.ui.FButtonComponent;
 import firmament.component.ui.FEntityContainerComponent;
-import firmament.component.event.FCaptureSceneEventsComponent;
-
 
 class FEntityComponentFactory{
 	public static function createComponent(type:String,?componentKey:String=''):FEntityComponent {

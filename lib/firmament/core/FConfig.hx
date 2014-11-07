@@ -27,7 +27,16 @@ abstract FConfig({}) from {} to {} {
     }
 
     public function get(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
-		var entry:Dynamic = Reflect.field(this,field);
+		var entry:Dynamic =  Reflect.field(this,field);
+        /*  // Allows arrays so keys are not necessary
+            //  ie. components wouldn't need names anymore
+            if( Std.is(this,Array) ) {
+                var asArray:Array<Dynamic> = cast( this, Array<Dynamic> );
+                entry = asArray[ Std.parseInt(field) ];
+            }
+        */
+        
+        // if I'm an array this doesn't seem to work.
 		if(entry == null)return def;
 
 		if(type==null){
@@ -56,6 +65,9 @@ abstract FConfig({}) from {} to {} {
                     } 
                     else if(type==String && Reflect.isObject(entry)){
                         return parseStringObject(entry);
+                    }
+                    else if(type==FVector && Reflect.isObject(entry)){
+                        return parseVectorObject(entry);
                     } 
                     else{
                         FLog.warning("field "+field+" is not type expected! Returning default.");
@@ -73,6 +85,50 @@ abstract FConfig({}) from {} to {} {
 		if(v == null) return vectorFromDynamic(def);
 		return v;
 	}
+
+    private function vectorFromDynamic(d:Dynamic):FVector{
+        return parseVectorObject(d);
+    }
+
+    private function parseVectorObject(v:Dynamic):FVector {
+        // vector is { x: Float, y: Float }
+        //           [ Float, Float ], 
+        //           [ Float ]
+        //           []
+        var error:Bool = false;
+        var a:Array<Float> = [0,0];
+
+        if( Std.is(v,FVector) ){return v;}
+
+        if(Reflect.isObject(v)){
+            if(Std.is(v,Array)) {
+                var length = v.length;
+                if(length>=1) {
+                    a[0] = parseFloatObject(v[0]);
+                }
+                if(length>=2) {
+                    a[1] = parseFloatObject(v[1]);
+                }
+            } else if( Std.is(v,Dynamic) ){
+                if(Reflect.hasField(v,'x')) {
+                    a[0] = parseFloatObject(v.x);
+                }
+                if(Reflect.hasField(v,'y')) {
+                    a[1] = parseFloatObject(v.y);
+                }
+            } else {
+                error = true;
+            }
+        } else {
+            error = true;
+        }
+
+        if( error ) {
+            return null;
+        }
+
+        return new FVector(a[0], a[1]);
+    }
 
 
     private function parseFloatObject(v:Dynamic):Float{
@@ -112,16 +168,6 @@ abstract FConfig({}) from {} to {} {
         }
         return "";
     }
-
-	private function vectorFromDynamic(d:Dynamic):FVector{
-		if(Std.is(d,FVector)) return d;
-		if(Reflect.isObject(d)){
-			if(Std.is(d.x,Float) && Std.is(d.y,Float)){
-				return new FVector(d.x,d.y);
-			}
-		}
-		return null;
-	}
 
 	public function getNotNull(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
 		var ret = get(field,type,def);

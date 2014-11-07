@@ -28,9 +28,11 @@ class FSetPropertiesComponent extends FEntityComponent{
             try {
                 var eprop = _entity.getProperty(key);
                 _entity.setPropertyValue( 
-                        key, properties.get(key, eprop.type ) );
+                        key, properties.getNotNull(key, eprop.type ) );
+                FLog.debug( "Set property <"+key+"> " + _entity.getPropertyValue(key) );
             } catch (e : Dynamic) {
                 FLog.error( e );
+                throw e;
             }
         }
 
@@ -38,9 +40,7 @@ class FSetPropertiesComponent extends FEntityComponent{
         try {
             _entity.trigger(
                 new FEvent(this._config.getNotNull('trigger',String)));
-        } catch(e:Dynamic) {
-            FLog.error( e );
-        }
+        } catch(e:Dynamic) {}
     }
 
     override public function init(config:FConfig){
