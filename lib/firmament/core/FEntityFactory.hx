@@ -41,27 +41,15 @@ class FEntityFactory{
 
 
 	public static function applyComponents(entity:FEntity, config:Dynamic){
-		if(config.components == null){
+		if(!Std.is(config.components,Dynamic) || config.components == null){
 			throw("no components specified in entity config.");
 		}
-
-        if(Std.is(config.components, Array) ){
-            var ca:Array<Dynamic> = cast config.components;
-            for(cConfig in ca){
-                var component = FEntityComponentFactory.createComponent(cConfig.componentName);
-                component.setConfig(cConfig);
-                entity.setComponent(component);
-            }
-        }
-        else{
-            for(componentKey in Reflect.fields(config.components)){
-                var cConfig= Reflect.field(config.components,componentKey);
-                var component = FEntityComponentFactory.createComponent(cConfig.componentName,componentKey);
-                component.setConfig(cConfig);
-                entity.setComponent(component);
-            }
-        }
-		
+		for(componentKey in Reflect.fields(config.components)){
+			var cConfig= Reflect.field(config.components,componentKey);
+			var component = FEntityComponentFactory.createComponent(cConfig.componentName,componentKey);
+			component.setConfig(cConfig);
+			entity.setComponent(component);
+		}
 	}
 
 
