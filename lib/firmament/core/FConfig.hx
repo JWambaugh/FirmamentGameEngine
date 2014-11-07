@@ -94,8 +94,8 @@ abstract FConfig({}) from {} to {} {
             var max:Int = Reflect.field(v,"*max*");
             return min+Math.floor(Math.random()*(max-min));
         }
-        if(Reflect.hasField(v,"random")){
-            var a:Array<Int> = cast Reflect.field(v,"random");
+        if(Reflect.hasField(v,"*random*")){
+            var a:Array<Int> = cast Reflect.field(v,"*random*");
             var key = Math.floor(Math.random()* a.length);
             FLog.debug('using key '+key);
             return a[key];
