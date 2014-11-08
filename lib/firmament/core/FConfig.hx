@@ -57,7 +57,7 @@ abstract FConfig({}) from {} to {} {
 				return def;
 			}else{
 				if(Std.is(entry,type)){
-						return entry;
+					return entry;
 				}else{
 					if(type==Int && Reflect.isObject(entry)){
                         return parseIntObject(entry,def);
@@ -117,7 +117,6 @@ abstract FConfig({}) from {} to {} {
                 }
                 if(Reflect.hasField(v,'y')) {
                     a[1] = parseFloat(v.y);
-                    FLog.error(a[1]+" "+v.y);
                 }
             } else {
                 error = true;
@@ -134,11 +133,7 @@ abstract FConfig({}) from {} to {} {
     }
 
     private function parseFloat(v:Dynamic):Float {
-        if(Std.is(v,Float)) {
-            FLog.error("its a float");
-            return v;
-        }
-        if(Std.is(v,Int)) {
+        if(Std.is(v,Float) || Std.is(v,Int)) {
             return v + 0.0;
         }
         if(Std.is(v,String) ) {
