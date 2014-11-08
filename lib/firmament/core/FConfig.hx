@@ -89,7 +89,14 @@ abstract FConfig({}) from {} to {} {
 	}
 
     private function vectorFromDynamic(d:Dynamic):FVector{
-        return parseVectorObject(d);
+        // return parseVectorObject(d);
+                if(Std.is(d,FVector)) return d;
+        if(Reflect.isObject(d)){
+            if(Std.is(d.x,Float) && Std.is(d.y,Float)){
+                return new FVector(d.x,d.y);
+            }
+        }
+        return null;
     }
 
     private function parseVectorObject(v:Dynamic,d:FVector=null):FVector {
