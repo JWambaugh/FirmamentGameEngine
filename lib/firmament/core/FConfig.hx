@@ -8,7 +8,7 @@ abstract FConfig({}) from {} to {} {
 	}
 	
     @:arrayAccess public inline function arrayAccess(key:String):Dynamic {
-        return Reflect.field(this, key);
+        return get(key);
     }
     
     @:arrayAccess public inline function arrayWrite<T>(key:String, value:T):T {
@@ -30,13 +30,13 @@ abstract FConfig({}) from {} to {} {
 
     public function get(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
 		var entry:Dynamic =  Reflect.field(this,field);
-        /*  // Allows arrays so keys are not necessary
+       /*  // Allows arrays so keys are not necessary
             //  ie. components wouldn't need names anymore
             if( Std.is(this,Array) ) {
                 var asArray:Array<Dynamic> = cast( this, Array<Dynamic> );
                 entry = asArray[ Std.parseInt(field) ];
-            }
-        */
+            }*/
+        
         
         // if I'm an array this doesn't seem to work.
 		if(entry == null)return def;
@@ -105,7 +105,7 @@ abstract FConfig({}) from {} to {} {
         //           [ Float ]
         //           []
         var error:Bool = false;
-        var a:Array<Float> = [0,0];
+        var a:Array<Float> = [0.0,0.0];
 
         if( Std.is(v,FVector) ){return v;}
 
@@ -124,6 +124,7 @@ abstract FConfig({}) from {} to {} {
                 }
                 if(Reflect.hasField(v,'y')) {
                     a[1] = parseFloat(v.y);
+                    FLog.error(a[1]+" "+v.y);
                 }
             } else {
                 error = true;
@@ -141,6 +142,7 @@ abstract FConfig({}) from {} to {} {
 
     private function parseFloat(v:Dynamic):Float {
         if(Std.is(v,Float)) {
+            FLog.error("its a float");
             return v;
         }
         if(Std.is(v,Int)) {
