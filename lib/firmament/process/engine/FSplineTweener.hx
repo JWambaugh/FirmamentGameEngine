@@ -84,8 +84,7 @@ class FSplineTweener extends FProcess {
 		_graphics = g;
 	}
 
-	override public function step() {
-		var delta = this._manager.getFrameDelta();
+	override public function step(delta:Float) {
 		spline.update(delta);
 		
 		q=spline.getPosition();

@@ -12,7 +12,7 @@ class FCallbackProcess extends FProcess{
 
 		expects a config object with the following optional properties:
 			beforeStart(processManager:FProcessManager) - Function that is called when process is added to the queue.function
-			step():bool - Function executed each iteration of the process loop. Returns true if more processing required, false if done.
+			step(delta:Float):bool - Function executed each iteration of the process loop. Returns true if more processing required, false if done.
 			afterFinish() - Function executed after processing is complete.
 	*/
 	public function new(config:Dynamic){
@@ -26,13 +26,14 @@ class FCallbackProcess extends FProcess{
 		}
 	}
 
-	override public function step(){
+	override public function step(delta:Float){
 		if(Reflect.isFunction(this.config.step)){
-			var res=this.config.step();
+			var res=this.config.step(delta);
 			if(res == false){
 				this._isComplete=true ;
 			}
 		}
+        super.step(delta);
 	}
 
 	override public function afterFinish(){

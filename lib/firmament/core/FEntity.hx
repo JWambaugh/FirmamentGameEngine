@@ -17,15 +17,14 @@ import openfl.Assets;
 import openfl.display.Tilesheet;
 import firmament.core.FObject;
 import firmament.core.FEvent;
- 
+import firmament.core.FPropertyInterface;
  /**
   * Core entity class for all entities/actors in the game.
   * entities now follow a component archetecture. Modify their behavior with coponents.
   * 
   * 
   */
-class FEntity extends FObject
-{
+class FEntity extends FObject implements FPropertyInterface{
 
 	//events
 	public static inline var COMPONENTS_INITIALIZED = 'componentsInited';

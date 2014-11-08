@@ -13,7 +13,7 @@ class FCameraRenderProcess extends FProcess {
 		super();
 	}
 
-	override public function step(){
+	override public function step(delta:Float){
 		this.camera.render(game.getWorlds());
 	}
 	

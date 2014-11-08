@@ -27,6 +27,8 @@ import firmament.component.system.FEntityScriptComponent;
 import firmament.component.system.FSceneLoaderComponent;
 import firmament.component.ui.FButtonComponent;
 import firmament.component.ui.FEntityContainerComponent;
+import firmament.component.entity.FLinearTweenComponent;
+
 
 class FEntityComponentFactory{
 	public static function createComponent(type:String,?componentKey:String=''):FEntityComponent {
@@ -72,6 +74,7 @@ class FEntityComponentFactory{
             ,"wireframe":"firmament.component.render.FWireframeRenderComponent"
             ,"setProperties":"firmament.component.event.FSetPropertiesComponent"
             ,"captureSceneEvents":"firmament.component.event.FCaptureSceneEventsComponent"
+            ,"linearTween":"firmament.component.entity.FLinearTweenComponent"
 		};
 
 		var cls = Reflect.field(map,type);

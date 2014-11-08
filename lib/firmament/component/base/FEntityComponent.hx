@@ -134,6 +134,10 @@ class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
 		_entity.getProperty(key).set(value);
 	}
 
+    public function getGameInstance():firmament.core.FGame{
+        return _entity.getGameInstance();
+    }
+
 
 
 }

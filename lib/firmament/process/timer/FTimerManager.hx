@@ -35,7 +35,7 @@ class FTimerManager extends FProcess {
 		return timer;
 	}
 
-	override public function step(){
+	override public function step(delta:Float){
 		//firmament.util.FLog.debug("TimeManager step");
 		var timerCell:FSortedLinkedListCell<FTimer>;
 
@@ -51,7 +51,7 @@ class FTimerManager extends FProcess {
 			}
 			
 		}
-		super.step();
+		super.step(delta);
 		//firmament.util.FLog.debug(_timers.getCellCount());
 	}
 
