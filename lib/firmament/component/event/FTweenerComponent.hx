@@ -52,22 +52,19 @@ class AnimatorPump extends FProcess {
         _isComplete = false;
     }
 
-    override public function step() {
-        // TODO: Parent needs to handle these
+    override public function step(delta:Float) {
         if( _isRunning == false ) { return; }
         if( _isComplete == true ) { return; }
-        // TODO: Parent needs to handle these
-        var timeDelta = this._manager.getFrameDelta();
-        if( _loop || (_currentStep + timeDelta) < _duration) {
-            _callee.processStep(_currentStep,timeDelta,_duration);
+        if( _loop || (_currentStep + delta) < _duration) {
+            _callee.processStep(_currentStep,delta,_duration);
         } else {
             _isComplete = true;
             if( Reflect.hasField(_callee,"complete") ) {
                 Reflect.callMethod(_callee,Reflect.field(_callee,"complete"),[]);
             }
         }
-        _currentStep += timeDelta;
-        super.step();
+        _currentStep += delta;
+        super.step(delta);
     }
 }
 

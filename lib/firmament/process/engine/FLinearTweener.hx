@@ -58,23 +58,6 @@ class FLinearTweener extends FProcess {
 		// TODO: Parent needs to handle these
 		if( _isRunning == false ) { return; } 
 		if( _isComplete == true ) { return; }
-<<<<<<< HEAD
-		// TODO: Parent needs to handle these
-		var timeDelta = this._manager.getFrameDelta();
-		if( _infinite || (_currentStep + timeDelta) < _duration) {
-			var pos = getCopyOfFVector(_object.getPosition());
-			var angle = _object.getAngle();
-			var stepDelta:FVector = new FVector(_step.x*timeDelta,_step.y*timeDelta);
-			pos.add(stepDelta);
-			angle += _stepAngle * timeDelta;
-			_object.setPosition(pos);
-			_object.setAngle(angle);
-		} else {
-			_object.setPosition(_end);
-			_object.setAngle(_endAngle);
-			_isComplete = true;
-=======
->>>>>>> origin/master
 
         _timeRemaining-=delta;
      
