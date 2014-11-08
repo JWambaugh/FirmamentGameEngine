@@ -152,12 +152,12 @@ abstract FConfig({}) from {} to {} {
             var max:Float = Reflect.field(v,"*max*");
             return min+Math.random()*(max-min);
         }
-        if(Reflect.hasField(v,"random")){
-            var a:Array<Float> = cast Reflect.field(v,"random");
+        if(Reflect.hasField(v,"*random*")){
+            var a:Array<Float> = cast Reflect.field(v,"*random*");
             return a[Math.floor(Math.random()*a.length)];
         }
-        if(Reflect.hasField(v,"weighted")){
-            var a:Array<Dynamic> = cast Reflect.field(v,"weighted");
+        if(Reflect.hasField(v,"*weighted*")){
+            var a:Array<Dynamic> = cast Reflect.field(v,"*weighted*");
             var k:Array<String> = new Array();
             var sum:Float=0;
             for( o in a ) {
@@ -193,8 +193,8 @@ abstract FConfig({}) from {} to {} {
             FLog.debug('using key '+key);
             return a[key];
         }
-        if(Reflect.hasField(v,"weighted")){
-            var a:Array<Dynamic> = cast Reflect.field(v,"weighted");
+        if(Reflect.hasField(v,"*weighted*")){
+            var a:Array<Dynamic> = cast Reflect.field(v,"*weighted*");
             var k:Array<String> = new Array();
             var sum:Int=0;
             for( o in a ) {
@@ -221,8 +221,8 @@ abstract FConfig({}) from {} to {} {
 
     private function parseStringObject(v:Dynamic,d:String):String{
        
-        if(Reflect.hasField(v,"random")){
-            var a:Array<String> = cast Reflect.field(v,"random");
+        if(Reflect.hasField(v,"*random*")){
+            var a:Array<String> = cast Reflect.field(v,"*random*");
             return a[Math.floor(Math.random()*a.length)];
         }
         if(Std.is(v,String)) {

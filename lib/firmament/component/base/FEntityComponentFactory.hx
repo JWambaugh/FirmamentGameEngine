@@ -12,6 +12,7 @@ import firmament.component.event.FEventRelayComponent;
 import firmament.component.event.FLoopingTimerComponent;
 import firmament.component.event.FSetPropertiesComponent;
 import firmament.component.event.FTimerComponent;
+import firmament.component.event.FTweenerComponent;
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.physics.FNoPhysicsComponent;
 import firmament.component.physics.FParticleComponent;
@@ -72,6 +73,7 @@ class FEntityComponentFactory{
             ,"wireframe":"firmament.component.render.FWireframeRenderComponent"
             ,"setProperties":"firmament.component.event.FSetPropertiesComponent"
             ,"captureSceneEvents":"firmament.component.event.FCaptureSceneEventsComponent"
+            ,"tweener":"firmament.component.event.FTweenerComponent"
 		};
 
 		var cls = Reflect.field(map,type);

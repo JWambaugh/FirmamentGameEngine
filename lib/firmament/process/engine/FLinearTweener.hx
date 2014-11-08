@@ -105,7 +105,7 @@ class FLinearTweener extends FProcess {
 		} else {
 			_object.setPosition(_end);
 			_object.setAngle(_endAngle);
-			_isComplete = true;	
+			_isComplete = true;
 
 		}
 		_currentStep += timeDelta;
