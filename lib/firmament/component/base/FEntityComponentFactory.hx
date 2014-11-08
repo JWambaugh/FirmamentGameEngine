@@ -4,6 +4,7 @@ import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
 import firmament.component.entity.FDecrementComponent;
 import firmament.component.entity.FDestroyEntityComponent;
+import firmament.component.entity.FLinearTweenComponent;
 import firmament.component.event.FCaptureSceneEventsComponent;
 import firmament.component.event.FCollisionEventMapperComponent;
 import firmament.component.event.FEntityEmitterComponent;
@@ -28,6 +29,7 @@ import firmament.component.system.FEntityScriptComponent;
 import firmament.component.system.FSceneLoaderComponent;
 import firmament.component.ui.FButtonComponent;
 import firmament.component.ui.FEntityContainerComponent;
+
 
 class FEntityComponentFactory{
 	public static function createComponent(type:String,?componentKey:String=''):FEntityComponent {
@@ -74,6 +76,7 @@ class FEntityComponentFactory{
             ,"setProperties":"firmament.component.event.FSetPropertiesComponent"
             ,"captureSceneEvents":"firmament.component.event.FCaptureSceneEventsComponent"
             ,"tweener":"firmament.component.event.FTweenerComponent"
+            ,"linearTween":"firmament.component.entity.FLinearTweenComponent"
 		};
 
 		var cls = Reflect.field(map,type);
