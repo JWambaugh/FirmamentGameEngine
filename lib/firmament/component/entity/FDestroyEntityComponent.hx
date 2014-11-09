@@ -32,9 +32,12 @@ class FDestroyEntityComponent extends FEntityComponent{
 
     public function destroyEvent(e:FEvent){
         _entity.getGameInstance().doAfterStep(function(){
-            if(this._destroyAction=='repool'){
+            // an entity can be either so try to return first
+            // and then follow up with the regular delete if
+            // there wasn't a pool available
+            if( _entity.getPool() != null ) {
                 _entity.returnToPool();
-            }else{
+            } else {
                 _entity.delete();
             }
         });
