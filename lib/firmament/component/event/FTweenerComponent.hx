@@ -101,7 +101,6 @@ class FTweenerComponent extends FEntityComponent {
         for( name in eventNames ) {
             var value:String = triggers.get(name,String,null);
             if( value != null ) {
-FLog.msg("Event Trigger - " + name + " " + value );
                 _events.set( name, value );
             }
             switch(name) {
@@ -111,7 +110,6 @@ FLog.msg("Event Trigger - " + name + " " + value );
                         value = listeners.get(name,String,name);
                     }
                     if( value != null ) {
-FLog.msg("Event Listeners - " + name + " " + value );
                         _listeners.set(value,name);
                         _entity.on(_entity, value, this, this.onEvent );
                     }
