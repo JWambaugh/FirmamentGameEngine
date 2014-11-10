@@ -9,14 +9,14 @@ import box2D.dynamics.B2Fixture;
 import box2D.dynamics.B2World;
 import box2D.dynamics.contacts.B2Contact;
 import firmament.component.physics.FBox2DComponent;
+import firmament.core.FConfig;
 import firmament.core.FEntity;
+import firmament.core.FEvent;
 import firmament.core.FVector;
 import firmament.event.FBox2DCollisionEvent;
 import firmament.event.FPhysicsCollisionEvent;
 import firmament.ui.FDialog;
-import firmament.util.FConfigHelper;
 import firmament.world.FWorld;
-import firmament.core.FEvent;
 /**
  * ...
  * @author Jordan Wambaughz
@@ -83,7 +83,7 @@ class FBox2DWorld extends FWorld
 
 	override public function init(config:Dynamic){
 		super.init(config);
-		var c = new FConfigHelper(config);
+		var c:FConfig = config; 
 		var vec = c.getVector('gravity',{x:0,y:0});
 		this._b2world.setGravity(new B2Vec2(vec.x,vec.y));
 	}

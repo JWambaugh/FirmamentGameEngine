@@ -13,7 +13,7 @@ class FWorldStepProcess extends FProcess {
 		super();
 	}
 
-	override public function step(){
+	override public function step(delta:Float){
 		if(game._enableSimulation){
 			this.world.step();
 		}

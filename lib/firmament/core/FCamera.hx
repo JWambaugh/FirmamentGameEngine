@@ -11,7 +11,6 @@ import flash.display.Stage;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import firmament.component.render.FWireframeRenderComponent;
-import firmament.util.FConfigHelper;
 import firmament.core.FGame;
 import firmament.core.FConfig;
 import firmament.event.FMouseEvent;

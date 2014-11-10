@@ -2,26 +2,26 @@ package firmament.component.render;
 
 
 
+import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.component.render.FRenderComponentInterface;
 import firmament.core.FCamera;
+import firmament.core.FEvent;
 import firmament.core.FGame;
+import firmament.core.FVector;
 import firmament.tilesheet.FTilesheet;
 import firmament.tilesheet.FTilesheetManager;
 import firmament.tilesheet.FTilesheetRenderHelper;
-import firmament.component.animation.FAnimationComponent;
-import firmament.core.FVector;
-import openfl.Assets;
 import flash.display.BitmapData;
 import flash.display.IBitmapDrawable;
 import flash.display.Sprite;
-import openfl.display.Tilesheet;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import firmament.core.FEvent;
+import openfl.Assets;
+import openfl.display.Tilesheet;
 
 
 
@@ -62,7 +62,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 
 	override public function init(config:Dynamic){
 		this._config = config;
-		var ch = getConfigHelper();
+		var ch:firmament.core.FConfig = config;
 		initTilesheet();
 
 		if(_tilesheet == null){

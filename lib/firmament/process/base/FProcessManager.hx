@@ -58,7 +58,7 @@ class FProcessManager extends flash.events.EventDispatcher
 		for (p in _processQueue) {
 			if( _paused ) return;
 			if(!p.isComplete()){
-				p.step();
+				p.step(_frameDelta);
 			}
 		}
 		//clean up left over processes every 10 steps

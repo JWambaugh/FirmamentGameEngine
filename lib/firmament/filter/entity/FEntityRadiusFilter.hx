@@ -2,7 +2,7 @@ package firmament.filter.entity;
 
 import firmament.core.FEntity;
 import firmament.core.FVector;
-import firmament.util.FConfigHelper;
+import firmament.core.FConfig;
 
 class FEntityRadiusFilter extends FEntityFilter{
 
@@ -13,7 +13,7 @@ class FEntityRadiusFilter extends FEntityFilter{
 
 	//returns true if the entity matches the criteria of the filter
 	override public function filterEntity(entity:FEntity,?options:Dynamic=null):Bool{
-		var oh = new FConfigHelper(options);
+		var oh:FConfig =  options;
 		var radius:Float = oh.getNotNull("radius",Float);
 		var point:FVector = oh.getVector("point",null);
 		var entPoint = entity.getPhysicsComponent().getPosition();

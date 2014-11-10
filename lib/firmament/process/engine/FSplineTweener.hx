@@ -11,7 +11,7 @@ import firmament.core.FEntity;
 
 import flash.geom.Point;
 import flash.display.Graphics;
-import firmament.util.FConfigHelper;
+import firmament.core.FConfig;
 
 class FSplineTweener extends FProcess {
 
@@ -25,7 +25,7 @@ class FSplineTweener extends FProcess {
     private var _draw:Bool;
     private var _changeAngle:Bool;
 
-	public function new(?name:String="splineTweener",parameters:FConfigHelper, ?entity:FEntity=null,?graphics:Graphics=null) {
+	public function new(?name:String="splineTweener",parameters:FConfig, ?entity:FEntity=null,?graphics:Graphics=null) {
 		super();
 
 		var points:Array<FVector> = [];
@@ -84,8 +84,7 @@ class FSplineTweener extends FProcess {
 		_graphics = g;
 	}
 
-	override public function step() {
-		var delta = this._manager.getFrameDelta();
+	override public function step(delta:Float) {
 		spline.update(delta);
 		
 		q=spline.getPosition();

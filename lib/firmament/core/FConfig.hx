@@ -57,7 +57,7 @@ abstract FConfig({}) from {} to {} {
 				return def;
 			}else{
 				if(Std.is(entry,type)){
-						return entry;
+					return entry;
 				}else{
 					if(type==Int && Reflect.isObject(entry)){
                         return parseIntObject(entry,def);
@@ -193,8 +193,8 @@ abstract FConfig({}) from {} to {} {
             FLog.debug('using key '+key);
             return a[key];
         }
-        if(Reflect.hasField(v,"weighted")){
-            var a:Array<Dynamic> = cast Reflect.field(v,"weighted");
+        if(Reflect.hasField(v,"*weighted*")){
+            var a:Array<Dynamic> = cast Reflect.field(v,"*weighted*");
             var k:Array<String> = new Array();
             var sum:Int=0;
             for( o in a ) {
