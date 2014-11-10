@@ -297,9 +297,9 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 
 			var letter = _text.charAt(index);
 			var letterConfig = Reflect.field(_config['glyphs'],letter);
-			var advance:Int = letterConfig.advance;
 			if(letter == ' ')firmament.util.FLog.debug('got a space');
 			if(letterConfig == null) throw("No glyph config found for "+letter);
+			var advance:Int = letterConfig.advance;
 			var nextLetter = _text.charAt(index+1);
 			var tile = _tilePrefix + letter;
 			var code = letter.charCodeAt(0);
