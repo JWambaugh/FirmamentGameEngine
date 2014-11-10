@@ -138,6 +138,20 @@ class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
         return _entity.getGameInstance();
     }
 
+    /**
+     * Called when the entity is activated (like from a pool)
+     */
+    public function onActivate(){
+
+    }
+
+    /**
+     * Called when the entity is deactivated (like when repooled)
+     */
+    public function onDeactivate(){
+
+    }
+
 
 
 }

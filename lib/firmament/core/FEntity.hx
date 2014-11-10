@@ -193,7 +193,12 @@ class FEntity extends FObject implements FPropertyInterface{
 		if(active!=_active){
 			_active = active;
 			this.trigger(new FEvent(ACTIVE_STATE_CHANGE));
+            for (c in _components){
+                if(active)c.onActivate();
+                else c.onDeactivate();
+            }
 		}
+
 	}
 
 	public function isActive():Bool{
