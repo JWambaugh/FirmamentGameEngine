@@ -5,6 +5,7 @@ import firmament.component.base.FEntityComponent;
 import firmament.component.entity.FDecrementComponent;
 import firmament.component.entity.FDestroyEntityComponent;
 import firmament.component.entity.FLinearTweenComponent;
+import firmament.component.entity.FTweenerComponent;
 import firmament.component.event.FCaptureSceneEventsComponent;
 import firmament.component.event.FCollisionEventMapperComponent;
 import firmament.component.event.FEntityEmitterComponent;
@@ -13,7 +14,6 @@ import firmament.component.event.FEventRelayComponent;
 import firmament.component.event.FLoopingTimerComponent;
 import firmament.component.event.FSetPropertiesComponent;
 import firmament.component.event.FTimerComponent;
-import firmament.component.event.FTweenerComponent;
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.physics.FNoPhysicsComponent;
 import firmament.component.physics.FParticleComponent;
@@ -75,7 +75,7 @@ class FEntityComponentFactory{
             ,"wireframe":"firmament.component.render.FWireframeRenderComponent"
             ,"setProperties":"firmament.component.event.FSetPropertiesComponent"
             ,"captureSceneEvents":"firmament.component.event.FCaptureSceneEventsComponent"
-            ,"tweener":"firmament.component.event.FTweenerComponent"
+            ,"tweener":"firmament.component.entity.FTweenerComponent"
             ,"linearTween":"firmament.component.entity.FLinearTweenComponent"
 		};
 

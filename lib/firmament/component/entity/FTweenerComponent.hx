@@ -1,6 +1,6 @@
 
 
-package firmament.component.event;
+package firmament.component.entity;
 
 import firmament.component.base.FEntityComponent;
 import firmament.core.FConfig;
