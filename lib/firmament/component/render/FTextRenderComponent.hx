@@ -2,25 +2,25 @@ package firmament.component.render;
 
 
 
+import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.component.render.FRenderComponentInterface;
 import firmament.core.FCamera;
+import firmament.core.FComputedProperty;
+import firmament.core.FEvent;
 import firmament.core.FGame;
+import firmament.core.FVector;
 import firmament.tilesheet.FTilesheet;
 import firmament.tilesheet.FTilesheetManager;
 import firmament.tilesheet.FTilesheetRenderHelper;
-import firmament.component.animation.FAnimationComponent;
-import firmament.core.FComputedProperty;
-import firmament.core.FVector;
-import openfl.Assets;
 import flash.display.BitmapData;
 import flash.display.IBitmapDrawable;
 import flash.display.Sprite;
-import openfl.display.Tilesheet;
-import firmament.core.FEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import openfl.Assets;
+import openfl.display.Tilesheet;
 
 
 typedef LetterPositionData={
@@ -78,7 +78,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	override public function init(config:Dynamic){
 		//firmament.util.FLog.debug(Std.string(config));
 		this._config = config;
-		var ch = getConfigHelper();
+		var ch:firmament.core.FConfig = config;
 		initTilesheet();
 
 		if(_tilesheet == null){
@@ -125,7 +125,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		
 		var imageIsFileName = false;
 		
-		var ch = getConfigHelper();
+		var ch:firmament.core.FConfig= _config;
 		var tilesheetConfig = _config['tilesheet'];
 		var fontKey:String = ch.getNotNull('fontKey',String);
 		if(Reflect.isObject(tilesheetConfig)){

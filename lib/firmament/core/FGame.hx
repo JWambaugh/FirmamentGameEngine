@@ -19,7 +19,6 @@ import firmament.process.base.FProcessManager;
 import firmament.process.engine.FCameraRenderProcess;
 import firmament.process.engine.FWorldStepProcess;
 import firmament.process.timer.FTimerManager;
-import firmament.util.FConfigHelper;
 import firmament.util.loader.FSceneLoader;
 import firmament.util.loader.FDataLoader;
 import firmament.util.loader.serializer.FSerializerFactory;
@@ -244,7 +243,7 @@ class FGame extends FObject
 	*/
 	public function queryEntities(query:Dynamic):FEntityCollection{
 		var entities:Array<FEntity>;
-		var config = new FConfigHelper(query);
+		var config:FConfig = query;
 		var selector:String = config.getNotNull("selector",String);
 		if (selector == "box"){
 			var topLeft = config.getVector("topLeft",null);

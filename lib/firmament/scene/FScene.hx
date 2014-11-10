@@ -1,16 +1,16 @@
 package firmament.scene;
-import flash.events.Event;
-import firmament.core.FObject;
-import firmament.core.FEvent;
-import firmament.util.FConfigHelper;
-import firmament.scene.FSceneComponent;
-import firmament.util.loader.FDataLoader;
-import firmament.core.FGame;
-import flash.Lib;
 import firmament.core.FCamera;
-import firmament.util.loader.FEntityLoader;
-import firmament.sound.FSoundManager;
+import firmament.core.FConfig;
+import firmament.core.FEvent;
+import firmament.core.FGame;
+import firmament.core.FObject;
+import firmament.scene.FSceneComponent;
 import firmament.scene.FSceneComponentFactory;
+import firmament.sound.FSoundManager;
+import firmament.util.loader.FDataLoader;
+import firmament.util.loader.FEntityLoader;
+import flash.events.Event;
+import flash.Lib;
 
 class FScene extends FObject{
 
@@ -35,13 +35,12 @@ class FScene extends FObject{
 
 		_game = FGame.getInstance(gameInstanceName);
 		var stage = Lib.current.stage;
-		var configHelper = new FConfigHelper(config);
 
 		
 		//initialize cameras
 		if(Std.is(config.cameras,Array)){
 			for(cameraDef in cast(config.cameras,Array<Dynamic>)){
-				var c = new FConfigHelper(cameraDef);
+				var c:FConfig = (cameraDef);
 				var camera = new FCamera(100,100,gameInstanceName);
 				
 				camera.init(cameraDef);
@@ -76,7 +75,7 @@ class FScene extends FObject{
 		//initialize pools
 		if(Std.is(config.entityPools,Array)){
 			for(poolConfig in cast(config.entityPools,Array<Dynamic>)){
-				var pool = new FConfigHelper(poolConfig);
+				var pool:FConfig = (poolConfig);
 				//load non-map entities we need
 				//firmament.util.FLog.debug("entFile: "+pool.getNotNull('entityFile',String));
 				loader.loadPool(pool.getNotNull('entityFile',String),pool.get("amount",Int,10));
@@ -107,7 +106,7 @@ class FScene extends FObject{
 		if(Std.is(config.components,Array)){
 			for(component in cast(config.components,Array<Dynamic>)){
 				if(Reflect.isObject(component)){
-					var c = new FConfigHelper(component);
+					var c:FConfig = component;
 					var componentInstance = FSceneComponentFactory.createComponent(c.getNotNull("type"),_game);
 					componentInstance.setScene(this);
 					componentInstance.init(component);

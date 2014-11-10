@@ -8,9 +8,9 @@ import firmament.core.FVector;
 import firmament.event.FEventRelayEvent;
 import firmament.filter.entity.FEntityFilterFactory;
 import firmament.filter.entity.FEntityFilterInterface;
-import firmament.util.FConfigHelper;
 import firmament.util.FMisc;
 import firmament.core.FEvent;
+import firmament.core.FConfig;
 
 class FEventRelayComponent extends FEntityComponent{
 
@@ -21,16 +21,15 @@ class FEventRelayComponent extends FEntityComponent{
 		super();
 	}
 
-	override public function init(config:Dynamic){
+	override public function init(config:FConfig){
 		_config = config;
-		var ch = new FConfigHelper(config);
 
-		var events:Array<String> = ch.getNotNull("listenEvents",Array);
+		var events:Array<String> = config.getNotNull("listenEvents",Array);
 		for(e in events){
 			on(_entity,e,eventFired);
 		}
 		
-		_fireEvent = ch.getNotNull("fireEvent");
+		_fireEvent = config.getNotNull("fireEvent");
 
 	}
 

@@ -3,7 +3,6 @@ package firmament.component.event;
 import firmament.component.base.FEntityComponent;
 import firmament.core.FEvent;
 import firmament.util.FEntityUtils;
-import firmament.util.FConfigHelper;
 import firmament.core.FEntityFactory;
 import firmament.core.FEntity;
 import firmament.event.FEntityEvent;

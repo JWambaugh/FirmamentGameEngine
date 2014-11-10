@@ -2,7 +2,6 @@ package firmament.component.base;
 import firmament.core.FEntity;
 import flash.events.EventDispatcher;
 import firmament.core.FEvent;
-import firmament.util.FConfigHelper;
 import firmament.core.FProperty;
 import firmament.core.FObject;
 import firmament.core.FConfig;
@@ -29,12 +28,10 @@ class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
 	private var _config:FConfig;
 	private var _entity:FEntity;
 	private var _componentKey:String;
-	private var _configHelper:FConfigHelper;
 	private var _usesStep:Bool;
 
 	public function new() 
 	{
-		_configHelper = null;
 		super();
 		_usesStep = false;
 
@@ -89,15 +86,7 @@ class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
         return [];
     }
 
-	/**
-	 * Returns a config helper object for the component's config
-	 */
-	public function getConfigHelper():FConfigHelper{
-		if(_configHelper == null){
-			_configHelper = new FConfigHelper(_config);
-		}
-		return _configHelper;
-	}
+	
 
 	
 	override public function destruct(){
