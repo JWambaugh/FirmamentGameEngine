@@ -143,6 +143,26 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		}
 	}
 
+
+    override public function getProperties():Array<PropertyDefinition>{
+        var props:Array<PropertyDefinition> = [
+            {   // this is a fake property until it can be fixed
+                key:'imageScale'
+                ,type:Float
+                ,getter:getImageScale
+                ,setter:setImageScale
+            }
+            ,{   // this is a fake property until it can be fixed
+                key:'tile'
+                ,type:Int
+                ,getter:getCurrentTile
+                ,setter:setTile
+            }
+           
+        ];
+        return props;
+    }
+
 	public function render(camera:FCamera):Void {
 		
 		//make sure we are currently active 
