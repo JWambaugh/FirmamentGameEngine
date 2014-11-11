@@ -18,9 +18,10 @@ class FAnimation extends FObject {
 	}
 
 	public function init(config:FConfig){
-		
+        _config = config;
+		firmament.util.FLog.msg(Std.string(config));
 	    var tm = FTilesheetManager.getInstance();
-		if( config.hasField("frames") ) {
+		if( !config.hasField("frames") ) {
 			throw "Frames not provided";
 		} else {
 		    // Sometimes the images may not be loaded
@@ -43,7 +44,7 @@ class FAnimation extends FObject {
 		var tm = FTilesheetManager.getInstance();
 		// Creates fewer tilesheets
 		// Dynamically create tilesheet and get references
-		var frames:Array<String> = _config.getNotNull("frames",Array);
+		var frames:Array<String> = _config.getNotNull("frames");
 		for( el in frames ) {
 		    var tdata = tm.getTilesheetForQueuedPath( cast el );
 		    if( tdata == null ) {

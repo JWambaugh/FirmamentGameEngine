@@ -11,6 +11,7 @@ import firmament.component.render.FRenderComponentInterface;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.process.timer.FTimer;
 import firmament.core.FEntity;
+import firmament.core.FConfig;
 
 class FAnimationComponent extends FEntityComponent implements FAnimationComponentInterface{
 	
@@ -23,14 +24,14 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
 		_currentFrame = 0;
 	}
 
-	override public function init(config:Dynamic){
-		if(Std.is(config.animationFile,String)){
-			_animationFile = config.animationFile;
-			_currentAnimation = FAnimationManager.getInstance().getAnimationByFileName(_animationFile);
-		}
+	override public function init(config:FConfig){
+		
+		_animationFile = config.getNotNull('animationFile', String,_animationFile);
+		_currentAnimation = FAnimationManager.getInstance().getAnimationByFileName(_animationFile);
+		
 		//this._entity.addEventListener(FGame.BEFORE_RENDER,this.beforeRender);
 		if(_entity.isActive()){
-			_timer = FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
+			_timer = getGameInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
 		}
 		on(_entity,FEntity.ACTIVE_STATE_CHANGE,stateChange);
 	}
