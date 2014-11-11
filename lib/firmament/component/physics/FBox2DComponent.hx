@@ -60,6 +60,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	}
 	
 	override public function init(config:Dynamic):Void {
+        var cf:firmament.core.FConfig = config;
 		this.world = _entity.getGameInstance().getWorld("box2d");
 		registerEventHandlers();
 		

@@ -141,6 +141,13 @@ class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
 
     }
 
+    /**
+     * Called after all entities are initialized
+     */
+    public function afterInit(){
+
+    }
+
 
 
 }

@@ -35,6 +35,9 @@ class FEntityFactory{
         applyProperties(entity, config);
 		initComponents(entity,config);
 
+        for(c in entity.getAllComponents()){
+            c.afterInit();
+        }
 		entity.trigger(new FEvent(FEntity.COMPONENTS_INITIALIZED));
 		return entity;
 	}
