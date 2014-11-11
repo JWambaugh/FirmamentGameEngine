@@ -45,7 +45,6 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	private var world:FWorld;
 	private var _parentEntity:FEntity;
     private var def:B2BodyDef;
-    private var collisionCategory:Int = 0; // this is placeholder
 
 	public function new() 
 	{
@@ -192,13 +191,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 
 	override public function getProperties():Array<PropertyDefinition>{
         var props:Array<PropertyDefinition> = [
-        	{   // this is a fake property until it can be fixed
-                key:'collisionCategory'
-                ,type:Int
-                ,getter:getCollisionCategory
-                ,setter:setCollisionCategory
-            }
-            ,{
+        	{
                 key:'position'
                 ,type:FVector
                 ,getter:getPosition
@@ -323,13 +316,6 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		//firmament.util.FLog.debug("deactivated:"+_entity.isActive());
 	}
 
-	public function getCollisionCategory() {
-		return collisionCategory;
-	}
-    
-    public function setCollisionCategory(colCat:Int) {
-    	collisionCategory = colCat; // this doesn't set the real value
-    }
 
 	public function  getPosition() {
 		if(body == null)throw("BODY IS NULL!!!"+_entity.getTypeId());
