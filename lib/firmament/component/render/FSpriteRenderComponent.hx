@@ -59,6 +59,10 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
 		_g=ch.get('green',Float,1.);
 		_b=ch.get('blue',Float,1.);
 		_alpha=ch.get('alpha',Float,1.);
+
+        if(ch.hasField("animation",String)){
+
+        }
 		setImage(ch.get("image",String));
 
 	}
@@ -77,6 +81,8 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
         return props;
     }
 
+
+    
 
 
 	public function setImage(image:Dynamic){

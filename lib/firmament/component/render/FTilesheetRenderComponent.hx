@@ -34,6 +34,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 {
 	var drawList:Array<Float>;
 	var _tilesheet:FTilesheet;
+    var _tilesheetId:Int;
 	var imageScale:Float;
 	var _tile:Int;
 	var _parallax:Float;
@@ -153,17 +154,24 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
                 ,setter:setImageScale
             }
             ,{   
-                key:'tile'
+                key:'tileId'
                 ,type:Int
                 ,getter:getCurrentTile
                 ,setter:setTile
             }
             ,{  
                 key:'parallax'
-                ,type:Int
+                ,type:Float
                 ,getter:getParallaxMultiplier
                 ,setter:setParallaxMultiplier
             }
+            ,{  
+                key:'tilesheetId'
+                ,type:Int
+                ,getter:getTilesheetId
+                ,setter:setTilesheetId
+            }
+
         ];
         return props;
     }
@@ -234,6 +242,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 	}
 
 
+
 	public function setImageScale(scale:Float){
 		imageScale = scale;
 	}
@@ -288,6 +297,18 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 	public function getAlpha(){
 		return _alpha;
 	}
+
+    public function setTilesheetId(id:Int){
+        _tilesheetId = id;
+        _tilesheet = FTilesheetManager.getInstance().getTilesheetWithId(id);
+        if(_tilesheet == null){
+            throw "Tilesheet with id of "+id+" does not exist.";
+        }
+    }
+
+    public function getTilesheetId(){
+        return _tilesheetId;
+    }
 	
 	
 }

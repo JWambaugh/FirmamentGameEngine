@@ -17,6 +17,7 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
 	var _currentAnimation:FAnimation;
 	var _currentFrame:Int;
 	var _timer:FTimer;
+    var _animationFile:String;
 	public function new(){
 		super();
 		_currentFrame = 0;
@@ -24,8 +25,8 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
 
 	override public function init(config:Dynamic){
 		if(Std.is(config.animationFile,String)){
-			var animationFile:String = config.animationFile;
-			_currentAnimation = FAnimationManager.getInstance().getAnimationByFileName(animationFile);
+			_animationFile = config.animationFile;
+			_currentAnimation = FAnimationManager.getInstance().getAnimationByFileName(_animationFile);
 		}
 		//this._entity.addEventListener(FGame.BEFORE_RENDER,this.beforeRender);
 		if(_entity.isActive()){
@@ -33,6 +34,25 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
 		}
 		on(_entity,FEntity.ACTIVE_STATE_CHANGE,stateChange);
 	}
+
+    override public function getProperties():Array<PropertyDefinition>{
+        var props:Array<PropertyDefinition> = [
+            {
+                key:'animationFile'
+                ,type:String
+                ,getter:getAnimationFile
+                ,setter:setAnimationFile
+            }
+            ,{
+                key:'frame'
+                ,type:Int
+                ,getter:getFrame
+                ,setter:setFrame
+            }
+           
+        ];
+        return props;
+    }
 
 	public function stateChange(e:FEvent){
 		if(_entity.isActive()){
@@ -55,22 +75,37 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
 		_timer = FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
 	}
 
+    public function getFrame(){
+        return _currentFrame;
+    }
+
+    public function setFrame(f:Int){
+        _currentFrame = f;
+        jumpToFrame(_currentAnimation.getNextFrame(_currentFrame));
+        if(_timer!=null)_timer.cancel();
+        _timer = FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
+    }
+
 	public function setAnimation(animation:FAnimation,?frame:Int=0){
 		_currentAnimation = animation;
 		_currentFrame = frame;
 	}
 
+    public function setAnimationFile(fileName:String){
+        _animationFile = fileName;
+        _currentAnimation = FAnimationManager.getInstance().getAnimationByFileName(_animationFile);
+    }
+
+    public function getAnimationFile(){
+        return _animationFile;
+    }
+
 	public function jumpToFrame(frame:Int){
 		//update render component
-		var rc:FRenderComponentInterface = _entity.getRenderComponent();
-		if(Std.is(rc,FTilesheetRenderComponent)){
-			var tsc:FTilesheetRenderComponent = cast(rc,FTilesheetRenderComponent);
-			tsc.setTile(_currentAnimation.getTileIndexForFrame(_currentFrame));
-			tsc.setTilesheet(_currentAnimation.getTilesheet());
-			_currentFrame = frame;
-		}else{
-			//throw "Animations only work with FTilesheet render components. Entity: "+_entity.getTypeId();
-		}
+		var tdata = _currentAnimation.getTilesheetDataForFrame(frame);
+        _entity.setProp("tileId",tdata.tileId);
+		_entity.setProp("tilesheetId",tdata.tilesheetId);
+		_currentFrame = frame;
 	}
 
 
