@@ -1,14 +1,14 @@
 package firmament.process.base;
 
 import haxe.Timer;
-import flash.events.EventDispatcher;
-import flash.events.Event;
+import firmament.core.FObject;
+import firmament.core.FEvent;
 /**
  * ...
  * @author Jordan Wambaugh
  */
 
-class FProcessManager extends flash.events.EventDispatcher
+class FProcessManager extends FObject
 {
 	var _processQueue:Array<FProcessInterface>;
 	var _iteration:Int;
@@ -97,7 +97,7 @@ class FProcessManager extends flash.events.EventDispatcher
 		var ctime = Timer.stamp();
 		_frameDelta = ctime - _lastTime;
 		_paused = true;
-		this.dispatchEvent(new Event(PAUSED));
+		this.trigger(new FEvent(PAUSED));
 	}
 
 
@@ -107,7 +107,7 @@ class FProcessManager extends flash.events.EventDispatcher
 	public function unPause(){
 		_lastTime = Timer.stamp() - _frameDelta;
 		_paused = false;
-		this.dispatchEvent(new Event(UNPAUSED));
+		this.trigger(new FEvent(UNPAUSED));
 
 	}
 
@@ -115,8 +115,9 @@ class FProcessManager extends flash.events.EventDispatcher
 		return _paused;
 	}
 
-	public function destruct(){
+	override public function destruct(){
 		_processQueue = null;
+        super.destruct();
 	}
 
 	public function getLastStepTime():Float{
