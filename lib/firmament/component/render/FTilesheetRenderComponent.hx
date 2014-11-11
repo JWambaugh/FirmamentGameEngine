@@ -146,19 +146,24 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 
     override public function getProperties():Array<PropertyDefinition>{
         var props:Array<PropertyDefinition> = [
-            {   // this is a fake property until it can be fixed
+            {
                 key:'imageScale'
                 ,type:Float
                 ,getter:getImageScale
                 ,setter:setImageScale
             }
-            ,{   // this is a fake property until it can be fixed
+            ,{   
                 key:'tile'
                 ,type:Int
                 ,getter:getCurrentTile
                 ,setter:setTile
             }
-           
+            ,{  
+                key:'parallax'
+                ,type:Int
+                ,getter:getParallaxMultiplier
+                ,setter:setParallaxMultiplier
+            }
         ];
         return props;
     }
@@ -257,6 +262,10 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 	public function getParallaxMultiplier():Float{
 		return _parallax;
 	}
+
+    public function setParallaxMultiplier(p:Float):Void{
+        _parallax = p;
+    }
 
 	public function setRGB(r:Float,g:Float,b:Float){
 		_r=r;

@@ -1,14 +1,16 @@
 package firmament.component.render;
-import flash.display.BitmapData;
-import flash.geom.Matrix;
-import flash.display.IBitmapDrawable;
-import flash.geom.Point;
-import flash.events.EventDispatcher;
-import firmament.core.FConfig;
-import firmament.tilesheet.FTilesheetManager;
+
+import firmament.component.base.FEntityComponent;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.core.FCamera;
+import firmament.core.FConfig;
 import firmament.core.FVector;
+import firmament.tilesheet.FTilesheetManager;
+import flash.display.BitmapData;
+import flash.display.IBitmapDrawable;
+import flash.events.EventDispatcher;
+import flash.geom.Matrix;
+import flash.geom.Point;
 /**
  * 
  * @author Jordan Wambaugh
@@ -60,6 +62,22 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
 		setImage(ch.get("image",String));
 
 	}
+
+    override public function getProperties():Array<PropertyDefinition>{
+        var props:Array<PropertyDefinition> = super.getProperties();
+         
+            props.push({   // this is a fake property until it can be fixed
+                key:'image'
+                ,type:String
+                ,getter:function(){return _currentImagePath;}
+                ,setter:setImage
+            });
+            
+        
+        return props;
+    }
+
+
 
 	public function setImage(image:Dynamic){
 		if(Std.is(image,String)){
