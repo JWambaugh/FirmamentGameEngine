@@ -58,13 +58,12 @@ class AnimatorPump extends FProcess {
     override public function step(delta:Float) {
         if( _isRunning == false ) { return; }
         if( _isComplete == true ) { return; }
-        if( _loop || _currentStep < _duration) {
-            if( _currentStep + delta > _duration ) {
-                _callee.processStep(_currentStep, _duration-_currentStep, _duration);
-            } else {
-                _callee.processStep(_currentStep,delta,_duration);
-            }
+        if( _currentStep > _duration ) {
+            _callee.processStep(_currentStep, _duration-_currentStep, _duration);
         } else {
+            _callee.processStep(_currentStep,delta,_duration);
+        }
+        if( !_loop && _currentStep >= _duration) {
             _isComplete = true;
             _callee.complete();
         }
