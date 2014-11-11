@@ -118,7 +118,7 @@ class FScene extends FObject{
 
 	}
 
-	public function getGame(){
+	public function getGameInstance(){
 		return _game;
 	}
 
