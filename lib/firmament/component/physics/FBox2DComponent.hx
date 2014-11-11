@@ -149,10 +149,8 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 					
 				if (Std.is(shape.collisionCategory, Int)) {
 					shapeDef.filter.categoryBits = shape.collisionCategory;
-					collisionCategory = shape.collisionCategory;
 				}else if (Std.is(config.collisionCategory, Int)) {
 					shapeDef.filter.categoryBits = config.collisionCategory;
-					collisionCategory = shape.collisionCategory;
 				}
 				
 				if (Std.is(shape.collidesWith, Int)) {

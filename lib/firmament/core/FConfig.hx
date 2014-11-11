@@ -24,19 +24,23 @@ abstract FConfig({}) from {} to {} {
         return true;
     }
 
-    public function fields(){
+    public function fields():Array<Dynamic> {
+        if( Std.is(this,Array) ) {
+            return cast this;
+        }
         return Reflect.fields(this);
     }
 
     public function get(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
-		var entry:Dynamic =  Reflect.field(this,field);
-       /*  // Allows arrays so keys are not necessary
-            //  ie. components wouldn't need names anymore
-            if( Std.is(this,Array) ) {
-                var asArray:Array<Dynamic> = cast( this, Array<Dynamic> );
-                entry = asArray[ Std.parseInt(field) ];
-            }*/
-        
+		var entry:Dynamic;
+        // Allows arrays so keys are not necessary
+        //  ie. components wouldn't need names anymore
+        if( Std.is(this,Array) ) {
+            var asArray:Array<Dynamic> = cast( this, Array<Dynamic> );
+            entry = asArray[ Std.parseInt(field) ];
+        } else {
+            entry =  Reflect.field(this,field);
+        }
         
         // if I'm an array this doesn't seem to work.
 		if(entry == null)return def;
