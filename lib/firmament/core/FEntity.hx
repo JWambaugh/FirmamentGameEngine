@@ -1,4 +1,5 @@
 package firmament.core;
+
 import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.component.render.FRenderComponentInterface;
@@ -6,6 +7,7 @@ import firmament.component.render.FTilesheetRenderComponent;
 import firmament.core.FEntityPool;
 import firmament.core.FEvent;
 import firmament.core.FGame;
+import firmament.core.FGameChildInterface;
 import firmament.core.FObject;
 import firmament.core.FProperty;
 import firmament.core.FPropertyInterface;
@@ -18,14 +20,13 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import openfl.Assets;
 import openfl.display.Tilesheet;
-
  /**
   * Core entity class for all entities/actors in the game.
   * entities now follow a component archetecture. Modify their behavior with coponents.
   * 
   * 
   */
-class FEntity extends FObject implements FPropertyInterface{
+class FEntity extends FObject implements FPropertyInterface implements FGameChildInterface{
 
 	//events
 	public static inline var COMPONENTS_INITIALIZED = 'componentsInited';

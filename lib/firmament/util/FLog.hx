@@ -12,28 +12,32 @@ class FLog {
 
     public static var loggers:Array<FLogger> = [/*new FTraceLogger(),*/ new FStdoutLogger() ];
 
-    public static function error(message:Dynamic,?pos : haxe.PosInfos){
+    public static function error(message:Dynamic,?pos : haxe.PosInfos):Void{
         if(logLevel&ERROR > 0){
             msg("ERROR: "+Std.string(message),pos);
         }
     }
 
-    public static function warning(message:Dynamic,?pos : haxe.PosInfos){
+    public static function warning(message:Dynamic,?pos : haxe.PosInfos):Void{
         if(logLevel&WARNING > 0){
             msg("Warning: "+Std.string(message),pos);
         }
     }
 
-    public static function debug(message:Dynamic,?pos : haxe.PosInfos){
+    public static function debug(message:Dynamic,?pos : haxe.PosInfos):Void{
         if(logLevel&DEBUG > 0){
             msg("debug: "+Std.string(message),pos);
         }
     }
 
 
-    public static function msg(message:String, ?pos : haxe.PosInfos){
+    public static function msg(message:String, ?pos : haxe.PosInfos):Void{
         for (logger in loggers){
-            logger.log(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"):"+message);
+            if(pos!=null)
+                logger.log(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"):"+message);
+            else{
+                logger.log(message);
+            }
         }
     }
 

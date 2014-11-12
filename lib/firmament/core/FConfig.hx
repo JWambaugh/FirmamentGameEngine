@@ -1,8 +1,10 @@
 package firmament.core;
 import firmament.core.FVector;
+import firmament.core.FGame;
 import firmament.util.FLog;
 
 abstract FConfig({}) from {} to {} {
+
 	public function new(o:Dynamic){
 		this = o;
 	}
@@ -24,6 +26,10 @@ abstract FConfig({}) from {} to {} {
         return true;
     }
 
+    public function setScope(s:FGameChildInterface):Void{
+        Reflect.setField(this, '__SCOPE__', s);
+    }
+
     public function fields():Array<Dynamic> {
         if( Std.is(this,Array) ) {
             return cast this;
@@ -40,6 +46,14 @@ abstract FConfig({}) from {} to {} {
             entry = asArray[ Std.parseInt(field) ];
         } else {
             entry =  Reflect.field(this,field);
+        }
+
+        //support scripting
+        if(Reflect.isObject(entry)){
+            var scriptObj= Reflect.field(entry,'*script*');
+            if(Std.is(scriptObj,String)){
+                entry = runScript(entry);
+            }
         }
         
         // if I'm an array this doesn't seem to work.
@@ -219,6 +233,7 @@ abstract FConfig({}) from {} to {} {
                 }
             }
         }
+
         return d; // I didn't know what you were
         
     }
@@ -235,6 +250,35 @@ abstract FConfig({}) from {} to {} {
         return d;
     }
 
+    private function runScript(v:Dynamic):Dynamic{
+        var program:hscript.Expr = null;
+        var script = Reflect.field(v,'*script*');
+        if(Reflect.isObject(v) ){
+            //if we have a compiled program already, use it
+            program = Reflect.field(v,'program');
+            if(program == null && Std.is(script, String)){
+                FLog.msg('parsing');
+                var parser = new hscript.Parser();
+                program = parser.parseString(script);
+                Reflect.setField(this,'program',program);
+            }else{
+                FLog.msg('not parsing');
+            }
+            if(program != null){
+                var game:FGame;
+                var scope = Reflect.field(this,'__SCOPE__');
+                if(scope == null) game = FGame.getInstance();
+                else game = scope.getGameInstance();
+                return game.execProgram(program, scope);
+
+            }else{
+                FLog.warning("Program failed to parse.");
+                return null;
+            }
+        }
+        return null;
+    }
+
 	public function getNotNull(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
 		var ret = get(field,type,def);
 		if(ret == null){
@@ -242,4 +286,5 @@ abstract FConfig({}) from {} to {} {
 		}
 		return ret;
 	}
+
 }

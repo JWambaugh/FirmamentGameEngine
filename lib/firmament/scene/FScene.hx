@@ -3,6 +3,7 @@ import firmament.core.FCamera;
 import firmament.core.FConfig;
 import firmament.core.FEvent;
 import firmament.core.FGame;
+import firmament.core.FGameChildInterface;
 import firmament.core.FObject;
 import firmament.scene.FSceneComponent;
 import firmament.scene.FSceneComponentFactory;
@@ -12,7 +13,7 @@ import firmament.util.loader.FEntityLoader;
 import flash.events.Event;
 import flash.Lib;
 
-class FScene extends FObject{
+class FScene extends FObject implements FGameChildInterface{
 
 	var _components : Array<FSceneComponent>;
 	var _gameInstanceName:String;

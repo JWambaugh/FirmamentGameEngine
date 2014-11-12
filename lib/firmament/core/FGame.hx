@@ -7,11 +7,17 @@ package firmament.core;
 
 
 
+
+
+import firmament.component.base.FEntityComponent;
 import firmament.core.FCamera;
+import firmament.core.FConfig;
 import firmament.core.FEntity;
-import firmament.core.FEntityPoolManager;
-import firmament.core.FInput;
 import firmament.core.FEntityCollection;
+import firmament.core.FEntityPoolManager;
+import firmament.core.FEvent;
+import firmament.core.FInput;
+import firmament.core.FObject;
 import firmament.filter.entity.FEntityFilter;
 import firmament.filter.entity.FEntityFilterFactory;
 import firmament.process.base.FProcess;
@@ -19,21 +25,14 @@ import firmament.process.base.FProcessManager;
 import firmament.process.engine.FCameraRenderProcess;
 import firmament.process.engine.FWorldStepProcess;
 import firmament.process.timer.FTimerManager;
-import firmament.util.loader.FSceneLoader;
+import firmament.scene.FScene;
+import firmament.util.FLog;
+import firmament.util.FRepository;
 import firmament.util.loader.FDataLoader;
+import firmament.util.loader.FSceneLoader;
 import firmament.util.loader.serializer.FSerializerFactory;
 import firmament.world.FWorld;
 import firmament.world.FWorldFactory;
-import firmament.scene.FScene;
-import firmament.core.FObject;
-import firmament.component.base.FEntityComponent;
-import firmament.core.FEvent;
-
-import firmament.util.FRepository;
-import firmament.core.FConfig;
-
-import haxe.Timer;
-import openfl.Assets;
 import flash.display.Bitmap;
 import flash.display.Sprite;
 import flash.events.Event;
@@ -42,7 +41,9 @@ import flash.events.TimerEvent;
 import flash.Lib;
 import flash.text.TextField;
 import flash.utils.Timer;
+import haxe.Timer;
 import hscript.Interp;
+import openfl.Assets;
 
 /**
  * Class: FGame
@@ -503,6 +504,9 @@ class FGame extends FObject
         _interpreter.variables.set("FRepository",FRepository);
         _interpreter.variables.set("FConfig",FConfig);
         _interpreter.variables.set("FDataLoader",FDataLoader);
+        _interpreter.variables.set("FLog",FLog);
+        _interpreter.variables.set("FEntityFactory",firmament.core.FEntityFactory);
+        _interpreter.variables.set("Std",Std);
 	}
 	/**
 	 * returns the interpreter for this fgame instance.
@@ -512,14 +516,19 @@ class FGame extends FObject
 		return _interpreter;
 	}
 
-	public function eval(script:String){
+    public function execProgram(program:hscript.Expr, scope:Dynamic=null){
+        _interpreter.variables.set('this',scope);
+        return _interpreter.execute(program);
+    }
+
+	public function eval(script:String, scope:Dynamic=null){
 		var parser = new hscript.Parser();
 		var program = parser.parseString(script);
-		return _interpreter.execute(program);
+		return execProgram(program, scope);
 	}
 
-	public function executeFile(fileName:String){
-		return eval(FDataLoader.loadFile(fileName));
+	public function executeFile(fileName:String, scope:Dynamic=null){
+		return eval(FDataLoader.loadFile(fileName), scope);
 	}
 
 	/**
