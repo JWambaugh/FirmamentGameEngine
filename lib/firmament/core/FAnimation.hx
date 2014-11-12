@@ -19,7 +19,7 @@ class FAnimation extends FObject {
 
 	public function init(config:FConfig){
         _config = config;
-		firmament.util.FLog.msg(Std.string(config));
+		firmament.util.FLog.debug(Std.string(config));
 	    var tm = FTilesheetManager.getInstance();
 		if( !config.hasField("frames") ) {
 			throw "Frames not provided";

@@ -41,7 +41,11 @@ class FObject{
 				try {
                 	connection.callback(event);
 				} catch (e:Dynamic) {
-					FLog.error( Std.string(connection) + "\n  " + Std.string(e) );
+					FLog.error( 
+					  Std.string(event.name) + " -> "
+					  + Std.string(connection) + "\n  " 
+					  + Std.string(e)
+					);
 				}
 			}
 		}

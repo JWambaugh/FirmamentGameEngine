@@ -22,7 +22,7 @@ class FSceneComponentFactory{
 	public static function getClassFromType(type:String){
 		var map = {
 			"script":"firmament.scene.FSceneScriptComponent"
-			,"pause":"firmament.scene.component.FSceneScriptComponent"
+			,"pause":"firmament.scene.component.FScenePauseComponent"
 		};
 
 		var cls = Reflect.field(map,type);
