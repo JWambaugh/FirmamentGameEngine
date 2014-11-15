@@ -3,6 +3,7 @@ package firmament.scene;
 import firmament.core.FGame;
 import firmament.scene.FSceneScriptComponent;
 import firmament.scene.component.FScenePauseComponent;
+import firmament.scene.component.FSceneLoadComponent;
 
 class FSceneComponentFactory{
 	public static function createComponent(type:String,game:FGame,?componentKey:String=''):FSceneComponent {
@@ -23,6 +24,7 @@ class FSceneComponentFactory{
 		var map = {
 			"script":"firmament.scene.FSceneScriptComponent"
 			,"pause":"firmament.scene.component.FScenePauseComponent"
+			,"load":"firmament.scene.component.FSceneLoadComponent"
 		};
 
 		var cls = Reflect.field(map,type);

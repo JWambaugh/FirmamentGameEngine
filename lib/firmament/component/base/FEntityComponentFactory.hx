@@ -7,6 +7,7 @@ import firmament.component.entity.FDestroyEntityComponent;
 import firmament.component.entity.FLinearTweenComponent;
 import firmament.component.entity.FTweenerComponent;
 import firmament.component.event.FCaptureSceneEventsComponent;
+import firmament.component.event.FBroadcastSceneEventsComponent;
 import firmament.component.event.FCollisionEventMapperComponent;
 import firmament.component.event.FEntityEmitterComponent;
 import firmament.component.event.FEventMapperComponent;
@@ -50,6 +51,7 @@ class FEntityComponentFactory{
 		var map = {
             "animation":"firmament.component.animation.FAnimationComponent"
             ,"box2d":"firmament.component.physics.FBox2DComponent"
+            ,"broadcastSceneEvents":"firmament.component.event.FBroadcastSceneEventsComponent"
             ,"button":"firmament.component.ui.FButtonComponent"
             ,"captureSceneEvents":"firmament.component.event.FCaptureSceneEventsComponent"
             ,"collisionEventMapper":"firmament.component.event.FCollisionEventMapperComponent"
