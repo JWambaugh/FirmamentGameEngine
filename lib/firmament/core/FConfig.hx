@@ -122,13 +122,11 @@ abstract FConfig({}) from {} to {} {
 
         if(Reflect.isObject(v)){
             if(Std.is(v,Array)) {
-                var length = v.length;
-                if(length>=1) {
-                    a[0] = parseFloat(v[0]);
-                }
-                if(length>=2) {
-                    a[1] = parseFloat(v[1]);
-                }
+                // removed due to needing to add
+                // arrays to frepository, no way 
+                // to differentiate between non-
+                // vector array and vector array
+                error = true;
             } else if( Std.is(v,Dynamic) ){
                 if(Reflect.hasField(v,'x') && Reflect.hasField(v,'y') ) {
                     a[0] = parseFloat(v.x);
@@ -257,12 +255,12 @@ abstract FConfig({}) from {} to {} {
             //if we have a compiled program already, use it
             program = Reflect.field(v,'program');
             if(program == null && Std.is(script, String)){
-                FLog.msg('parsing');
+                FLog.debug('parsing script ' + script);
                 var parser = new hscript.Parser();
                 program = parser.parseString(script);
                 Reflect.setField(this,'program',program);
             }else{
-                FLog.msg('not parsing');
+                FLog.error('program is null and script is not string');
             }
             if(program != null){
                 var game:FGame;

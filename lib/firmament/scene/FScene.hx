@@ -1,13 +1,17 @@
 package firmament.scene;
+
 import firmament.core.FCamera;
 import firmament.core.FConfig;
 import firmament.core.FEvent;
 import firmament.core.FGame;
 import firmament.core.FGameChildInterface;
 import firmament.core.FObject;
+import firmament.core.FVector;
 import firmament.scene.FSceneComponent;
 import firmament.scene.FSceneComponentFactory;
 import firmament.sound.FSoundManager;
+import firmament.util.FLog;
+import firmament.util.FRepository;
 import firmament.util.loader.FDataLoader;
 import firmament.util.loader.FEntityLoader;
 import flash.events.Event;
@@ -37,6 +41,38 @@ class FScene extends FObject implements FGameChildInterface{
 		_game = FGame.getInstance(gameInstanceName);
 		var stage = Lib.current.stage;
 
+		//initialize repository
+		var old = FLog.logLevel;
+		FLog.logLevel = 31;
+		FLog.debug( "Processing " + config.repository );
+		if(Std.is(config.repository,Dynamic)){
+			var repoInstance = FRepository.getInstance();
+			var repository:FConfig = config.repository;
+			for( item in repository.fields() ) {
+				var value:Dynamic = repository[item];
+				var val:Dynamic = repository.get(item,Float,null);
+				if( val != null && Std.string(val) == value ) {
+					FLog.debug("Setting "+val+" as number to repository");
+					repoInstance.set(item,cast(val,Float));
+				} else {
+					val = repository.get(item,FVector,null);
+					if( val != null ) {
+						FLog.debug("Setting "+val+" as FVector to repository");
+						repoInstance.set(item,cast(val,FVector));
+					} else {
+						val = repository.get(item,String,null);
+						if( val != null && Std.string(val) == value ) {
+							FLog.debug("Setting "+val+" as string to repository");
+							repoInstance.set(item,cast(val,String));
+						} else {
+							FLog.debug("Setting "+value+" as object to repository");
+							repoInstance.set(item,value);
+						}
+					}
+				}
+			}
+		}
+		FLog.logLevel = old;
 		
 		//initialize cameras
 		if(Std.is(config.cameras,Array)){
