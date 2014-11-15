@@ -6,14 +6,15 @@ import firmament.component.entity.FDecrementComponent;
 import firmament.component.entity.FDestroyEntityComponent;
 import firmament.component.entity.FLinearTweenComponent;
 import firmament.component.entity.FTweenerComponent;
-import firmament.component.event.FCaptureSceneEventsComponent;
 import firmament.component.event.FBroadcastSceneEventsComponent;
+import firmament.component.event.FCaptureSceneEventsComponent;
 import firmament.component.event.FCollisionEventMapperComponent;
 import firmament.component.event.FEntityEmitterComponent;
 import firmament.component.event.FEventMapperComponent;
 import firmament.component.event.FEventRelayComponent;
 import firmament.component.event.FLoopingTimerComponent;
 import firmament.component.event.FSetPropertiesComponent;
+import firmament.component.event.FSetRepositoryComponent;
 import firmament.component.event.FTimerComponent;
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.physics.FNoPhysicsComponent;
@@ -71,6 +72,7 @@ class FEntityComponentFactory{
             ,"sceneLoader":"firmament.component.system.FSceneLoaderComponent"
             ,"script":"firmament.component.system.FEntityScriptComponent"
             ,"setProperties":"firmament.component.event.FSetPropertiesComponent"
+            ,"setRepository":"firmament.component.event.FSetRepositoryComponent"
             ,"sound":"firmament.component.sound.FSoundComponent"
             ,"sprite":"firmament.component.render.FSpriteRenderComponent"
             ,"text":"firmament.component.render.FTextRenderComponent"

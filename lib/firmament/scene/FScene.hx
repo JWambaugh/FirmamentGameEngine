@@ -42,8 +42,6 @@ class FScene extends FObject implements FGameChildInterface{
 		var stage = Lib.current.stage;
 
 		//initialize repository
-		var old = FLog.logLevel;
-		FLog.logLevel = 31;
 		FLog.debug( "Processing " + config.repository );
 		if(Std.is(config.repository,Dynamic)){
 			var repoInstance = FRepository.getInstance();
@@ -72,7 +70,6 @@ class FScene extends FObject implements FGameChildInterface{
 				}
 			}
 		}
-		FLog.logLevel = old;
 		
 		//initialize cameras
 		if(Std.is(config.cameras,Array)){

@@ -1,6 +1,7 @@
 package firmament.core;
 import firmament.core.FVector;
 import firmament.core.FGame;
+import firmament.util.FRepository;
 import firmament.util.FLog;
 
 abstract FConfig({}) from {} to {} {
@@ -53,6 +54,11 @@ abstract FConfig({}) from {} to {} {
             var scriptObj= Reflect.field(entry,'*script*');
             if(Std.is(scriptObj,String)){
                 entry = runScript(entry);
+            } else {
+                var repoObj = Reflect.field(entry,'*repository*');
+                if(Std.is(repoObj,String)){
+                    entry = FRepository.getInstance().get(repoObj);
+                }
             }
         }
         
