@@ -86,6 +86,8 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		this._fillAlpha=config.get("fillAlpha",Float,1);
 		this._fillColor=config.get("fillColor",Int,0);
 
+		this._debugRender=config.get("debug",Bool,false);
+
 	}
 	
 	public function render(worlds:Map<String,FWorld>) {
