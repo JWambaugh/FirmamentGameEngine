@@ -89,7 +89,7 @@ abstract FConfig({}) from {} to {} {
                     else if(type==Float && Reflect.isObject(entry)){
                         return parseFloatObject(entry,def);
                     } 
-                    else if(type==String && Reflect.isObject(entry)){
+                    else if(type==String && (Std.is(entry,Float) || Reflect.isObject(entry)) ){
                         return parseStringObject(entry,def);
                     }
                     else if(type==FVector && Reflect.isObject(entry)){
@@ -169,6 +169,14 @@ abstract FConfig({}) from {} to {} {
 
 
     private function parseFloatObject(v:Dynamic,d:Float=0.0):Float{
+        if( Std.is(v,String) ) {
+            // try to parse
+            var value:Float = Std.parseFloat(v);
+            if(!Math.isNaN( value ) ) {
+                return value + 0.0;
+            }
+            throw "Failed to parse Float from string : " + v;
+        }
         if(Reflect.hasField(v,"*min*") && Reflect.hasField(v,"*max*")){
             var min:Float = Reflect.field(v,"*min*");
             var max:Float = Reflect.field(v,"*max*");
@@ -204,7 +212,15 @@ abstract FConfig({}) from {} to {} {
     }
 
     private function parseIntObject(v:Dynamic,d:Int=0):Int{
-       if(Reflect.hasField(v,"*min*") && Reflect.hasField(v,"*max*")){
+        if( Std.is(v,String) ) {
+            // try to parse
+            var value:Null<Int> =  Std.parseInt(v);
+            if( value != null ) {
+                return value;
+            }
+            throw "Failed to parse Int from string : " + v;
+        }
+        if(Reflect.hasField(v,"*min*") && Reflect.hasField(v,"*max*")){
             var min:Int = Reflect.field(v,"*min*");
             var max:Int = Reflect.field(v,"*max*");
             return min+Math.floor(Math.random()*(max-min));
@@ -244,10 +260,27 @@ abstract FConfig({}) from {} to {} {
 
     private function parseStringObject(v:Dynamic,d:String):String{
        
+        if(Std.is(v,Float)){
+            return Std.string(v);
+        }
         if(Reflect.hasField(v,"*random*")){
             var a:Array<String> = cast Reflect.field(v,"*random*");
             return a[Math.floor(Math.random()*a.length)];
         }
+        /*
+// not fully tested!
+        if(Reflect.hasField(v,"*key*") && Reflect.hasField(v,"*values*")){
+trace("Processing keyed values");
+//trace(v);
+            // magic transformation
+            var key:String = v.getNotNull("*key*",String);
+trace(key);
+            var values:FConfig = v.getNotNull("*values*");
+// FLog.msg(Std.string(values));
+//trace("Result - " + values[key]);
+            // magic transformation
+            return values.get( key, Float );
+        }*/
         if(Std.is(v,String)) {
             return v;
         }

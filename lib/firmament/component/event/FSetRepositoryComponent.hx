@@ -23,17 +23,13 @@ class FSetRepositoryComponent extends FEntityComponent{
     private function listenEventFunc(E:FEvent=null){
     
         // walk through the properties
-        var repoInstance = FRepository.getInstance();
+        var store = FRepository.getInstance();
         var fields:Array<String> = Reflect.fields(repository);
-        FLog.msg( "Keys <"+fields+"> ");
         for( key in fields ) {
             try {
-                FLog.msg( "Key <"+key+"> ");
-                var value = repository[key];
-                FLog.msg( "Value <"+value+"> ");
-                FLog.msg( "Instance <"+repoInstance+"> ");
-                repoInstance.set( key, value );
-                FLog.msg( "Set repository <"+key+"> " + repoInstance.get( key ) );
+                var value = repository.get(key);
+                store.set( key, value );
+                FLog.debug( "Set repository <"+key+"> " + store.get( key ) );
             } catch (e : Dynamic) {
                 FLog.error( e );
                 throw e;

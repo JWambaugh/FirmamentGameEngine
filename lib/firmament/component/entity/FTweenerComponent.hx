@@ -101,8 +101,8 @@ class FTweenerComponent extends FEntityComponent {
         _pump.init(config,this);
         _debug = config.get("debug",Bool,false);
 
-        var listeners:FConfig = config.get("listen",Dynamic);
-        var triggers:FConfig = config.get("trigger",Dynamic);
+        var listeners:FConfig = config.get("listeners",Dynamic);
+        var triggers:FConfig = config.get("triggers",Dynamic);
         for( name in eventNames ) {
             var value:String = triggers.get(name,String,null);
             if( value != null ) {

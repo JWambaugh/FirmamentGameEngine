@@ -48,11 +48,17 @@ class FScene extends FObject implements FGameChildInterface{
 			var repository:FConfig = config.repository;
 			for( item in repository.fields() ) {
 				var value:Dynamic = repository[item];
-				var val:Dynamic = repository.get(item,Float,null);
-				if( val != null && Std.string(val) == value ) {
-					FLog.debug("Setting "+val+" as number to repository");
-					repoInstance.set(item,cast(val,Float));
-				} else {
+				FLog.debug("key: "+item+", value: " + value);
+				var val:Dynamic;
+				try {
+					val = repository.get(item,Float,null);
+					if( Std.string(val) == value ) {
+						FLog.debug("Setting "+val+" as number to repository");
+						repoInstance.set(item,cast(val,Float));
+					} else {
+						throw item + " did not parse to a float";
+					}
+				} catch (e:String) { // not a Float
 					val = repository.get(item,FVector,null);
 					if( val != null ) {
 						FLog.debug("Setting "+val+" as FVector to repository");

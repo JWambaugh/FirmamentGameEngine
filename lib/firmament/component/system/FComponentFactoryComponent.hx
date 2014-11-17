@@ -24,15 +24,15 @@ class FComponentFactoryComponent extends FEntityComponent{
 			throw "No event fired to trigger new component";
 		}
 
-				for(eventName in Reflect.fields(_event)){
-					on(_entity,eventName,function(e:FEvent){
-						var cConfig = Reflect.field(_event, eventName);
-						var component = FEntityComponentFactory.createComponent(cConfig.componentName,"FComponentFactoryComponent");
-						component.setConfig(cConfig);
-						_entity.setComponent(component);
-						component.init(cConfig);
-					});
-			}
+		for(eventName in Reflect.fields(_event)){
+			on(_entity,eventName,function(e:FEvent){
+				var cConfig = Reflect.field(_event, eventName);
+				var component = FEntityComponentFactory.createComponent(cConfig.componentName,"FComponentFactoryComponent");
+				component.setConfig(cConfig);
+				_entity.setComponent(component);
+				component.init(cConfig);
+			});
+		}
 	}
 
 	override public function getType(){
