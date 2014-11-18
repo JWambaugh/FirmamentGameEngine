@@ -45,7 +45,7 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 		var newArray = new Array<FEntity>();
 
 		for(entity in _entities){
-			if(comparator(subject,val,entity)){
+			if(entity.isActive() && comparator(subject,val,entity)){
 				newArray.push(entity);
 			}
 		}
@@ -78,22 +78,27 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 		return switch(comparatorStr){
 			case "equals","equal","=","==": this.equals;
 			case "lessThan","<": this.lessThan;
-			case "greaterThan",">": this.lessThan;
+            case "greaterThan",">": this.lessThan;
+			case "notEqual","!=": this.lessThan;
 			default: throw "Unrecognized comparator: "+comparatorStr;
 		};
 	}
 
 	private function equals(a:Dynamic,b:Array<Dynamic>, ent:FEntity):Bool{
-		return evalValue(a,ent)==evalValue(b[0],ent);
+		return evalValue(a,ent) == evalValue(b[0],ent);
 	}
 
 	private function lessThan(a:Dynamic,b:Array<Dynamic>, ent:FEntity):Bool{
-		return evalValue(a,ent)<evalValue(b[0],ent);
+		return evalValue(a,ent) < evalValue(b[0],ent);
 	}
 
 	private function greaterThan(a:Dynamic,b:Array<Dynamic>, ent:FEntity):Bool{
-		return evalValue(a,ent)>evalValue(b[0],ent);
+		return evalValue(a,ent) > evalValue(b[0],ent);
 	}
+
+    private function notEqual(a:Dynamic,b:Array<Dynamic>, ent:FEntity):Bool{
+        return evalValue(a,ent) != evalValue(b[0],ent);
+    }
 
 	public function iterator(){
 		return _entities.iterator();

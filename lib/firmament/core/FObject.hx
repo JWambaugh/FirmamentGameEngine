@@ -79,7 +79,7 @@ class FObject{
 			}
 			while(itemsToRemove.length>0){
 				var item = itemsToRemove.pop();
-				firmament.util.FLog.debug("Removing listener with target of "+Type.getClassName(Type.getClass(item.listeningObject))+" From "+Type.getClassName(Type.getClass(this)));
+				//firmament.util.FLog.debug("Removing listener with target of "+Type.getClassName(Type.getClass(item.listeningObject))+" From "+Type.getClassName(Type.getClass(this)));
 				while(l.remove(item)){}
 			}
 			

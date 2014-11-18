@@ -71,7 +71,11 @@ class FProcess extends firmament.core.FObject implements FProcessInterface
 		_isRunning = false;
 	}
 	
-	
+	public function abort(){
+        if(_manager!=null){
+            _manager.abortProcess(this);
+        }
+    }
 	
 	
 }

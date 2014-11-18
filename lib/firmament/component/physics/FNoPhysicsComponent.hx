@@ -19,7 +19,7 @@ import firmament.world.FWorld;
 import haxe.Timer;
 
 /**
- * FBox2DComponent
+ * 
  * @author Jordan Wambaugh
  */
 

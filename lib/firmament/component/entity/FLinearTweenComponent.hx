@@ -18,16 +18,37 @@ class FLinearTweenComponent extends FEntityComponent{
     var _tweener:FLinearTweener;
     public function new(){
         super();
+
     }
 
-    override public function init(config:firmament.core.FConfig){
-        _tweener = new FLinearTweener(_entity, config);
-        getGameInstance().addProcess(_tweener);
+    private function setup(config:firmament.core.FConfig){
+        if(config.hasField('listen')){
+            on(_entity, config.get('listen'), function(e:FEvent){
+                _tweener = new FLinearTweener(_entity, config);
+                getGameInstance().addProcess(_tweener);
+            });
+        }else{
+            _tweener = new FLinearTweener(_entity, config);
+            getGameInstance().addProcess(_tweener);
+        }
 
-        if(config.hasField('trigger'))
+        if(config.hasField('trigger')){
             on(_tweener, firmament.process.base.FProcess.COMPLETE, function(e:FEvent){
                 _entity.trigger(config.get('trigger',String));
             });
+        }
+    }
+
+    override public function init(config:firmament.core.FConfig){
+        setup(config);
+        on(_entity,FEntity.ACTIVE_STATE_CHANGE, function(e:FEvent){
+            if(_entity.isActive()){
+                if(_tweener!=null)_tweener.abort();
+                removeEventListener(null,this);
+            }else{
+                setup(_config);
+            }
+        });
     }
 
 

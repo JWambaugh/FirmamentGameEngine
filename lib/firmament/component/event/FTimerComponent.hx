@@ -23,16 +23,18 @@ class FTimerComponent extends FEntityComponent{
     override public function init(config:FConfig){
         var startOn:String = _config.get('startOn',String);
         var stopOn:String = _config.get('stopOn',String);
+
+
         var startTimerFunc = function(E:FEvent=null){
             var tm = _entity.getGameInstance().getGameTimerManager();
             var seconds:Float = _config.getNotNull('seconds',Float);
-            FLog.debug("Starting timer - " + seconds + " " + _config.get('name',String, ""));
+            //FLog.debug("Starting timer - " + seconds + " " + _config.get('name',String, ""));
             _timer = tm.addTimer(seconds,this.triggerOnExpire,this);
         }
 
         var stopTimerFunc = function(E:FEvent=null){
             if(_timer!=null) {
-                FLog.msg("Stopping timer " + _config.get('name',String, ""));
+                //FLog.debug("Stopping timer " + _config.get('name',String, ""));
                 _timer.cancel();
             }
             _timer = null;
@@ -40,15 +42,15 @@ class FTimerComponent extends FEntityComponent{
 
         //start timer now unless specified
         if(startOn == null && _entity.isActive()){
-            FLog.debug("Starting timer, entity is active");
+            //FLog.debug("Starting timer, entity is active");
             startTimerFunc();
         }else{
-            FLog.debug("Delaying timer start");
+            //FLog.debug("Delaying timer start");
             _entity.on(startOn,this,startTimerFunc);
         }
 
         if(stopOn != null){
-            FLog.debug("Adding listener for timer stop");
+           // FLog.debug("Adding listener for timer stop");
             _entity.on(stopOn,this,stopTimerFunc);
         }
 
@@ -56,7 +58,7 @@ class FTimerComponent extends FEntityComponent{
         _entity.on(FEntity.ACTIVE_STATE_CHANGE,this,function(e:FEvent){
             if(_entity.isActive()){
                 if(_config.get('startOn',String)==null){
-                    FLog.debug("Starting timer entity became active");
+         //           FLog.debug("Starting timer entity became active");
                     startTimerFunc();
                 }
             
@@ -71,7 +73,7 @@ class FTimerComponent extends FEntityComponent{
     }
 
     private function triggerOnExpire(){
-        FLog.debug("Triggering " + this._config.getNotNull('trigger',String) + " " + _config.get('name',String, "") );
+       // FLog.debug("Triggering " + this._config.getNotNull('trigger',String) + " " + _config.get('name',String, "") );
         _entity.trigger(new FEvent(this._config.getNotNull('trigger',String)));
     }
 }

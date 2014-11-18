@@ -16,6 +16,7 @@ import firmament.component.event.FLoopingTimerComponent;
 import firmament.component.event.FSetPropertiesComponent;
 import firmament.component.event.FSetRepositoryComponent;
 import firmament.component.event.FTimerComponent;
+import firmament.component.event.FTriggerAfterStepComponent;
 import firmament.component.physics.FBox2DComponent;
 import firmament.component.physics.FNoPhysicsComponent;
 import firmament.component.physics.FParticleComponent;
@@ -26,6 +27,7 @@ import firmament.component.render.FTilesheetRenderComponent;
 import firmament.component.render.FWireframeRenderComponent;
 import firmament.component.sound.FSoundComponent;
 import firmament.component.spline.FSimpleFollowSplineComponent;
+import firmament.component.system.FCameraControlComponent;
 import firmament.component.system.FComponentFactoryComponent;
 import firmament.component.system.FEntityScriptComponent;
 import firmament.component.system.FSceneLoaderComponent;
@@ -54,6 +56,7 @@ class FEntityComponentFactory{
             ,"box2d":"firmament.component.physics.FBox2DComponent"
             ,"broadcastSceneEvents":"firmament.component.event.FBroadcastSceneEventsComponent"
             ,"button":"firmament.component.ui.FButtonComponent"
+            ,"cameraControl":"firmament.component.system.FCameraControlComponent"
             ,"captureSceneEvents":"firmament.component.event.FCaptureSceneEventsComponent"
             ,"collisionEventMapper":"firmament.component.event.FCollisionEventMapperComponent"
             ,"componentFactory":"firmament.component.system.FComponentFactoryComponent"
@@ -78,6 +81,7 @@ class FEntityComponentFactory{
             ,"text":"firmament.component.render.FTextRenderComponent"
             ,"tilesheet":"firmament.component.render.FTilesheetRenderComponent"
             ,"timer":"firmament.component.event.FTimerComponent"
+            ,"triggerAfterStep":"firmament.component.event.FTriggerAfterStepComponent"
             ,"tweener":"firmament.component.entity.FTweenerComponent"
             ,"wireframe":"firmament.component.render.FWireframeRenderComponent"
 		};
