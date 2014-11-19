@@ -461,6 +461,7 @@ class FGame extends FObject
 	 * Loads a scene.
 	 */
 	public function loadScene(scene:FConfig){
+
 		if(_inStep){
 			_deferredFunctions.push(function(){
 				loadScene(scene);
@@ -470,12 +471,10 @@ class FGame extends FObject
 		var instanceName = getInstanceName();
 		clearAll();
 		
-		
 		//firmament.util.FLog.debug("loadScene: Creating new scene");
 		_currentScene = new FScene();
 		//firmament.util.FLog.debug("loadScene: Loading instance data");
 		_currentScene.init(scene,instanceName);
-		
 		return;
 	}
 

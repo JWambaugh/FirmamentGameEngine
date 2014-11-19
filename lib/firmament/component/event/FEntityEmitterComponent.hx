@@ -42,7 +42,7 @@ class FEntityEmitterComponent extends FEntityComponent{
 				if(Std.is(e,FEntityEvent)){
 					originEntity = cast(e,FEntityEvent).getEntity();
 				}
-				
+
 				FEntityUtils.emitEntity(originEntity
 					,ent
 					,config.get("speed",Float,0)

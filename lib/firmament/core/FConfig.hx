@@ -64,7 +64,6 @@ abstract FConfig({}) from {} to {} {
         
         // if I'm an array this doesn't seem to work.
 		if(entry == null)return def;
-
 		if(type==null){
 			if(entry == null){
 				return def;

@@ -6,6 +6,7 @@ import firmament.core.FEvent;
 import firmament.core.FGame;
 import firmament.process.base.FProcessManager;
 import firmament.scene.FSceneComponent;
+import firmament.util.FLog;
 
 class FScenePauseComponent extends FSceneComponent {
 
@@ -20,19 +21,17 @@ class FScenePauseComponent extends FSceneComponent {
 		var game:FGame = _scene.getGameInstance();
 		_processManager = game.getProcessManager();
 
-		try {
-			var listeners:FConfig = _config.getNotNull("listen");
-			for( event in listeners.fields() ) {
-				var value = listeners.getNotNull( event, String );
-				switch( event ) {
-					case "pause": on( _scene, value, this.onPause );
-					case "unpause": on( _scene, value, this.onUnPause );
-					case "toggle": on( _scene, value, this.onToggle );
-					default: throw "Error: <" +event+ "> is not one of onPause, onUnPause, or onToggle";
-				}
+		var listeners:FConfig = config.getNotNull("listen");
+		for( event in listeners.fields() ) {
+			var value = listeners.getNotNull( event, String );
+			switch( event ) {
+				case "pause": on( _scene, value, this.onPause );
+				case "unpause": on( _scene, value, this.onUnPause );
+				case "toggle": on( _scene, value, this.onToggle );
+				default: 
+					FLog.error( "<" +event+ "> is not one of pause, unpause, or toggle" );
+					throw "Error: <" +event+ "> is not one of pause, unpause, or toggle";
 			}
-		} catch( e:String ) {
-
 		}
 	}
 

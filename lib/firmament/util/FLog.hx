@@ -33,7 +33,7 @@ class FLog {
     }
 
 
-    public static function msg(message:String, ?pos : haxe.PosInfos):Void{
+    public static function msg(message:String="", ?pos : haxe.PosInfos):Void{
         for (logger in loggers){
             if(pos!=null)
                 logger.log(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"):"+message);

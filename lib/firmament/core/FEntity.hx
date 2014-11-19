@@ -26,13 +26,12 @@ import openfl.display.Tilesheet;
   * 
   * 
   */
-class FEntity extends FObject implements FPropertyInterface implements FGameChildInterface{
+class FEntity extends FPropertyContainer implements FGameChildInterface{
 
 	//events
 	public static inline var COMPONENTS_INITIALIZED = 'componentsInited';
 	public static inline var ACTIVE_STATE_CHANGE = "activeChange";
 
-	var _config:Dynamic;
 	var _componentsHash:Map<String,Array<FEntityComponent>>;
 	var _components:Array<FEntityComponent>;
 	var _pool:FEntityPool;
@@ -41,7 +40,6 @@ class FEntity extends FObject implements FPropertyInterface implements FGameChil
 	var _tags:Array<String>;
 	var _gameInstance:FGame;
 	var _instanceId:String = null;
-	var _properties:Map<String,FProperty>;
 
 
 
@@ -53,11 +51,8 @@ class FEntity extends FObject implements FPropertyInterface implements FGameChil
 	 */
 	public function new(config:Dynamic,?gameInstanceName='main') 
 	{
-		super();
-		if(config == null) config ={};
-		this._config = config;
+		super(config);
 		this._componentsHash = new Map<String,Array<FEntityComponent>>();
-		_properties = new Map<String,FProperty>();
 		_components = new Array<FEntityComponent>();
 		_active = true;
 		if(!Std.is(config.typeId,String)){
@@ -67,7 +62,6 @@ class FEntity extends FObject implements FPropertyInterface implements FGameChil
 		_typeId = config.typeId;
 		_instanceId = config.instanceId;
 		
-
 		if(Std.is(config.tags,Array)){
 			_tags = config.tags;
 		}else{
@@ -166,10 +160,6 @@ class FEntity extends FObject implements FPropertyInterface implements FGameChil
 		component.setEntity(this);
 	}
 	
-	
-	public function getConfig():Dynamic {
-		return this._config;
-	}
 
 	/**
 	 * Deletes the entity
@@ -251,58 +241,22 @@ class FEntity extends FObject implements FPropertyInterface implements FGameChil
 
 	//property functions
 
-	public function registerProperty(property:FProperty){
-		if(_properties.exists(property.getKey())) throw(dbgMsg()+"Property already exists with key "+property.getKey());
-		_properties.set(property.getKey(),property);
+	override public function getProperty(key:String):FProperty{
+		try {
+			return super.getProperty(key);
+		} catch (e:String) {
+			throw dbgMsg() + e;
+		}
 	}
 
-    public function hasProperty(key:String){
-        return _properties.exists(key);
-    }
-	
-	public function getProperty(key:String):FProperty{
-
-		var p = _properties.get(key);
-		if(p == null)throw(dbgMsg()+"No property with key "+key);
-		return p;
-	}
-
-
-	public function getPropertyValue(key:String):Dynamic{
-		return getProperty(key).getDynamic();
-	}
-
-	public function setPropertyValue(key:String,value:Dynamic){
-		getProperty(key).set(value);
-	}
-
-	//property helper functions
-	/**
-	 * Registers a property in the entity. This must be done before the property can be read or written.
-	 */
-	public function registerProp(key:String, type:Dynamic, getter:Void->Dynamic=null, setter:Dynamic->Void=null){
-        var prop;
-        if(getter==null&&setter==null)
-            prop = FProperty.createBasic(key,type);
-        else
-            prop = FProperty.createComputed(key,type,getter,setter);
-		this.registerProperty(prop);
+	override public function registerProperty(property:FProperty){
+		try {
+			super.registerProperty(property);
+		} catch (e:String) {
+			throw dbgMsg() + e;
+		}
 	}
 	
-	/**
-	 * Returns the value of the given property
-	 */
-	public function getProp(key:String):Dynamic{
-		return getProperty(key).getDynamic();
-	}
-
-	/**
-	 * sets the value of the property
-	 */
-	public function setProp(key:String,value:Dynamic){
-		getProperty(key).set(value);
-	}
-
     public function registerComponentProperties(){
         for(c in _components){
             var props = c.getProperties();
@@ -317,6 +271,5 @@ class FEntity extends FObject implements FPropertyInterface implements FGameChil
     private function dbgMsg(){
         return "Entity '"+_typeId+"':'"+_instanceId+"': "; 
     }
-
 	
 }

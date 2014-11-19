@@ -19,20 +19,19 @@ class FEntityUtils {
 	 *		positionOffset  Float the distance from sourceEntity that the entity should start from.
 	 */
 	static public function emitEntity(sourceEntity:FEntity, entity:FEntity, ?speed:Float=10, ?angleOffset:Float=0, ?distanceOffset:Float=0){
-		try {
-		    var p = entity.getPhysicsComponent();
-		    var sp = sourceEntity.getPhysicsComponent();
-		    var cos = Math.cos(sp.getAngle()+angleOffset);
-		    var sin = Math.sin(sp.getAngle()+angleOffset);
-		    var posMult = distanceOffset;
-		    p.setPosition(new FVector(sp.getPositionX()+cos*posMult
-		    	,sp.getPositionY()+sin*posMult)) ;
-		    
-		    p.setAngle(sp.getAngle()+angleOffset);
-		    p.setLinearVelocity(new FVector(cos*speed,sin*speed));
-	    } catch( e:String ) {
-	    	FLog.debug( "Either source or target entity did not have a physics component" );
-	    }
+	    var p = entity.getPhysicsComponent();
+	    var sp = sourceEntity.getPhysicsComponent();
+		if( p == null || sp == null ) {
+			return;
+		}
+	    var cos = Math.cos(sp.getAngle()+angleOffset);
+	    var sin = Math.sin(sp.getAngle()+angleOffset);
+	    var posMult = distanceOffset;
+	    p.setPosition(new FVector(sp.getPositionX()+cos*posMult
+	    	,sp.getPositionY()+sin*posMult));
+	    
+	    p.setAngle(sp.getAngle()+angleOffset);
+	    p.setLinearVelocity(new FVector(cos*speed,sin*speed));
 	}
 
 	/**

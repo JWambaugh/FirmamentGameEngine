@@ -37,10 +37,8 @@ class FScene extends FObject implements FGameChildInterface{
 		if(Std.is(config,String)){
 			config = FDataLoader.loadData(config);
 		}
-
 		_game = FGame.getInstance(gameInstanceName);
 		var stage = Lib.current.stage;
-
 		//initialize repository
 		FLog.debug( "Processing " + config.repository );
 		if(Std.is(config.repository,Dynamic)){
@@ -76,7 +74,6 @@ class FScene extends FObject implements FGameChildInterface{
 				}
 			}
 		}
-		
 		//initialize cameras
 		if(Std.is(config.cameras,Array)){
 			for(cameraDef in cast(config.cameras,Array<Dynamic>)){
@@ -101,7 +98,6 @@ class FScene extends FObject implements FGameChildInterface{
 				camera.resizeToStage(); 
 			});
 		}
-
 		//initialize specified world types
 		if(Reflect.isObject(config.worlds)){
 			for(worldName in Reflect.fields(config.worlds)){
@@ -109,9 +105,7 @@ class FScene extends FObject implements FGameChildInterface{
 				_game.getWorld(worldName).init(worldConfig);
 			}
 		}
-
 		var loader = FEntityLoader.getInstance();
-
 		//initialize pools
 		if(Std.is(config.entityPools,Array)){
 			for(poolConfig in cast(config.entityPools,Array<Dynamic>)){
@@ -121,7 +115,6 @@ class FScene extends FObject implements FGameChildInterface{
 				loader.loadPool(pool.getNotNull('entityFile',String),pool.get("amount",Int,10));
 			}
 		}
-
 		//load sounds
 		if(Std.is(config.sounds,Array)){
 			for(sound in cast(config.sounds,Array<Dynamic>)){
@@ -135,27 +128,24 @@ class FScene extends FObject implements FGameChildInterface{
 		}
 
 
-
 		//load map
 		if(config.map != null){
-			
 			loader.loadMap(config.map,null,gameInstanceName);
 		}
-
 		//load scene components
-		if(Std.is(config.components,Array)){
+		if(Std.is(config.components,Array) ){
 			for(component in cast(config.components,Array<Dynamic>)){
 				if(Reflect.isObject(component)){
 					var c:FConfig = component;
 					var componentInstance = FSceneComponentFactory.createComponent(c.getNotNull("type"),_game);
+					componentInstance.setConfig(c);
 					componentInstance.setScene(this);
-					componentInstance.init(component);
+					componentInstance.init(c);
 					_components.push(componentInstance);
 				}
 			}
 		}
 		this.trigger(new FEvent(FScene.COMPONENTS_INITIALIZED));
-
 	}
 
 	public function getGameInstance(){
