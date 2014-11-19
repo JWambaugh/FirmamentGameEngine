@@ -44,7 +44,7 @@ class FCameraControlComponent extends FEntityComponent {
                 Reflect.setField(_bounds,field,boundaries);
             }
         }
-        FLog.debug("Bounds - " Std.string(_bounds) );
+        FLog.debug("Bounds - " + Std.string(_bounds) );
 
         _sticky = _config.get('sticky',Float);
         FLog.debug("Sticky - " + Std.string(_sticky));
