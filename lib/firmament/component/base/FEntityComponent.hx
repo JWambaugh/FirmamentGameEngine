@@ -5,6 +5,7 @@ import firmament.core.FEvent;
 import firmament.core.FProperty;
 import firmament.core.FObject;
 import firmament.core.FConfig;
+import firmament.util.FLog;
 
 
 typedef PropertyDefinition={
@@ -29,12 +30,22 @@ class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
 	private var _entity:FEntity;
 	private var _componentKey:String;
 	private var _usesStep:Bool;
+	private var _enableDebug:Bool;
 
 	public function new() 
 	{
 		super();
 		_usesStep = false;
+		_enableDebug = false;
+	}
 
+	public function log(message:Dynamic,force:Bool = false){
+		var msg:String = Std.string(message);
+		if( _enableDebug == true || force == true ) {
+			FLog.msg(msg);
+		} else {
+			FLog.debug(msg);
+		}
 	}
 
 	public function useStep(u:Bool = true){
@@ -58,7 +69,10 @@ class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
 	}
 	
 	public function init(config:Dynamic):Void {
-		throw "This needs to be overwritten in a subclass.";
+		if( config != null ) {
+			throw "This needs to be overwritten in a subclass.";
+		}
+		_enableDebug = _config.get( 'debug', Bool, false );
 	}
 	
 	public function getType():String {

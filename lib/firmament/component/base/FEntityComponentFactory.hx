@@ -15,6 +15,7 @@ import firmament.component.event.FEventRelayComponent;
 import firmament.component.event.FLoopingTimerComponent;
 import firmament.component.event.FSetPropertiesComponent;
 import firmament.component.event.FSetRepositoryComponent;
+import firmament.component.event.FSetScenePropertiesComponent;
 import firmament.component.event.FTimerComponent;
 import firmament.component.event.FTriggerAfterStepComponent;
 import firmament.component.physics.FBox2DComponent;
@@ -76,6 +77,7 @@ class FEntityComponentFactory{
             ,"script":"firmament.component.system.FEntityScriptComponent"
             ,"setProperties":"firmament.component.event.FSetPropertiesComponent"
             ,"setRepository":"firmament.component.event.FSetRepositoryComponent"
+            ,"setSceneProperties":"firmament.component.event.FSetScenePropertiesComponent"
             ,"sound":"firmament.component.sound.FSoundComponent"
             ,"sprite":"firmament.component.render.FSpriteRenderComponent"
             ,"text":"firmament.component.render.FTextRenderComponent"

@@ -34,6 +34,11 @@ class FProperty{
 	}
 
     public static function createComputed(key:String, type:Dynamic, getter:Void->Dynamic, setter:Dynamic->Void):FProperty{
+        if(type == Bool) {
+            var p = new FComputedProperty<Bool>(key,getter,setter);
+            p.type = type;
+            return p;
+        }
         if(type == Int) {
             var p = new FComputedProperty<Int>(key,getter,setter);
             p.type = type;
@@ -44,13 +49,14 @@ class FProperty{
             p.type = type;
             return p;
         }
-        if(type == Bool) {
-            var p = new FComputedProperty<Bool>(key,getter,setter);
+        if(type == FVector){
+            var p = new FComputedProperty<FVector>(key,getter,setter);
             p.type = type;
             return p;
         }
-        if(type == FVector){
-            var p = new FComputedProperty<FVector>(key,getter,setter);
+        if(type == String){
+            // Added for completeness
+            var p = new FComputedProperty<String>(key,getter,setter);
             p.type = type;
             return p;
         }

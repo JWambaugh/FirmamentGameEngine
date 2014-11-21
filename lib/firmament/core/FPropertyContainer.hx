@@ -30,7 +30,7 @@ class FPropertyContainer extends FObject implements FPropertyInterface {
 
 	//events
 	var _config:Dynamic;
-	var _properties:Map<String,FProperty>;
+	public var _properties:Map<String,FProperty>;
 
 
 	/**
@@ -68,7 +68,6 @@ class FPropertyContainer extends FObject implements FPropertyInterface {
     }
 	
 	public function getProperty(key:String):FProperty{
-
 		var p = _properties.get(key);
 		if(p == null) throw("No property with key "+key);
 		return p;

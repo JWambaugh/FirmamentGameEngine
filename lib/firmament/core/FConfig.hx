@@ -1,6 +1,7 @@
 package firmament.core;
 import firmament.core.FVector;
 import firmament.core.FGame;
+import firmament.scene.FScene;
 import firmament.util.FRepository;
 import firmament.util.FLog;
 
@@ -166,7 +167,6 @@ abstract FConfig({}) from {} to {} {
         throw "Unexpected value passed as float <"+v+">";
     }
 
-
     private function parseFloatObject(v:Dynamic,d:Float=0.0):Float{
         if( Std.is(v,String) ) {
             // try to parse
@@ -176,14 +176,21 @@ abstract FConfig({}) from {} to {} {
             }
             throw "Failed to parse Float from string : " + v;
         }
-        if(Reflect.hasField(v,"*min*") && Reflect.hasField(v,"*max*")){
-            var min:Float = Reflect.field(v,"*min*");
-            var max:Float = Reflect.field(v,"*max*");
-            return min+Math.random()*(max-min);
+        var o:Dynamic<Float> = {};
+        if(convertMinMax(v,o) == true ){
+            return o.min+Math.random()*(o.max-o.min);
         }
-        if(Reflect.hasField(v,"*random*")){
-            var a:Array<Float> = cast Reflect.field(v,"*random*");
-            return a[Math.floor(Math.random()*a.length)];
+        if(convertRandom(v,o) == true ){
+            return o.value;
+        }
+        if(convertKeyValue(v,o,Float) == true ){
+            return o.value;
+        }
+        if(convertSceneProperty(v,o) ==true ) {
+            if( Std.is(o.value,Float ) ) {
+                return o.value;
+            }
+            return parseFloatObject( o.value, d );
         }
         if(Reflect.hasField(v,"*weighted*")){
             var a:Array<Dynamic> = cast Reflect.field(v,"*weighted*");
@@ -202,7 +209,6 @@ abstract FConfig({}) from {} to {} {
                 target -= Std.parseFloat(w);
                 if( target <= 0 ) {
                     var value:Float = Std.parseFloat(Reflect.field(o,w));
-                    FLog.debug("Weighted Value " + value + "("+ w +")");
                     return value;
                 }
             }
@@ -219,16 +225,21 @@ abstract FConfig({}) from {} to {} {
             }
             throw "Failed to parse Int from string : " + v;
         }
-        if(Reflect.hasField(v,"*min*") && Reflect.hasField(v,"*max*")){
-            var min:Int = Reflect.field(v,"*min*");
-            var max:Int = Reflect.field(v,"*max*");
-            return min+Math.floor(Math.random()*(max-min));
+        var o:Dynamic<Int> = {};
+        if(convertMinMax(v,o) == true ){
+            return o.min+Math.floor(Math.random()*(o.max-o.min));
         }
-        if(Reflect.hasField(v,"*random*")){
-            var a:Array<Int> = cast Reflect.field(v,"*random*");
-            var key = Math.floor(Math.random()* a.length);
-            FLog.debug('using key '+key);
-            return a[key];
+        if(convertRandom(v,o) == true ){
+            return o.value;
+        }
+        if(convertKeyValue(v,o,Int) == true ){
+            return o.value;
+        }
+        if(convertSceneProperty(v,o) ==true ) {
+            if( Std.is(o.value,Int ) ) {
+                return o.value;
+            }
+            return parseIntObject( o.value, d );
         }
         if(Reflect.hasField(v,"*weighted*")){
             var a:Array<Dynamic> = cast Reflect.field(v,"*weighted*");
@@ -247,39 +258,30 @@ abstract FConfig({}) from {} to {} {
                 target -= Std.parseInt(w);
                 if( target <= 0 ) {
                     var value:Int = Std.parseInt(Reflect.field(o,w));
-                    FLog.debug("Weighted Value " + value + "("+ w +")");
                     return value;
                 }
             }
         }
-
         return d; // I didn't know what you were
-        
     }
 
     private function parseStringObject(v:Dynamic,d:String):String{
-       
         if(Std.is(v,Float)){
             return Std.string(v);
         }
-        if(Reflect.hasField(v,"*random*")){
-            var a:Array<String> = cast Reflect.field(v,"*random*");
-            return a[Math.floor(Math.random()*a.length)];
+        var o:Dynamic<String> = {};
+        if(convertRandom(v,o) == true ){
+            return o.value;
         }
-        /*
-// not fully tested!
-        if(Reflect.hasField(v,"*key*") && Reflect.hasField(v,"*values*")){
-trace("Processing keyed values");
-//trace(v);
-            // magic transformation
-            var key:String = v.getNotNull("*key*",String);
-trace(key);
-            var values:FConfig = v.getNotNull("*values*");
-// FLog.msg(Std.string(values));
-//trace("Result - " + values[key]);
-            // magic transformation
-            return values.get( key, Float );
-        }*/
+        if(convertKeyValue(v,o,String) == true ){
+            return o.value;
+        }
+        if(convertSceneProperty(v,o) ==true ) {
+            if( Std.is(o.value,String ) ) {
+                return o.value;
+            }
+            return parseStringObject( o.value, d );
+        }
         if(Std.is(v,String)) {
             return v;
         }
@@ -293,7 +295,6 @@ trace(key);
             //if we have a compiled program already, use it
             program = Reflect.field(v,'program');
             if(program == null && Std.is(script, String)){
-                FLog.debug('parsing script ' + script);
                 var parser = new hscript.Parser();
                 program = parser.parseString(script);
                 Reflect.setField(this,'program',program);
@@ -322,5 +323,47 @@ trace(key);
 		}
 		return ret;
 	}
+
+    // Helper functions
+    private function convertMinMax<T>( v:Dynamic, o:Dynamic<T> ):Bool {
+        if(Reflect.hasField(v,"*min*") && Reflect.hasField(v,"*max*") ) {
+            o.min = Reflect.field(v,"*min*");
+            o.max = Reflect.field(v,"*max*");
+            return true;
+        }
+        return false;
+    }
+
+    private function convertSceneProperty<T>( v:Dynamic, o:Dynamic<T> ):Bool {
+        if(Reflect.hasField(v,"*sceneProperty*") ) {
+            var scene:FScene = FGame.getInstance().getCurrentScene();
+            // do I need to match types here?
+            o.value = scene.getPropertyValue( Reflect.field( v, "*sceneProperty*" ) );
+            return true;
+        }
+        return false;
+    }
+
+    private function convertKeyValue<T>( v:Dynamic, o:Dynamic<T>, type:Dynamic ):Bool {
+        if(Reflect.hasField(v,"*key*") && Reflect.hasField(v,"*values*")){
+            var c:FConfig = v;
+            var key:String = c.get("*key*",String);
+            var values:FConfig = c.get("*values*");
+            // FLog.debug("Result - " + values.get( key ));
+            o.value = values.get( key, type );
+            return true;
+        }
+        return false;
+    }
+
+    private function convertRandom<T>( v:Dynamic, o:Dynamic<T> ):Bool {
+        if(Reflect.hasField(v,"*random*")){
+            var a:Array<T> = cast Reflect.field(v,"*random*");
+            var key = Math.floor(Math.random()* a.length);
+            o.value = a[key];
+            return true;
+        }
+        return false;
+    }
 
 }
