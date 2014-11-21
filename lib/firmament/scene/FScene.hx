@@ -48,8 +48,39 @@ class FScene extends FPropertyContainer implements FGameChildInterface{
 		}
 		//initialize repository
 		FLog.debug( "Processing " + config.repository );
-		if(Std.is(config.repository,Dynamic)){
-			createRepositoryEntries(config.repository);
+
+		if(Std.is(config.repository,Dynamic) && config.repository!=null){
+			var repoInstance = FRepository.getInstance();
+			var repository:FConfig = config.repository;
+			for( item in repository.fields() ) {
+				var value:Dynamic = repository[item];
+				FLog.debug("key: "+item+", value: " + value);
+				var val:Dynamic;
+				try {
+					val = repository.get(item,Float,null);
+					if( Std.string(val) == value ) {
+						FLog.debug("Setting "+val+" as number to repository");
+						repoInstance.set(item,cast(val,Float));
+					} else {
+						throw item + " did not parse to a float";
+					}
+				} catch (e:String) { // not a Float
+					val = repository.get(item,FVector,null);
+					if( val != null ) {
+						FLog.debug("Setting "+val+" as FVector to repository");
+						repoInstance.set(item,cast(val,FVector));
+					} else {
+						val = repository.get(item,String,null);
+						if( val != null && Std.string(val) == value ) {
+							FLog.debug("Setting "+val+" as string to repository");
+							repoInstance.set(item,cast(val,String));
+						} else {
+							FLog.debug("Setting "+value+" as object to repository");
+							repoInstance.set(item,value);
+						}
+					}
+				}
+			}
 		}
 		//initialize cameras
 		if(!Std.is(config.cameras,Array)){
