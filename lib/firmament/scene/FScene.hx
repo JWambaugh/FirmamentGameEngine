@@ -84,7 +84,9 @@ class FScene extends FPropertyContainer implements FGameChildInterface{
 		}
 		//initialize cameras
 		if(!Std.is(config.cameras,Array)){
-			config.cameras = [ {} ];
+			config.cameras = [ {
+                name: "main"
+                } ];
 		}
 		// Allows code reuse
 		for(cameraDef in cast(config.cameras,Array<Dynamic>)){
