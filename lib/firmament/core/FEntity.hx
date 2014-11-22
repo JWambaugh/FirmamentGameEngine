@@ -12,6 +12,7 @@ import firmament.core.FObject;
 import firmament.core.FProperty;
 import firmament.core.FPropertyInterface;
 import firmament.util.FGuidManager;
+import firmament.util.FLog;
 import firmament.util.FMisc;
 import firmament.world.FWorld;
 import flash.display.BitmapData;
@@ -40,6 +41,7 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 	var _tags:Array<String>;
 	var _gameInstance:FGame;
 	var _instanceId:String = null;
+	var _debug:Bool = false;
 
 
 
@@ -69,6 +71,7 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 		}
 		_gameInstance = FGame.getInstance(gameInstanceName);
 		registerProperty(new FComputedProperty<String>("typeId",getTypeId,setTypeId));
+		registerProperty(new FComputedProperty<Bool>("debug",getDebug,setDebug));
 	}
 
 
@@ -78,6 +81,14 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 
 	public function setTypeId(typeId:String){
 		_typeId = typeId;
+	}
+
+	public function getDebug():Bool{
+		return _debug;
+	}
+
+	public function setDebug(value:Bool){
+		_debug = value;
 	}
 
 	/**
@@ -271,5 +282,14 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
     private function dbgMsg(){
         return "Entity '"+_typeId+"':'"+_instanceId+"': "; 
     }
+
+    public function log(message:Dynamic,force:Bool = false){
+		var msg:String = dbgMsg() + Std.string(message);
+		if( _debug == true || force == true ) {
+			FLog.msg(msg);
+		} else {
+			FLog.debug(msg);
+		}
+	}
 	
 }

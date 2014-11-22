@@ -53,18 +53,18 @@ class FScene extends FPropertyContainer implements FGameChildInterface{
 			createRepositoryEntries(config.repository);
 		}
 		//initialize cameras
-		if(!Std.is(config.cameras,Array)){
-			config.cameras = [ {
-                name: "main"
-                } ];
+
+		if(!Std.is(config.cameras,Array) ||  ( Std.is(config.cameras,Array) && cast(config.cameras,Array<Dynamic>).length <= 0 ) ) {
+			config.cameras = [{}];
 		}
 		// Allows code reuse
 		for(cameraDef in cast(config.cameras,Array<Dynamic>)){
-			var c:FConfig = (cameraDef);
-			var camera = new FCamera(100,100,gameInstanceName);
+			var c:FConfig = cameraDef;
+			var camName:String = c.get('name',String,gameInstanceName);
+			var camera = new FCamera(100,100,camName);
 			camera.init(cameraDef);
 
-			_game.addCamera(c.get('name',String,gameInstanceName),camera);
+			_game.addCamera(camName,camera);
 			stage.addChild(camera);
 			stage.addEventListener(Event.RESIZE, function(e:Event) { 
 				camera.resizeToStage();

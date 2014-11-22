@@ -116,12 +116,10 @@ class FTweenerComponent extends FEntityComponent {
                     }
             }
         }
-        _entity.on(FEntity.ACTIVE_STATE_CHANGE,this,onToggleActive);
-        _entity.on(FEntity.COMPONENTS_INITIALIZED,this,onPostInit);
+        onPostInit(null);
     }
 
     private function onPostInit(e:FEvent) {
-log("onPostInit " + Std.string(e) );
         _pump.init(_config,this);
         _props = new FConfig( _config.get("properties") );
         for( prop in _props.fields() ) {
@@ -132,7 +130,6 @@ log("onPostInit " + Std.string(e) );
                 case Float,Int:{
                     var start:Float = values.get( "start",property.type,property.getFloat() );
                     var end:Float = values.get( "end",property.type,property.getFloat() );
-                    log( "Entity " + _id + " " + prop + " - " + start ); 
                     _steps.set( prop, (end-start)/(_pump._duration+.0000001) );
                 }
                 case FVector:{
@@ -146,7 +143,6 @@ log("onPostInit " + Std.string(e) );
                 }
             }
         }
-
         reset();
 
         if( _config.get("paused",Bool,false) == false && _entity.isActive() == true ) {
@@ -155,6 +151,15 @@ log("onPostInit " + Std.string(e) );
             pause();
         }
         _initialized = true;
+        _entity.on(FEntity.ACTIVE_STATE_CHANGE,this,onToggleActive);
+    }
+
+    public function onToggleActive(e:FEvent) {
+        if( _entity.isActive() == true ) {
+            _pump.resume();
+        } else {
+            _pump.pause();
+        }
     }
 
     public function onEvent(e:FEvent) {
@@ -171,14 +176,6 @@ log("onPostInit " + Std.string(e) );
 
     override public function getType(){
         return "tweener";
-    }
-
-    public function onToggleActive(e:FEvent) {
-        if( _entity.isActive() == true ) {
-            _pump.resume();
-        } else {
-            _pump.pause();
-        }
     }
 
     /*override*/ public function pause() { 
@@ -213,7 +210,7 @@ log("onPostInit " + Std.string(e) );
             var p:FProperty = _entity.getProperty(name);
             var values:FConfig = new FConfig( _props.get(name) );
             var start:Dynamic = values.get( "start", p.type, null );
-            log( "Entity " + _id + " " + name + " - " + start ); 
+            log( "Entity " + _id + " rst: " + name + " - " + start ); 
 
             if( start != null ) {
                 _entity.setProp( name, start );
@@ -235,10 +232,9 @@ log("onPostInit " + Std.string(e) );
     /*override*/ public function processStep(currentStep:Float,timeDelta:Float,duration:Float) {
         for( prop in _steps.keys() ) {
             var property:FProperty = _entity.getProperty(prop);
-            if( Math.random() < .1) {
-                log("Step: Entity "+_id+" is stepping" );
+            if( Math.random() < .1) { 
+                log( "Entity " + _id + " " + prop + " >> " + property.getDynamic() );
             }
-            if( Math.random() < .1) { log( "Entity " + _id + " " + prop + " >> " + property.getDynamic() ); }
             switch(property.type){
                 case Float,Int:{
                     var step:Float = _steps.get(prop);

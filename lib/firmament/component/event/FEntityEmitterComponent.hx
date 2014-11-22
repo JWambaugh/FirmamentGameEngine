@@ -47,7 +47,8 @@ class FEntityEmitterComponent extends FEntityComponent{
 					,ent
 					,config.get("speed",Float,0)
 					,angle
-					,config.get("distanceOffset",Float,0.01) ); 
+					,config.get("distanceOffset",Float,0.01)
+					,config.get("ignoreParent",Bool,false) );
 				ent.setActive(true);
             }
             var trigger = config.get('trigger',String);
