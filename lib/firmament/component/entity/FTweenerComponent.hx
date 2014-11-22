@@ -11,7 +11,6 @@ import firmament.core.FPropertyInterface;
 import firmament.core.FVector;
 import firmament.process.base.FProcess;
 import firmament.process.timer.FTimer;
-import firmament.util.FLog;
 import haxe.Timer;
 /*
     Class: FEventMapperComponent
@@ -83,7 +82,6 @@ class FTweenerComponent extends FEntityComponent {
     var _steps:Map<String,Dynamic>; // precalc steps
     var _props:FConfig;
     var _initialized:Bool;
-    var _debug:Bool = false;
     var _id:Int;
 
     public function new(){
@@ -94,12 +92,10 @@ class FTweenerComponent extends FEntityComponent {
         _steps = new Map<String,Dynamic>();
         _pump = new AnimatorPump();
         _initialized = false;
-        _debug = false;
     }
 
     override public function init(config:FConfig){
-        _pump.init(config,this);
-        _debug = config.get("debug",Bool,false);
+        super.init(null);
 
         var listeners:FConfig = config.get("listeners",Dynamic);
         var triggers:FConfig = config.get("triggers",Dynamic);
@@ -120,16 +116,23 @@ class FTweenerComponent extends FEntityComponent {
                     }
             }
         }
+        _entity.on(FEntity.ACTIVE_STATE_CHANGE,this,onToggleActive);
+        _entity.on(FEntity.COMPONENTS_INITIALIZED,this,onPostInit);
+    }
+
+    private function onPostInit(e:FEvent) {
+log("onPostInit " + Std.string(e) );
+        _pump.init(_config,this);
         _props = new FConfig( _config.get("properties") );
         for( prop in _props.fields() ) {
             var property:FProperty = _entity.getProperty( prop );
             var values:FConfig = new FConfig( _props.get(prop) );
-            if( _debug ) {FLog.msg( "Entity " + _id + " " + prop + " -> " + property.getDynamic() ); }
+            log( "Entity " + _id + " " + prop + " -> " + property.getDynamic() ); 
             switch( property.type ) {
                 case Float,Int:{
                     var start:Float = values.get( "start",property.type,property.getFloat() );
                     var end:Float = values.get( "end",property.type,property.getFloat() );
-                    if( _debug ) {FLog.msg( "Entity " + _id + " " + prop + " - " + start ); }
+                    log( "Entity " + _id + " " + prop + " - " + start ); 
                     _steps.set( prop, (end-start)/(_pump._duration+.0000001) );
                 }
                 case FVector:{
@@ -143,20 +146,20 @@ class FTweenerComponent extends FEntityComponent {
                 }
             }
         }
+
         reset();
-        if(_debug){trace("init: Entity "+_id+" is not active - " + (_entity.isActive()?"true":"false") );}
-        if( config.get("paused",Bool,false) == false && _entity.isActive() == true ) {
+
+        if( _config.get("paused",Bool,false) == false && _entity.isActive() == true ) {
             resume();
         } else {
             pause();
         }
         _initialized = true;
-        _entity.on(FEntity.ACTIVE_STATE_CHANGE,this,onToggleActive);
     }
 
     public function onEvent(e:FEvent) {
         var target:String = _listeners.get( e.name );
-        if( _debug ) { FLog.msg( "Entity " + _id + " " + "Handling message " + e.name + " -> " + target); }
+        log( "Entity " + _id + " " + "Handling message " + e.name + " -> " + target); 
         switch( target ) {
             case "reset": this.reset();
             case "pause": this.pause();
@@ -186,7 +189,7 @@ class FTweenerComponent extends FEntityComponent {
     }
 
     /*override*/ public function resume() { 
-        if(_debug){trace("Resume: Entity "+_id+" is not active - " + (_entity.isActive()?"true":"false") );}
+        log("Resume: Entity "+_id+" is active - " + (_entity.isActive()?"true":"false") );
         _pump.resume();
         if(_initialized == true) {
             _entity.trigger( new FEvent(_events.get("resume")) );
@@ -210,7 +213,7 @@ class FTweenerComponent extends FEntityComponent {
             var p:FProperty = _entity.getProperty(name);
             var values:FConfig = new FConfig( _props.get(name) );
             var start:Dynamic = values.get( "start", p.type, null );
-            if( _debug ) { FLog.msg( "Entity " + _id + " " + name + " - " + start ); }
+            log( "Entity " + _id + " " + name + " - " + start ); 
 
             if( start != null ) {
                 _entity.setProp( name, start );
@@ -224,7 +227,7 @@ class FTweenerComponent extends FEntityComponent {
 
     /*override*/ public function complete() {
         if(_initialized == true) {
-            if( _debug ) {FLog.msg( "Entity " + _id + " " + "Firing trigger - complete " + _events.get("complete") );}
+            log( "Entity " + _id + " " + "Firing trigger - complete " + _events.get("complete") );
             _entity.trigger( new FEvent(_events.get("complete")) );
         }
     }
@@ -232,10 +235,10 @@ class FTweenerComponent extends FEntityComponent {
     /*override*/ public function processStep(currentStep:Float,timeDelta:Float,duration:Float) {
         for( prop in _steps.keys() ) {
             var property:FProperty = _entity.getProperty(prop);
-            if( _debug && Math.random() < .1) {
-                trace("Step: Entity "+_id+" is stepping" );
+            if( Math.random() < .1) {
+                log("Step: Entity "+_id+" is stepping" );
             }
-            if( _debug && Math.random() < .1) {FLog.msg( "Entity " + _id + " " + prop + " >> " + property.getDynamic() ); }
+            if( Math.random() < .1) { log( "Entity " + _id + " " + prop + " >> " + property.getDynamic() ); }
             switch(property.type){
                 case Float,Int:{
                     var step:Float = _steps.get(prop);
