@@ -13,11 +13,18 @@ import firmament.process.timer.FTimer;
 */
 class FTimerComponent extends FEntityComponent{
     
-    var _timer:FTimer;
+    var _timer:FTimer = null;
 
     public function new(){
         super();
         
+    }
+
+    private function stopTimerFunc(E:FEvent=null){
+        if(_timer!=null) {
+            _timer.cancel();
+        }
+        _timer = null;
     }
 
     override public function init(config:FConfig){
@@ -27,17 +34,16 @@ class FTimerComponent extends FEntityComponent{
         var stopOn:String = _config.get('stopOn',String);
 
         var startTimerFunc = function(E:FEvent=null){
+            if( _timer != null ) {
+                // keep a million instances from running
+                //stopTimerFunc(E);
+                return;
+            }
+            trace("Starting timer");
             var tm = _entity.getGameInstance().getGameTimerManager();
             var seconds:Float = _config.getNotNull('seconds',Float);
             log("Starting timer - " + seconds + " " + _config.get('name',String, ""));
             _timer = tm.addTimer(seconds,this.triggerOnExpire,this);
-        }
-
-        var stopTimerFunc = function(E:FEvent=null){
-            if(_timer!=null) {
-                _timer.cancel();
-            }
-            _timer = null;
         }
 
         //start timer now unless specified
@@ -57,7 +63,6 @@ class FTimerComponent extends FEntityComponent{
                 if(_config.get('startOn',String)==null){
                     startTimerFunc();
                 }
-            
             }else{
                 stopTimerFunc();
             }
@@ -69,6 +74,7 @@ class FTimerComponent extends FEntityComponent{
     }
 
     private function triggerOnExpire(){
+        stopTimerFunc(null);
         _entity.trigger(new FEvent(this._config.getNotNull('trigger',String)));
     }
 }

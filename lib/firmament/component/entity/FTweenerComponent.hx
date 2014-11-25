@@ -188,14 +188,14 @@ class FTweenerComponent extends FEntityComponent {
     /*override*/ public function resume() { 
         log("Resume: Entity "+_id+" is active - " + (_entity.isActive()?"true":"false") );
         _pump.resume();
-        if(_initialized == true) {
+        if(_initialized == true && _events.exists("resume") == true) {
             _entity.trigger( new FEvent(_events.get("resume")) );
         }
     }
 
     /*override*/ public function stop() { 
         _pump.stop();
-        if(_initialized == true) {
+        if(_initialized == true && _events.exists("stop") == true) {
             _entity.trigger( new FEvent(_events.get("stop")) );
         }
     }
@@ -216,14 +216,14 @@ class FTweenerComponent extends FEntityComponent {
                 _entity.setProp( name, start );
             }
         }
-        if(_initialized == true) {
+        if(_initialized == true && _events.exists("reset") == true) {
             _entity.trigger( new FEvent(_events.get("reset")) );
         }
 
     }
 
     /*override*/ public function complete() {
-        if(_initialized == true) {
+        if(_initialized == true && _events.exists("complete") == true) {
             log( "Entity " + _id + " " + "Firing trigger - complete " + _events.get("complete") );
             _entity.trigger( new FEvent(_events.get("complete")) );
         }
@@ -250,7 +250,9 @@ class FTweenerComponent extends FEntityComponent {
                 }
             }
         }
-        _entity.trigger( new FEvent(_events.get("step"),[currentStep,timeDelta,duration]) );
+        if( _events.exists("step") == true ) {
+            _entity.trigger( new FEvent(_events.get("step"),[currentStep,timeDelta,duration]) );
+        }
     }
 
 }

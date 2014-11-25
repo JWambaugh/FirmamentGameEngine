@@ -4,6 +4,7 @@ import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
 import firmament.component.entity.FDecrementComponent;
 import firmament.component.entity.FDestroyEntityComponent;
+import firmament.component.entity.FFollowEntityComponent;
 import firmament.component.entity.FLinearTweenComponent;
 import firmament.component.entity.FTweenerComponent;
 import firmament.component.event.FBroadcastSceneEventsComponent;
@@ -67,6 +68,7 @@ class FEntityComponentFactory{
             ,"entityEmitter":"firmament.component.event.FEntityEmitterComponent"
             ,"eventMapper":"firmament.component.event.FEventMapperComponent"
             ,"eventRelay":"firmament.component.event.FEventRelayComponent"
+            ,"followEntity":"firmament.component.entity.FFollowEntityComponent"
             ,"followSpline":"firmament.component.spline.FSimpleFollowSplineComponent"
             ,"line":"firmament.component.render.FLineRenderComponent"
             ,"linearTween":"firmament.component.entity.FLinearTweenComponent"
