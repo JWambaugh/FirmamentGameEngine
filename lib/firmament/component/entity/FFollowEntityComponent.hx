@@ -58,7 +58,7 @@ class FFollowEntityComponent extends FEntityComponent  {
 		}
 	}
 
-	public function start(event:FEvent) {
+	public function start(event:FEvent) { 
 		_paused = false;
 		if( _triggers != null ) {
 			try {
@@ -122,21 +122,27 @@ class FFollowEntityComponent extends FEntityComponent  {
 									? {"x":0.0,"y":0.0}
 									: _prevDelta.get(property);
 				distance.subtract(_selfPos);
+/*if( !(distance.x == 0 && distance.y == 0) ) {
+	trace("Span - ("+ delta +") " + distance );
+}*/
 				// floaty version of done
 				if ( distance.lengthSquared() < 0.00001 ) {
 					return true;
 				}
 
-				if( (speed.max > 0) && (distance.lengthSquared() * delta) > (speed.max * speed.max) ) {
+				if( (speed.max > 0) && (distance.lengthSquared() > (speed.max * speed.max) ) ) {
 					distance = distance.makeUnit();
 					distance.multiply(speed.max);
 				}
 				// side effect, distance can be modified
-				if( (speed.min > 0) && (distance.lengthSquared() * delta) < (speed.min * speed.min) ) {
+				if( (speed.min > 0) && (distance.lengthSquared() < (speed.min * speed.min) ) ) {
 					distance = distance.makeUnit();
 					distance.multiply(speed.min);
 				}
 				_prevDelta.set(property,distance);
+/*if( !(distance.x == 0 && distance.y == 0) ) {
+	trace("Increment - ("+ delta +")" + distance );
+}*/
 				_selfPos.add( distance );
 				_entity.setProp(property,_selfPos);
 			}

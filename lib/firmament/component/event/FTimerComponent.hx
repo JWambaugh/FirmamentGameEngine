@@ -39,7 +39,7 @@ class FTimerComponent extends FEntityComponent{
                 //stopTimerFunc(E);
                 return;
             }
-            trace("Starting timer");
+        
             var tm = _entity.getGameInstance().getGameTimerManager();
             var seconds:Float = _config.getNotNull('seconds',Float);
             log("Starting timer - " + seconds + " " + _config.get('name',String, ""));
