@@ -1,4 +1,3 @@
-
 package firmament.component.entity;
 
 import firmament.component.base.FEntityComponent;
@@ -8,17 +7,21 @@ import firmament.core.FEvent;
 import firmament.core.FGame;
 import firmament.core.FProperty;
 import firmament.core.FVector;
+import firmament.core.FCamera;
 
-class FFollowEntityComponent extends FEntityComponent  {
+class FFollowEntityComponent extends FEntityComponent {
 	
 	var _target:FEntity = null;
 	var _paused:Bool = false;
 	var _triggers:FConfig = null;
 	var _prevDelta:Map<String,Dynamic>;
+	var _zeroVector:FVector;
+	var _reached:Bool = false; // prohibits sending of the reached trigger without changing states
 
 	public function new(){
 		super();
 		_prevDelta = new Map();
+		_zeroVector = new FVector(0,0);
 	}
 
 	/*
@@ -50,20 +53,24 @@ class FFollowEntityComponent extends FEntityComponent  {
 	*/
 
 	public function pause(event:FEvent) {
-		_paused = true;
-		if( _triggers != null ) {
-			try {
-				_entity.trigger( new FEvent(_triggers.getNotNull("pause")) );
-			} catch (e:Dynamic) {}
+		if( _paused == false ) {
+			_paused = true;
+			if( _triggers != null ) {
+				try {
+					_entity.trigger( new FEvent(_triggers.getNotNull("pause")) );
+				} catch (e:Dynamic) {}
+			}
 		}
 	}
 
 	public function start(event:FEvent) { 
-		_paused = false;
-		if( _triggers != null ) {
-			try {
-				_entity.trigger( new FEvent(_triggers.getNotNull("start")) );
-			} catch (e:Dynamic) {}
+		if( _paused == true ) {
+			_paused = false;
+			if( _triggers != null ) {
+				try {
+					_entity.trigger( new FEvent(_triggers.getNotNull("start")) );
+				} catch (e:Dynamic) {}
+			}
 		}
 	}
 
@@ -82,7 +89,6 @@ class FFollowEntityComponent extends FEntityComponent  {
 					on( _entity, listeners.get(action,String),null,pause);
 			}
 		}
-
 		_triggers = _config.get("triggers",Dynamic);
 	}
 
@@ -104,45 +110,86 @@ class FFollowEntityComponent extends FEntityComponent  {
 	private function delegatorSnap(delta:Float,prop:FProperty,behavior:FConfig):Bool {
 		var property:String = prop.getKey();
 		var _targetValue:Dynamic = _target.getProp(property);
+		var offset = behavior.get("offset",prop.type,null);
+		if( offset != null ) {
+			switch(prop.type) {
+				case FVector: {
+					var finalPosition:FVector = _targetValue.copy();
+					finalPosition.add( offset );
+					_targetValue = finalPosition;
+				}
+				case Int,Float: {
+					_targetValue += offset;
+				}
+			}
+		}
 		_entity.setProp(property,_targetValue);
-		return false;
+		return true;
 	}
 
-	private function delegatorElastic(delta:Float,prop:FProperty,behavior:FConfig):Bool {
+	private function delegatorTrack(delta:Float,prop:FProperty,behavior:FConfig):Bool {
+		var tolerence:Float = behavior.get("tolerence",Float,0.00001);
+		var angleRange:FConfig = behavior.get("angle",Dynamic,{});
 		var speedRange:FConfig = behavior.get("speed",Dynamic,{});
+		var offset = behavior.get("offset",prop.type,null);
 		var speed = { "min" : delta * speedRange.get("min",Float,0), 
 					  "max" : delta * speedRange.get("max",Float,0) };
+		var angle = { "min" : angleRange.get("min",Float,0) / 180.0 * Math.PI
+					 ,"max" : angleRange.get("max",Float,0) / 180.0 * Math.PI};
+
 		var property:String = prop.getKey();
 		switch(prop.type) {
 			case  FVector: {
 				var _targetPos:FVector = _target.getProp(property);
 				var _selfPos:FVector = _entity.getProp(property);
 				var distance:FVector = _targetPos.copy();
-				var previous = ( ! _prevDelta.exists(property) ) 
-									? {"x":0.0,"y":0.0}
+				var previous:FVector = ( ! _prevDelta.exists(property) ) 
+									? _zeroVector.copy()
 									: _prevDelta.get(property);
+
 				distance.subtract(_selfPos);
-/*if( !(distance.x == 0 && distance.y == 0) ) {
-	trace("Span - ("+ delta +") " + distance );
-}*/
+
 				// floaty version of done
-				if ( distance.lengthSquared() < 0.00001 ) {
+				if ( distance.lengthSquared() < tolerence ) {
 					return true;
 				}
 
-				if( (speed.max > 0) && (distance.lengthSquared() > (speed.max * speed.max) ) ) {
-					distance = distance.makeUnit();
-					distance.multiply(speed.max);
+				if( angle.min != 0 || angle.max != 0 ) {
+					var angleTo:Float = distance.angleBetween( _selfPos );
+					if (angleTo < 0) {angleTo += 2 * Math.PI;}
+					var ang:Null<Float> = null;
+					if( angle.max > 0 && ( Math.abs(angleTo) > angle.max ) ) {
+						ang = angle.max;
+					}
+					if( angle.min > 0 && ( Math.abs(angleTo) < angle.min ) ) {
+						ang = angle.min;
+					}
+					if( ang != null ) {
+						var temp:FVector = distance.copy();
+						// flip these to go backwards from the dest
+						var s:Float = -Math.cos(ang);
+						var c:Float = Math.sin(ang);
+						distance.x = (temp.x * c - temp.y * s);
+						distance.y = (temp.x * s + temp.y * c);
+					}
 				}
-				// side effect, distance can be modified
-				if( (speed.min > 0) && (distance.lengthSquared() < (speed.min * speed.min) ) ) {
-					distance = distance.makeUnit();
-					distance.multiply(speed.min);
+
+				if( (speed.max != 0) || (speed.min != 0) ) {
+					var spd:Null<Float> = null;
+					if( (speed.max > 0) && (distance.lengthSquared() > (speed.max * speed.max) ) ) {
+						spd = speed.max;
+					}
+					// side effect, distance can be modified
+					if( (speed.min > 0) && (distance.lengthSquared() < (speed.min * speed.min) ) ) {
+						spd = speed.min;
+					}
+					if( spd != null ) {
+						distance = distance.makeUnit();
+						distance.multiply(spd);
+					}
 				}
+
 				_prevDelta.set(property,distance);
-/*if( !(distance.x == 0 && distance.y == 0) ) {
-	trace("Increment - ("+ delta +")" + distance );
-}*/
 				_selfPos.add( distance );
 				_entity.setProp(property,_selfPos);
 			}
@@ -154,9 +201,11 @@ class FFollowEntityComponent extends FEntityComponent  {
 									? 0.0
 									: _prevDelta.get(property);
 				// floaty version of done
-				if ( distance < 0.00001 ) {
+				if ( distance < tolerence ) {
 					return true;
 				}
+
+				// how would angle work here?
 
 				if( distance * delta > speed.max ) {
 					distance = speed.max;
@@ -176,7 +225,9 @@ class FFollowEntityComponent extends FEntityComponent  {
 
 	override public function step(delta:Float) {
 		// Do nothing if I'm paused
-		if( _paused ) {return;}
+		if( _paused ) { 
+			return; 
+		}
 		try {
 			if( _target == null ) {
 				_target = entityQuery();
@@ -187,20 +238,24 @@ class FFollowEntityComponent extends FEntityComponent  {
 			var reached:Bool = true;
 			for( property in properties.fields() ) {
 				var behavior:FConfig = properties.get(property,Dynamic,{});
-				if(behavior.get("type",String) == "elastic") {
-					reached = delegatorElastic(delta,_target.getProperty(property),behavior) && reached;
-				} else {
-					reached = delegatorSnap(delta,_target.getProperty(property),behavior) && reached;
+				var atPosition:Bool = false;
+				switch( behavior.get("type",String) ){
+					case "track":
+						atPosition = delegatorTrack(delta,_target.getProperty(property),behavior);
+					default:
+						atPosition = delegatorSnap(delta,_target.getProperty(property),behavior);
 				}
+				reached = reached && atPosition;
 			}
 
-			if( reached == true ) {
+			if( reached == true && _reached != reached ) {
 				if( _triggers != null ) {
 					try {
 						_entity.trigger( new FEvent(_triggers.getNotNull("reached")) );
 					} catch (e:Dynamic) {}
 				}
 			}
+			_reached = reached;
 		} catch(e:Dynamic) {
 			trace( e );
 		}

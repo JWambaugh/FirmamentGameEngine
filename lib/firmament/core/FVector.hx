@@ -39,12 +39,34 @@ class FVector
 	}
 
 	/**
+	 * Returns the length of the vector when
+	 * v is cast onto 'this'
+	 * @param	v
+	 * @return  Float
+	 */
+	public function dotProduct( v:FVector ):Float {
+		/* If 0 then vectors are at a right angle */
+		return (x * v.x) + (y * v.y);
+	}
+
+	/**
 	 * Returns the angle to get to the specified FVector.
-	 *
-	 *
+	 * Vectors have to be centered at 0,0
+	 * @param v
+	 * @ return 
 	 */
 	public function angleTo(v:FVector){
 		return Math.atan2(y-v.y, v.x-x);
+	}
+
+	/**
+	 * Returns the angle between specified FVector.
+	 * Vectors have to be centered at 0,0
+	 * @param v
+	 * @ return Float
+	 */
+	public function angleBetween(v:FVector){
+		return Math.atan2(v.y,v.x) - Math.atan2(y,x);
 	}
 
 
@@ -140,8 +162,6 @@ class FVector
 	{
 		return (x * x + y * y);
 	}
-
-	
 
 	public function isValid():Bool
 	{

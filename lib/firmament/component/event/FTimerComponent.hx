@@ -30,13 +30,13 @@ class FTimerComponent extends FEntityComponent{
     override public function init(config:FConfig){
         super.init(null);
 
+        var paused:Bool = _config.get('paused',Bool,true);
         var startOn:String = _config.get('startOn',String);
         var stopOn:String = _config.get('stopOn',String);
 
         var startTimerFunc = function(E:FEvent=null){
             if( _timer != null ) {
-                // keep a million instances from running
-                //stopTimerFunc(E);
+                // triggerOnExpire();
                 return;
             }
         
@@ -47,7 +47,7 @@ class FTimerComponent extends FEntityComponent{
         }
 
         //start timer now unless specified
-        if(startOn == null && _entity.isActive()){
+        if( (paused == false || startOn == null) && _entity.isActive()){
             startTimerFunc();
         }else{
             _entity.on(startOn,this,startTimerFunc);
@@ -60,7 +60,7 @@ class FTimerComponent extends FEntityComponent{
         //pause and unpause the timer as the entity changes active states
         _entity.on(FEntity.ACTIVE_STATE_CHANGE,this,function(e:FEvent){
             if(_entity.isActive()){
-                if(_config.get('startOn',String)==null){
+                if(_config.get('startOn',String)==null || _config.get('paused',Bool,true) == false){
                     startTimerFunc();
                 }
             }else{
