@@ -5,8 +5,8 @@ import firmament.component.base.FEntityComponent;
 import firmament.core.FConfig;
 import firmament.core.FEntity;
 import firmament.core.FEvent;
-import firmament.util.FLog;
 import firmament.process.timer.FTimer;
+import firmament.util.FLog;
 /*
     Class: FEventMapperComponent
     maps events on the entity of a type to another event of a different type.
@@ -29,7 +29,7 @@ class FSetPropertiesComponent extends FEntityComponent{
                 var eprop = _entity.getProperty(key);
                 _entity.setPropertyValue( 
                         key, properties.getNotNull(key, eprop.type ) );
-                FLog.debug( "Set property <"+key+"> " + _entity.getPropertyValue(key) );
+                log( "Set property <"+key+"> " + _entity.getPropertyValue(key) );
             } catch (e : Dynamic) {
                 FLog.error( e );
                 throw e;
@@ -44,6 +44,7 @@ class FSetPropertiesComponent extends FEntityComponent{
     }
 
     override public function init(config:FConfig){
+        super.init(null);
         properties = config.getNotNull('properties');
 
         var eventListen:String = config.getNotNull('listen',String);
