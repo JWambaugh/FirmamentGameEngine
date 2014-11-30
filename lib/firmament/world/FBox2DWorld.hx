@@ -36,16 +36,22 @@ class FPhysicsWorldContactListener extends B2ContactListener {
 
 		var bodyA:FBox2DComponent = contact.getFixtureA().getBody().getUserData();
 		var bodyB:FBox2DComponent = contact.getFixtureB().getBody().getUserData();
-		bodyA.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact));
-		bodyB.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact));
+		var colEvent = new FBox2DCollisionEvent(world,FCollisionEventType.beginContact,contact);
+		bodyA.getEntity().trigger(colEvent);
+		bodyB.getEntity().trigger(colEvent);
 		//firmament.util.FLog.debug("beginContact "+bodyA.getEntity().getTypeId() + " > "+bodyB.getEntity().getTypeId());
+		// collisionAllowed doesn't work here so we need a different Event Type
+		// contact.setEnabled( colEvent.collisionAllowed() );
 	}
 
 	override public function endContact(contact:B2Contact):Void {
 		var bodyA:FBox2DComponent = contact.getFixtureA().getBody().getUserData();
 		var bodyB:FBox2DComponent = contact.getFixtureB().getBody().getUserData();
-		bodyA.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.endContact,contact));
-		bodyB.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.endContact,contact));
+		var colEvent = new FBox2DCollisionEvent(world,FCollisionEventType.endContact,contact);
+		bodyA.getEntity().trigger(colEvent);
+		bodyB.getEntity().trigger(colEvent);
+		// collisionAllowed doesn't work here so we need a different Event Type
+		// contact.setEnabled( colEvent.collisionAllowed() );
 	}
 
 	override public function preSolve(contact:B2Contact, oldManifold:B2Manifold):Void {
@@ -57,8 +63,10 @@ class FPhysicsWorldContactListener extends B2ContactListener {
 		
 		var bodyA:FBox2DComponent = contact.getFixtureA().getBody().getUserData();
 		var bodyB:FBox2DComponent = contact.getFixtureB().getBody().getUserData();
-		bodyA.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.preSolve,contact));
-		bodyB.getEntity().trigger(new FBox2DCollisionEvent(world,FCollisionEventType.preSolve,contact));
+		var colEvent = new FBox2DCollisionEvent(world,FCollisionEventType.preSolve,contact);
+		bodyA.getEntity().trigger(colEvent);
+		bodyB.getEntity().trigger(colEvent);
+		contact.setEnabled( colEvent.collisionAllowed() );
 	}
 }
  

@@ -19,17 +19,18 @@ import firmament.core.FCircleShape;
 import firmament.core.FComputedProperty;
 import firmament.core.FEntity;
 import firmament.core.FEntityFactory;
+import firmament.core.FEvent;
 import firmament.core.FGame;
 import firmament.core.FPolygonShape;
 import firmament.core.FProperty;
 import firmament.core.FShape;
 import firmament.core.FVector;
 import firmament.core.FWorldPositionalInterface;
+import firmament.util.FLog;
 import firmament.util.FMisc;
 import firmament.util.loader.FDataLoader;
 import firmament.world.FBox2DWorld;
 import firmament.world.FWorld;
-import firmament.core.FEvent;
 import haxe.Timer;
 /**
  * Class: FBox2DComponent
@@ -381,9 +382,11 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	public function setLinearVelocity(vel:FVector) {
         var v =new B2Vec2(vel.x, vel.y);
         if(body!=null){
+FLog.msg("Updating linear velocity (property w/body)");
     		this.body.setAwake(true);
     		this.body.setLinearVelocity(v);
         }else{
+FLog.msg("Updating linear velocity (property w/o body)");
             def.linearVelocity = v;
         }
 	}
