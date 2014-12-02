@@ -29,7 +29,6 @@ class FSoundManager{
 		if(_config == null) {
 			// this totally isn't the way I want to do this in the end but for 
 			// now is ok.
-firmament.util.FLog.debug("Parse the conf file ");
 			_config = FDataLoader.loadData("config/audio/sounds.json");
 		}
 	}
@@ -77,7 +76,10 @@ firmament.util.FLog.debug("Parse the conf file ");
 			}
 			if (asset != null ) {break; }
 		}
-		if( asset == null ) { return ""; }
+		if( asset == null ) { 
+			firmament.util.FLog.msg( name +" did not match any tags" );
+			return ""; 
+		}
 
 		var assetPath:String = new String(sound["format"]);
         firmament.util.FLog.debug("Format "+ assetPath);
