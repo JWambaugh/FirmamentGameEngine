@@ -4,6 +4,8 @@ package firmament.world;
 import box2D.collision.B2AABB;
 import box2D.collision.B2Manifold;
 import box2D.common.math.B2Vec2;
+import box2D.dynamics.B2Body;
+import box2D.dynamics.B2BodyDef;
 import box2D.dynamics.B2ContactListener;
 import box2D.dynamics.B2Fixture;
 import box2D.dynamics.B2World;
@@ -17,6 +19,7 @@ import firmament.event.FBox2DCollisionEvent;
 import firmament.event.FPhysicsCollisionEvent;
 import firmament.ui.FDialog;
 import firmament.world.FWorld;
+
 /**
  * ...
  * @author Jordan Wambaughz
@@ -70,13 +73,61 @@ class FPhysicsWorldContactListener extends B2ContactListener {
 	}
 }
  
+// To enable ridership on static objects
+// the setLin/setAng need to be overloaded
+// to allow updating of the values
+class B2BodyS extends B2Body
+{
 
+	/**
+	* Set the linear velocity of the center of mass.
+	* @param v the new linear velocity of the center of mass.
+	*/
+	override public function setLinearVelocity(v:B2Vec2) : Void {
+		m_linearVelocity.setV(v);
+	}
+
+	/**
+	* Set the angular velocity.
+	* @param omega the new angular velocity in radians/second.
+	*/
+	override public function setAngularVelocity(omega:Float) : Void {
+		m_angularVelocity = omega;
+	}	
+}
+
+class B2WorldS extends B2World
+{
+	override public function createBody(def:B2BodyDef) : B2BodyS{
+		
+		//b2Settings.b2Assert(m_lock == false);
+		if (isLocked() == true)
+		{
+			return null;
+		}
+		
+		//void* mem = m_blockAllocator.Allocate(sizeof(b2Body));
+		var b:B2BodyS = new B2BodyS(def, this);
+		
+		// Add to world doubly linked list.
+		b.m_prev = null;
+		b.m_next = m_bodyList;
+		if (m_bodyList != null)
+		{
+			m_bodyList.m_prev = b;
+		}
+		m_bodyList = b;
+		++m_bodyCount;
+		
+		return b;	
+	}
+}
  
 class FBox2DWorld extends FWorld
 {
 
 	
-	var _b2world:B2World;
+	var _b2world:B2WorldS;
 	var _inStep:Bool;
 	
 	private var deleteQueue:Array<FEntity>;
@@ -84,7 +135,7 @@ class FBox2DWorld extends FWorld
 	{
 		super();
 		_inStep=false;
-		this._b2world = new B2World(new B2Vec2(0,0), true);
+		this._b2world = new B2WorldS(new B2Vec2(0,0), true);
 		this.deleteQueue = new Array<FEntity>();
 		this._b2world.setContactListener(new FPhysicsWorldContactListener(this));
 	}
@@ -172,7 +223,7 @@ class FBox2DWorld extends FWorld
 		return filtered;
 	}
 	
-	public function getB2World():B2World {
+	public function getB2World():B2WorldS {
 		return this._b2world;
 	}
 	

@@ -32,6 +32,7 @@ import firmament.util.loader.FDataLoader;
 import firmament.world.FBox2DWorld;
 import firmament.world.FWorld;
 import haxe.Timer;
+
 /**
  * Class: FBox2DComponent
  * @author Jordan Wambaugh
@@ -40,7 +41,7 @@ import haxe.Timer;
 class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInterface implements FWorldPositionalInterface 
 {
 
-	public var body:B2Body;
+	public var body:B2BodyS;
 	private var positionZ:Float;
 	private var position:FVector;
 	private var world:FWorld;
@@ -134,8 +135,17 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 				}
 				if (shape.type == 'polygon') {
 					var s:B2PolygonShape = new B2PolygonShape();
-					
-					s.setAsVector(shape.vectors);
+
+					// convert to b2vector
+					var vectors:Array<B2Vec2> = new Array();
+FLog.msg("Vectors - " + shape.vectors );
+					for( vect in cast(shape.vectors,Array<Dynamic>)){
+						// var vect = Reflect.field(shape.vectors,field);
+FLog.msg("Vector - " + vect );
+						vectors.push( new B2Vec2( vect.x,vect.y ) );
+					}
+FLog.msg("Composed - " + vectors);
+					s.setAsVector(vectors);
 					
 					shapeDef.shape = s;
 				}
