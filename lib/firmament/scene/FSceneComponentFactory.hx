@@ -13,7 +13,7 @@ class FSceneComponentFactory{
 			throw "class "+className+" could not be found.";
 		}
 		var component:FSceneComponent = Type.createInstance(c,[game]);
-		component.setComponentKey(componentKey);
+		//component.setComponentKey(componentKey);
 		if(component == null){
 			throw "Component of type "+type+" with class "+className+" could not be instantiated!";
 		}

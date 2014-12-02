@@ -15,32 +15,18 @@ import firmament.scene.FScene;
 	@author Jordan Wambaugh
  */
 
-class FSceneComponent extends FObject
-{
+class FSceneComponent extends firmament.core.FComponent{
 
-	private var _config:Dynamic;
 	private var _componentKey:String;
 	private var _scene:FScene;
-	private var _gameInstance:FGame;
 	
 	public function new(gameInstance:FGame) 
 	{
-		super();
+		super(gameInstance);
 		_gameInstance = gameInstance;
 	}
 	
-	public function init(config:FConfig):Void {
-		throw "This needs to be overwritten in a subclass.";
-	}
 	
-
-	public function setConfig(c:Dynamic){
-		_config = c;
-	}
-
-	public function getConfig(){
-		return _config;
-	}
 
 
 	/**
@@ -48,10 +34,6 @@ class FSceneComponent extends FObject
 	 */
 	override public function destruct(){
 		super.destruct();
-	}
-
-	public function setComponentKey(key:String){
-		_componentKey = key;
 	}
 
 	public function setScene(scene:FScene){
