@@ -15,8 +15,8 @@ class FTimerComponent extends FEntityComponent{
     
     var _timer:FTimer = null;
 
-    public function new(){
-        super();
+    public function new(gameInstance:firmament.core.FGame){
+        super(gameInstance);
         
     }
 
@@ -28,7 +28,6 @@ class FTimerComponent extends FEntityComponent{
     }
 
     override public function init(config:FConfig){
-        super.init(null);
 
         var paused:Bool = _config.get('paused',Bool,true);
         var startOn:String = _config.get('startOn',String);

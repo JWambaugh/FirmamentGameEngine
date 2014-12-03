@@ -8,6 +8,7 @@ import firmament.core.FConfig;
 import firmament.core.FEntity;
 import firmament.core.FEvent;
 import firmament.core.FGame;
+import firmament.core.FPropertyDefinition;
 import firmament.core.FPolygonShape;
 import firmament.core.FPropertyInterface;
 import firmament.core.FShape;
@@ -44,9 +45,9 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
     private var _gravity:FVector;
 
 
-	public function new() 
+	public function new(gameInstance:firmament.core.FGame) 
 	{
-		super();
+		super(gameInstance);
 		_world = cast(FGame.getInstance().getWorld("particle"),FParticleWorld);
 		_position = new FVector(0,0);
 		_isSleeping = false;
@@ -86,8 +87,8 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 		buildShape();
 	}
 
-	override public function getProperties():Array<PropertyDefinition>{
-        var props:Array<PropertyDefinition> = [
+	override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = [
             {
                 key:'position'
                 ,type:FVector

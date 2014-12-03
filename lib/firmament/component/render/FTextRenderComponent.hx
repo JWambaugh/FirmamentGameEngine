@@ -5,6 +5,7 @@ import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.component.render.FRenderComponentInterface;
 import firmament.core.FCamera;
+import firmament.core.FPropertyDefinition;
 import firmament.core.FComputedProperty;
 import firmament.core.FEvent;
 import firmament.core.FGame;
@@ -64,9 +65,9 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	var _textAlign:String;
 
 
-	public function new() {
+	public function new(gameInstance:firmament.core.FGame) {
 		imageScale=100;
-		super();
+		super(gameInstance);
 		
 		_parallax = 1;
 		_flipX = false;
@@ -110,8 +111,8 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		calculatePositions();
 	}
 	
-     override public function getProperties():Array<PropertyDefinition>{
-        var props:Array<PropertyDefinition> = [
+     override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = [
             {
                 key:'text'
                 ,type:String

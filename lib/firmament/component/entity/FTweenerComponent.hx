@@ -84,8 +84,8 @@ class FTweenerComponent extends FEntityComponent {
     var _initialized:Bool;
     var _id:Int;
 
-    public function new(){
-        super();
+    public function new(gameInstance:firmament.core.FGame){
+        super(gameInstance);
         _id = ++cnt;
         _events = new Map();
         _listeners = new Map();
@@ -95,7 +95,6 @@ class FTweenerComponent extends FEntityComponent {
     }
 
     override public function init(config:FConfig){
-        super.init(null);
 
         var listeners:FConfig = config.get("listeners",Dynamic);
         var triggers:FConfig = config.get("triggers",Dynamic);

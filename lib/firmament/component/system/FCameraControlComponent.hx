@@ -23,8 +23,8 @@ class FCameraControlComponent extends FEntityComponent {
     private var _drag:Float;
     private var _clamped:Dynamic<Bool>;
 
-    public function new(){
-        super();
+    public function new(gameInstance:firmament.core.FGame){
+        super(gameInstance);
         _bounds = { "min" : null, "max" : null };
         _sticky = 0;
         _clamped = {x:false,y:false};

@@ -27,9 +27,9 @@ import flash.geom.Point;
 class FWireframeRenderComponent extends FEntityComponent implements FRenderComponentInterface
 {
 
-	public function new() 
+	public function new(gameInstance:firmament.core.FGame) 
 	{
-		super();
+		super(gameInstance);
 		
 	}
 

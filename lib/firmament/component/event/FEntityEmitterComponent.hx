@@ -15,8 +15,8 @@ import firmament.core.FConfig;
 */
 class FEntityEmitterComponent extends FEntityComponent{
 
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		
 	}
 

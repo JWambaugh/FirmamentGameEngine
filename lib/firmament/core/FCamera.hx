@@ -64,8 +64,8 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		this._displayHeight = height;
 		this._displayWidth = width;
 		_debugRender = false;
-		_debugRenderer = new FWireframeRenderComponent();
-		_game = FGame.getInstance(gameInstanceName);
+        _game = FGame.getInstance(gameInstanceName);
+		_debugRenderer = new FWireframeRenderComponent(_game);
 		_mouseOverEnts = new FEntityCollection();
 		_autoZoomToFit = false;
 		enableClickEvents();

@@ -15,8 +15,8 @@ import firmament.core.FEvent;
 class FDestroyEntityComponent extends FEntityComponent{
 
     var _destroyAction:String;
-    public function new(){
-        super();
+    public function new(gameInstance:firmament.core.FGame){
+        super(gameInstance);
     }
 
     override public function init(config:firmament.core.FConfig){

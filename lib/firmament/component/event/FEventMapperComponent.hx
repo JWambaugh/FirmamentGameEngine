@@ -10,8 +10,8 @@ import firmament.core.FEvent;
 */
 class FEventMapperComponent extends FEntityComponent{
 	var _map:Dynamic;
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		
 	}
 

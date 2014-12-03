@@ -17,8 +17,8 @@ import firmament.core.FGame;
 */
 class FBroadcastSceneEventsComponent extends FEntityComponent{
 
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		
 	}
 

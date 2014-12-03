@@ -25,7 +25,7 @@ class FSplineTweener extends FProcess {
     private var _draw:Bool;
     private var _changeAngle:Bool;
 
-	public function new(?name:String="splineTweener",parameters:FConfig, ?entity:FEntity=null,?graphics:Graphics=null) {
+	public function new(parameters:FConfig, ?entity:FEntity=null,?graphics:Graphics=null) {
 		super();
 
 		var points:Array<FVector> = [];
@@ -71,7 +71,7 @@ class FSplineTweener extends FProcess {
 
 		spline.setActive(true);
 		
-		FGame.getInstance().addProcess(name,this);
+		FGame.getInstance().addProcess(this);
 	}
 
 	public function setEntity(entity:FEntity): FEntity {

@@ -8,6 +8,7 @@ import firmament.core.FAnimation;
 import firmament.core.FAnimationManager;
 import firmament.core.FConfig;
 import firmament.core.FEntity;
+import firmament.core.FPropertyDefinition;
 import firmament.core.FEvent;
 import firmament.core.FGame;
 import firmament.core.FPropertyInterface;
@@ -20,8 +21,8 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
 	var _currentFrame:Int;
 	var _timer:FTimer;
     var _animationFile:String;
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		_currentFrame = 0;
 	}
 
@@ -37,8 +38,8 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
 		on(_entity,FEntity.ACTIVE_STATE_CHANGE,stateChange);
 	}
 
-    override public function getProperties():Array<PropertyDefinition>{
-        var props:Array<PropertyDefinition> = [
+    override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = [
             {
                 key:'animationFile'
                 ,type:String

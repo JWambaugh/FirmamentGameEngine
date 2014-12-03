@@ -26,8 +26,8 @@ class FSoundComponent extends FEntityComponent  {
 	
 	var _events:FConfig;
 
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		
 	}
 

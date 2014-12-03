@@ -18,8 +18,8 @@ class FFollowEntityComponent extends FEntityComponent {
 	var _zeroVector:FVector;
 	var _reached:Bool = false; // prohibits sending of the reached trigger without changing states
 
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		_prevDelta = new Map();
 		_zeroVector = new FVector(0,0);
 	}
@@ -75,7 +75,6 @@ class FFollowEntityComponent extends FEntityComponent {
 	}
 
 	override public function init(config:FConfig){
-		super.init(null);
 
 		// this is the first avail time we can call this
 		useStep(true);

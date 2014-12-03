@@ -13,8 +13,8 @@ class FComponentFactoryComponent extends FEntityComponent{
 
 	var _event: Dynamic;
 
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 	}
 
 	override public function init(config:Dynamic){
@@ -27,10 +27,10 @@ class FComponentFactoryComponent extends FEntityComponent{
 		for(eventName in Reflect.fields(_event)){
 			on(_entity,eventName,function(e:FEvent){
 				var cConfig = Reflect.field(_event, eventName);
-				var component = FEntityComponentFactory.createComponent(cConfig.componentName,"FComponentFactoryComponent");
+				var component = FEntityComponentFactory.createComponent(cConfig.componentName,_gameInstance);
 				component.setConfig(cConfig);
 				_entity.setComponent(component);
-				component.init(cConfig);
+				component._init(cConfig);
 			});
 		}
 	}

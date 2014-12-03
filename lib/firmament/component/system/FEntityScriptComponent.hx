@@ -10,8 +10,8 @@ class FEntityScriptComponent extends FEntityComponent {
 
 	private var events:FConfig;
 
-	public function new() {
-		super();
+	public function new(gameInstance:firmament.core.FGame) {
+		super(gameInstance);
 	}
 
 	override public function init(conf:Dynamic) {

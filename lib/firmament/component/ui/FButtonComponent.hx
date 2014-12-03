@@ -12,8 +12,8 @@ import firmament.core.FEvent;
  */
 class FButtonComponent extends FEntityComponent  {
 	var _events:Dynamic;
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		
 	}
 

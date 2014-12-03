@@ -43,9 +43,9 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 	var _g:Float=1;
 	var _b:Float=1;
 	var _alpha:Float=1;
-	public function new() {
+	public function new(gameInstance:firmament.core.FGame) {
 		imageScale=100;
-		super();
+		super(gameInstance);
 
 		_tile = 0;
 		_parallax = 1;

@@ -13,8 +13,8 @@ import firmament.process.timer.FTimer;
 */
 class FLoopingTimerComponent extends FTimerComponent{
     
-    public function new(){
-        super();
+    public function new(gameInstance:firmament.core.FGame){
+        super(gameInstance);
         
     }
 

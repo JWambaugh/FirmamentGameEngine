@@ -16,8 +16,8 @@ class FSetPropertiesComponent extends FEntityComponent{
     var properties:FConfig;
     var eventTrigger:String;
 
-    public function new(){
-        super();
+    public function new(gameInstance:firmament.core.FGame){
+        super(gameInstance);
     }
 
     private function listenEventFunc(E:FEvent=null){
@@ -44,7 +44,7 @@ class FSetPropertiesComponent extends FEntityComponent{
     }
 
     override public function init(config:FConfig){
-        super.init(null);
+
         properties = config.getNotNull('properties');
 
         var eventListen:String = config.getNotNull('listen',String);

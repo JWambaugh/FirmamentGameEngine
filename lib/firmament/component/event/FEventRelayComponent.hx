@@ -17,8 +17,8 @@ class FEventRelayComponent extends FEntityComponent{
 	var _eventsToFire:Array<String>;
 	var _fireEvent:String;
 
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 	}
 
 	override public function init(config:FConfig){

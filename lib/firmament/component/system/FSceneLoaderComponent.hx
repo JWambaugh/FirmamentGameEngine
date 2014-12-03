@@ -15,8 +15,8 @@ import firmament.core.FConfig;
 class FSceneLoaderComponent extends FEntityComponent  {
 	var _events:Dynamic;
 	public static inline var SCENE_LOADED_EVENT:String = "sceneLoaded";
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		
 	}
 

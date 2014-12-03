@@ -8,6 +8,7 @@ import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.component.render.FRenderComponentInterface;
 import firmament.core.FCamera;
 import firmament.core.FEvent;
+import firmament.core.FPropertyDefinition;
 import firmament.core.FGame;
 import firmament.core.FPropertyInterface;
 import firmament.core.FVector;
@@ -49,9 +50,9 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 	var _b:Float=1;
 	var _alpha:Float=1;
 
-	public function new() {
+	public function new(gameInstance:firmament.core.FGame) {
 		imageScale=100;
-		super();
+		super(gameInstance);
 		drawList = new Array<Float>();
 		_tile = 0;
 		_parallax = 1;
@@ -145,8 +146,8 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 	}
 
 
-    override public function getProperties():Array<PropertyDefinition>{
-        var props:Array<PropertyDefinition> = [
+    override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = [
             {
                 key:'imageScale'
                 ,type:Float

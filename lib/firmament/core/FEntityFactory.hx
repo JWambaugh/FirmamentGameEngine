@@ -30,7 +30,8 @@ class FEntityFactory{
 		} else {
 			entity = new FEntity(config,gameInstanceName);
 		}
-		applyComponents(entity,config);
+        var game = FGame.getInstance(gameInstanceName);
+		applyComponents(entity,config, game);
         entity.registerComponentProperties();
         applyProperties(entity, config);
 		initComponents(entity,config);
@@ -43,7 +44,7 @@ class FEntityFactory{
 	}
 
 
-	public static function applyComponents(entity:FEntity, config:Dynamic){
+	public static function applyComponents(entity:FEntity, config:Dynamic, game:firmament.core.FGame){
 		if(config.components == null){
 			throw("no components specified in entity config.");
 		}
@@ -51,7 +52,7 @@ class FEntityFactory{
         if(Std.is(config.components, Array) ){
             var ca:Array<Dynamic> = cast config.components;
             for(cConfig in ca){
-                var component = FEntityComponentFactory.createComponent(cConfig.componentName);
+                var component = FEntityComponentFactory.createComponent(cConfig.componentName,game);
                 component.setConfig(cConfig);
                 entity.setComponent(component);
             }
@@ -59,7 +60,7 @@ class FEntityFactory{
         else{
             for(componentKey in Reflect.fields(config.components)){
                 var cConfig= Reflect.field(config.components,componentKey);
-                var component = FEntityComponentFactory.createComponent(cConfig.componentName,componentKey);
+                var component = FEntityComponentFactory.createComponent(cConfig.componentName,game);
                 component.setConfig(cConfig);
                 entity.setComponent(component);
             }
@@ -70,7 +71,7 @@ class FEntityFactory{
 
 	public static function initComponents(entity:FEntity, config:Dynamic){
 		for(component in entity.getAllComponents()){
-			component.init(component.getConfig());
+			component._init(component.getConfig());
 		}
 	}
 

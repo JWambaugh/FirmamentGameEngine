@@ -11,6 +11,7 @@ import firmament.core.FGame;
 import firmament.core.FPolygonShape;
 import firmament.core.FProperty;
 import firmament.core.FPropertyInterface;
+import firmament.core.FPropertyDefinition;
 import firmament.core.FShape;
 import firmament.core.FVector;
 import firmament.core.FWorldPositionalInterface;
@@ -44,9 +45,9 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	private var _deleted:Bool;
 
 
-	public function new() 
+	public function new(gameInstance:firmament.core.FGame) 
 	{
-		super();
+		super(gameInstance);
 		
 		_position = new FVector(0,0);
 		_isSleeping = false;
@@ -90,8 +91,8 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	}
 
 
-    override public function getProperties():Array<PropertyDefinition>{
-        var props:Array<PropertyDefinition> = [
+    override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = [
             {
                 key:'position'
                 ,type:FVector

@@ -13,8 +13,8 @@ import firmament.core.FGame;
 
 class FTriggerAfterStepComponent extends FEntityComponent{
 
-    public function new(){
-        super();
+    public function new(gameInstance:firmament.core.FGame){
+        super(gameInstance);
         
     }
 

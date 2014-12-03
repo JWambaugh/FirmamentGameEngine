@@ -2,9 +2,11 @@ package firmament.component.render;
 
 import firmament.component.base.FEntityComponent;
 import firmament.component.render.FTilesheetRenderComponent;
+import firmament.core.*;
 import firmament.core.FCamera;
 import firmament.core.FConfig;
 import firmament.core.FPropertyInterface;
+import firmament.core.FPropertyDefinition;
 import firmament.core.FVector;
 import firmament.tilesheet.FTilesheetManager;
 import flash.display.BitmapData;
@@ -23,9 +25,9 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
 	
 	var _currentImagePath:String = null;
 
-	public function new() 
+	public function new(gameInstance:firmament.core.FGame) 
 	{
-		super();
+		super(gameInstance);
 		imageScale=100;
 		drawList = new Array<Float>();
 		_tile = 0;
@@ -68,8 +70,8 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
 
 	}
 
-    override public function getProperties():Array<PropertyDefinition>{
-        var props:Array<PropertyDefinition> = super.getProperties();
+    override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = super.getProperties();
          
             props.push({   // this is a fake property until it can be fixed
                 key:'image'

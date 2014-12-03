@@ -22,6 +22,7 @@ import firmament.core.FEntityFactory;
 import firmament.core.FEvent;
 import firmament.core.FGame;
 import firmament.core.FPolygonShape;
+import firmament.core.FPropertyDefinition;
 import firmament.core.FProperty;
 import firmament.core.FPropertyInterface;
 import firmament.core.FShape;
@@ -49,9 +50,9 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	private var _parentEntity:FEntity;
     private var def:B2BodyDef;
 
-	public function new() 
+	public function new(gameInstance:firmament.core.FGame) 
 	{
-		super();
+		super(gameInstance);
 		
 		this.position = new FVector(0,0);
 		positionZ = 0;
@@ -199,8 +200,8 @@ FLog.msg("Composed - " + vectors);
 		_entity.removeEventListener(this);
 	}
 
-	override public function getProperties():Array<PropertyDefinition>{
-        var props:Array<PropertyDefinition> = [
+	override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = [
         	{
                 key:'position'
                 ,type:FVector

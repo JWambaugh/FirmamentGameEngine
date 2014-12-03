@@ -57,7 +57,7 @@ class FSceneAudioComponent extends FSceneComponent {
 		return "soundTrack";
 	}
 
-	public function getProperties():Array<PropertyDefinition>{
+	override public function getProperties():Array<PropertyDefinition>{
         var props:Array<PropertyDefinition> = [
         	{
                 key:'soundTrack'

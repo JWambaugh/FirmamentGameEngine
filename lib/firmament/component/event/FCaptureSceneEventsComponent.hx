@@ -17,8 +17,8 @@ import firmament.core.FGame;
 */
 class FCaptureSceneEventsComponent extends FEntityComponent{
 
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		
 	}
 

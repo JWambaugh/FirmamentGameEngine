@@ -38,14 +38,13 @@ import firmament.component.ui.FEntityContainerComponent;
 
 
 class FEntityComponentFactory{
-	public static function createComponent(type:String,?componentKey:String=''):FEntityComponent {
+	public static function createComponent(type:String, gameInstance:firmament.core.FGame):FEntityComponent {
 		var className = getClassFromType(type);
 		var c =Type.resolveClass(className);
 		if(c==null){
 			throw "class "+className+" could not be found.";
 		}
-		var component:FEntityComponent = Type.createInstance(c,[]);
-		component.setComponentKey(componentKey);
+		var component:FEntityComponent = Type.createInstance(c,[gameInstance]);
 		if(component == null){
 			throw "Component of type "+type+" with class "+className+" could not be instantiated!";
 		}

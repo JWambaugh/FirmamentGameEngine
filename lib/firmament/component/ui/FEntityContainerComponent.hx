@@ -20,8 +20,8 @@ class FEntityContainerComponent extends FEntityComponent  {
 	var _position:FVector;
 	var _entities:Array<FEntity>;
 	var _game:FGame;
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		_entities = new Array();
 		
 	}

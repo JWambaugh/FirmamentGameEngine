@@ -296,7 +296,7 @@ class FGame extends FObject
 	 *  name - String identifier for object, for retrieval
 	 *  p - Process object
 	 */
-	public function addProcess(?type:String,p:FProcess):Void {
+	public function addProcess(?type:String=null,p:FProcess):Void {
 		this._gameProcessManager.addProcess(p);
 	}
 

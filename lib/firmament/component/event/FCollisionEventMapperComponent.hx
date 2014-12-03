@@ -14,8 +14,8 @@ import firmament.event.FPhysicsCollisionEvent;
 class FCollisionEventMapperComponent extends FEntityComponent{
 	var _map:Dynamic;
 	var _types:Array<String>;
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		
 	}
 
