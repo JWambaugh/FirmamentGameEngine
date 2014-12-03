@@ -86,6 +86,34 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		this._fillAlpha=config.get("fillAlpha",Float,1);
 		this._fillColor=config.get("fillColor",Int,0);
 
+		var properties:FConfig = config.get('properties',Dynamic);
+		for( key in properties.fields() ) {
+			/*
+			// arrg!!  This isn't a property :(
+			var prop:FProperty = this.getProperty( key );
+			var value = properties.getNotNull( key, prop.type );
+			prop.set(value);
+			*/
+			switch(key) {
+				case 'position':{
+					var value:FVector = properties.getNotNull(key,FVector);
+					setPosition(value);
+				}
+				case 'positionX':{
+					var value:Float = properties.getNotNull(key,Float);
+					setPositionX(value);
+				}
+				case 'positionY': {
+					var value:Float = properties.getNotNull(key,Float);
+					setPositionY(value);
+				}
+				case 'zoom': {
+					var value:Float = properties.getNotNull(key,Float);
+					setZoom(value);
+				}
+			}
+		}
+
 		this._debugRender=config.get("debug",Bool,false);
 
 	}
@@ -177,7 +205,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	public function getPosition():FVector {
 		return this._position;
 	}
-	
+
 	/**
 	 * Function: getPositionX
 	 * 
@@ -187,8 +215,12 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	public function getPositionX():Float {
 		return this._position.x;
 	}
+
+	public function setPositionX(v:Float) {
+		this._position.x = v;
+	}
 	
-		/**
+	/**
 	 * Function: getPositionY
 	 * 
 	 * Returns:
@@ -196,6 +228,10 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	 */
 	public function getPositionY():Float {
 		return this._position.y;
+	}
+
+	public function setPositionY(v:Float) {
+		this._position.y = v;
 	}
 	
 	/**
