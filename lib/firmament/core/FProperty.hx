@@ -1,6 +1,7 @@
 package firmament.core;
 
-import firmament.core.FBasicProperty;
+// import firmament.core.FBasicProperty;
+import firmament.core.FPropertyInterface;
 import firmament.core.FVector;
 
 class FProperty{

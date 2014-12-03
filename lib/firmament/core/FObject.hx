@@ -17,7 +17,7 @@ class FObject{
 	}
 
 	public function on(target:FObject=null,eventName:String, listeningObject:FObject=null, callback:Dynamic->Void){
-		//if target is not this, call on on the target, otherwise add the listener to us
+		//if target is not this, call on the target, otherwise add the listener to us
 		if(target!=null&&target!=this){
 			target.on(target, eventName, this, callback);
 			return;

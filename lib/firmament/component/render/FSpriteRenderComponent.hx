@@ -4,6 +4,7 @@ import firmament.component.base.FEntityComponent;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.core.FCamera;
 import firmament.core.FConfig;
+import firmament.core.FPropertyInterface;
 import firmament.core.FVector;
 import firmament.tilesheet.FTilesheetManager;
 import flash.display.BitmapData;

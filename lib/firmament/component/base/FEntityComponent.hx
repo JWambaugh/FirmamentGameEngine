@@ -1,19 +1,14 @@
+
 package firmament.component.base;
-import firmament.core.FEntity;
-import flash.events.EventDispatcher;
-import firmament.core.FEvent;
-import firmament.core.FProperty;
-import firmament.core.FObject;
+
 import firmament.core.FConfig;
+import firmament.core.FEntity;
+import firmament.core.FEvent;
+import firmament.core.FObject;
+import firmament.core.FProperty;
+import firmament.core.FPropertyInterface;
 import firmament.util.FLog;
-
-
-typedef PropertyDefinition={
-    key:String,
-    type:Dynamic,
-    setter:Dynamic->Void,
-    getter:Void->Dynamic
-};
+import flash.events.EventDispatcher;
 
 /*
 	Class: FEntity Component

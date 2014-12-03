@@ -2,16 +2,17 @@ package firmament.component.animation;
 
 import firmament.component.animation.FAnimationComponentInterface;
 import firmament.component.base.FEntityComponent;
-import firmament.core.FAnimation;
-import firmament.core.FAnimationManager;
-import firmament.core.FGame;
-import firmament.core.FEvent;
-import haxe.Timer;
 import firmament.component.render.FRenderComponentInterface;
 import firmament.component.render.FTilesheetRenderComponent;
-import firmament.process.timer.FTimer;
-import firmament.core.FEntity;
+import firmament.core.FAnimation;
+import firmament.core.FAnimationManager;
 import firmament.core.FConfig;
+import firmament.core.FEntity;
+import firmament.core.FEvent;
+import firmament.core.FGame;
+import firmament.core.FPropertyInterface;
+import firmament.process.timer.FTimer;
+import haxe.Timer;
 
 class FAnimationComponent extends FEntityComponent implements FAnimationComponentInterface{
 	

@@ -23,6 +23,7 @@ import firmament.core.FEvent;
 import firmament.core.FGame;
 import firmament.core.FPolygonShape;
 import firmament.core.FProperty;
+import firmament.core.FPropertyInterface;
 import firmament.core.FShape;
 import firmament.core.FVector;
 import firmament.core.FWorldPositionalInterface;

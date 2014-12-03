@@ -9,6 +9,7 @@ class FSoundtrackManager{
 
 	private static var _soundChannel:SoundChannel;
     private static var _currentSoundName:String;
+    private static var _isPlaying:Bool;
 	private static var _volume:Float = 1;
 
 
@@ -19,6 +20,7 @@ class FSoundtrackManager{
 		}
 		var currentSound = FSoundManager.getSound(name);
 		_soundChannel = currentSound.play();
+		_isPlaying = true;
 		setVolume(_volume);
         if(repeat){
             _soundChannel.addEventListener('soundComplete',repeatSound);
@@ -29,10 +31,15 @@ class FSoundtrackManager{
         play(_currentSoundName,true);
     }
 
-	public function stop(){
+	public static function stop(){
 		if(_soundChannel != null){
 			_soundChannel.stop();
 		}
+		_isPlaying = false;
+	}
+
+	public static function isPlaying():Bool {
+		return _isPlaying;
 	}
 
 	/*
@@ -44,5 +51,9 @@ class FSoundtrackManager{
 			var transform = new SoundTransform(_volume*FSoundManager.getMasterVolume());
 			_soundChannel.soundTransform = transform;
 		}
+	}
+
+	public static function getVolume(){
+		return _volume;
 	}
 }

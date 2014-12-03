@@ -1,7 +1,5 @@
 package firmament.component.render;
 
-
-
 import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
@@ -10,6 +8,8 @@ import firmament.core.FCamera;
 import firmament.core.FComputedProperty;
 import firmament.core.FEvent;
 import firmament.core.FGame;
+import firmament.core.FProperty;
+import firmament.core.FPropertyInterface;
 import firmament.core.FVector;
 import firmament.tilesheet.FTilesheet;
 import firmament.tilesheet.FTilesheetManager;

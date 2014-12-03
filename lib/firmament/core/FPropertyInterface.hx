@@ -1,5 +1,12 @@
 package firmament.core;
 
+typedef PropertyDefinition={
+    key:String,
+    type:Dynamic,
+    setter:Dynamic->Void,
+    getter:Void->Dynamic
+};
+
 interface FPropertyInterface{
     public function hasProperty(key:String):Bool;
     

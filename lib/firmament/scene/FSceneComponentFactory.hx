@@ -4,6 +4,7 @@ import firmament.core.FGame;
 import firmament.scene.FSceneScriptComponent;
 import firmament.scene.component.FScenePauseComponent;
 import firmament.scene.component.FSceneLoadComponent;
+import firmament.scene.component.FSceneAudioComponent;
 
 class FSceneComponentFactory{
 	public static function createComponent(type:String,game:FGame,?componentKey:String=''):FSceneComponent {
@@ -25,6 +26,7 @@ class FSceneComponentFactory{
 			"script":"firmament.scene.FSceneScriptComponent"
 			,"pause":"firmament.scene.component.FScenePauseComponent"
 			,"load":"firmament.scene.component.FSceneLoadComponent"
+			,"soundTrack":"firmament.scene.component.FSceneAudioComponent"
 		};
 
 		var cls = Reflect.field(map,type);

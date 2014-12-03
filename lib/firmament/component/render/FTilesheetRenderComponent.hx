@@ -9,6 +9,7 @@ import firmament.component.render.FRenderComponentInterface;
 import firmament.core.FCamera;
 import firmament.core.FEvent;
 import firmament.core.FGame;
+import firmament.core.FPropertyInterface;
 import firmament.core.FVector;
 import firmament.tilesheet.FTilesheet;
 import firmament.tilesheet.FTilesheetManager;
@@ -22,7 +23,6 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import openfl.Assets;
 import openfl.display.Tilesheet;
-
 
 
 
