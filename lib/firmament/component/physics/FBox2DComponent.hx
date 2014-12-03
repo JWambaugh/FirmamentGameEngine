@@ -392,11 +392,9 @@ FLog.msg("Composed - " + vectors);
 	public function setLinearVelocity(vel:FVector) {
         var v =new B2Vec2(vel.x, vel.y);
         if(body!=null){
-FLog.msg("Updating linear velocity (property w/body)");
     		this.body.setAwake(true);
     		this.body.setLinearVelocity(v);
         }else{
-FLog.msg("Updating linear velocity (property w/o body)");
             def.linearVelocity = v;
         }
 	}
