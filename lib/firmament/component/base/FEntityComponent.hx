@@ -31,16 +31,6 @@ class FEntityComponent extends firmament.core.FComponent
 		
 		_enableDebug = false;
 	}
-
-	public function _init(config:Dynamic):Void {
-		_enableDebug = _config.get( 'debug', Bool, false );
-		
-		init(config);
-	}
-
-	public function init(config:Dynamic):Void {
-		throw "This needs to be overwritten in a subclass.";
-	}
 	
 	public function getType():String {
 		throw "this needs to be overwritten in a subclass.";
@@ -56,7 +46,6 @@ class FEntityComponent extends firmament.core.FComponent
 	}
 	
 
-	
 	override public function destruct(){
 		_entity.getGameInstance().removeEventListener(this);
 		_entity.removeEventListener(this);
@@ -72,7 +61,6 @@ class FEntityComponent extends firmament.core.FComponent
 	public function removeAllEventListenersFromEntity(){
 		_entity.removeEventListener(this);
 	}
-
 	
 
     /**
