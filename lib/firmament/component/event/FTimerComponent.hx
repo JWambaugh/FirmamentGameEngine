@@ -28,7 +28,6 @@ class FTimerComponent extends FEntityComponent{
     }
 
     override public function init(config:FConfig){
-
         var paused:Bool = _config.get('paused',Bool,true);
         var startOn:String = _config.get('startOn',String);
         var stopOn:String = _config.get('stopOn',String);

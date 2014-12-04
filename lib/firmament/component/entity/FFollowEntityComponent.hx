@@ -75,7 +75,6 @@ class FFollowEntityComponent extends FEntityComponent {
 	}
 
 	override public function init(config:FConfig){
-
 		// this is the first avail time we can call this
 		useStep(true);
 		_paused = _config.get("paused",Bool,false);

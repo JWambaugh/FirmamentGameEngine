@@ -44,7 +44,6 @@ class FSetPropertiesComponent extends FEntityComponent{
     }
 
     override public function init(config:FConfig){
-
         properties = config.getNotNull('properties');
 
         var eventListen:String = config.getNotNull('listen',String);

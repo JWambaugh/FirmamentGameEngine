@@ -95,7 +95,6 @@ class FTweenerComponent extends FEntityComponent {
     }
 
     override public function init(config:FConfig){
-
         var listeners:FConfig = config.get("listeners",Dynamic);
         var triggers:FConfig = config.get("triggers",Dynamic);
         for( name in eventNames ) {
