@@ -5,6 +5,8 @@ import flash.media.Sound;
 import openfl.Assets;
 import firmament.core.FConfig;
 import firmament.util.loader.FDataLoader;
+
+using StringTools;
 /**
  * Firmament Sound Repository. Also manages volumes.
  *
@@ -17,9 +19,10 @@ class FSoundManager{
 
 	private static var _masterVolume:Float=.7;
 	private static var _soundVolume:Float=1;
-
+	private static var _extensionReg:EReg;
 
 	private static function init(){
+		if(_extensionReg == null) _extensionReg = ~/\.(wav|mp3|ogg)$/;
 		if(_soundHash == null){
 			_soundHash = new Map();
 		}
@@ -29,7 +32,13 @@ class FSoundManager{
 		if(_config == null) {
 			// this totally isn't the way I want to do this in the end but for 
 			// now is ok.
+			//uncaught exception if the file doesn't exist.
+			try{
 			_config = FDataLoader.loadData("config/audio/sounds.json");
+			}catch(e:Dynamic){
+				firmament.util.FLog.warning("could not find hardcoded sound config file config/audio/sounds.json");
+
+			}
 		}
 	}
 	/**
@@ -40,14 +49,41 @@ class FSoundManager{
 	public static function getSound(name:String):Sound{
 		init();
 		// name needs to be converted to a file name
-		name = convertNameToPath(name);
 		var s = _soundHash.get(name);
+		if(s != null) return s;
+
+		//first attempt using standards to get sound
+		var newName:String;
+		//Check if it has right extension
+		if(name.indexOf("."+getPlatformFormat())!=-1){
+			newName = name;
+		}else{
+			//if it has an extension, replace the extension with this one
+			if(_extensionReg.match(name))
+				newName = _extensionReg.replace(name, getPlatformFormat());
+			else //otherwise just add the extension to the name
+				newName = name+getPlatformFormat();
+		}
+		if(newName == null){
+			firmament.util.FLog.warning("Could not find audio file that matches "+name+" for this platform! (needs "+getPlatformFormat()+"+");
+		}
+		if(Assets.exists(newName,SOUND)){
+			s = Assets.getSound(newName);
+			_soundHash.set(name,s); //record the given name in the hash as a shortcut
+			_soundHash.set(newName,s);
+			return s;
+		}
+
+		//if here, couldn't automatically find the sound. use config.
+		name = convertNameToPath(name);
+		s = _soundHash.get(name);
 		if(s==null){
 			s = Assets.getSound(name);
 			_soundHash.set(name,s);
 		}
 		return s;
 	}
+
 
 	public static function convertNameToPath(name:String):String {
 		// I need to know the avail formats (as a list)
@@ -120,6 +156,14 @@ class FSoundManager{
 
 	public static function getSoundVolume() {
 		return _soundVolume;
+	}
+
+	public static function getPlatformFormat():String{
+		#if(flash)
+		return "mp3";
+		#else
+		return "ogg";
+		#end
 	}
 
 	/**

@@ -39,7 +39,8 @@ class FSoundComponent extends FEntityComponent  {
 		for(event in _events.fields()){
 			on(_entity,event,function(e:FEvent){
 				var eventConfig:FConfig = _events.get(event,Dynamic);
-				var sound = FSoundManager.getSound( eventConfig.getNotNull("fileName") );
+				firmament.util.FLog.debug(eventConfig.getNotNull("fileName",String));
+				var sound = FSoundManager.getSound( eventConfig.getNotNull("fileName",String) );
 
 				var volume = FSoundManager.getEffectiveSoundVolume();
 				var soundChannel = sound.play();

@@ -24,7 +24,8 @@ class FSceneAudioComponent extends FSceneComponent {
 	}
 
 	override public function init(config:FConfig):Void {
-		_soundTrackName = config.getNotNull('tag',String);
+		_soundTrackName = config.get('fileName',String,null);					//supports 'fileName' or 'tag'
+		_soundTrackName = config.getNotNull('tag',String,_soundTrackName);
 //trace(_soundTrackName );
 		_repeat = config.get('repeat',Bool,true);
 //trace(_repeat );
