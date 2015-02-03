@@ -321,7 +321,7 @@ class FGame extends FObject
 	 *		name - String the name of the camera to retrieve
 	 *	Returns: <FCamera>
 	*/
-	public function getCamera(name:String):FCamera{
+	public function getCamera(name:String="main"):FCamera{
 		return this._cameras.get(name);
 	}
 

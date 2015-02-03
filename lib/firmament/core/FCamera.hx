@@ -300,9 +300,17 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		this._fillColor=color;
 	}
 
+    public function getFillColor(color:Int){
+        return this._fillColor;
+    }
+
 	public function setFillAlpha(alpha:Float){
 		this._fillAlpha=alpha;
 	}
+
+    public function getFillAlpha(color:Float){
+        return this._fillAlpha;
+    }
 
 	/**
 	 * Enables click events on this camera. Any entities under the point clicked on will receive a click event.
