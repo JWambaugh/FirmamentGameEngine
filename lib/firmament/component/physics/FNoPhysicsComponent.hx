@@ -298,9 +298,23 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	public function getBottomY(){
 		return _position.y + _height/2;
 	}
+
 	public function getShapes():Array<FShape>{
 		return [_shape];
 	}
+
+
+    //gets called by the world when the world is updating their positions
+    public function onWorldStep(delta:Float){
+        if(_angularVelocity!=0){
+            setAngle(_angle + _angularVelocity * delta);
+        }
+
+        if(_linearVelocity.x!=0 || _linearVelocity.y!=0){
+            setPositionXY(_position.x+_linearVelocity.x * delta, _position.y + _linearVelocity.y * delta);
+        }
+    }
+
 	override public function destruct(){
 		_deleted = true;
 		_world.deleteEntity(_entity);
