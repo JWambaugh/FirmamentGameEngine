@@ -44,30 +44,24 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
 
 
         if(Std.is(config.imageScale,Float)) {
-			imageScale = config.imageScale;
+			imageScale = ch.get("imageScale",Float);
 		}
-
 		if(Std.is(config.parallax,Float)){
-			_parallax = config.parallax;
+			_parallax = ch.get("parallax",Float);
 		}
-
 		if(Std.is(config.flipX,Bool)){
-			_flipX = config.flipX;
+			_flipX = ch.get("flipX",Bool);
 		}
 		if(Std.is(config.flipY,Bool)){
-			_flipY = config.flipY;
+			_flipY = ch.get("flipY",Bool);
 		}
 
-		_r=ch.get('red',Float,1.);
-		_g=ch.get('green',Float,1.);
-		_b=ch.get('blue',Float,1.);
-		_alpha=ch.get('alpha',Float,1.);
+		_r=ch.get('red',Float,1.0);
+		_g=ch.get('green',Float,1.0);
+		_b=ch.get('blue',Float,1.0);
+		_alpha=ch.get('alpha',Float,1.0);
 
-        if(ch.hasField("animation",String)){
-
-        }
 		setImage(ch.get("image",String));
-
 	}
 
     override public function getProperties():Array<FPropertyDefinition>{

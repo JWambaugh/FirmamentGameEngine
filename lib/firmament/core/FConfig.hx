@@ -127,21 +127,53 @@ abstract FConfig({}) from {} to {} {
         if( Std.is(v,FVector) ){return v;}
 
         if(Reflect.isObject(v)){
-            if(Std.is(v,Array)) {
-                // removed due to needing to add
-                // arrays to frepository, no way 
-                // to differentiate between non-
-                // vector array and vector array
-                error = true;
-            } else if( Std.is(v,Dynamic) ){
-                if(Reflect.hasField(v,'x') && Reflect.hasField(v,'y') ) {
-                    a[0] = parseFloat(v.x);
-                    a[1] = parseFloat(v.y);
-                } else {
-                    error = true;
+            // it might be special
+            if( ! Reflect.hasField(v,'x') || ! Reflect.hasField(v,'y') ) {
+                var o:Dynamic<FVector> = {};
+                if(convertMinMax(v,o) == true ){
+
+                    return new FVector(
+                        o.min.x+Math.random()*(o.max.x-o.min.x), 
+                        o.min.y+Math.random()*(o.max.y-o.min.y)
+                    );
                 }
-            } else {
+                if(convertRandom(v,o) == true ){
+                    return o.value;
+                }
+                if(convertKeyValue(v,o,FVector) == true ){
+                    return o.value;
+                }
+                if(convertSceneProperty(v,o) ==true ) {
+                    if( Std.is(o.value,Float ) ) {
+                        return o.value;
+                    }
+                    return parseVectorObject( o.value, d );
+                }
+                if(Reflect.hasField(v,"*weighted*")){
+                    var a:Array<Dynamic> = cast Reflect.field(v,"*weighted*");
+                    var k:Array<String> = new Array();
+                    var sum:Int=0;
+                    for( o in a ) {
+                        var f:String = Reflect.fields(o)[0];
+                        k.push(f);
+                        sum += Std.parseInt(f);
+                    }
+                    var rand:Int = Std.random(sum);
+                    var target:Int = rand;
+                    for( i in 0...a.length) {
+                        var o = a[i];
+                        var w = k[i];
+                        target -= Std.parseInt(w);
+                        if( target <= 0 ) {
+                            var value:FVector = parseVectorObject(Reflect.field(o,w));
+                            return value;
+                        }
+                    }
+                }
                 error = true;
+            } else {
+                a[0] = parseFloat(v.x);
+                a[1] = parseFloat(v.y);
             }
         } else {
             error = true;
