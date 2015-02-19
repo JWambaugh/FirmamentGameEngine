@@ -43,6 +43,7 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
     public function new(gameInstance:firmament.core.FGame) 
     {
         super(gameInstance);
+        _relativePosition = new FVector();
     }
 
     public function setParentEntity(parent:FEntity){
@@ -146,20 +147,16 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
                 ,setter:setRelativeAngle
                 ,sortOrder:1
             }
-            ,{
-                key:"relativeAngularVelocity"
-                ,type:Float
-                ,getter:getRelativeAngularVelocity
-                ,setter:setRelativeAngularVelocity
-                ,sortOrder:1
-            }
+          
            
         ];
         return props;
     }
 
     override public function  getPosition(p:FVector=null):FVector {
-        return _parentEntity.getProp('position');
+        var v:FVector= _parentEntity.getProp('position').copy();
+        v.add(this._relativePosition);
+        return v;
     }
     
     override public function setPosition(pos:FVector) {
@@ -213,7 +210,7 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
     }
     
     override public function getAngle(p:Float=0):Float {
-        return _parentEntity.getProp('angle');
+        return _parentEntity.getProp('angle')+_relativeAngle;
     }
     
     override public function applyLinearForce(v:FVector,?point:FVector=null):Void {
@@ -269,7 +266,8 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
     }
 
     public function setRelativePosition(pos:FVector):Void {
-        _world.updateSleepState(this);
+        if(_world!=null)
+            _world.updateSleepState(this);
         _relativePosition = pos;
     }
 
@@ -278,19 +276,11 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
     }
 
     public function setRelativeAngle(angle:Float):Void {
-        _world.updateSleepState(this);
+        if(_world!=null)
+            _world.updateSleepState(this);
         _relativeAngle = angle;
     }
 
-
-    public function getRelativeAngularVelocity(p:Float=0):Float {
-        return _relativeAngularVelocity;
-    }
-
-    public function setRelativeAngularVelocity(omega:Float):Void {
-        _world.updateSleepState(this);
-        _relativeAngularVelocity = omega;
-    }
 
 
     
