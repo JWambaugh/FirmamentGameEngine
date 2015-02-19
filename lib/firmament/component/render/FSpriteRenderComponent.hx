@@ -43,18 +43,10 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
 		var ch:FConfig = config;
 
 
-        if(Std.is(config.imageScale,Float)) {
-			imageScale = ch.get("imageScale",Float);
-		}
-		if(Std.is(config.parallax,Float)){
-			_parallax = ch.get("parallax",Float);
-		}
-		if(Std.is(config.flipX,Bool)){
-			_flipX = ch.get("flipX",Bool);
-		}
-		if(Std.is(config.flipY,Bool)){
-			_flipY = ch.get("flipY",Bool);
-		}
+		imageScale = ch.get("imageScale",Float,100.0);
+		_parallax = ch.get("parallax",Float,1);
+		_flipX = ch.get("flipX",Bool,false);
+		_flipY = ch.get("flipY",Bool,false);
 
 		_r=ch.get('red',Float,1.0);
 		_g=ch.get('green',Float,1.0);

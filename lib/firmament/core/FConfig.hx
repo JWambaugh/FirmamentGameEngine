@@ -1,4 +1,5 @@
 package firmament.core;
+
 import firmament.core.FVector;
 import firmament.core.FGame;
 import firmament.scene.FScene;
@@ -94,8 +95,11 @@ abstract FConfig({}) from {} to {} {
                     }
                     else if(type==FVector && Reflect.isObject(entry)){
                         return parseVectorObject(entry,def);
-                    } 
-                    else{
+                    }
+                    else if(type==Bool && Reflect.isObject(entry)){
+                        return parseBoolObject(entry,def);
+                    }
+                    else {
                         FLog.warning("field "+field+" is not type expected! Returning default.");
                         return def;
                     }
@@ -241,6 +245,47 @@ abstract FConfig({}) from {} to {} {
                 target -= Std.parseFloat(w);
                 if( target <= 0 ) {
                     var value:Float = Std.parseFloat(Reflect.field(o,w));
+                    return value;
+                }
+            }
+        }
+        return d; // I didn't know what you were
+    }
+
+    private function parseBoolObject(v:Dynamic,d:Bool=false):Bool {
+        if( Std.is(v,String) ) {
+            throw "Failed to parse Bool from string : " + v;
+        }
+        var o:Dynamic<Bool> = {};
+        if(convertRandom(v,o) == true ){
+            return o.value;
+        }
+        if(convertKeyValue(v,o,Bool) == true ){
+            return o.value;
+        }
+        if(convertSceneProperty(v,o) ==true ) {
+            if( Std.is(o.value,Bool ) ) {
+                return o.value;
+            }
+            return parseBoolObject( o.value, d );
+        }
+        if(Reflect.hasField(v,"*weighted*")){
+            var a:Array<Dynamic> = cast Reflect.field(v,"*weighted*");
+            var k:Array<String> = new Array();
+            var sum:Int=0;
+            for( o in a ) {
+                var f:String = Reflect.fields(o)[0];
+                k.push(f);
+                sum += Std.parseInt(f);
+            }
+            var rand:Int = Std.random(sum);
+            var target:Int = rand;
+            for( i in 0...a.length) {
+                var o = a[i];
+                var w = k[i];
+                target -= Std.parseInt(w);
+                if( target <= 0 ) {
+                    var value:Bool = Reflect.field(o,w);
                     return value;
                 }
             }
