@@ -3,7 +3,7 @@ package ;
 
 import firmament.core.FSortedLinkedList;
 class TestSortedLinkedList extends haxe.unit.TestCase {
-    
+
     var ll:FSortedLinkedList<Int>;
 	override public function setup() {
         ll = new FSortedLinkedList();
@@ -18,8 +18,8 @@ class TestSortedLinkedList extends haxe.unit.TestCase {
 
     public function testGetValue(){
     	assertEquals(6,ll.getCellCount());
-        assertEquals(2,ll.getLowestValue());
-        assertEquals(100,ll.getHighestValue());
+      assertEquals(2,ll.getLowestValue());
+      assertEquals(100,ll.getHighestValue());
     	assertEquals(6,ll.getCellCount());
 
     }
@@ -42,5 +42,5 @@ class TestSortedLinkedList extends haxe.unit.TestCase {
     	assertEquals(3,ll.getCellCount());
 
     }
-    
+
 }

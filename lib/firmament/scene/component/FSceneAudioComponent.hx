@@ -7,6 +7,7 @@ import firmament.core.FGame;
 import firmament.scene.FSceneComponent;
 import firmament.sound.FSoundtrackManager;
 import firmament.core.FPropertyInterface;
+import firmament.core.FPropertyDefinition;
 
 // import firmament.util.loader.FDataLoader;
 
@@ -58,8 +59,8 @@ class FSceneAudioComponent extends FSceneComponent {
 		return "soundTrack";
 	}
 
-	override public function getProperties():Array<PropertyDefinition>{
-        var props:Array<PropertyDefinition> = [
+	override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = [
         	{
                 key:'soundTrack'
                 ,type:String
@@ -76,7 +77,7 @@ class FSceneAudioComponent extends FSceneComponent {
         return props;
     }
 
-    public function getSoundTrack():String {
+    public function getSoundTrack(p:String=''):String {
     	return _soundTrackName;
     }
 
@@ -91,7 +92,7 @@ class FSceneAudioComponent extends FSceneComponent {
     	}
     }
 
-    public function getVolume():Float {
+    public function getVolume(v:Float=0):Float {
     	return FSoundtrackManager.getVolume();
     }
 

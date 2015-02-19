@@ -78,7 +78,7 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
 		_timer = FGame.getInstance().addGameTimer(_currentAnimation.getTimeBetweenFrames(),changeFrame);
 	}
 
-    public function getFrame(){
+    public function getFrame(f:Int=0){
         return _currentFrame;
     }
 
@@ -99,7 +99,7 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
         _currentAnimation = FAnimationManager.getInstance().getAnimationByFileName(_animationFile);
     }
 
-    public function getAnimationFile(){
+    public function getAnimationFile(f:String=''){
         return _animationFile;
     }
 

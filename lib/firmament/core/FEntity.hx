@@ -71,11 +71,12 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 		}
 		_gameInstance = FGame.getInstance(gameInstanceName);
 		registerProperty(new FComputedProperty<String>("typeId",getTypeId,setTypeId));
+        registerProperty(new FComputedProperty<String>("instanceId",getInstanceId,setInstanceId));
 		registerProperty(new FComputedProperty<Bool>("debug",getDebug,setDebug));
 	}
 
 
-	public function getTypeId():String{
+	public function getTypeId(t:String=""):String{
 		return _typeId;
 	}
 
@@ -83,7 +84,7 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 		_typeId = typeId;
 	}
 
-	public function getDebug():Bool{
+	public function getDebug(d:Bool=false):Bool{
 		return _debug;
 	}
 
@@ -96,7 +97,7 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 	 * a guid will be assigned (lazily)
 	 *
 	 */
-	public function getInstanceId():String{
+	public function getInstanceId(i:String=''):String{
 		if(_instanceId == null){
 			_instanceId = FGuidManager.getGuid();
 		}

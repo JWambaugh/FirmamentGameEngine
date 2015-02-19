@@ -79,7 +79,7 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber{
     }
 
     //entity property helpers
-    public function registerProp(key:String, type:Dynamic, getter:Void->Dynamic=null, setter:Dynamic->Void=null){
+    public function registerProp(key:String, type:Dynamic, getter:Dynamic->Dynamic=null, setter:Dynamic->Void=null){
         
         _parent.registerProp(key,type,getter,setter);
     }

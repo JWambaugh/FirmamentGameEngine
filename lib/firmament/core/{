@@ -1,0 +1,46 @@
+{
+     
+    time:{
+        selector:[
+            actions
+        ]
+    }
+
+
+     0:{// at beginning
+        "#children @instanceId = "" @ and @health < 500" : [
+            
+        ]
+     }
+     
+
+
+
+}
+
+
+
+query syntax:
+(* denotes not yet implemented)
+
+#[scope selector] @[value] [comparison] [value] [and|or] @...
+
+
+Scope selectors:
+
+#game               - *selects from all entities in the game (default)
+#world:[world name] - *selects all entities in specified world
+#children           - *selects from children of the 'this' entity
+
+Value:
+any scalar Value    - any constant scalar value
+@[property name]    - the value of the property with that name
+@this.[propertName] - the value of the property with that name, specific to the 'this' entity.
+
+Comparison Operators
+=,==,'equal'         - equal
+<,'lessThan'         - less than
+>,'greaterThan'      - greater than
+//,'regex'           - *regular expression where the 2nd value is the expression
+
+

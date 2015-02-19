@@ -245,7 +245,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		return "render";
 	}
 
-	public function getParallaxMultiplier():Float{
+	public function getParallaxMultiplier(p:Float=0):Float{
 		return _parallax;
 	}
 
@@ -271,8 +271,8 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		return _alpha;
 	}
 
-	public function getText(){
-		return _text;
+	public function getText(t:String=''){
+		return t+_text;
 	}
 
 	public function setText(t:String){

@@ -70,7 +70,7 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
             props.push({   // this is a fake property until it can be fixed
                 key:'image'
                 ,type:String
-                ,getter:function(){return _currentImagePath;}
+                ,getter:function(i:String=null){return _currentImagePath;}
                 ,setter:setImage
             });
             

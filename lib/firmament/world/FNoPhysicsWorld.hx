@@ -2,17 +2,17 @@ package firmament.world;
 
 
 import firmament.component.physics.FBox2DComponent;
+import firmament.component.physics.FNoPhysicsComponent;
 import firmament.core.FEntity;
-import firmament.world.FWorld;
+import firmament.core.FGame;
+import firmament.core.FVector;
 import firmament.event.FBox2DCollisionEvent;
 import firmament.event.FPhysicsCollisionEvent;
-import firmament.ui.FDialog;
-import flash.events.Event;
-import firmament.core.FGame;
 import firmament.process.base.FProcessManager;
-import firmament.component.physics.FNoPhysicsComponent;
+import firmament.ui.FDialog;
 import firmament.util.rtree.RTree;
-import firmament.core.FVector;
+import firmament.world.FWorld;
+import flash.events.Event;
 
 /**
  * ...

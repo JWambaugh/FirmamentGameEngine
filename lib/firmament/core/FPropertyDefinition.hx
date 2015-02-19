@@ -5,5 +5,5 @@ typedef FPropertyDefinition={
     key:String,
     type:Dynamic,
     setter:Dynamic->Void,
-    getter:Void->Dynamic
+    getter:Dynamic->Dynamic
 };

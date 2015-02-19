@@ -101,7 +101,7 @@ class FWireframeRenderComponent extends FEntityComponent implements FRenderCompo
 	override public function getType():String {
 		return "render";
 	}
-	public function getParallaxMultiplier():Float{
+	public function getParallaxMultiplier(p:Float=0):Float{
 		return 1;
 	}
 }

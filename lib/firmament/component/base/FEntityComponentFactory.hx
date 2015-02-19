@@ -2,6 +2,7 @@ package firmament.component.base;
 
 import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
+import firmament.component.entity.FChildComponent;
 import firmament.component.entity.FDecrementComponent;
 import firmament.component.entity.FDestroyEntityComponent;
 import firmament.component.entity.FFollowEntityComponent;
@@ -20,6 +21,7 @@ import firmament.component.event.FSetScenePropertiesComponent;
 import firmament.component.event.FTimerComponent;
 import firmament.component.event.FTriggerAfterStepComponent;
 import firmament.component.physics.FBox2DComponent;
+import firmament.component.physics.FChildPhysicsComponent;
 import firmament.component.physics.FNoPhysicsComponent;
 import firmament.component.physics.FParticleComponent;
 import firmament.component.render.FLineRenderComponent;
@@ -59,6 +61,8 @@ class FEntityComponentFactory{
             ,"button":"firmament.component.ui.FButtonComponent"
             ,"cameraControl":"firmament.component.system.FCameraControlComponent"
             ,"captureSceneEvents":"firmament.component.event.FCaptureSceneEventsComponent"
+            ,"child":"firmament.component.entity.FChildComponent"
+            ,"childPhysics":"firmament.component.physics.FChildPhysicsComponent"
             ,"collisionEventMapper":"firmament.component.event.FCollisionEventMapperComponent"
             ,"componentFactory":"firmament.component.system.FComponentFactoryComponent"
             ,"decrement":"firmament.component.entity.FDecrementComponent"

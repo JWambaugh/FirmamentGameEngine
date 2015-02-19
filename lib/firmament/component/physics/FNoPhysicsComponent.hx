@@ -1,6 +1,7 @@
 package firmament.component.physics;
 
 
+
 import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.core.FComputedProperty;
@@ -10,8 +11,8 @@ import firmament.core.FEvent;
 import firmament.core.FGame;
 import firmament.core.FPolygonShape;
 import firmament.core.FProperty;
-import firmament.core.FPropertyInterface;
 import firmament.core.FPropertyDefinition;
+import firmament.core.FPropertyInterface;
 import firmament.core.FShape;
 import firmament.core.FVector;
 import firmament.core.FWorldPositionalInterface;
@@ -25,7 +26,7 @@ import haxe.Timer;
  * @author Jordan Wambaugh
  */
 
-class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentInterface implements FWorldPositionalInterface 
+class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentInterface 
 {
 	
 	
@@ -165,7 +166,7 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		_world.updateSleepState(this);
 	}
 
-	public function  getPosition() {
+	public function  getPosition(p:FVector=null) {
 		return _position;
 	}
 	
@@ -199,11 +200,11 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		setPositionXY(_position.x, y);
 	}
 
-	public function getPositionX():Float{
+	public function getPositionX(p:Float=0):Float{
 		return this.getPosition().x;
 	}
 
-	public function getPositionY():Float{
+	public function getPositionY(p:Float=0):Float{
 		return this.getPosition().y;
 	}
 	
@@ -211,7 +212,7 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		_angle = a;
 	}
 	
-	public function getAngle():Float {
+	public function getAngle(p:Float=0):Float {
 		return _angle;
 	}
 	
@@ -228,7 +229,7 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		_linearVelocity = vel;
 	}
 	
-	public function getLinearVelocity():FVector {
+	public function getLinearVelocity(p:FVector=null):FVector {
 		return _linearVelocity;
 	}
 
@@ -237,7 +238,7 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	    _angularVelocity = omega;
 	}
 
-	public function getAngularVelocity():Float {
+	public function getAngularVelocity(p:Float=0):Float {
 	    return _angularVelocity;
 	}
 
@@ -247,7 +248,7 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	    this.setAngularVelocity(ome+omega);	
 	}
 	
-	public function getPositionZ():Float {
+	public function getPositionZ(p:Float=0):Float {
 		return _positionZ;
 	}
 
