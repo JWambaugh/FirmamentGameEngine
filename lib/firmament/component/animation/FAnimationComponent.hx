@@ -45,12 +45,15 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
                 ,type:String
                 ,getter:getAnimationFile
                 ,setter:setAnimationFile
+                ,sortOrder:1
             }
             ,{
                 key:'frame'
                 ,type:Int
                 ,getter:getFrame
                 ,setter:setFrame
+                ,sortOrder:1
+                
             }
            
         ];

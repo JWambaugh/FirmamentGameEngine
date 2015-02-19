@@ -7,6 +7,7 @@ import firmament.core.FEntity;
 import firmament.core.FEntityFactory;
 import firmament.core.FEvent;
 import firmament.core.FGame;
+import firmament.core.FPropertyDefinition;
 import firmament.core.FVector;
 import firmament.event.FPhysicsCollisionEvent;
 import firmament.util.FEntityUtils;
@@ -48,6 +49,28 @@ class FChildComponent extends FEntityComponent{
         _childEntity = FEntityFactory.createEntity(entConfig);
     }
 
+     override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = [
+            {
+                key:'children'
+                ,type:Array
+                ,getter:getChild
+                ,setter:setChild
+                ,sortOrder:1
+            }
+        ];
+        return props;
+    }
+
+    public function getChild(children:Array<FEntity>):Array<FEntity>{
+        if(children == null)children = new Array();
+        children.push(_childEntity);
+        return children;
+    }
+
+    public function setChild(child:Array<FEntity>){
+        //setter does nothing
+    }
 
     override public function getType(){
         return "child";

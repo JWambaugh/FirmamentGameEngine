@@ -64,6 +64,7 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
                 ,type:String
                 ,getter:function(i:String=null){return _currentImagePath;}
                 ,setter:setImage
+                ,sortOrder:1
             });
             
         

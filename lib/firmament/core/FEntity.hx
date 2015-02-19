@@ -275,6 +275,13 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
             for (p in props){
                 if(!hasProperty(p.key)){
                     registerProp(p.key,p.type,p.getter,p.setter);
+                }else{
+                    var property = getProperty(p.key);
+                    if(Std.is(property,firmament.core.FComputedProperty)){
+                        cast(property, firmament.core.FComputedProperty<Dynamic>).add(p.getter,p.setter,p.sortOrder);
+                    }else{
+                        //do nothing for non-computed properties
+                    }
                 }
             }
         }

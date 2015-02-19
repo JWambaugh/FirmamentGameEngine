@@ -153,24 +153,28 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
                 ,type:Float
                 ,getter:getImageScale
                 ,setter:setImageScale
+                ,sortOrder:1
             }
             ,{   
                 key:'tileId'
                 ,type:Int
                 ,getter:getCurrentTile
                 ,setter:setTile
+                ,sortOrder:1
             }
             ,{  
                 key:'parallax'
                 ,type:Float
                 ,getter:getParallaxMultiplier
                 ,setter:setParallaxMultiplier
+                ,sortOrder:1
             }
             ,{  
                 key:'tilesheetId'
                 ,type:Int
                 ,getter:getTilesheetId
                 ,setter:setTilesheetId
+                ,sortOrder:1
             }
 
         ];

@@ -66,12 +66,14 @@ class FSceneAudioComponent extends FSceneComponent {
                 ,type:String
                 ,getter:getSoundTrack
                 ,setter:setSoundTrack
+                ,sortOrder:1
             },
             {
                 key:'volume'
                 ,type:Float
                 ,getter:getVolume
                 ,setter:setVolume
+                ,sortOrder:1
             }
         ];
         return props;

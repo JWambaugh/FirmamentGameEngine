@@ -94,48 +94,56 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
                 ,type:FVector
                 ,getter:getPosition
                 ,setter:setPosition
+                ,sortOrder:1
             }
             ,{
                 key:"positionX"
                 ,type:Float
                 ,getter:getPositionX
                 ,setter:setPositionX
+                ,sortOrder:1
             }
             ,{
                 key:"positionY"
                 ,type:Float
                 ,getter:getPositionY
                 ,setter:setPositionY
+                ,sortOrder:1
             }
             ,{
                 key:"positionZ"
                 ,type:Float
                 ,getter:getPositionZ
                 ,setter:setPositionZ
+                ,sortOrder:1
             }
             ,{
                 key:"angle"
                 ,type:Float
                 ,getter:getAngle
                 ,setter:setAngle
+                ,sortOrder:1
             }
             ,{
                 key:"angularVelocity"
                 ,type:Float
                 ,getter:getAngularVelocity
                 ,setter:setAngularVelocity
+                ,sortOrder:1
             }
             ,{
                 key:"linearVelocity"
                 ,type:FVector
                 ,getter:getLinearVelocity
                 ,setter:setLinearVelocity
+                ,sortOrder:1
             }
             ,{
                 key:"gravity"
                 ,type:FVector
                 ,getter:getGravity
                 ,setter:setGravity
+                ,sortOrder:1
             }
         ];
         return props;

@@ -17,6 +17,11 @@ class FComputedProperty<T> extends FProperty{
 		_getters.add(getter,sortValue);
 	}
 
+    public function add(getter:T->T, setter:T->Void, sortValue=1.0){
+        _setters.push(setter);
+        _getters.add(getter,sortValue);
+    }
+
 
 	override public function set(value:Dynamic){
 		for(setter in _setters){

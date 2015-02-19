@@ -118,6 +118,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
                 ,type:String
                 ,getter:getText
                 ,setter:setText
+                ,sortOrder:1
             }
         ];
         return props;
