@@ -38,6 +38,7 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
     private var _relativeAngle:Float;
 
     private var _relativeAngularVelocity:Float;
+    private var _relativePositionZ:Float;
 
 
     public function new(gameInstance:firmament.core.FGame) 
@@ -147,6 +148,13 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
                 ,setter:setRelativeAngle
                 ,sortOrder:1
             }
+            ,{
+                key:"relativePositionZ"
+                ,type:Float
+                ,getter:getRelativePositionZ
+                ,setter:setRelativePositionZ
+                ,sortOrder:1
+            }
           
            
         ];
@@ -246,6 +254,12 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
     //    var ome = this.getAngularVelocity();
     //    this.setAngularVelocity(ome+omega); 
     }
+
+
+    override public function getPositionZ(p:Float=0):Float {
+        return _parentEntity.getProp('positionZ')+_relativePositionZ;
+    }
+
     
 
 
@@ -279,6 +293,16 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
         if(_world!=null)
             _world.updateSleepState(this);
         _relativeAngle = angle;
+    }
+
+
+    public function getRelativePositionZ(p:Float=0):Float {
+        return _relativePositionZ;
+    }
+
+    public function setRelativePositionZ(pos:Float):Void {
+        
+        _relativePositionZ = pos;
     }
 
 
