@@ -12,11 +12,11 @@ import firmament.util.FMisc;
 import firmament.process.timer.FTimerManager;
 import firmament.core.FEvent;
 
-class FDecrementComponent extends FEntityComponent{
-    var _deathEvent:String;
+class FIncrementComponent extends FEntityComponent{
+    var _triggervent:String;
     var _propertyName:String;
-    var _min:Int;
-    var _decSize:Int;
+    var _max:Int;
+    var _incSize:Int;
     var _triggered:Bool = false;
     var _startValue:Int;
 
@@ -25,41 +25,34 @@ class FDecrementComponent extends FEntityComponent{
     }
 
     override public function init(config:firmament.core.FConfig){
+        var listenerEvent:String = config.getNotNull('listen',String);
         _startValue = config.getNotNull('startValue',Int);
-        var dEvent:String = config.getNotNull('decrementEvent',String,
-                                config.getNotNull('listen',String) ); // compatibility changes
-        _deathEvent = config.getNotNull('deathEvent',String,
-                                config.getNotNull('trigger',String) );  // compatibility changes
+        _triggervent = config.getNotNull('trigger',String);
         _propertyName = config.getNotNull('property',String);
-        _decSize = Math.max(1,config.get('decrementSize', Int, 0));
-        _min = config.get('min', Int, 0);
+        _incSize = Math.max(1, config.get('IncrementSize', Int, 0));
+        _max = config.get('max', Int, 1);
 
         //register the property if it doesn't exist
         if(!_entity.hasProperty(_propertyName))
             _entity.registerProperty(new firmament.core.FBasicProperty<Int>(_propertyName));
         _entity.setProp(_propertyName, _startValue);
-        _entity.on(dEvent,onDecEvent);
+        _entity.on(listenerEvent,onIncEvent);
     }
-
 
     override public function getType(){
-        return "decrement";
+        return "increment";
     }
 
-    public function onDecEvent(e:FEvent){
-        firmament.util.FLog.debug("got click!");
-        var h = _entity.getProp(_propertyName);
-        h-=_decSize;
-        if(h<=_min && !_triggered){
-            firmament.util.FLog.debug("you died");
-            h=_min;
-            _triggered = true;
+    public function onIncEvent(e:FEvent){
+        if( !_triggered ) {
+            var h = _entity.getProp(_propertyName);
+            h+=_incSize;
             _entity.setProp(_propertyName, h);
-            _entity.trigger(new FEvent(_deathEvent));
-        }else{
-            _entity.setProp(_propertyName, h);
+            if(h>=_max){
+                h=_max;
+                _triggered = true;
+                _entity.trigger(new FEvent(_triggervent));
+            }
         }
-        
-        
     }
 }

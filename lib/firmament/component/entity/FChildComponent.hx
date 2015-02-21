@@ -77,7 +77,12 @@ class FChildComponent extends FEntityComponent{
     }
 
     override public function destruct(){
-        _entity.getGameInstance().doAfterStep(_childEntity.destruct);
+        // this has to be done everywhere?? yuck
+        if( _entity.getGameInstance().isInStep() == false ) {
+            _childEntity.destruct();    
+        } else {
+            _entity.getGameInstance().doAfterStep(_childEntity.destruct);
+        }
         super.destruct();
     }
 

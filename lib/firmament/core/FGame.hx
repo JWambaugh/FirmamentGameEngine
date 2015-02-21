@@ -135,6 +135,10 @@ class FGame extends FObject
 		this._gameProcessManager.addProcess(_gameTimerManager);
 	}
 
+	public function isInStep():Bool {
+		return _inStep == true;
+	}
+
 	public function addStepSubscriber(c:FStepSubscriber){
 		_stepSubscribers.push(c);
 	}
