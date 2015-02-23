@@ -25,25 +25,27 @@ class FIncrementComponent extends FEntityComponent{
     }
 
     override public function init(config:firmament.core.FConfig){
-        var listenerEvent:String = config.getNotNull('listen',String);
-        _startValue = config.getNotNull('startValue',Int);
+        if( !config.hasField('listen') ) {
+            throw("Missing field listen");
+        }
+        _startValue = config.get('startValue',Int,0);
         _triggervent = config.getNotNull('trigger',String);
         _propertyName = config.getNotNull('property',String);
-        _incSize = Math.max(1, config.get('IncrementSize', Int, 0));
+        _incSize = Math.floor(Math.max(1, config.get('IncrementSize', Int, 0)));
         _max = config.get('max', Int, 1);
 
         //register the property if it doesn't exist
         if(!_entity.hasProperty(_propertyName))
             _entity.registerProperty(new firmament.core.FBasicProperty<Int>(_propertyName));
         _entity.setProp(_propertyName, _startValue);
-        _entity.on(listenerEvent,onIncEvent);
+        _entity.on( cast(_config.getNotNull('listen',String),String) ,onIncEvent );
     }
 
     override public function getType(){
         return "increment";
     }
 
-    public function onIncEvent(e:FEvent){
+    public function onIncEvent(e:FEvent) {
         if( !_triggered ) {
             var h = _entity.getProp(_propertyName);
             h+=_incSize;

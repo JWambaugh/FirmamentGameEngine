@@ -51,16 +51,23 @@ abstract FConfig({}) from {} to {} {
             entry =  Reflect.field(this,field);
         }
 
-        //support scripting
-        if(Reflect.isObject(entry)){
-            var scriptObj= Reflect.field(entry,'*script*');
-            if(Std.is(scriptObj,String)){
-                entry = runScript(entry);
+        if(Reflect.isObject(entry)) {
+            // Property Conversions
+            if(Std.is(entry,firmament.core.FProperty)) {
+                var property:firmament.core.FProperty = cast(entry,firmament.core.FProperty);
+                entry = property.getDynamic();
             } else {
-                var repoObj = Reflect.field(entry,'*repository*');
-                if(Std.is(repoObj,String)){
-                    entry = FRepository.getInstance().get(repoObj);
-                }
+                // Scripting check
+                var scriptObj= Reflect.field(entry,'*script*');
+                if(Std.is(scriptObj,String)) {
+                    entry = runScript(entry);
+                } else {
+                    // Repository check
+                    var repoObj = Reflect.field(entry,'*repository*');
+                    if(Std.is(repoObj,String)){
+                        entry = FRepository.getInstance().get(repoObj);
+                    }
+                } 
             }
         }
         

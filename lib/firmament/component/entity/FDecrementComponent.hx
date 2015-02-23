@@ -31,7 +31,7 @@ class FDecrementComponent extends FEntityComponent{
         _deathEvent = config.getNotNull('deathEvent',String,
                                 config.getNotNull('trigger',String) );  // compatibility changes
         _propertyName = config.getNotNull('property',String);
-        _decSize = Math.max(1,config.get('decrementSize', Int, 0));
+        _decSize = Math.floor( Math.max(1,config.get('decrementSize', Int, 0)));
         _min = config.get('min', Int, 0);
 
         //register the property if it doesn't exist
