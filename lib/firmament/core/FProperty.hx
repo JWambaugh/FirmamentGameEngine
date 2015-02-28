@@ -34,7 +34,7 @@ class FProperty{
 		return p;
 	}
 
-    public static function createComputed(key:String, type:Dynamic, getter:Void->Dynamic, setter:Dynamic->Void):FProperty{
+    public static function createComputed(key:String, type:Dynamic, getter:Dynamic->Dynamic, setter:Dynamic->Void):FProperty{
         if(type == Bool) {
             var p = new FComputedProperty<Bool>(key,getter,setter);
             p.type = type;

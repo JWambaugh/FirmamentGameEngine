@@ -40,7 +40,7 @@ import haxe.Timer;
  * @author Jordan Wambaugh
  */
 
-class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInterface implements FWorldPositionalInterface 
+class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInterface 
 {
 
 	public var body:B2BodyS;
@@ -208,42 +208,49 @@ FLog.msg("Composed - " + vectors);
                 ,type:FVector
                 ,getter:getPosition
                 ,setter:setPosition
+                ,sortOrder:1
             }
             ,{
                 key:"positionX"
                 ,type:Float
                 ,getter:getPositionX
                 ,setter:setPositionX
+                ,sortOrder:1
             }
             ,{
                 key:"positionY"
                 ,type:Float
                 ,getter:getPositionY
                 ,setter:setPositionY
+                ,sortOrder:1
             }
             ,{
                 key:"positionZ"
                 ,type:Float
                 ,getter:getPositionZ
                 ,setter:setPositionZ
+                ,sortOrder:1
             }
             ,{
                 key:"angle"
                 ,type:Float
                 ,getter:getAngle
                 ,setter:setAngle
+                ,sortOrder:1
             }
             ,{
                 key:"angularVelocity"
                 ,type:Float
                 ,getter:getAngularVelocity
                 ,setter:setAngularVelocity
+                ,sortOrder:1
             }
             ,{
                 key:"linearVelocity"
                 ,type:FVector
                 ,getter:getLinearVelocity
                 ,setter:setLinearVelocity
+                ,sortOrder:1
             }
         ];
         return props;
@@ -329,7 +336,7 @@ FLog.msg("Composed - " + vectors);
 	}
 
 
-	public function  getPosition() {
+	public function  getPosition(p:FVector=null) {
 		if(body == null)throw("BODY IS NULL!!!"+_entity.getTypeId());
 		this.position.x = this.body.getPosition().x;
 		this.position.y = this.body.getPosition().y;
@@ -358,11 +365,11 @@ FLog.msg("Composed - " + vectors);
         setPosition(new FVector(this.position.x,y));
 	}
 
-	public function getPositionX():Float{
+	public function getPositionX(p:Float=0):Float{
 		return this.getPosition().x;
 	}
 
-	public function getPositionY():Float{
+	public function getPositionY(p:Float=0):Float{
 		return this.getPosition().y;
 	}
 	
@@ -374,7 +381,7 @@ FLog.msg("Composed - " + vectors);
 
 	}
 	
-	public function getAngle():Float {
+	public function getAngle(a:Float=0):Float {
 		return this.body.getAngle();
 	}
 
@@ -402,7 +409,7 @@ FLog.msg("Composed - " + vectors);
         }
 	}
 	
-	public function getLinearVelocity():FVector {
+	public function getLinearVelocity(v:FVector=null):FVector {
 		return new FVector(this.body.getLinearVelocity().x, this.body.getLinearVelocity().y);
 	}
 
@@ -413,7 +420,7 @@ FLog.msg("Composed - " + vectors);
             def.angularVelocity =omega;
 	}
 
-	public function getAngularVelocity():Float {
+	public function getAngularVelocity(a:Float=0):Float {
 	    return this.body.getAngularVelocity();	
 	}
 
@@ -423,7 +430,7 @@ FLog.msg("Composed - " + vectors);
 	    this.body.setAngularVelocity(ome+omega);
 	}
 	
-	public function getPositionZ():Float {
+	public function getPositionZ(z:Float=0):Float {
 		return positionZ;
 	}
 	public function setPositionZ(p:Float):Void {

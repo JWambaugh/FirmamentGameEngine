@@ -227,7 +227,7 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 		return "render";
 	}
 
-	public function getParallaxMultiplier():Float{
+	public function getParallaxMultiplier(p:Float=0):Float{
 		return _parallax;
 	}
 	

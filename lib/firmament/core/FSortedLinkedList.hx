@@ -1,6 +1,7 @@
 package firmament.core;
 
 import firmament.core.FSortedLinkedListCell;
+import firmament.core.FSortedLinkedListIterator;
 
 /**
  * Sorted Double-linked list implementation
@@ -13,6 +14,7 @@ class FSortedLinkedList<T>{
 	var _first:FSortedLinkedListCell<T>;
 	var _cellCount:Int;
 	var _last:FSortedLinkedListCell<T>;
+
 	public function new(){
 		_first = null;
 		_cellCount = 0;
@@ -156,6 +158,10 @@ class FSortedLinkedList<T>{
 			_last = previous;
 		}
 	}
+
+    public function iterator():Iterator<T>{
+        return new FSortedLinkedListIterator(this);
+    }
 
 
 }

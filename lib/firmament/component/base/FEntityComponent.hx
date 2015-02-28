@@ -44,6 +44,25 @@ class FEntityComponent extends firmament.core.FComponent
 	public function getEntity():FEntity{
 		return this._entity;
 	}
+
+	override public function _init(config:FConfig) {
+		// loop through FConfig looking for properties, convert to property objects!
+        for( key in config.fields() ) {
+        	var entry;
+        	try {
+	            entry = Reflect.field(config,key); // should I use reflect here?
+	        } catch(e:Dynamic) { 
+            	/* ignore any special types */
+            	continue;
+            }
+            if( Reflect.isObject(entry) && Reflect.hasField(entry,'*property*') ) {
+                var prop = Reflect.field(entry,'*property*');
+                var property:firmament.core.FProperty = _entity.getProperty( prop );
+                Reflect.setField(config, key, property ); 
+            }
+        }
+        super._init(config);
+	}
 	
 
 	override public function destruct(){

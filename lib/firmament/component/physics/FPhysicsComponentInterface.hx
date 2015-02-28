@@ -33,7 +33,7 @@ interface FPhysicsComponentInterface{
 	 * Returns:
 		 * <FVector>
 	 */
-	public function getPosition():FVector;
+	public function getPosition(p:FVector=null):FVector;
 	
 	/**
 	 * Function: getPositionX
@@ -41,7 +41,7 @@ interface FPhysicsComponentInterface{
 	 * Returns:
 		 * Float
 	 */
-	public function getPositionX():Float;
+	public function getPositionX(p:Float=0):Float;
 	
 	/**
 	 * Function: getPositionY
@@ -49,7 +49,7 @@ interface FPhysicsComponentInterface{
 	 * Returns:
 		 * Float
 	 */
-	public function getPositionY():Float;
+	public function getPositionY(p:Float=0):Float;
 	
 	/**
 	 * Function: getAngle
@@ -57,7 +57,7 @@ interface FPhysicsComponentInterface{
 	 * Returns:
 		 * Float
 	 */
-	public function getAngle():Float;
+	public function getAngle(p:Float=0):Float;
 	
 	/**
 	 * Function: setAngle
@@ -67,7 +67,7 @@ interface FPhysicsComponentInterface{
 	 */
 	public function setAngle(a:Float):Void ;
 	
-	public function getPositionZ():Float;
+	public function getPositionZ(p:Float=0):Float;
 
 	public function setPositionZ(p:Float):Void;
 
@@ -79,11 +79,11 @@ interface FPhysicsComponentInterface{
 
 	public function setLinearVelocity(v:FVector):Void;
 
-	public function getLinearVelocity():FVector;
+	public function getLinearVelocity(p:FVector=null):FVector;
 
 	public function setAngularVelocity(omega:Float):Void ;
 
-	public function getAngularVelocity():Float;
+	public function getAngularVelocity(p:Float=0):Float;
 
 	public function addAngularVelocity(omega:Float):Void;
 

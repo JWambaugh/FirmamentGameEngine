@@ -153,24 +153,28 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
                 ,type:Float
                 ,getter:getImageScale
                 ,setter:setImageScale
+                ,sortOrder:1
             }
             ,{   
                 key:'tileId'
                 ,type:Int
                 ,getter:getCurrentTile
                 ,setter:setTile
+                ,sortOrder:1
             }
             ,{  
                 key:'parallax'
                 ,type:Float
                 ,getter:getParallaxMultiplier
                 ,setter:setParallaxMultiplier
+                ,sortOrder:1
             }
             ,{  
                 key:'tilesheetId'
                 ,type:Int
                 ,getter:getTilesheetId
                 ,setter:setTilesheetId
+                ,sortOrder:1
             }
 
         ];
@@ -229,7 +233,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		this._tile = _tilesheet.getTileNumber(label);
 	}
 
-	public function getCurrentTile(){
+	public function getCurrentTile(p:Float=0){
 		return _tile;
 	}
 
@@ -248,7 +252,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		imageScale = scale;
 	}
 
-	public function getImageScale(){
+	public function getImageScale(p:Float=0){
 		return imageScale;
 	}
 	
@@ -269,7 +273,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		return "render";
 	}
 
-	public function getParallaxMultiplier():Float{
+	public function getParallaxMultiplier(p:Float=0):Float{
 		return _parallax;
 	}
 
@@ -307,7 +311,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
         }
     }
 
-    public function getTilesheetId(){
+    public function getTilesheetId(p:Int=0){
         return _tilesheetId;
     }
 	

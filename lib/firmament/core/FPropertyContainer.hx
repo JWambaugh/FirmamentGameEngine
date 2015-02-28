@@ -86,7 +86,7 @@ class FPropertyContainer extends FObject implements FPropertyInterface {
 	/**
 	 * Registers a property in the entity. This must be done before the property can be read or written.
 	 */
-	public function registerProp(key:String, type:Dynamic, getter:Void->Dynamic=null, setter:Dynamic->Void=null){
+	public function registerProp(key:String, type:Dynamic, getter:Dynamic->Dynamic=null, setter:Dynamic->Void=null){
         var prop;
         if(getter==null&&setter==null)
             prop = FProperty.createBasic(key,type);

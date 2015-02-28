@@ -43,31 +43,17 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
 		var ch:FConfig = config;
 
 
-        if(Std.is(config.imageScale,Float)) {
-			imageScale = config.imageScale;
-		}
+		imageScale = ch.get("imageScale",Float,100.0);
+		_parallax = ch.get("parallax",Float,1);
+		_flipX = ch.get("flipX",Bool,false);
+		_flipY = ch.get("flipY",Bool,false);
 
-		if(Std.is(config.parallax,Float)){
-			_parallax = config.parallax;
-		}
+		_r=ch.get('red',Float,1.0);
+		_g=ch.get('green',Float,1.0);
+		_b=ch.get('blue',Float,1.0);
+		_alpha=ch.get('alpha',Float,1.0);
 
-		if(Std.is(config.flipX,Bool)){
-			_flipX = config.flipX;
-		}
-		if(Std.is(config.flipY,Bool)){
-			_flipY = config.flipY;
-		}
-
-		_r=ch.get('red',Float,1.);
-		_g=ch.get('green',Float,1.);
-		_b=ch.get('blue',Float,1.);
-		_alpha=ch.get('alpha',Float,1.);
-
-        if(ch.hasField("animation",String)){
-
-        }
 		setImage(ch.get("image",String));
-
 	}
 
     override public function getProperties():Array<FPropertyDefinition>{
@@ -76,8 +62,9 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
             props.push({   // this is a fake property until it can be fixed
                 key:'image'
                 ,type:String
-                ,getter:function(){return _currentImagePath;}
+                ,getter:function(i:String=null){return _currentImagePath;}
                 ,setter:setImage
+                ,sortOrder:1
             });
             
         

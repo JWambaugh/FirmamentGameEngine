@@ -24,7 +24,7 @@ import haxe.Timer;
  * @author Jordan Wambaugh
  */
 
-class FParticleComponent extends FEntityComponent implements FPhysicsComponentInterface implements FWorldPositionalInterface 
+class FParticleComponent extends FEntityComponent implements FPhysicsComponentInterface
 {
 	
 	
@@ -94,48 +94,56 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
                 ,type:FVector
                 ,getter:getPosition
                 ,setter:setPosition
+                ,sortOrder:1
             }
             ,{
                 key:"positionX"
                 ,type:Float
                 ,getter:getPositionX
                 ,setter:setPositionX
+                ,sortOrder:1
             }
             ,{
                 key:"positionY"
                 ,type:Float
                 ,getter:getPositionY
                 ,setter:setPositionY
+                ,sortOrder:1
             }
             ,{
                 key:"positionZ"
                 ,type:Float
                 ,getter:getPositionZ
                 ,setter:setPositionZ
+                ,sortOrder:1
             }
             ,{
                 key:"angle"
                 ,type:Float
                 ,getter:getAngle
                 ,setter:setAngle
+                ,sortOrder:1
             }
             ,{
                 key:"angularVelocity"
                 ,type:Float
                 ,getter:getAngularVelocity
                 ,setter:setAngularVelocity
+                ,sortOrder:1
             }
             ,{
                 key:"linearVelocity"
                 ,type:FVector
                 ,getter:getLinearVelocity
                 ,setter:setLinearVelocity
+                ,sortOrder:1
             }
             ,{
                 key:"gravity"
                 ,type:FVector
                 ,getter:getGravity
                 ,setter:setGravity
+                ,sortOrder:1
             }
         ];
         return props;
@@ -166,7 +174,7 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 		this._isActive = _entity.isActive();
 	}
 
-	public function  getPosition() {
+	public function  getPosition(p:FVector=null) {
 		return _position;
 	}
 	
@@ -186,11 +194,11 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 		_position.set(_position.x,y);
 	}
 
-	public function getPositionX():Float{
+	public function getPositionX(p:Float=0):Float{
 		return this.getPosition().x;
 	}
 
-	public function getPositionY():Float{
+	public function getPositionY(p:Float=0):Float{
 		return this.getPosition().y;
 	}
 	
@@ -198,7 +206,7 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 		_angle = a;
 	}
 	
-	public function getAngle():Float {
+	public function getAngle(p:Float=0):Float {
 		return _angle;
 	}
 	
@@ -215,7 +223,7 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 		_linearVelocity = vel;
 	}
 	
-	public function getLinearVelocity():FVector {
+	public function getLinearVelocity(p:FVector=null):FVector {
 		return _linearVelocity;
 	}
 
@@ -224,7 +232,7 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 	    _angularVelocity = omega;
 	}
 
-	public function getAngularVelocity():Float {
+	public function getAngularVelocity(p:Float=0):Float {
 	    return _angularVelocity;
 	}
 
@@ -239,11 +247,11 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
         _gravity = g;
     }
 
-    public function getGravity():FVector {
+    public function getGravity(p:FVector=null):FVector {
         return _gravity;
     }
 	
-	public function getPositionZ():Float {
+	public function getPositionZ(p:Float=0):Float {
 		return _positionZ;
 	}
 
