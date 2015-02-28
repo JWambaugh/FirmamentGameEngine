@@ -139,6 +139,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 					var s:B2PolygonShape = new B2PolygonShape();
 
 					// convert to b2vector
+					//vectors:[{x:0,y:1},{x:1,y:1}...]
 					var vectors:Array<B2Vec2> = new Array();
 FLog.msg("Vectors - " + shape.vectors );
 					for( vect in cast(shape.vectors,Array<Dynamic>)){

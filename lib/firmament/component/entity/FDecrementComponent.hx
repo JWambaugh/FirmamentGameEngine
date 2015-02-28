@@ -15,7 +15,7 @@ class FDecrementComponent extends FEntityComponent{
     var _deathEvent:String;
     var _propertyName:String;
     var _min:Int;
-    var _decSize:Int;
+    
     var _triggered:Bool = false;
     var _startValue:Int;
     public function new(gameInstance:firmament.core.FGame){
@@ -27,7 +27,7 @@ class FDecrementComponent extends FEntityComponent{
         var dEvent:String = config.getNotNull('decrementEvent',String);
         _deathEvent = config.getNotNull('deathEvent',String);
         _propertyName = config.getNotNull('property',String);
-        _decSize = config.get('decrementSize', Int, 1);
+        
         _min = config.get('min', Int, 0);
 
         //register the property if it doesn't exist
@@ -45,7 +45,7 @@ class FDecrementComponent extends FEntityComponent{
     public function onDecEvent(e:FEvent){
         firmament.util.FLog.debug("got click!");
         var h = _entity.getProp(_propertyName);
-        h-=_decSize;
+        h-= cast _config.get('decrementSize', Int, 1);
         if(h<=_min && !_triggered){
             firmament.util.FLog.debug("you died");
             h=_min;
