@@ -23,7 +23,9 @@ class FEventMapperComponent extends FEntityComponent{
 		}
 
 		for(item in Reflect.fields(_map)){
+			log( _entity.getTypeId() + ":"+ _entity.getInstanceId() + ") Adding event " + item );
 			on(_entity,item,function(e:FEvent){
+				log( _entity.getTypeId() + ":"+ _entity.getInstanceId() + ") Sending event " + e.name + " as " + Reflect.field(_map,e.name) );
 				_entity.trigger(new FEvent(Reflect.field(_map,e.name)));
 			});
 		}

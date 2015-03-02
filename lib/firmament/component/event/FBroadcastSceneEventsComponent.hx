@@ -24,10 +24,13 @@ class FBroadcastSceneEventsComponent extends FEntityComponent{
 
 	override public function init(config:FConfig){
 		var scene:FScene = FGame.getInstance().getCurrentScene();
-		var listeners:FConfig = _config.getNotNull("listen");
+		var listeners:FConfig = _config.get("listen");
+		if(listeners == null) {
+			listeners = _config.getNotNull("listeners");
+		}
 		for(evt in listeners.fields() ){
 			_entity.on(cast(evt,String),this,function(e:FEvent){
-				FLog.debug("Sending <"+e.name+"> to scene");
+				log("Sending <"+e.name+"> to scene");
 				scene.trigger(new FEvent(e.name));
 			});
 		}

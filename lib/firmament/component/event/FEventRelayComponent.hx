@@ -24,13 +24,18 @@ class FEventRelayComponent extends FEntityComponent{
 	override public function init(config:FConfig){
 		_config = config;
 
-		var events:Array<String> = config.getNotNull("listenEvents",Array);
+		var events:Array<String> = config.get("listenEvents",Array);
+		if( events == null ) {
+			events = config.getNotNull("listeners",Array);
+		}
 		for(e in events){
 			on(_entity,e,eventFired);
 		}
 		
-		_fireEvent = config.getNotNull("fireEvent");
-
+		_fireEvent = config.get("fireEvent",String);
+		if( _fireEvent == null ) {
+			_fireEvent = config.getNotNull("trigger",String);
+		}
 	}
 
 	override public function getType(){

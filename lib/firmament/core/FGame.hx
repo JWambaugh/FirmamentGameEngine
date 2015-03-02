@@ -249,7 +249,7 @@ class FGame extends FObject
 	public function queryEntities(query:Dynamic):FEntityCollection{
 		var entities:Array<FEntity>;
 		var config:FConfig = query;
-		var selector:String = config.getNotNull("selector",String);
+		var selector:String = config.get("selector",String,"Default");
 		if (selector == "box"){
 			var topLeft = config.getVector("topLeft",null);
 			var bottomRight = config.getVector("bottomRight",null);

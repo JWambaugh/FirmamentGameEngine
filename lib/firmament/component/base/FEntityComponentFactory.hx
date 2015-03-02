@@ -4,11 +4,14 @@ import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
 import firmament.component.entity.FChildComponent;
 import firmament.component.entity.FDecrementComponent;
+import firmament.component.entity.FDecrementModComponent;
 import firmament.component.entity.FDestroyEntityComponent;
 import firmament.component.entity.FIncrementComponent;
+import firmament.component.entity.FIncrementModComponent;
 import firmament.component.entity.FFollowEntityComponent;
 import firmament.component.entity.FLinearTweenComponent;
 import firmament.component.entity.FTweenerComponent;
+import firmament.component.entity.FMovementComponent;
 import firmament.component.event.FBroadcastSceneEventsComponent;
 import firmament.component.event.FCaptureSceneEventsComponent;
 import firmament.component.event.FCollisionEventMapperComponent;
@@ -55,8 +58,9 @@ class FEntityComponentFactory{
 	}
 
 	public static function getClassFromType(type:String){
-		var map = {
+            var map = {
             "animation":"firmament.component.animation.FAnimationComponent"
+            ,"areaTweener":"firmament.component.entity.FMovementComponent"
             ,"box2d":"firmament.component.physics.FBox2DComponent"
             ,"broadcastSceneEvents":"firmament.component.event.FBroadcastSceneEventsComponent"
             ,"button":"firmament.component.ui.FButtonComponent"
@@ -67,6 +71,7 @@ class FEntityComponentFactory{
             ,"collisionEventMapper":"firmament.component.event.FCollisionEventMapperComponent"
             ,"componentFactory":"firmament.component.system.FComponentFactoryComponent"
             ,"decrement":"firmament.component.entity.FDecrementComponent"
+            ,"decrementmod":"firmament.component.entity.FDecrementModComponent"
             ,"destroy":"firmament.component.entity.FDestroyEntityComponent"
             ,"entityContainer":"firmament.component.ui.FEntityContainerComponent"
             ,"entityEmitter":"firmament.component.event.FEntityEmitterComponent"
@@ -75,6 +80,7 @@ class FEntityComponentFactory{
             ,"followEntity":"firmament.component.entity.FFollowEntityComponent"
             ,"followSpline":"firmament.component.spline.FSimpleFollowSplineComponent"
             ,"increment":"firmament.component.entity.FIncrementComponent"
+            ,"incrementmod":"firmament.component.entity.FIncrementModComponent"
             ,"line":"firmament.component.render.FLineRenderComponent"
             ,"linearTween":"firmament.component.entity.FLinearTweenComponent"
             ,"loopingTimer":"firmament.component.event.FLoopingTimerComponent"
