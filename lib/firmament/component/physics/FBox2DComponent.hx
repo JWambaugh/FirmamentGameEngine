@@ -141,13 +141,9 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 					// convert to b2vector
 					//vectors:[{x:0,y:1},{x:1,y:1}...]
 					var vectors:Array<B2Vec2> = new Array();
-FLog.msg("Vectors - " + shape.vectors );
 					for( vect in cast(shape.vectors,Array<Dynamic>)){
-						// var vect = Reflect.field(shape.vectors,field);
-FLog.msg("Vector - " + vect );
 						vectors.push( new B2Vec2( vect.x,vect.y ) );
 					}
-FLog.msg("Composed - " + vectors);
 					s.setAsVector(vectors);
 					
 					shapeDef.shape = s;
