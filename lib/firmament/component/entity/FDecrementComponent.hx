@@ -27,9 +27,9 @@ class FDecrementComponent extends FEntityComponent{
     override public function init(config:firmament.core.FConfig){
         _startValue = config.getNotNull('startValue',Int);
         var dEvent:String = config.getNotNull('decrementEvent',String,
-                                config.getNotNull('listen',String) ); // compatibility changes
+                                config.get('listen',String) ); // compatibility changes
         _deathEvent = config.getNotNull('deathEvent',String,
-                                config.getNotNull('trigger',String) );  // compatibility changes
+                                config.get('trigger',String) );  // compatibility changes
         _propertyName = config.getNotNull('property',String);
 
         _min = config.get('min', Int, 0);
