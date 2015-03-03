@@ -87,6 +87,7 @@ class FMovementComponent extends FLinearTweenComponent {
     private function handlePauseEvent(e:FEvent) {
         if( _paused == false ) {
             _paused = true;
+            log("Pausing!");
             if(_triggers.hasField('pause')) {
                 _entity.trigger(new FEvent(_triggers.get('pause',String)));
             }
@@ -96,6 +97,8 @@ class FMovementComponent extends FLinearTweenComponent {
     private function handleUnpauseEvent(e:FEvent) {
         if( _paused == true ) {
             _paused = false;
+            log("Unpausing, caculating direction");
+            updateDirection();
             if(_triggers.hasField('unpause')) {
                 _entity.trigger(new FEvent(_triggers.get('unpause',String)));
             }
@@ -125,16 +128,20 @@ class FMovementComponent extends FLinearTweenComponent {
 
     private function handleEndContact(e:FPhysicsCollisionEvent) {
         var othEnt = e.getOtherEntity(_entity);
-        if( _ent != null && othEnt.getTypeId() == _ent.getTypeId() ) {
+        if( _ent != null && othEnt.getTypeId() == _ent.getTypeId()) {
+            if( _paused == true ) {
+                log("Limit reached, but component is paused");
+                return;
+            }
             updateDirection();
             if(_triggers.hasField('limit')) {
+                log("Limit reached");
                 _entity.trigger(new FEvent(_triggers.get('limit',String)));
             }
         }
     }
 
     private function updateDirection() {
-        _hasError = false;
         for( key in _props.keys() ) {
             var cur:FProperty = _props.get(key);
             var dst:FProperty = _target.get(key);

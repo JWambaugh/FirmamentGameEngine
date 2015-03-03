@@ -16,7 +16,6 @@ class FIncrementComponent extends FEntityComponent{
     var _triggervent:String;
     var _propertyName:String;
     var _max:Int;
-    var _incSize:Int;
     var _triggered:Bool = false;
     var _startValue:Int;
 
@@ -31,7 +30,6 @@ class FIncrementComponent extends FEntityComponent{
         _startValue = config.get('startValue',Int,0);
         _triggervent = config.getNotNull('trigger',String);
         _propertyName = config.getNotNull('property',String);
-        _incSize = Math.floor(Math.max(1, config.get('IncrementSize', Int, 0)));
         _max = config.get('max', Int, 1);
 
         //register the property if it doesn't exist
@@ -48,7 +46,7 @@ class FIncrementComponent extends FEntityComponent{
     public function onIncEvent(e:FEvent) {
         if( !_triggered ) {
             var h = _entity.getProp(_propertyName);
-            h+=_incSize;
+            h+= Math.floor(Math.max(1, _config.get('IncrementSize', Int, 0)));
             _entity.setProp(_propertyName, h);
             if(h>=_max){
                 h=_max;

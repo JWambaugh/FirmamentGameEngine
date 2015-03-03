@@ -47,11 +47,11 @@ class FDecrementComponent extends FEntityComponent{
     }
 
     public function onDecEvent(e:FEvent){
-        firmament.util.FLog.debug("got click!");
+        log("got "+e.name+"!");
         var h = _entity.getProp(_propertyName);
-        h-= cast _config.get('decrementSize', Int, 0);
+        h-= Math.floor(Math.max(1, _config.get('decrementSize', Int, 0)));
         if(h<=_min && !_triggered){
-            firmament.util.FLog.debug("you died");
+            log("Reached min of " + _min);
             h=_min;
             _triggered = true;
             _entity.setProp(_propertyName, h);
@@ -59,7 +59,6 @@ class FDecrementComponent extends FEntityComponent{
         }else{
             _entity.setProp(_propertyName, h);
         }
-        
-        
+        log("Value Remaining - " + _entity.getProp(_propertyName) );
     }
 }
