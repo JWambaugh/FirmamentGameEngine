@@ -12,6 +12,7 @@ import firmament.component.entity.FFollowEntityComponent;
 import firmament.component.entity.FLinearTweenComponent;
 import firmament.component.entity.FTweenerComponent;
 import firmament.component.entity.FMovementComponent;
+import firmament.component.entity.FPointAtEntityComponent;
 import firmament.component.event.FBroadcastSceneEventsComponent;
 import firmament.component.event.FCaptureSceneEventsComponent;
 import firmament.component.event.FCollisionEventMapperComponent;
@@ -99,6 +100,7 @@ class FEntityComponentFactory{
             ,"triggerAfterStep":"firmament.component.event.FTriggerAfterStepComponent"
             ,"tweener":"firmament.component.entity.FTweenerComponent"
             ,"wireframe":"firmament.component.render.FWireframeRenderComponent"
+            ,"pointat":"firmament.component.entity.FPointAtEntityComponent"
 		};
 
 		var cls = Reflect.field(map,type);
