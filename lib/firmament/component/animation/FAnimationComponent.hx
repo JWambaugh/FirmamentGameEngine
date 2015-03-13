@@ -109,7 +109,7 @@ class FAnimationComponent extends FEntityComponent implements FAnimationComponen
 	public function jumpToFrame(frame:Int){
 		//update render component
 		var tdata = _currentAnimation.getTilesheetDataForFrame(frame);
-        _entity.setProp("tileId",tdata.tileId);
+        _entity.setProp("tileId", tdata.tileId);
 		_entity.setProp("tilesheetId",tdata.tilesheetId);
 		_currentFrame = frame;
 	}

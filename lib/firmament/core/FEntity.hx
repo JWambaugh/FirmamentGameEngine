@@ -54,6 +54,7 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 	public function new(config:Dynamic,?gameInstanceName='main') 
 	{
 		super(config);
+
 		this._componentsHash = new Map<String,Array<FEntityComponent>>();
 		_components = new Array<FEntityComponent>();
 		_active = true;

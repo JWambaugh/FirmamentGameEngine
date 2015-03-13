@@ -1,11 +1,14 @@
 package firmament.core;
 
 
+
+import firmament.core.FMutex;
 import firmament.core.FEntity;
 
 class FEntityCollection implements ArrayAccess<FEntity>{
 	var _entities:Array<FEntity>;
 	var _this:FEntity;
+    var _mutex:FMutex;
 
 	public var length(get_length,never):Int;
 
@@ -15,6 +18,9 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 		}
 		_entities = a;
 		_this = thisEntity;
+       
+        _mutex = new FMutex();
+       
 	}
 
 
@@ -33,7 +39,9 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 
 
 	public function filter(val:Array<Dynamic>){
+        _mutex.acquire();
 		doFilter(val);
+        _mutex.release();
 		return this;
 	}
 
@@ -105,7 +113,10 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 	}
 
 	public function remove(e:FEntity){
-		return _entities.remove(e);
+        _mutex.acquire();
+		var rval = _entities.remove(e);
+        _mutex.release();
+        return rval;
 	}
 
 	public function get_length(){
@@ -115,15 +126,24 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 
 	//array access
 	public function __get(x:Int){
-		return _entities[x];
+        _mutex.acquire();
+        var rval = _entities[x];
+        _mutex.release();
+		return rval;
 	}
 
 	public function __set(x:Int,v:FEntity){
-		return _entities[x] = v;
+        _mutex.acquire();
+        var rval = _entities[x] = v;
+        _mutex.release();
+        return rval;
+		
 	}
 
 	public function sort(f:FEntity ->FEntity ->Int):Void{
-		_entities.sort(f);
+        _mutex.acquire();
+        _entities.sort(f);
+        _mutex.release();
 	}
 
     public function sortByPropertyAsc(property:String){
@@ -147,7 +167,17 @@ class FEntityCollection implements ArrayAccess<FEntity>{
     }
 
 	public function first():FEntity{
-		return _entities[0];
+        _mutex.acquire();
+        var rval = _entities[0];
+        _mutex.release();
+        return rval;
 	}
+
+    public function concat(c:FEntityCollection){
+        _mutex.acquire();
+        var rval = _entities.concat(c.get());
+        _mutex.release();
+        return rval;
+    }
 }
 
