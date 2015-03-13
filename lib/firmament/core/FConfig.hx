@@ -123,6 +123,11 @@ abstract FConfig({}) from {} to {} {
 		return v;
 	}
 
+    public function destruct(){
+        //clear reference to parent
+        Reflect.setField(this, '__SCOPE__', null);
+    }
+
     private function vectorFromDynamic(d:Dynamic):FVector{
         return parseVectorObject(d);
     }

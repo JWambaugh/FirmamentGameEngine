@@ -69,6 +69,7 @@ class FEntityComponent extends firmament.core.FComponent
 		_entity.getGameInstance().removeEventListener(this);
 		_entity.removeEventListener(this);
 		if(_usesStep)_entity.getGameInstance().removeStepSubscriber(this);
+        //_entity = null;
 		super.destruct();
 	}
 	

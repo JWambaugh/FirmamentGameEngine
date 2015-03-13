@@ -1,13 +1,14 @@
 package firmament.core;
 
 import firmament.core.FConfig;
+import firmament.core.FGameChildInterface;
 import firmament.core.FPropertyContainer;
 import firmament.core.FPropertyDefinition;
 import firmament.util.FLog;
 
 
 
-class FComponent extends FObject implements firmament.core.FStepSubscriber{
+class FComponent extends FObject implements firmament.core.FStepSubscriber implements FGameChildInterface{
     
     var _parent:FPropertyContainer;
     private var _usesStep:Bool;
@@ -26,6 +27,7 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber{
     //called by factory
     public function _init(config:FConfig){
         _enableDebug = _config.get( 'debug', Bool, false );
+        _config.setScope(this);
         this.init(config);
     }
 
@@ -100,6 +102,11 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber{
      * Should be overridden to implement a destructor
      */
     override public function destruct(){
+        //FLog.warning('destructor called');
+        _config.destruct();
+        _config = null;
+        _parent = null;
+        _gameInstance = null;
         super.destruct();
     }
 }

@@ -164,6 +164,12 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
     override public function  getPosition(p:FVector=null):FVector {
         var v:FVector= _parentEntity.getProp('position').copy();
         v.add(this._relativePosition);
+        // var angle:Float = _parentEntity.getProp('angle');
+        // var cos = Math.cos(angle+_relativeAngle);
+        // var sin = Math.sin(angle+_relativeAngle);
+        // v = new FVector(v.x+cos
+        //     ,v.y+sin);
+        
         return v;
     }
     
