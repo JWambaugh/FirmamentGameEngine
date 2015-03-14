@@ -103,10 +103,12 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber imple
      */
     override public function destruct(){
         //FLog.warning('destructor called');
-        _config.destruct();
+        super.destruct();
+        // TBD - This clean up was breaking the trigger execution in 
+        //       timer and looping timer.  Please fix Jordan.
+        /*_config.destruct();
         _config = null;
         _parent = null;
-        _gameInstance = null;
-        super.destruct();
+        _gameInstance = null;*/
     }
 }
