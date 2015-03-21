@@ -11,52 +11,21 @@ import firmament.event.FPhysicsCollisionEvent;
 import firmament.util.FMisc;
 import firmament.process.timer.FTimerManager;
 import firmament.core.FEvent;
+import firmament.component.entity.FDecrementComponent;
 
-class FDecrementModComponent extends FEntityComponent{
-    var _deathEvent:String;
-    var _propertyName:String;
-    var _min:Int;
-    var _decSize:Int;
-    var _startValue:Int;
-
-    public function new(gameInstance:firmament.core.FGame){
-        super(gameInstance);
-    }
-
-    override public function init(config:firmament.core.FConfig){
-        _startValue = config.getNotNull('startValue',Int);
-        var dEvent:String = config.getNotNull('decrementEvent',String,
-                                config.getNotNull('listen',String) ); // compatibility changes
-        _deathEvent = config.getNotNull('deathEvent',String,
-                                config.getNotNull('trigger',String) );  // compatibility changes
-        _propertyName = config.getNotNull('property',String);
-        _decSize = Math.floor( Math.max(1,config.get('decrementSize', Int, 0)));
-        _min = config.get('min', Int, 0);
-
-        //register the property if it doesn't exist
-        if(!_entity.hasProperty(_propertyName))
-            _entity.registerProperty(new firmament.core.FBasicProperty<Int>(_propertyName));
-        _entity.setProp(_propertyName, _startValue);
-        _entity.on(dEvent,onDecEvent);
-    }
-
-
-    override public function getType(){
-        return "decrement";
-    }
-
-    public function onDecEvent(e:FEvent){
+class FDecrementModComponent extends FDecrementComponent {
+    override public function onDecEvent(e:FEvent){
         var h = _entity.getProp(_propertyName);
         h-=_decSize;
         if(h<=_min) {
+            log("Triggered - resetting value");
             _entity.trigger(new FEvent(_deathEvent));
         }
         var inc:Int = _startValue - _min;
         while(h<=_min) {
             h+=inc;
         }
+        log("Start - " + _startValue + "\nEnd - " + _min + "\nValue - " + h);
         _entity.setProp(_propertyName, h);
-        
-        
     }
 }

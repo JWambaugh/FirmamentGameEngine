@@ -13,24 +13,57 @@ import firmament.process.timer.FTimer;
 */
 class FLoopingTimerComponent extends FTimerComponent{
     
+    var _paused:Bool = false;
+
     public function new(gameInstance:firmament.core.FGame){
         super(gameInstance);
         
     }
 
     override public function init(config:FConfig){
-        FLog.debug("Initialized loopingtimer");
+        log("Initialized loopingtimer");
         super.init(config);
+
+        var listeners:FConfig = _config.get('listeners',Dynamic);
+        for( listener in listeners.fields() ) {
+            switch(listener) {
+                case 'unpause':
+                    _entity.on( cast(listener,String) ,this,unpauseHandler);
+                    break;
+            }
+        }
     }
 
     override public function getType(){
         return "loopingtimer";
     }
 
+    private function unpauseHandler(E:FEvent=null){
+        _paused = false;
+
+        // do I need to restart??
+    }
+
+    override  private function stopTimerFunc(E:FEvent=null){ 
+        if(E != null ) {
+            log("Pausing looping timer");
+            _paused = true; // stop the looping elements
+        }
+        super.stopTimerFunc(E);
+    }
+
+    override private function startTimerFunc(E:FEvent=null){
+        if(_paused == false) {
+            log("Starting looping timer");
+            super.startTimerFunc(E);
+        }
+    }
+
     override private function triggerOnExpire() {
-        FLog.debug("Trigger Expired");
+        log("Trigger Expired");
         super.triggerOnExpire();
-        super.init(this._config);
+        super.initialize(this._config);
+        _paused = false; // reset so on the next event the timer will start
     }
 
 }

@@ -14,10 +14,21 @@ import firmament.process.timer.FTimer;
 class FTimerComponent extends FEntityComponent{
     
     var _timer:FTimer = null;
+    var _start:Float;
+    var _seconds:Null<Float>;
+    var _propertyName:String;
 
     public function new(gameInstance:firmament.core.FGame){
-        super(gameInstance);
-        
+        super(gameInstance);        
+        _propertyName = null;
+    }
+
+    private function resetTimerFunc(E:FEvent=null) {
+        if(_timer!=null){
+            log("Restarting timer!!");
+            stopTimerFunc(E);
+            startTimerFunc(E);
+        }
     }
 
     private function stopTimerFunc(E:FEvent=null){
@@ -27,32 +38,60 @@ class FTimerComponent extends FEntityComponent{
         _timer = null;
     }
 
-    override public function init(config:FConfig){
+    private function startTimerFunc(E:FEvent=null){
+        if( _timer != null ) {
+            // triggerOnExpire();
+            return;
+        }
+        _start = 0;
+        log("Timer starting - " + _start);
+        var tm = _entity.getGameInstance().getGameTimerManager();
+        _seconds = _config.getNotNull('seconds',Float);
+        log("Starting timer - " + _seconds + " " + _config.get('name',String, ""));
+        _timer = tm.addTimer(_seconds,this.triggerOnExpire,this);
+    }
+
+    public function initialize(config:FConfig){
         var paused:Bool = _config.get('paused',Bool,true);
         var startOn:String = _config.get('startOn',String);
         var stopOn:String = _config.get('stopOn',String);
 
-        var startTimerFunc = function(E:FEvent=null){
-            if( _timer != null ) {
-                // triggerOnExpire();
-                return;
-            }
-        
-            var tm = _entity.getGameInstance().getGameTimerManager();
-            var seconds:Float = _config.getNotNull('seconds',Float);
-            log("Starting timer - " + seconds + " " + _config.get('name',String, ""));
-            _timer = tm.addTimer(seconds,this.triggerOnExpire,this);
+        if(_propertyName != null) {
+            _entity.setProp(_propertyName, 0);
         }
 
         //start timer now unless specified
         if( (paused == false || startOn == null) && _entity.isActive()){
             startTimerFunc();
-        }else{
+        }
+    }
+
+    override public function init(config:FConfig){
+        var paused:Bool = _config.get('paused',Bool,true);
+        var startOn:String = _config.get('startOn',String);
+        var stopOn:String = _config.get('stopOn',String);
+        var reset:String = _config.get('reset',String);
+
+        // create property, also start polling
+        _propertyName = _config.get('property',String);
+        if(_propertyName != null && !_entity.hasProperty(_propertyName))  {
+            _entity.registerProperty(new firmament.core.FBasicProperty<Float>(_propertyName));
+            // I need polling if I'm going to be updating the timer
+            useStep(true);
+        }
+
+        initialize(config);
+
+        if( startOn != null ) {
             _entity.on(startOn,this,startTimerFunc);
         }
 
         if(stopOn != null){
             _entity.on(stopOn,this,stopTimerFunc);
+        }
+
+        if(reset != null){
+            _entity.on(reset,this,resetTimerFunc);
         }
 
         //pause and unpause the timer as the entity changes active states
@@ -71,8 +110,20 @@ class FTimerComponent extends FEntityComponent{
         return "timer";
     }
 
+    override public function step(delta:Float){
+        var cur:Float=0;
+        if( _timer != null ) {
+            _start += delta;
+            cur = Math.round((_seconds - _start) * 10)/10;
+            if( cur < 0 ) {cur = 0;}
+            log("Time left - " + cur );
+        }
+        _entity.setProp(_propertyName, cur );
+    }
+
     private function triggerOnExpire(){
         stopTimerFunc(null);
+log("Timer expired");
         _entity.trigger(new FEvent(this._config.getNotNull('trigger',String)));
     }
 }

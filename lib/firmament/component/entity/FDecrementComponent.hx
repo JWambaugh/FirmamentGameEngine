@@ -16,6 +16,7 @@ class FDecrementComponent extends FEntityComponent{
     var _deathEvent:String;
     var _propertyName:String;
     var _min:Int;
+    var _decSize:Int;
     
     var _triggered:Bool = false;
     var _startValue:Int;
@@ -25,28 +26,47 @@ class FDecrementComponent extends FEntityComponent{
     }
 
     override public function init(config:firmament.core.FConfig){
-        _startValue = config.getNotNull('startValue',Int);
-        var dEvent:String = config.getNotNull('decrementEvent',String,
-                                config.get('listen',String) ); // compatibility changes
-        _deathEvent = config.getNotNull('deathEvent',String,
-                                config.get('trigger',String) );  // compatibility changes
-        _propertyName = config.getNotNull('property',String);
+        setupComponent(config);
 
-        _min = config.get('min', Int, 0);
+        _deathEvent = config.get('deathEvent',String,
+                        config.get('trigger',String) 
+                    );  // compatibility changes
 
         //register the property if it doesn't exist
-        if(!_entity.hasProperty(_propertyName))
-            _entity.registerProperty(new firmament.core.FBasicProperty<Int>(_propertyName));
-        _entity.setProp(_propertyName, _startValue);
+        var dEvent:String = config.getNotNull('decrementEvent',String,
+                                     config.get('listen',String) 
+                            ); // compatibility changes
+
         _entity.on(dEvent,onDecEvent);
     }
 
+    private function setupComponent(config:firmament.core.FConfig) {
+        _startValue = config.getNotNull('startValue',Int);
+        _min = config.get('min', Int, 0);
+        _decSize = Math.floor( Math.max(1,config.get('decrementSize', Int, 0)));
+
+        _propertyName = config.getNotNull('property',String);
+        if(!_entity.hasProperty(_propertyName)) {
+            _entity.registerProperty(new firmament.core.FBasicProperty<Int>(_propertyName));
+        }
+        _entity.setProp(_propertyName, _startValue);
+        _triggered = false;
+    }
+
+    override public function onActivate(){
+        setupComponent(_config);
+    }
 
     override public function getType(){
         return "decrement";
     }
 
     public function onDecEvent(e:FEvent){
+        // if paused 
+        if( !_entity.isActive() ) {
+            log("Paused - waiting");
+            return;
+        }
         log("got "+e.name+"!");
         var h = _entity.getProp(_propertyName);
         h-= Math.floor(Math.max(1, _config.get('decrementSize', Int, 0)));
@@ -55,7 +75,9 @@ class FDecrementComponent extends FEntityComponent{
             h=_min;
             _triggered = true;
             _entity.setProp(_propertyName, h);
-            _entity.trigger(new FEvent(_deathEvent));
+            if(_deathEvent != null){
+                _entity.trigger(new FEvent(_deathEvent));
+            }
         }else{
             _entity.setProp(_propertyName, h);
         }

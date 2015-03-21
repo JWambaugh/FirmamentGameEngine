@@ -27,13 +27,15 @@ class FChildComponent extends FEntityComponent{
     override public function init(config:firmament.core.FConfig){
         var entConfig:Dynamic = null ;
         var childString:String = config.get("entity",String);
+
         if(childString != null){
             //assume string is file name
+            log("Child entity - " + childString);
             entConfig = FDataLoader.loadData(childString);
         }
 
         if(entConfig == null)
-        entConfig = config.getNotNull('entity');
+           entConfig = config.getNotNull('entity');
 
         var childPhysicsComponent = {
              "componentName":"childPhysics"
@@ -47,6 +49,14 @@ class FChildComponent extends FEntityComponent{
         }
 
         _childEntity = FEntityFactory.createEntity(entConfig);
+    }
+
+    override public function onActivate(){
+        _childEntity.setActive(true);
+    }
+
+    override public function onDeactivate(){
+        _childEntity.setActive(false);
     }
 
      override public function getProperties():Array<FPropertyDefinition>{
@@ -77,12 +87,7 @@ class FChildComponent extends FEntityComponent{
     }
 
     override public function destruct(){
-        // this has to be done everywhere?? yuck
-        if( _entity.getGameInstance().isInStep() == false ) {
-            _childEntity.destruct();    
-        } else {
-            _entity.getGameInstance().doAfterStep(_childEntity.destruct);
-        }
+        _entity.getGameInstance().doAfterStep(_childEntity.destruct);
         super.destruct();
     }
 

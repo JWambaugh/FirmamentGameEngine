@@ -84,6 +84,10 @@ class FMovementComponent extends FLinearTweenComponent {
         updateDirection();
     }
 
+    override public function onActivate() {
+        updateDirection();
+    }
+
     private function handlePauseEvent(e:FEvent) {
         if( _paused == false ) {
             _paused = true;

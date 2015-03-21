@@ -284,6 +284,17 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 
 	}
 
+	public function getScreenPosition(xc:Float,yc:Float):FVector {
+		var btmRight:FVector = getBottomRightPosition();
+
+		// translate object/coords so that the left most is 0,0 like camera
+		// then stage * obj/cam
+		var xs:Float = _displayWidth * (xc + btmRight.x) / (btmRight.x + btmRight.x);
+		var ys:Float = _displayHeight * (yc + btmRight.y) / (btmRight.y + btmRight.y);
+		
+		return new FVector( xs, ys );
+	}
+
 
 	public function setDebugMode(debug:Bool){
 		_debugRender = debug;

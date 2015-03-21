@@ -110,7 +110,7 @@ class FGame extends FObject
 
 	private var _inStep:Bool;
 
-	private var _deferredFunctions:List<Void->Void>;
+	private var _deferredFunctionsArray:List< List<Void->Void> >;
 
 	/**
 	 * Constructor: new
@@ -121,7 +121,11 @@ class FGame extends FObject
 		
 		this._enableSimulation = true;
 		_inStep = false;
-		_deferredFunctions = new List();
+		_deferredFunctionsArray = new List();
+		{
+			_deferredFunctionsArray.add( new List() );
+			_deferredFunctionsArray.add( new List() );
+		}
 		_worldHash = new Map<String,FWorld>();
 		_cameras = new Map<String,FCamera>();
 		_stepSubscribers = new List();
@@ -370,10 +374,14 @@ class FGame extends FObject
 			this._renderProcessManager.step();
 		}
 		_inStep = false;
-		for(func in _deferredFunctions){
+
+		// safer way to handle deferred functions, multi-threaded safe as well
+		var deferredFunctions:List<Void->Void> = _deferredFunctionsArray.pop();
+		_deferredFunctionsArray.add(deferredFunctions);
+		for(func in deferredFunctions){
 			func();
 		}
-		_deferredFunctions.clear();
+		deferredFunctions.clear();
 
 		//firmament.util.FLog.debug('Simulation: '+_gameProcessManager.getLastStepTime()+ ' Render: '+_renderProcessManager.getLastStepTime());
 	}
@@ -468,10 +476,13 @@ class FGame extends FObject
 	public function loadScene(scene:FConfig){
 
 		if(_inStep){
-			_deferredFunctions.push(function(){
-				loadScene(scene);
-			});
-			return ;
+			var deferredFunctions:List<Void->Void> 
+				= _deferredFunctionsArray.first();
+			deferredFunctions.push(function(){
+					loadScene(scene);
+				}
+			);
+			return;
 		}
 		var instanceName = getInstanceName();
 		clearAll();
@@ -539,7 +550,12 @@ class FGame extends FObject
 	 * Schedule a function to execute after a step is complete.
 	 */
 	public function doAfterStep(func:Void->Void){
-		_deferredFunctions.push(func);
+		// if we are already running the deferred loop, then
+		// we need to execute this immediately, otherwise defer
+		// by adding onto the function array
+		var deferredFunctions:List<Void->Void> 
+				= _deferredFunctionsArray.first();
+		deferredFunctions.push(func);
 	}
 
 	override public function destruct(){
