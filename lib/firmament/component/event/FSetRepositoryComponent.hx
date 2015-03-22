@@ -7,6 +7,7 @@ import firmament.core.FEntity;
 import firmament.core.FEvent;
 import firmament.util.FLog;
 import firmament.util.FRepository;
+import tjson.TJSON;
 /*
     Class: FEventMapperComponent
     maps events on the entity of a type to another event of a different type.
@@ -24,12 +25,16 @@ class FSetRepositoryComponent extends FEntityComponent{
     
         // walk through the properties
         var store = FRepository.getInstance();
-        var fields:Array<String> = Reflect.fields(repository);
-        for( key in fields ) {
+        // var fields:Array<String> = Reflect.fields();
+        for( key in repository.fields() ) {
             try {
-                var value = repository.get(key);
+                var value:Dynamic = repository.get(key);
+                if( Reflect.hasField(value,'*property*') ) {
+                    value = _entity.getProp( Reflect.field(value,'*property*') );
+                    log( "Property value - " + value );
+                }
                 store.set( key, value );
-                FLog.debug( "Set repository <"+key+"> " + store.get( key ) );
+                log( "Set repository <"+key+"> " + store.get( key ) );
             } catch (e : Dynamic) {
                 FLog.error( e );
                 throw e;

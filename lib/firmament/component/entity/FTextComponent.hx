@@ -93,8 +93,7 @@ class FTextComponent extends FEntityComponent{
         _textField.text=_config.getNotNull('value');
 
         if(Math.random() <= .1) {
-            log("Value - " + _textField.text);
-            log("Position - " + screenPosition);
+            log("Value - " + _textField.text + " Position - " + screenPosition);
         }
     }
 
