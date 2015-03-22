@@ -43,13 +43,20 @@ class FTextComponent extends FEntityComponent{
         useStep(true);
         log("Getting value ");
 
-        _glowFilter = new flash.filters.GlowFilter(0x000000,1.0,2.0,2.0,10);
+        _glowFilter = new flash.filters.GlowFilter(
+            0x000000, // color
+            1.0,
+            2.0,
+            2.0,
+            10
+        );
+        _glowFilter.quality=flash.filters.BitmapFilterQuality.MEDIUM;
 
         _textFormat = new flash.text.TextFormat();
-        _textFormat.align="left";
-        _textFormat.font="Arial";
-        _textFormat.color=0xFF0000;
-        _textFormat.size=30;
+        _textFormat.align=_config.get('align',String,"left");
+        _textFormat.font=_config.get('font',String,"Arial");
+        _textFormat.color=_config.get('color',Int,0xDD1111);
+        _textFormat.size=_config.get('size',Int,30);
         _textFormat.letterSpacing=3;
         
         // should I create this now??
