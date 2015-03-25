@@ -5,17 +5,21 @@ import firmament.core.FGame;
 import firmament.scene.FScene;
 import firmament.util.FRepository;
 import firmament.util.FLog;
+import firmament.core.FEntity;
+import firmament.component.base.FEntityComponent;
+import firmament.core.FEntityCollection;
+
 
 abstract FConfig({}) from {} to {} {
 
 	public function new(o:Dynamic){
 		this = o;
 	}
-	
+
     @:arrayAccess public inline function arrayAccess(key:String):Dynamic {
         return get(key);
     }
-    
+
     @:arrayAccess public inline function arrayWrite<T>(key:String, value:T):T {
         Reflect.setField(this, key, value);
         return value;
@@ -25,13 +29,17 @@ abstract FConfig({}) from {} to {} {
         if(! Reflect.hasField(this,field)) return false;
         if(type != null){
             return Std.is(Reflect.field(this,field),type);
-        } 
+        }
         return true;
     }
 
     public function setScope(s:FGameChildInterface):Void{
         Reflect.setField(this, '__SCOPE__', s);
     }
+
+		public function getScope():FGameChildInterface{
+			return Reflect.field(this, '__SCOPE__');
+		}
 
     public function fields():Array<Dynamic> {
         if( Std.is(this,Array) ) {
@@ -67,10 +75,10 @@ abstract FConfig({}) from {} to {} {
                     if(Std.is(repoObj,String)){
                         entry = FRepository.getInstance().get(repoObj);
                     }
-                } 
+                }
             }
         }
-        
+
         // if I'm an array this doesn't seem to work.
 		if(entry == null)return def;
 		if(type==null){
@@ -96,7 +104,7 @@ abstract FConfig({}) from {} to {} {
                     }
                     else if(type==Float && Reflect.isObject(entry)){
                         return parseFloatObject(entry,def);
-                    } 
+                    }
                     else if(type==String && (Std.is(entry,Float) || Reflect.isObject(entry)) ){
                         return parseStringObject(entry,def);
                     }
@@ -106,11 +114,17 @@ abstract FConfig({}) from {} to {} {
                     else if(type==Bool && Reflect.isObject(entry)){
                         return parseBoolObject(entry,def);
                     }
+										else if(type == FEntity && entry != null){
+												return getEntities(entry).first();
+										}
+										else if(type == FEntityCollection && entry != null){
+												return getEntities(entry);
+										}
                     else {
                         FLog.warning("field "+field+" is not type expected! Returning default.");
                         return def;
                     }
-                   
+
 				}
 			}
 		}
@@ -132,9 +146,15 @@ abstract FConfig({}) from {} to {} {
         return parseVectorObject(d);
     }
 
+		private function getEntities(d:Dynamic){
+				var scope = getScope();
+				if(scope == null) throw "Scope required for querying entities!";
+				return scope.getGameInstance().queryEntities(d, cast (scope, FEntityComponent).getEntity());
+		}
+
     private function parseVectorObject(v:Dynamic,d:FVector=null):FVector {
         // vector is { x: Float, y: Float }
-        //           [ Float, Float ], 
+        //           [ Float, Float ],
         //           [ Float ]
         //           []
         var error:Bool = false;
@@ -149,7 +169,7 @@ abstract FConfig({}) from {} to {} {
                 if(convertMinMax(v,o) == true ){
 
                     return new FVector(
-                        o.min.x+Math.random()*(o.max.x-o.min.x), 
+                        o.min.x+Math.random()*(o.max.x-o.min.x),
                         o.min.y+Math.random()*(o.max.y-o.min.y)
                     );
                 }
@@ -208,7 +228,7 @@ abstract FConfig({}) from {} to {} {
         }
         if(Std.is(v,String) ) {
             return Std.parseFloat(v);
-        } 
+        }
         else if(Reflect.isObject(v)) {
             return parseFloatObject(v);
         }

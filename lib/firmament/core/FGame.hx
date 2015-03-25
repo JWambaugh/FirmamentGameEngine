@@ -46,17 +46,18 @@ import haxe.Timer;
 import hscript.Interp;
 import openfl.Assets;
 
+using StringTools;
 /**
  * Class: FGame
  */
 class FGame extends FObject
 {
 	public var _enableSimulation:Bool;
-	
+
 	var _cameras:Map<String,FCamera>;
 	var _worldHash:Map<String,FWorld>;
-	
-	
+
+
 	var _gameProcessManager:FProcessManager;
 	var _renderProcessManager:FProcessManager;
 
@@ -79,25 +80,25 @@ class FGame extends FObject
 
 	//Constant: COLLISION_POST_SOLVE_EVENT
 	public static inline var COLLISION_POST_SOLVE_EVENT = 'postSolveCollision';
-	
+
 	//Constant: COLLISION_BEGIN_CONTACT_EVENT
 	public static inline var COLLISION_BEGIN_CONTACT_EVENT = 'beginContactCollision';
 
 	//Constant: COLLISION_END_CONTACT_EVENT
 	public static inline var COLLISION_END_CONTACT_EVENT = 'endContactCollision';
-	
+
 
 
 
 	//CONSTANT: BEFORE_STEP
 	public static inline var BEFORE_STEP = 'beforeStep';
-	
+
 	//CONSTANT: AFTER_STEP
 	public static inline var AFTER_STEP = 'afterStep';
 
 	//CONSTANT: BEFORE_RENDER
 	public static inline var BEFORE_RENDER = 'beforeRender';
-	
+
 	//CONSTANT: AFTER_RENDER
 	public static inline var AFTER_RENDER = 'afterRender';
 
@@ -115,10 +116,10 @@ class FGame extends FObject
 	/**
 	 * Constructor: new
 	 */
-	private function new() 
+	private function new()
 	{
 		super();
-		
+
 		this._enableSimulation = true;
 		_inStep = false;
 		_deferredFunctionsArray = new List();
@@ -185,7 +186,7 @@ class FGame extends FObject
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Function: getWorld
 	 *
@@ -232,6 +233,8 @@ class FGame extends FObject
 		}
 		return new FEntityCollection(a);
 	}
+
+
 	/*
 		Function: queryEntities
 
@@ -251,7 +254,10 @@ class FGame extends FObject
 			}
 
 	*/
-	public function queryEntities(query:Dynamic):FEntityCollection{
+	public function queryEntities(query:Dynamic, scope:FEntity=null):FEntityCollection{
+		if(Std.is(query, String)){
+			return this.select(query);
+		}
 		var entities:Array<FEntity>;
 		var config:FConfig = query;
 		var selector:String = config.get("selector",String,"Default");
@@ -278,9 +284,46 @@ class FGame extends FObject
 				entities = filter.filterEntityArray(entities,Reflect.field(query.filters,filterName));
 			}
 		}
-
-
 		return new FEntityCollection(entities);
+	}
+
+
+	public function select(query:String, scope:FEntity=null):FEntityCollection{
+		var collection:FEntityCollection = null;
+		query=query.ltrim();
+
+		//determine main selecor
+		if(query.charAt(0)=='#'){
+
+			if(query.startsWith("#game")){
+				collection = getAllEntities();
+				query = query.substr(5);
+			}
+
+			else if(query.startsWith("#world:")){	//#world:box2d
+				query = query.substr(7);
+				var spacePos = query.indexOf(' ');
+				var worldName = query.substr(0,spacePos);
+				if(worldName==null || worldName ==''){
+					FLog.error('World is required when using the world: selector');
+					return new FEntityCollection();
+				}
+
+				var world = getWorld(worldName);
+				if(world == null){
+					FLog.error('World of type '+worldName+' does not exist');
+					return new FEntityCollection();
+				}
+				collection = new FEntityCollection(world.getAllEntities());
+				query = query.substr(spacePos);
+			}
+
+
+		}else{
+			collection = getAllEntities();
+		}
+		collection.thisIs(scope);
+		return collection.filter(query);
 	}
 
 	/**
@@ -301,7 +344,7 @@ class FGame extends FObject
 	/**
 	 * Function: addProcess
 	 *
-	 * Parameters: 
+	 * Parameters:
 	 *  name - String identifier for object, for retrieval
 	 *  p - Process object
 	 */
@@ -312,9 +355,9 @@ class FGame extends FObject
 
 	/**
 	 * Function: addCamera
-	 * 
+	 *
 	 * Adds a new <FCamera> object to the game. Cameras must be added to the game in order for them to work.
-	 * 
+	 *
 	 * Parameters:
 	 *	name - String the name to call the camera. Used for getting the right camera.
 	 *	c - <FCamera> The camera to add
@@ -349,21 +392,21 @@ class FGame extends FObject
 	public function getMainInput(){
 		return _mainInput;
 	}
-	
-	
+
+
 	private function doStep():Void {
 		_inStep = true;
 		var delta = _gameProcessManager.getFrameDelta();
-		if(!_gameProcessManager.isPaused()){ // pause can 
+		if(!_gameProcessManager.isPaused()){ // pause can
 			this.trigger(new FEvent(FGame.BEFORE_STEP));
 		}
 
 		for(c in _stepSubscribers){
-			if(!_gameProcessManager.isPaused()){ // pause can 
+			if(!_gameProcessManager.isPaused()){ // pause can
 				c._doStep(delta);
 			}
 		}
-		
+
 		if(!_gameProcessManager.isPaused()){ //don't fire step events if we are paused.
 			this._gameProcessManager.step();
 		}
@@ -393,8 +436,8 @@ class FGame extends FObject
 		//var start = haxe.Timer.stamp();
 		this.doStep();
 		//firmament.util.FLog.debug("step time: "+(haxe.Timer.stamp() - start));
-		
-	} 
+
+	}
 
 	public function getPoolManager(){
 		return _poolManager;
@@ -429,7 +472,7 @@ class FGame extends FObject
 		_renderProcessManager.pause();
 		if(_currentScene!=null)_currentScene.destruct();
 		_currentScene=null;
-		
+
 		while(_stepSubscribers.length>0){
 			_stepSubscribers.pop();
 		}
@@ -486,7 +529,7 @@ class FGame extends FObject
 		}
 		var instanceName = getInstanceName();
 		clearAll();
-		
+
 		//firmament.util.FLog.debug("loadScene: Creating new scene");
 		_currentScene = new FScene();
 		//firmament.util.FLog.debug("loadScene: Loading instance data");
@@ -501,7 +544,7 @@ class FGame extends FObject
 		// Noop'd
 		return null;
 	}
-	
+
 	public function getCurrentScene(){
 		return _currentScene;
 	}
@@ -564,7 +607,7 @@ class FGame extends FObject
 		_renderProcessManager.pause();
 		if(_currentScene!=null)_currentScene.destruct();
 		_currentScene=null;
-		
+
 		while(_stepSubscribers.length>0){
 			_stepSubscribers.pop();
 		}
@@ -575,13 +618,13 @@ class FGame extends FObject
 		_renderProcessManager = null;
 		_cameras = null;
 		_gameTimerManager = null;
-		
+
 		_poolManager.destruct();
 		_poolManager = null;
 		//this.removeAllListeners();
 		clearCameras();
 		FGame._instances.remove(_name);
-		_cameras = null; 
+		_cameras = null;
 		//firmament.util.FLog.debug("FGAME DESTRUCTED-----------------------------------");
 		super.destruct();
 	}

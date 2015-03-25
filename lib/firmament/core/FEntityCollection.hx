@@ -4,6 +4,8 @@ package firmament.core;
 
 import firmament.core.FMutex;
 import firmament.core.FEntity;
+import firmament.util.FMisc;
+import haxe.ds.ArraySort;
 
 class FEntityCollection implements ArrayAccess<FEntity>{
 	var _entities:Array<FEntity>;
@@ -18,9 +20,9 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 		}
 		_entities = a;
 		_this = thisEntity;
-       
+
         _mutex = new FMutex();
-       
+
 	}
 
 
@@ -28,7 +30,7 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 		return _entities;
 	}
 
-	/** 
+	/**
 	 * Sets the scope of 'this' to the specified entity.
 	 *
 	 */
@@ -38,10 +40,21 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 	}
 
 
-	public function filter(val:Array<Dynamic>){
-        _mutex.acquire();
+
+
+	public function filter(val:Dynamic){
+
+		if(val == "" || val == null) return this;
+		if(Std.is(val, String)){
+			val = FMisc.smartSplitWhiteSpace(val);
+		}
+		if(!Std.is(val, Array)){
+			throw "Value must be string or array";
+		}
+		firmament.util.FLog.debug(Std.string(val));
+    _mutex.acquire();
 		doFilter(val);
-        _mutex.release();
+    _mutex.release();
 		return this;
 	}
 
@@ -137,12 +150,12 @@ class FEntityCollection implements ArrayAccess<FEntity>{
         var rval = _entities[x] = v;
         _mutex.release();
         return rval;
-		
+
 	}
 
 	public function sort(f:FEntity ->FEntity ->Int):Void{
         _mutex.acquire();
-        _entities.sort(f);
+        ArraySort.sort(_entities, f);
         _mutex.release();
 	}
 
@@ -180,4 +193,3 @@ class FEntityCollection implements ArrayAccess<FEntity>{
         return rval;
     }
 }
-

@@ -17,6 +17,7 @@ import firmament.component.base.FEntityComponent;
 import firmament.component.physics.FPhysicsComponentInterface;
 import firmament.core.FCircleShape;
 import firmament.core.FComputedProperty;
+import firmament.core.FConfig;
 import firmament.core.FEntity;
 import firmament.core.FEntityFactory;
 import firmament.core.FEvent;
@@ -40,7 +41,7 @@ import haxe.Timer;
  * @author Jordan Wambaugh
  */
 
-class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInterface 
+class FBox2DComponent extends FEntityComponent //implements FPhysicsComponentInterface
 {
 
 	public var body:B2BodyS;
@@ -48,12 +49,12 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	private var position:FVector;
 	private var world:FWorld;
 	private var _parentEntity:FEntity;
-    private var def:B2BodyDef;
+  private var def:B2BodyDef;
 
-	public function new(gameInstance:firmament.core.FGame) 
+	public function new(gameInstance:firmament.core.FGame)
 	{
 		super(gameInstance);
-		
+
 		this.position = new FVector(0,0);
 		positionZ = 0;
 		_parentEntity = null;
@@ -61,67 +62,58 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
         this.body = null;
         def = new B2BodyDef();
 	}
-	
-	override public function init(config:Dynamic):Void {
-        var cf:firmament.core.FConfig = config;
+
+	override public function init(config:FConfig):Void {
+
 		this.world = _entity.getGameInstance().getWorld("box2d");
 		registerEventHandlers();
-		
+
 		var fixtureDef:B2FixtureDef = new B2FixtureDef();
-		
-		if(Std.is(config.position,FVector)){
-			def.position = cast(config.position,B2Vec2);
-		}
-		else if(Reflect.isObject(config.position) && Std.is(config.position.x,Float) && Std.is(config.position.y,Float)){
-			def.position = new B2Vec2(config.position.x,config.position.y);
-		}
-		
+
+
+		var pos = config.getVector('position');
+		def.position = new B2Vec2(pos.x,pos.y);
 		def.userData = this;
-		
-		
-		if(Std.is(config.positionZ,Float)){
-		  this.setPositionZ(config.positionZ);
-		}
 
 
-		if(config.type == 'dynamic')
+
+		this.setPositionZ(config.get('positionZ',Float,0));
+
+
+		var t = config.get('type',String,"static");
+
+		if(t == 'dynamic')
 			def.type = B2Body.b2_dynamicBody;
-		else if(config.type == 'kinematic')
+		else if(t == 'kinematic')
 			def.type = B2Body.b2_kinematicBody;
 		else def.type = B2Body.b2_staticBody;
-		
-		
-		
+
+
+
 		var physWorld:FBox2DWorld = cast world;
-		if(Std.is(config.angle,Float)){
-			def.angle = config.angle;
-		}
+
+		def.angle = config.get('angle',Float,0);
 
 		//fixedRotation
-		def.fixedRotation = false;
-		if(Std.is(config.fixedRotation,Bool)){
-			def.fixedRotation = config.fixedRotation;
-		}
+		def.fixedRotation = config.get('fixedRotation',Bool,false);
 
-		//allowSleep
-		if (Std.is(config.allowSleep, Bool)) {
-			def.allowSleep= config.allowSleep;
-		}
+		def.allowSleep= config.get('allowSleep', Bool, true);
 
 		//isBullet
-		if(Std.is(config.bullet,Bool)){
-			def.bullet = config.bullet;
-		}
+		def.bullet = config.get('bullet',Bool,false);
+
 
 		body = physWorld.getB2World().createBody(def);
-		
+
 		if(body==null){
 			throw "error creating body. config: "+Std.string(config);
 		}
-		
-		
-		if(Std.is(config.shapes,Array))
-		for (shape in cast(config.shapes, Array<Dynamic>)) {
+
+
+		if(Std.is(config.get('shapes'),Array))
+		for (shape in cast(config.get('shapes'), Array<Dynamic>)) {
+			firmament.util.FLog.warning(shape);
+
 				var shapeDef = new B2FixtureDef();
 				if (shape.type == 'circle') {
 					if (!Std.is(shape.radius, Float)) {
@@ -129,7 +121,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 					}
 					shapeDef.shape = new B2CircleShape(shape.radius);
 				}
-				
+
 				if (shape.type == 'box') {
 					var s:B2PolygonShape = new B2PolygonShape();
 					s.setAsBox(shape.width/2, shape.height/2);
@@ -145,28 +137,28 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 						vectors.push( new B2Vec2( vect.x,vect.y ) );
 					}
 					s.setAsVector(vectors);
-					
+
 					shapeDef.shape = s;
 				}
-				
+
 				if (Std.is(shape.density, Float))
 					shapeDef.density = shape.density;
 				if (Std.is(shape.friction, Float))
 					shapeDef.friction = shape.friction;
 				if (Std.is(shape.restitution, Float))
 					shapeDef.restitution= shape.restitution;
-				
-					
+
+
 				if (Std.is(shape.collisionCategory, Int)) {
 					shapeDef.filter.categoryBits = shape.collisionCategory;
-				}else if (Std.is(config.collisionCategory, Int)) {
-					shapeDef.filter.categoryBits = config.collisionCategory;
+				}else if (Std.is(config.get('collisionCategory'), Int)) {
+					shapeDef.filter.categoryBits = config.get('collisionCategory');
 				}
-				
+
 				if (Std.is(shape.collidesWith, Int)) {
 						shapeDef.filter.maskBits = shape.collidesWith;
-				}else if (Std.is(config.collidesWith, Int)) {
-					shapeDef.filter.maskBits = config.collidesWith;
+				}else if (Std.is(config.get('collidesWith'), Int)) {
+					shapeDef.filter.maskBits = config.get('collidesWith');
 				}
 
 				if(Std.is(shape.isSensor,Bool)){
@@ -175,24 +167,27 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 
 				body.createFixture(shapeDef);
 		}
-		
-		if(Std.is(config.alwaysRender,Bool) && config.alwaysRender==true){
+		else{
+			firmament.util.FLog.warning('B2 Body has no shapes!');
+		}
+
+		if(config.get('alwaysRender',Bool,false) == true){
 			this.world.addToAlwaysRenderList(_entity);
 		}
 
 
 		//process joints
-		if(Std.is(config.joints,Array))
-		for (joint in cast(config.joints, Array<Dynamic>)) {
+		if(Std.is(config.get('joints'),Array))
+		for (joint in cast(config.get('joints'), Array<Dynamic>)) {
 			createJointEntity(joint);
 		}
 		this.world.addEntity(this._entity);
 	}
-		
+
 	private function registerEventHandlers(){
 		on(_entity,FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
 	}
-	
+
 	private function removeEventHandlers(){
 		_entity.removeEventListener(this);
 	}
@@ -322,7 +317,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		}else{
 			deactivate();
 		}
-		
+
 
 	}
 
@@ -338,7 +333,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		this.position.y = this.body.getPosition().y;
 		return this.position;
 	}
-	
+
 	public function setPosition(pos:FVector) {
         this.position=pos;
         var p = new B2Vec2(pos.x, pos.y);
@@ -346,7 +341,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		  this.body.setPosition(p);
         else
             def.position = p;
-		
+
 	}
 
 	public function setPositionXY(x:Float,y:Float){
@@ -355,7 +350,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 
 	public function setPositionX(x:Float){
         setPosition(new FVector(x,this.position.y));
-	
+
 	}
 	public function setPositionY(y:Float){
         setPosition(new FVector(this.position.x,y));
@@ -368,7 +363,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	public function getPositionY(p:Float=0):Float{
 		return this.getPosition().y;
 	}
-	
+
 	public function setAngle(a:Float):Void {
         if(body!=null)
             this.body.setAngle(a);
@@ -376,7 +371,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
             def.angle = a;
 
 	}
-	
+
 	public function getAngle(a:Float=0):Float {
 		return this.body.getAngle();
 	}
@@ -384,7 +379,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 	public function applyLinearForce(fv:FVector,?fpoint:FVector=null):Void {
 		this.body.setAwake(true);
 		var v = new B2Vec2(fv.x,fv.y);
-		
+
 		var applyAtPoint:B2Vec2;
 		if(fpoint==null){
 			var p = this.body.getWorldCenter();
@@ -394,7 +389,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		}
 		this.body.applyForce(v,applyAtPoint);
 	}
-	
+
 	public function setLinearVelocity(vel:FVector) {
         var v =new B2Vec2(vel.x, vel.y);
         if(body!=null){
@@ -404,20 +399,20 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
             def.linearVelocity = v;
         }
 	}
-	
+
 	public function getLinearVelocity(v:FVector=null):FVector {
 		return new FVector(this.body.getLinearVelocity().x, this.body.getLinearVelocity().y);
 	}
 
 	public function setAngularVelocity(omega:Float):Void {
         if(body!=null)
-	       this.body.setAngularVelocity(omega);	
+	       this.body.setAngularVelocity(omega);
         else
             def.angularVelocity =omega;
 	}
 
 	public function getAngularVelocity(a:Float=0):Float {
-	    return this.body.getAngularVelocity();	
+	    return this.body.getAngularVelocity();
 	}
 
 	public function addAngularVelocity(omega:Float) {
@@ -425,7 +420,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		var ome = this.body.getAngularVelocity();
 	    this.body.setAngularVelocity(ome+omega);
 	}
-	
+
 	public function getPositionZ(z:Float=0):Float {
 		return positionZ;
 	}
@@ -474,7 +469,7 @@ class FBox2DComponent extends FEntityComponent implements FPhysicsComponentInter
 		}
 		return shapes;
 	}
-	
+
 	override public function destruct(){
 		this.removeEventHandlers();
 		world.deleteEntity(_entity);

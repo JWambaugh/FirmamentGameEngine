@@ -2,6 +2,7 @@ package firmament.component.physics;
 import firmament.core.FVector;
 import firmament.world.FWorld;
 import firmament.core.FShape;
+import firmament.core.FConfig;
 
 /**
  * Interface: FPhysicsComponentInterface
@@ -10,11 +11,11 @@ import firmament.core.FShape;
 
 interface FPhysicsComponentInterface{
 
-	public function init(config:Dynamic):Void;
-	
+	public function init(config:FConfig):Void;
+
 	/**
 	 * Function: setPosition
-	 * 
+	 *
 	 * Parameters:
 		 * pos - <FVector>
 	 */
@@ -26,47 +27,47 @@ interface FPhysicsComponentInterface{
 	 *
 	 */
 	public function setPositionXY(x:Float,y:Float):Void;
-	
+
 	/**
 	 * Function: getPosition
-	 * 
+	 *
 	 * Returns:
 		 * <FVector>
 	 */
 	public function getPosition(p:FVector=null):FVector;
-	
+
 	/**
 	 * Function: getPositionX
-	 * 
+	 *
 	 * Returns:
 		 * Float
 	 */
 	public function getPositionX(p:Float=0):Float;
-	
+
 	/**
 	 * Function: getPositionY
-	 * 
+	 *
 	 * Returns:
 		 * Float
 	 */
 	public function getPositionY(p:Float=0):Float;
-	
+
 	/**
 	 * Function: getAngle
-	 * 
+	 *
 	 * Returns:
 		 * Float
 	 */
 	public function getAngle(p:Float=0):Float;
-	
+
 	/**
 	 * Function: setAngle
-	 * 
+	 *
 	 * Returns:
 		 * Float
 	 */
 	public function setAngle(a:Float):Void ;
-	
+
 	public function getPositionZ(p:Float=0):Float;
 
 	public function setPositionZ(p:Float):Void;

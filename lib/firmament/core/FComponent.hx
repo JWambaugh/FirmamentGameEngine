@@ -9,7 +9,7 @@ import firmament.util.FLog;
 
 
 class FComponent extends FObject implements firmament.core.FStepSubscriber implements FGameChildInterface{
-    
+
     var _parent:FPropertyContainer;
     private var _usesStep:Bool;
 
@@ -82,7 +82,7 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber imple
 
     //entity property helpers
     public function registerProp(key:String, type:Dynamic, getter:Dynamic->Dynamic=null, setter:Dynamic->Void=null){
-        
+
         _parent.registerProp(key,type,getter,setter);
     }
 

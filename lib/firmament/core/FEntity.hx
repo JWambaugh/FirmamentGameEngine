@@ -24,8 +24,8 @@ import openfl.display.Tilesheet;
  /**
   * Core entity class for all entities/actors in the game.
   * entities now follow a component archetecture. Modify their behavior with coponents.
-  * 
-  * 
+  *
+  *
   */
 class FEntity extends FPropertyContainer implements FGameChildInterface{
 
@@ -46,12 +46,12 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 
 
 	/**
-	 * 
+	 *
 	 * Config Paramers:
 	 * 	imageScale - [Float] The initial scale value for the sprite.
 	 * 	sprite  - [BitmapData] The image to use as a sprite for this entity
 	 */
-	public function new(config:Dynamic,?gameInstanceName='main') 
+	public function new(config:Dynamic,?gameInstanceName='main')
 	{
 		super(config);
 
@@ -60,11 +60,11 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 		_active = true;
 		if(!Std.is(config.typeId,String)){
 			config.typeId = "Entity_"+Math.floor(Math.random()*10000000);
-			
+
 		}
 		_typeId = config.typeId;
 		_instanceId = config.instanceId;
-		
+
 		if(Std.is(config.tags,Array)){
 			_tags = config.tags;
 		}else{
@@ -114,11 +114,11 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 		if(_instanceId != null) throw dbgMsg()+"instanceId already set";
 		_instanceId = id;
 	}
-	
-	
+
+
 	/**
 	 * Returns an array of components with the specified type.
-	 * 
+	 *
 	 * @return  The components with matching type
 	 */
 	public function getComponent(type:String):Array<FEntityComponent> {
@@ -132,7 +132,7 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 
 	/**
 	 *	returns a physics component if there is one. null otherwise
-	 * 
+	 *
 	 *
 	 * @return PysicsComponentInterface
 	 */
@@ -146,7 +146,7 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 
 	/**
 	 *	returns a render component, if there is one. null otherwise
-	 * 
+	 *
 	 *
 	 * @return PysicsComponentInterface
 	 */
@@ -157,7 +157,7 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Adds a component to the entity
 	 */
@@ -172,7 +172,7 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 		_components.push(component);
 		component.setEntity(this);
 	}
-	
+
 
 	/**
 	 * Deletes the entity
@@ -216,17 +216,17 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 	public function getPool(){
 		return _pool;
 	}
-	
+
 	public function returnToPool(){
-		
+
 		this.setActive(false);
-		
+
 		if(_pool == null){
 			throw dbgMsg()+"Can't return to pool. Pool is null";
 		}else{
 			_pool.addEntity(this);
 		}
-		
+
 	}
 
 	public function getTags():Array<String>{
@@ -269,7 +269,7 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 			throw dbgMsg() + e;
 		}
 	}
-	
+
     public function registerComponentProperties(){
         for(c in _components){
             var props = c.getProperties();
@@ -289,7 +289,7 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
     }
 
     private function dbgMsg(){
-        return "Entity '"+_typeId+"':'"+_instanceId+"': "; 
+        return "Entity '"+_typeId+"':'"+_instanceId+"': ";
     }
 
     public function log(message:Dynamic,force:Bool = false){
@@ -300,5 +300,5 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 			FLog.debug(msg);
 		}
 	}
-	
+
 }

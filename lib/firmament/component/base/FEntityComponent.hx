@@ -20,23 +20,23 @@ import flash.events.EventDispatcher;
 	@author Jordan Wambaugh
  */
 
-class FEntityComponent extends firmament.core.FComponent 
+class FEntityComponent extends firmament.core.FComponent
 {
 
 	private var _entity:FEntity;
 
-	public function new(gameInstance:firmament.core.FGame) 
+	public function new(gameInstance:firmament.core.FGame)
 	{
 		super(gameInstance);
-		
+
 		_enableDebug = false;
 	}
-	
+
 	public function getType():String {
 		throw "this needs to be overwritten in a subclass.";
 		return "";
 	}
-	
+
 	public function setEntity(entity:FEntity){
 		this._entity = entity;
 	}
@@ -46,24 +46,25 @@ class FEntityComponent extends firmament.core.FComponent
 	}
 
 	override public function _init(config:FConfig) {
-		// loop through FConfig looking for properties, convert to property objects!
-        for( key in config.fields() ) {
-        	var entry;
-        	try {
-	            entry = Reflect.field(config,key); // should I use reflect here?
-	        } catch(e:Dynamic) { 
-            	/* ignore any special types */
-            	continue;
-            }
-            if( Reflect.isObject(entry) && Reflect.hasField(entry,'*property*') ) {
-                var prop = Reflect.field(entry,'*property*');
-                var property:firmament.core.FProperty = _entity.getProperty( prop );
-                Reflect.setField(config, key, property ); 
-            }
-        }
-        super._init(config);
+			// loop through FConfig looking for properties, convert to property objects!
+	    for( key in config.fields() ) {
+	    	var entry;
+	    	try {
+	          entry = Reflect.field(config,key); // should I use reflect here?
+	      } catch(e:Dynamic) {
+	        	/* ignore any special types */
+	        	continue;
+	        }
+	        if( Reflect.isObject(entry) && Reflect.hasField(entry,'*property*') ) {
+	            var prop = Reflect.field(entry,'*property*');
+	            var property:firmament.core.FProperty = _entity.getProperty( prop );
+	            Reflect.setField(config, key, property );
+	        }
+	    }
+	    super._init(config);
+			onActivate();
 	}
-	
+
 
 	override public function destruct(){
 		_entity.getGameInstance().removeEventListener(this);
@@ -72,7 +73,7 @@ class FEntityComponent extends firmament.core.FComponent
         //_entity = null;
 		super.destruct();
 	}
-	
+
 
 	public function removeEventListenerFromEntity(event:String){
 		_entity.removeEventListener(event,this);
@@ -81,7 +82,7 @@ class FEntityComponent extends firmament.core.FComponent
 	public function removeAllEventListenersFromEntity(){
 		_entity.removeEventListener(this);
 	}
-	
+
 
     /**
      * Called when the entity is activated (like from a pool)

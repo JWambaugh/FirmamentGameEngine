@@ -12,14 +12,13 @@ import firmament.scene.FScene;
 import firmament.core.FGame;
 
 /*
-	Class: FEntityEmitterComponent
-	emits the specified entities when an event is fired.
+
 */
 class FBroadcastSceneEventsComponent extends FEntityComponent{
 
 	public function new(gameInstance:firmament.core.FGame){
 		super(gameInstance);
-		
+
 	}
 
 	override public function init(config:FConfig){
@@ -28,9 +27,10 @@ class FBroadcastSceneEventsComponent extends FEntityComponent{
 		if(listeners == null) {
 			listeners = _config.getNotNull("listeners");
 		}
+
 		for(evt in listeners.fields() ){
-			_entity.on(cast(evt,String),this,function(e:FEvent){
-				log("Sending <"+e.name+"> to scene");
+ 			_entity.on(cast(evt,String),this,function(e:FEvent){
+				firmament.util.FLog.warning("Sending <"+e.name+"> to scene");
 				scene.trigger(new FEvent(e.name));
 			});
 		}
@@ -38,5 +38,5 @@ class FBroadcastSceneEventsComponent extends FEntityComponent{
 
 	override public function getType(){
 		return "broadcastSceneEvents";
-	}	
+	}
 }
