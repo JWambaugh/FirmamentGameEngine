@@ -1,7 +1,7 @@
 package firmament.core;
 
 import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.component.render.FRenderComponentInterface;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.core.FEntityPool;
@@ -23,8 +23,8 @@ import openfl.display.Tilesheet;
  /**
   * Core entity class for all entities/actors in the game.
   * entities now follow a component archetecture. Modify their behavior with coponents.
-  * 
-  * 
+  *
+  *
   */
 class FPropertyContainer extends FObject implements FPropertyInterface {
 
@@ -34,12 +34,12 @@ class FPropertyContainer extends FObject implements FPropertyInterface {
 
 
 	/**
-	 * 
+	 *
 	 * Config Paramers:
 	 * 	imageScale - [Float] The initial scale value for the sprite.
 	 * 	sprite  - [BitmapData] The image to use as a sprite for this entity
 	 */
-	public function new(config:Dynamic) 
+	public function new(config:Dynamic)
 	{
 		super();
 
@@ -47,8 +47,8 @@ class FPropertyContainer extends FObject implements FPropertyInterface {
 		this._config = config;
 		_properties = new Map<String,FProperty>();
 	}
-	
-	
+
+
 	public function getConfig():Dynamic {
 		return this._config;
 	}
@@ -64,9 +64,10 @@ class FPropertyContainer extends FObject implements FPropertyInterface {
 	}
 
     public function hasProperty(key:String){
-        return _properties.exists(key);
+		var p = _properties.get(key);
+		return (p != null);
     }
-	
+
 	public function getProperty(key:String):FProperty{
 		var p = _properties.get(key);
 		if(p == null) throw("No property with key "+key);
@@ -94,7 +95,7 @@ class FPropertyContainer extends FObject implements FPropertyInterface {
             prop = FProperty.createComputed(key,type,getter,setter);
 		this.registerProperty(prop);
 	}
-	
+
 	/**
 	 * Returns the value of the given property
 	 */
@@ -108,5 +109,5 @@ class FPropertyContainer extends FObject implements FPropertyInterface {
 	public function setProp(key:String,value:Dynamic){
 		getProperty(key).set(value);
 	}
-	
+
 }

@@ -10,7 +10,7 @@ import com.firmamentengine.firmamenteditor.ui.ConfigEditor;
 
 import com.firmamentengine.firmamenteditor.controller.MainMenuController;
 
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.world.FBox2DWorld;
 import firmament.core.FCamera;
 import firmament.core.FEntity;

@@ -12,9 +12,9 @@ import firmament.core.FEntityCollection;
 
 abstract FConfig({}) from {} to {} {
 
-	public function new(o:Dynamic){
-		this = o;
-	}
+    public function new(o:Dynamic){
+        this = o;
+    }
 
     @:arrayAccess public inline function arrayAccess(key:String):Dynamic {
         return get(key);
@@ -37,9 +37,9 @@ abstract FConfig({}) from {} to {} {
         Reflect.setField(this, '__SCOPE__', s);
     }
 
-		public function getScope():FGameChildInterface{
-			return Reflect.field(this, '__SCOPE__');
-		}
+        public function getScope():FGameChildInterface{
+            return Reflect.field(this, '__SCOPE__');
+        }
 
     public function fields():Array<Dynamic> {
         if( Std.is(this,Array) ) {
@@ -49,7 +49,7 @@ abstract FConfig({}) from {} to {} {
     }
 
     public function get(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
-		var entry:Dynamic;
+        var entry:Dynamic;
         // Allows arrays so keys are not necessary
         //  ie. components wouldn't need names anymore
         if( Std.is(this,Array) ) {
@@ -80,26 +80,26 @@ abstract FConfig({}) from {} to {} {
         }
 
         // if I'm an array this doesn't seem to work.
-		if(entry == null)return def;
-		if(type==null){
-			if(entry == null){
-				return def;
-			}else{
-				return entry;
-			}
-		}else{
-			if(Std.is(type,Array)){
-				for(t in cast(type,Array<Dynamic>)){
-					if(Std.is(entry,t)){
-						return entry;
-					}
-				}
-				return def;
-			}else{
-				if(Std.is(entry,type)){
-					return entry;
-				}else{
-					if(type==Int && Reflect.isObject(entry)){
+        if(entry == null)return def;
+        if(type==null){
+            if(entry == null){
+                return def;
+            }else{
+                return entry;
+            }
+        }else{
+            if(Std.is(type,Array)){
+                for(t in cast(type,Array<Dynamic>)){
+                    if(Std.is(entry,t)){
+                        return entry;
+                    }
+                }
+                return def;
+            }else{
+                if(Std.is(entry,type)){
+                    return entry;
+                }else{
+                    if(type==Int && Reflect.isObject(entry)){
                         return parseIntObject(entry,def);
                     }
                     else if(type==Float && Reflect.isObject(entry)){
@@ -114,28 +114,28 @@ abstract FConfig({}) from {} to {} {
                     else if(type==Bool && Reflect.isObject(entry)){
                         return parseBoolObject(entry,def);
                     }
-										else if(type == FEntity && entry != null){
-												return getEntities(entry).first();
-										}
-										else if(type == FEntityCollection && entry != null){
-												return getEntities(entry);
-										}
+                    else if(type == FEntity && entry != null){
+                        return getEntities(entry).first();
+                    }
+                    else if(type == FEntityCollection && entry != null){
+                        return getEntities(entry);
+                    }
                     else {
                         FLog.warning("field "+field+" is not type expected! Returning default.");
                         return def;
                     }
 
-				}
-			}
-		}
-	}
+                }
+            }
+        }
+    }
 
-	public function getVector(field:String,?def:Dynamic=null){
-		if(def == null)def={x:0,y:0};
-		var v = vectorFromDynamic(Reflect.field(this,field));
-		if(v == null) return vectorFromDynamic(def);
-		return v;
-	}
+    public function getVector(field:String,?def:Dynamic=null){
+        if(def == null)def={x:0,y:0};
+        var v = vectorFromDynamic(Reflect.field(this,field));
+        if(v == null) return vectorFromDynamic(def);
+        return v;
+    }
 
     public function destruct(){
         //clear reference to parent
@@ -146,11 +146,11 @@ abstract FConfig({}) from {} to {} {
         return parseVectorObject(d);
     }
 
-		private function getEntities(d:Dynamic){
-				var scope = getScope();
-				if(scope == null) throw "Scope required for querying entities!";
-				return scope.getGameInstance().queryEntities(d, cast (scope, FEntityComponent).getEntity());
-		}
+    private function getEntities(d:Dynamic){
+        var scope = getScope();
+        if(scope == null) throw "Scope required for querying entities!";
+        return scope.getGameInstance().queryEntities(d, cast (scope, FEntityComponent).getEntity());
+    }
 
     private function parseVectorObject(v:Dynamic,d:FVector=null):FVector {
         // vector is { x: Float, y: Float }
@@ -425,13 +425,13 @@ abstract FConfig({}) from {} to {} {
         return null;
     }
 
-	public function getNotNull(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
-		var ret = get(field,type,def);
-		if(ret == null){
-			throw "Field "+field+" does not exist or is not a valid type";
-		}
-		return ret;
-	}
+    public function getNotNull(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
+        var ret = get(field,type,def);
+        if(ret == null){
+            throw "Field "+field+" does not exist or is not a valid type";
+        }
+        return ret;
+    }
 
     // Helper functions
     private function convertMinMax<T>( v:Dynamic, o:Dynamic<T> ):Bool {

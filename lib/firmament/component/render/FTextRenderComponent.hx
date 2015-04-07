@@ -2,7 +2,7 @@ package firmament.component.render;
 
 import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.component.render.FRenderComponentInterface;
 import firmament.core.FCamera;
 import firmament.core.FPropertyDefinition;
@@ -41,15 +41,15 @@ typedef PositionData={
  * ...
  * @author jordan
  */
-class FTextRenderComponent extends FEntityComponent  implements FRenderComponentInterface 
+class FTextRenderComponent extends FEntityComponent  implements FRenderComponentInterface
 {
-	
+
 	var _tilesheet:FTilesheet;
 	var imageScale:Float;
 	var _parallax:Float;
 	var _flipX:Bool;
 	var _flipY:Bool;
-	
+
 	var _positionOffset:FVector;
 	var _angleOffset:Float;
 
@@ -68,7 +68,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	public function new(gameInstance:firmament.core.FGame) {
 		imageScale=100;
 		super(gameInstance);
-		
+
 		_parallax = 1;
 		_flipX = false;
 		_flipY = false;
@@ -85,7 +85,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		if(_tilesheet == null){
 			throw 'tilesheet is still null after init';
 		}
-		
+
         if(Std.is(config.imageScale,Float)) {
 			imageScale = config.imageScale;
 		}
@@ -110,7 +110,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		_textAlign = ch.get("textAlign",String,"center");
 		calculatePositions();
 	}
-	
+
      override public function getProperties():Array<FPropertyDefinition>{
         var props:Array<FPropertyDefinition> = [
             {
@@ -124,9 +124,9 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
         return props;
     }
 	public function initTilesheet(){
-		
+
 		var imageIsFileName = false;
-		
+
 		var ch:firmament.core.FConfig= _config;
 		var tilesheetConfig = _config['tilesheet'];
 		var fontKey:String = ch.getNotNull('fontKey',String);
@@ -146,8 +146,8 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	}
 
 	public function render(camera:FCamera):Void {
-		
-		//make sure we are currently active 
+
+		//make sure we are currently active
 		if(!_entity.isActive())return;
 
 		if (_tilesheet == null) {
@@ -156,25 +156,24 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		}
 
 		_entity.trigger(new FEvent(FGame.BEFORE_RENDER));
-		
-		var physicsComponent:FPhysicsComponentInterface = this._entity.getPhysicsComponent();
-		if(physicsComponent == null) return;
+
+
 		var cameraPos = camera.getTopLeftPosition(this._parallax);
 		var ratio = camera.getZoom() / imageScale;
-		var pos = physicsComponent.getPosition();
+		var pos = _entity.getProp('position');
 
 		var drawList:Array<Float> = new Array();
 		var count:Int = 0;
 		for(letter in _positionData.letters){
-			
+
 			var nx = (((pos.x+_positionOffset.x + letter.xOffset) - cameraPos.x) *_parallax * camera.getZoom());
 			var ny = (((pos.y+_positionOffset.y + letter.yOffset) - cameraPos.y) *_parallax * camera.getZoom());
 			var a:Float, b:Float,c:Float,d:Float;
-			var angle =physicsComponent.getAngle()+_angleOffset;
+			var angle = _entity.getProp('angle')+_angleOffset;
 			//perform rotation and scale
 			a = Math.cos(angle)*ratio;
-			b = Math.sin(angle)*ratio; 
-			c = -Math.sin(angle)*ratio; 
+			b = Math.sin(angle)*ratio;
+			c = -Math.sin(angle)*ratio;
 			d = Math.cos(angle)*ratio;
 			if(_flipX)a =- a;
 			if(_flipY)d =- d;
@@ -192,15 +191,15 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 			//drawList[count++] = ratio;
 			//drawList[count++] = physicsComponent.getAngle();
 			drawList[count++] = _alpha;
-			
+
 			FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList, _entity.getProp('positionZ'));
 		}
 		FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList, _entity.getProp('positionZ'));
 	}
 
-	
 
-	
+
+
 
 
 	public function getTilesheet():FTilesheet{
@@ -220,7 +219,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	public function getImageScale(){
 		return imageScale;
 	}
-	
+
 	public function getBitmapData():BitmapData{
 		var sprite:Sprite = new Sprite();
 		var tempAlignment = _textAlign;
@@ -241,7 +240,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		calculatePositions();
 		return bd;
 	}
-	
+
 	override public function getType():String {
 		return "render";
 	}
@@ -283,7 +282,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 
 
 	/**
-	 * precalculates data for rendering of text. 
+	 * precalculates data for rendering of text.
 	 * we do it once when the text is set instead of at render time.
 	 */
 	private function calculatePositions(){
@@ -305,7 +304,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 			var nextLetter = _text.charAt(index+1);
 			var tile = _tilePrefix + letter;
 			var code = letter.charCodeAt(0);
-			
+
 			var tileId = _tilesheet.getTileNumber(tile);
 			var tileWidth = _tilesheet.getRectangle(tileId).width/this.imageScale;
 			var tileHeight = _tilesheet.getRectangle(tileId).height/this.imageScale;
@@ -343,8 +342,8 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 			}
 		}
 
-		
+
 	}
-	
-	
+
+
 }

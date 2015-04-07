@@ -31,7 +31,7 @@ class FEventRelayComponent extends FEntityComponent{
 		for(e in events){
 			on(_entity,e,eventFired);
 		}
-		
+
 		_fireEvent = config.get("fireEvent",String);
 		if( _fireEvent == null ) {
 			_fireEvent = config.getNotNull("trigger",String);
@@ -44,7 +44,7 @@ class FEventRelayComponent extends FEntityComponent{
 
 	private function eventFired(e:FEvent){
 		var c = FMisc.deepClone(_config);
-		c['point'] = _entity.getPhysicsComponent().getPosition();
+		c['point'] = _entity.getProp('position');
 		if(Reflect.isObject(c['topLeft'])){
 			c['topLeft'] = new FVector(c['topLeft.x'] + c['point.x'],c['topLeft.y']+c['point.y']);
 		}
@@ -54,53 +54,10 @@ class FEventRelayComponent extends FEntityComponent{
 		}
 
 		var entities:FEntityCollection = FGame.getInstance().queryEntities(c);
-		
+
 		for (ent in entities){
 			ent.trigger(new FEventRelayEvent(_fireEvent,_entity,_config));
 		}
 
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

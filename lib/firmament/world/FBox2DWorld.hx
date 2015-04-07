@@ -183,8 +183,8 @@ class FBox2DWorld extends FWorld
 			return fraction;
 		} );
 		ents.sort(function(x,y):Int{
-			var xd = x.getPhysicsComponent().getPosition().distanceTo(a);
-			var yd = y.getPhysicsComponent().getPosition().distanceTo(a);
+			var xd = x.getProp('position').distanceTo(a);
+			var yd = y.getProp('position').distanceTo(a);
 			if(xd==yd) return 0;
 			if(xd<yd) return -1;
 			return 1;

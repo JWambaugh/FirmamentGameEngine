@@ -16,7 +16,7 @@ class FEntityRadiusFilter extends FEntityFilter{
 		var oh:FConfig =  options;
 		var radius:Float = oh.getNotNull("radius",Float);
 		var point:FVector = oh.getVector("point",null);
-		var entPoint = entity.getPhysicsComponent().getPosition();
+		var entPoint = entity.getProp('position');
 		if(point == null){
 			throw "point parameter in options is null but should be a vector.";
 		}
@@ -27,7 +27,7 @@ class FEntityRadiusFilter extends FEntityFilter{
 		return false;
 	}
 
-	
+
 
 
 }

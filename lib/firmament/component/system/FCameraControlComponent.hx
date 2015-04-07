@@ -39,7 +39,7 @@ class FCameraControlComponent extends FEntityComponent {
             var boundaries:FVector = new FVector(
                 vbounds.get("x",Float,Math.NaN),
                 vbounds.get("y",Float,Math.NaN)
-            ); 
+            );
             if( boundaries != null ) {
                 Reflect.setField(_bounds,field,boundaries);
             }
@@ -70,20 +70,20 @@ class FCameraControlComponent extends FEntityComponent {
         return { "value" : value, "clamped" : clamped};
     }
 
-    
-    override public function step(delta:Float) {
-        if(_camera == null) _camera = FGame.getInstance().getCamera(_config.get('cameraName',String,'main')); 
 
-        var targetPosition:FVector = _entity.getPhysicsComponent().getPosition();
+    override public function step(delta:Float) {
+        if(_camera == null) _camera = FGame.getInstance().getCamera(_config.get('cameraName',String,'main'));
+
+        var targetPosition:FVector = _entity.getProp('position');
         var currentPosition:FVector = _camera.getPosition().copy();
         var delta:FVector = targetPosition.copy();
         delta.subtract(currentPosition);
 
         var cclamped = {"x":false,"y":false};
-        
+
         // max distance from center
         var result = clamp(targetPosition.x,_bounds.min.x,_bounds.max.x);
-        var newX = result.value; 
+        var newX = result.value;
         cclamped.x = result.clamped;
 
         result = clamp(targetPosition.y,_bounds.min.y,_bounds.max.y);

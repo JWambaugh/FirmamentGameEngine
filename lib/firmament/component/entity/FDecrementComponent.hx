@@ -42,11 +42,11 @@ class FDecrementComponent extends FEntityComponent{
 
 
     override public function onActivate(){
-      _startValue = config.getNotNull('startValue',Int);
-      _min = config.get('min', Int, 0);
-      _decSize = Math.floor( Math.max(1,config.get('decrementSize', Int, 0)));
+      _startValue = _config.getNotNull('startValue',Int);
+      _min = _config.get('min', Int, 0);
+      _decSize = Math.floor( Math.max(1,_config.get('decrementSize', Int, 0)));
 
-      _propertyName = config.getNotNull('property',String);
+      _propertyName = _config.getNotNull('property',String);
       if(!_entity.hasProperty(_propertyName)) {
           _entity.registerProperty(new firmament.core.FBasicProperty<Int>(_propertyName));
       }

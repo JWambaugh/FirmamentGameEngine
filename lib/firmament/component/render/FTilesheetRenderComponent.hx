@@ -4,7 +4,7 @@ package firmament.component.render;
 
 import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.component.render.FRenderComponentInterface;
 import firmament.core.FCamera;
 import firmament.core.FEvent;

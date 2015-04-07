@@ -1,7 +1,7 @@
 package firmament.core;
 
 import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.component.render.FRenderComponentInterface;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.core.FEntityPool;
@@ -136,7 +136,7 @@ class FEntity extends FPropertyContainer implements FGameChildInterface{
 	 *
 	 * @return PysicsComponentInterface
 	 */
-	public function getPhysicsComponent():FPhysicsComponentInterface {
+	public function getPhysicsComponent():FEntityComponent {
 		var ca = this.getComponent('physics');
 		if(ca!=null){
 			return cast(ca[0]);

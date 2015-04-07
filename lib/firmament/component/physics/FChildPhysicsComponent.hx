@@ -3,7 +3,7 @@ package firmament.component.physics;
 
 
 import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.core.FComputedProperty;
 import firmament.core.FConfig;
 import firmament.core.FEntity;
@@ -22,14 +22,14 @@ import firmament.world.FWorld;
 import haxe.Timer;
 
 /**
- * 
+ *
  * @author Jordan Wambaugh
  */
 
-class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComponentInterface
+class FChildPhysicsComponent extends FNoPhysicsComponent
 {
-    
-    
+
+
     private var _parentEntity:FEntity;
 
     private var _relativePosition:FVector;
@@ -41,7 +41,7 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
     private var _relativePositionZ:Float;
 
 
-    public function new(gameInstance:firmament.core.FGame) 
+    public function new(gameInstance:firmament.core.FGame)
     {
         super(gameInstance);
         _relativePosition = new FVector();
@@ -50,14 +50,14 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
     public function setParentEntity(parent:FEntity){
         _parentEntity = parent;
     }
-    
+
     override public function init(config:FConfig):Void {
         _world = cast(_entity.getGameInstance().getWorld("noPhysics"),FNoPhysicsWorld);
         registerEventHandlers();
 
         _parentEntity = config.get("parent", FEntity, _parentEntity);
-        
-        
+
+
         _position = config.getVector('position',_position);
         _width = config.getNotNull('width',Float,1.0);
         _height = config.getNotNull('height',Float,1.0);
@@ -72,13 +72,13 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
         if (config.hasField('maxLifeSeconds')) {
             Timer.delay(function() { this._entity.delete(); }, Math.floor(config.get('maxLifeSeconds',Float) * 1000));
         }
-        
-        
+
+
         if(config.get('alwaysRender',Bool,false) ){
             _world.addToAlwaysRenderList(_entity);
         }
         _world.addEntity(this._entity);
-        
+
         buildShape();
     }
 
@@ -155,8 +155,15 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
                 ,setter:setRelativePositionZ
                 ,sortOrder:1
             }
-          
-           
+            ,{
+                key:"shapes"
+                ,type: Array
+                ,getter:getShapes
+                ,setter:null
+                ,sortOrder:1
+            }
+
+
         ];
         return props;
     }
@@ -169,16 +176,16 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
         // var sin = Math.sin(angle+_relativeAngle);
         // v = new FVector(v.x+cos
         //     ,v.y+sin);
-        
+
         return v;
     }
-    
+
     override public function setPosition(pos:FVector) {
         //does nothing since position is calculated from the parent.
         // if(_deleted)return;
         // var oldTopX = _position.x - _width/2;
         // var oldTopY = _position.y - _height/2;
-        
+
         // _position=pos;
         // _world.updatePositionState(this,oldTopX,oldTopY);
     }
@@ -191,10 +198,10 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
 
         // var oldTopX = _position.x - _width/2;
         // var oldTopY = _position.y - _height/2;
-        
+
         // _position.x=x;
         // _position.y=y;
-        // if(_world!=null)        
+        // if(_world!=null)
         //   _world.updatePositionState(this,oldTopX,oldTopY);
     }
 
@@ -217,16 +224,16 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
     override public function getPositionY(p:Float=0):Float{
         return this.getPosition().y;
     }
-    
+
     override public function setAngle(a:Float):Void {
          //does nothing since angle is calculated from the parent.
         //_angle = a;
     }
-    
+
     override public function getAngle(p:Float=0):Float {
         return _parentEntity.getProp('angle')+_relativeAngle;
     }
-    
+
     override public function applyLinearForce(v:FVector,?point:FVector=null):Void {
         _isSleeping = false;
         _world.updateSleepState(this);
@@ -239,7 +246,7 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
         _world.updateSleepState(this);
         //_linearVelocity = vel;
     }
-    
+
     override public function getLinearVelocity(p:FVector=null):FVector {
         return _linearVelocity;
     }
@@ -249,7 +256,7 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
         //_angularVelocity = omega;
     }
 
-    
+
 
     override public function getAngularVelocity(p:Float=0):Float {
         return _angularVelocity;
@@ -258,7 +265,7 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
     override public function addAngularVelocity(omega:Float) {
         _isSleeping=false;
     //    var ome = this.getAngularVelocity();
-    //    this.setAngularVelocity(ome+omega); 
+    //    this.setAngularVelocity(ome+omega);
     }
 
 
@@ -266,7 +273,7 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
         return _parentEntity.getProp('positionZ')+_relativePositionZ;
     }
 
-    
+
 
 
     //gets called by the world when the world is updating their positions
@@ -307,12 +314,12 @@ class FChildPhysicsComponent extends FNoPhysicsComponent implements FPhysicsComp
     }
 
     public function setRelativePositionZ(pos:Float):Void {
-        
+
         _relativePositionZ = pos;
     }
 
 
 
-    
+
 
 }

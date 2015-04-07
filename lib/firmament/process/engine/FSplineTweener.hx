@@ -38,7 +38,7 @@ class FSplineTweener extends FProcess {
 		    points.push( new FVector(pt[0],pt[1]) );
 		}
 		spline = new CatmullRom(points, totalTime);
-		
+
 		//apply random start position if desired
 		if(parameters.get('randomStart',Bool,false)){
 			var startSeed = Math.random()*totalTime;
@@ -47,10 +47,10 @@ class FSplineTweener extends FProcess {
 
 		_entity = entity;
 		if(_entity != null) {
-			_startPos = _entity.getPhysicsComponent().getPosition();
+			_startPos = _entity.getProp('position');
 		}
 		_graphics = graphics;
-		
+
 		//build spline path
 		// this will build a static array which will be incorrect
 		// when dynamically updating array position/shape
@@ -70,7 +70,7 @@ class FSplineTweener extends FProcess {
 		}
 
 		spline.setActive(true);
-		
+
 		FGame.getInstance().addProcess(this);
 	}
 
@@ -86,22 +86,22 @@ class FSplineTweener extends FProcess {
 
 	override public function step(delta:Float) {
 		spline.update(delta);
-		
+
 		q=spline.getPosition();
 		t=spline.getTangent();
 		if(_entity != null) {
 		    var qa = q.copy();
 		    qa.add(_startPos);
-			_entity.getPhysicsComponent().setPosition( qa );
+			_entity.setProp('position', qa );
 			if(_changeAngle){
-				_entity.getPhysicsComponent().setAngle(Math.atan2(t.y,t.x));
+				_entity.setProp('angle',Math.atan2(t.y,t.x));
 			}
 		}
 
 		if(spline.isActive() == false ) {
 			spline.reset();
 			spline.setActive(true);
-		} 
+		}
 	}
 
 	public function render() {

@@ -3,7 +3,7 @@ package firmament.component.physics;
 
 
 import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.core.FComputedProperty;
 import firmament.core.FConfig;
 import firmament.core.FEntity;
@@ -26,7 +26,7 @@ import haxe.Timer;
  * @author Jordan Wambaugh
  */
 
-class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentInterface
+class FNoPhysicsComponent extends FEntityComponent
 {
 
 
@@ -141,6 +141,13 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
                 ,type:FVector
                 ,getter:getLinearVelocity
                 ,setter:setLinearVelocity
+                ,sortOrder:1
+            }
+			,{
+                key:"shapes"
+                ,type: Array
+                ,getter:getShapes
+                ,setter:null
                 ,sortOrder:1
             }
         ];
@@ -307,7 +314,7 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		return _position.y + _height/2;
 	}
 
-	public function getShapes():Array<FShape>{
+	public function getShapes(shapes:Array<FShape> = null):Array<FShape>{
 		return [_shape];
 	}
 

@@ -15,7 +15,7 @@ import flash.geom.Rectangle;
 import firmament.component.base.FEntityComponent;
 import firmament.core.FEntity;
 import firmament.core.FCamera;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import flash.geom.Matrix;
 import flash.geom.Point;
 
@@ -27,30 +27,29 @@ import flash.geom.Point;
 class FWireframeRenderComponent extends FEntityComponent implements FRenderComponentInterface
 {
 
-	public function new(gameInstance:firmament.core.FGame) 
+	public function new(gameInstance:firmament.core.FGame)
 	{
 		super(gameInstance);
-		
+
 	}
 
 	override public function init(config:Dynamic){
 
 	}
-	
+
 	public function render(camera:FCamera):Void {
-		var physicsComponent:FPhysicsComponentInterface= _entity.getPhysicsComponent();
-		if(physicsComponent==null)return;
-		var pos = physicsComponent.getPosition();
-		
+
+		var pos = _entity.getProp('position');
+
 		camera.graphics.lineStyle(1,0xFF00FF);
 		var cameraPos = camera.getTopLeftPosition();
-		
+
 		//firmament.util.FLog.debug(cameraPos.y);
-		
+
 		//draw entity location
 		camera.graphics.drawCircle((pos.x-cameraPos.x)*camera.getZoom(),(pos.y-cameraPos.y)*camera.getZoom(),5);
-		
-		var shapes:Array<FShape> = physicsComponent.getShapes();
+
+		var shapes:Array<FShape> = _entity.getProp('shapes');
 		//firmament.util.FLog.debug(shapes.length);
 		for (shape in shapes) {
 			//firmament.util.FLog.debug(shape.getType());
@@ -60,7 +59,7 @@ class FWireframeRenderComponent extends FEntityComponent implements FRenderCompo
 				var counter:Int = 0;
 				var pvec:FVector;
 				var matrix:flash.geom.Matrix = new Matrix();
-				matrix.rotate(physicsComponent.getAngle());
+				matrix.rotate(_entity.getProp('angle'));
 
 				for (vec in pshape.getVectors()) {
 					vec = vec.copy(); //don't want to modify original
@@ -76,7 +75,7 @@ class FWireframeRenderComponent extends FEntityComponent implements FRenderCompo
 					camera.graphics.moveTo(( pos.x+pvec.x - cameraPos.x)*camera.getZoom(), (pos.y+pvec.y - cameraPos.y)*camera.getZoom());
 
 				}
-				
+
 				if (counter > 0) {
 					var vec = pshape.getVectors()[0].copy();
 					var p:Point = new Point(vec.x,vec.y);
@@ -88,16 +87,16 @@ class FWireframeRenderComponent extends FEntityComponent implements FRenderCompo
 			}else if (Std.is(shape,FCircleShape)) {
 				var pshape:FCircleShape = cast(shape);
 				camera.graphics.drawCircle((pos.x+pshape.getLocalPosition().x-cameraPos.x)*camera.getZoom(),(pos.y+pshape.getLocalPosition().y-cameraPos.y)*camera.getZoom(),pshape.getRadius()*camera.getZoom());
-		
+
 			}
 		}
 		camera.graphics.lineStyle(0,0,0);
-		
+
 	}
 	public function getBitmapData():BitmapData{
 		return new BitmapData(0,0);
 	}
-	
+
 	override public function getType():String {
 		return "render";
 	}
