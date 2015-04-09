@@ -133,8 +133,6 @@ class FBox2DComponent extends FEntityComponent //implements FPhysicsComponentInt
                     shapeDef.shape = s;
                 }
                 if (shape.type == 'polygon') {
-                    firmament.util.FLog.warning('type is polygon');
-
                     var s:B2PolygonShape = new B2PolygonShape();
 
                     // convert to b2vector

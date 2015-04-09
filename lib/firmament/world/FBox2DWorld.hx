@@ -141,7 +141,6 @@ class FBox2DWorld extends FWorld
 	}
 
 	override public function init(config:Dynamic){
-		firmament.util.FLog.warning('b2World: ' + Std.string(config));
 		super.init(config);
 		var c:FConfig = config;
 		var vec = c.getVector('gravity',{x:0,y:0});
@@ -266,7 +265,14 @@ class FBox2DWorld extends FWorld
 		}
 		else {
 			super.deleteEntity(ent);
-			this._b2world.destroyBody(cast(ent.getPhysicsComponent(),FBox2DComponent).body);
+			try {
+				// This can happen if the world object is deleted before the
+				//  pool objects are deleted
+				this._b2world.destroyBody(cast(ent.getPhysicsComponent(),FBox2DComponent).body); 
+			} catch(e:Dynamic) {
+				trace("Error destroying body for entity", haxe.CallStack.toString(haxe.CallStack.callStack()) );
+				throw e;
+			}
 		}
 
 	}
@@ -286,7 +292,7 @@ class FBox2DWorld extends FWorld
 
 	override public function destruct(){
 		super.destruct();
-		this._b2world = null;
+		this._b2world = null; 
 	}
 
 }

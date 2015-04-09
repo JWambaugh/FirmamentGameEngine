@@ -467,24 +467,36 @@ class FGame extends FObject
 		destroys or clears references to all entities, worlds, cameras, and processes.
 	*/
 	public function clearAll(){
+
+		// --------------------------------------------
+		// Deallocation and clean-up here
 		Lib.current.stage.removeEventListener(Event.ENTER_FRAME, this_onEnterFrame);
 		_gameProcessManager.pause();
 		_renderProcessManager.pause();
-		if(_currentScene!=null)_currentScene.destruct();
-		_currentScene=null;
-
 		while(_stepSubscribers.length>0){
 			_stepSubscribers.pop();
 		}
-		_stepSubscribers = new List();
 
+		// _poolManager.destruct needs to happen before clear worlds
+		// clear worlds deletes the world object, which is 
+		// used by entities that are registered in pools
+		_poolManager.destruct();
 		clearWorlds();
+
+		// This needs to be last as some components may be 
+		// cleaned up in clearWorlds, if those use the scene
+		// object then they would crash
+		if(_currentScene!=null)_currentScene.destruct();
+		_currentScene=null;
+
+		// --------------------------------------------
+		// New Object creation below here
+		_stepSubscribers = new List();
 		_gameProcessManager = new FProcessManager();
 		_renderProcessManager = new FProcessManager();
 		_cameras = new Map();
 		_gameTimerManager = new FTimerManager();
 		this._gameProcessManager.addProcess(_gameTimerManager);
-		_poolManager.destruct();
 		_poolManager = new FEntityPoolManager();
 		//this.removeAllListeners();
 		clearCameras();
