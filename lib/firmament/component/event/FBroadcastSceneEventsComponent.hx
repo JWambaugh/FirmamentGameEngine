@@ -30,7 +30,7 @@ class FBroadcastSceneEventsComponent extends FEntityComponent{
 
 		for(evt in listeners.fields() ){
  			_entity.on(cast(evt,String),this,function(e:FEvent){
-				firmament.util.FLog.warning("Sending <"+e.name+"> to scene");
+				log("Sending <"+e.name+"> to scene");
 				scene.trigger(new FEvent(e.name));
 			});
 		}

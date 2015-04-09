@@ -30,13 +30,6 @@ class FTextComponent extends FEntityComponent{
     }
 
     override public function onActivate(){
-        // 0, 0 is top left
-        // need to get the camera position and turn it into 
-        // scene
-        _textField.x = 500; // _entity.getProp("postitionX");
-        // _textField.y = _entity.getProp("postitionY");
-
-        log("Position ({_textField.x},{_textField.y})");
     }
 
     override public function init(config:FConfig){
@@ -90,7 +83,28 @@ class FTextComponent extends FEntityComponent{
         _textField.x = screenPosition.x;
         _textField.y = screenPosition.y;
 
-        _textField.text=_config.getNotNull('value');
+        var value = _config.getNotNull('value');
+        var textValue:Dynamic = Std.string(value);
+        var addZero = false;
+        if( Std.is(value, Int) ) {
+            log(" Value is Int " );
+        }
+        var indx = textValue.indexOf('.');
+        if(indx > -1) {
+            textValue = textValue.substr(0,indx+2);
+        }
+        if( _config.get('float',Bool,false) ) {
+            try {
+                var flt:Float = Std.parseFloat(value);
+                addZero = ( flt == Math.round(flt) );
+                if( addZero ) {
+                    textValue = textValue + ".0";
+                }
+            } catch(e:Dynamic) {}
+        }
+        if( _textField != textValue ) {
+            _textField.text=textValue;
+        }
 
         if(Math.random() <= .1) {
             log("Value - " + _textField.text + " Position - " + screenPosition);

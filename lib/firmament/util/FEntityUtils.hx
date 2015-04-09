@@ -25,7 +25,6 @@ class FEntityUtils {
             var angle:Float = origin.getProp('angle');
             var cos = Math.cos(angle+angleOffset);
             var sin = Math.sin(angle+angleOffset);
-            firmament.util.FLog.warning(origin.getProp('typeId')+" :"+origin.getProp('positionX')+" "+origin.getProp('positionY'));
             entity.setProp('position',new FVector(origin.getProp('positionX')+cos*distanceOffset
                 ,origin.getProp('positionY')+sin*distanceOffset));
             entity.setProp('linearVelocity', new FVector(cos*speed,sin*speed));

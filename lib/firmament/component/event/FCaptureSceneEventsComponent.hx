@@ -26,7 +26,7 @@ class FCaptureSceneEventsComponent extends FEntityComponent{
 		var scene:FScene = FGame.getInstance().getCurrentScene();
 	    var events:Array<String> = config.getNotNull("events");
 		for(event in events) {
-			FLog.debug("Adding entity listener for " + event);
+			log("Adding entity listener for " + event);
 			scene.on(event,this,this.bubbleEvent);
 		}
 	}
@@ -38,8 +38,15 @@ class FCaptureSceneEventsComponent extends FEntityComponent{
 
 	override public function getType(){
 		return "captureSceneEvents";
-	}	
+	}
 
-	
-
+	override public function destruct(){
+		var scene:FScene = FGame.getInstance().getCurrentScene();
+		var events:Array<String> = _config.getNotNull("events");
+		for(event in events) {
+			log("Cleaning up listening scene event - " + event);
+			scene.removeEventListener(event,this,this.bubbleEvent);
+		}
+		super.destruct();
+	}
 }
