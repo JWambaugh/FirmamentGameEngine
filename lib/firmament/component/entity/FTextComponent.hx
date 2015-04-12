@@ -37,14 +37,14 @@ class FTextComponent extends FEntityComponent{
         log("Getting value ");
 
         _glowFilter = new flash.filters.GlowFilter(
-            0x000000, // color
+            _config.get('outlineColor',Int,0x000000), // color
             1.0,
             2.0,
             2.0,
             10
         );
         _glowFilter.quality=flash.filters.BitmapFilterQuality.MEDIUM;
-
+        
         _textFormat = new flash.text.TextFormat();
         _textFormat.align=_config.get('align',String,"left");
         _textFormat.font=_config.get('font',String,"Arial");
@@ -55,6 +55,7 @@ class FTextComponent extends FEntityComponent{
         // should I create this now??
         _textField = new flash.text.TextField();
         _textField.text = "";
+        _textField.width=_config.get('width',Int,90); // in meters?
         _textField.mouseEnabled=false;
         _textField.defaultTextFormat = _textFormat;
         _textField.filters = [ _glowFilter ];
