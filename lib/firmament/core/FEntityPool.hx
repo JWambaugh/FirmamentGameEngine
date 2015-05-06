@@ -9,7 +9,12 @@ class FEntityPool {
 
 	var _entityConfig:Dynamic;
 	var _entities:Array<FEntity>;
-	
+	public var count(get, null):Int;
+
+	function get_count():Int {
+	    return this._entities.length;
+	}
+
 	public function new(config:Dynamic, ?preAllocate:Int=0){
 		_entities = new Array<FEntity>();
 		_entityConfig=config;

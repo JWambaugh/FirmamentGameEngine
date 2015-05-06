@@ -9,11 +9,11 @@ class FEntityUtils {
 
     /**
      * Function: emitEntity
-     * Shoots an entity entity from the sourceEntity in the direction the entity is currently pointing
+     * Shoots an entity from the sourceEntity in the direction the entity is currently pointing
      *
      * Params:
-     *         sourceEntity     {FEntity} The entity to shoot the bullet from
-     *         entity             {FEntity} The entity to emit
+     *        sourceEntity     {FEntity} The entity to shoot the bullet from
+     *        entity             {FEntity} The entity to emit
      *        speed             Float the speed at which the entity should travel
      *        angleOffset     Float the angle that should be added to sourceEntity's angle
      *        positionOffset  Float the distance from sourceEntity that the entity should start from.
