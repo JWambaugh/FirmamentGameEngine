@@ -337,7 +337,9 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 			flash.events.MouseEvent.MIDDLE_MOUSE_DOWN,
 			flash.events.MouseEvent.MIDDLE_MOUSE_UP,
 			flash.events.MouseEvent.MOUSE_DOWN,
-			flash.events.MouseEvent.MOUSE_UP
+			flash.events.MouseEvent.MOUSE_UP,
+			flash.events.MouseEvent.RIGHT_MOUSE_DOWN,
+			flash.events.MouseEvent.RIGHT_MOUSE_UP
 		];
 		for( event in mouseEvents ) {
 			this.addEventListener(event,onMouseButton);	
