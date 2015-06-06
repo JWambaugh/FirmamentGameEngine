@@ -32,7 +32,7 @@ class FCaptureSceneEventsComponent extends FEntityComponent{
 	}
 
 	public function bubbleEvent(e:FEvent) {
-	    FLog.debug("Bubbling event " + e);
+	    log("Bubbling event " + e);
 		_entity.trigger(e);
 	}
 

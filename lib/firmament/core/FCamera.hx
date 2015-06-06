@@ -330,11 +330,22 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	public function enableClickEvents(){
 		if(_clickEventsEnabled)return;
 		_clickEventsEnabled = true;
-		this.addEventListener(flash.events.MouseEvent.CLICK,onClick);
+		var mouseEvents = [ 
+			flash.events.MouseEvent.CLICK,
+			flash.events.MouseEvent.DOUBLE_CLICK,
+			flash.events.MouseEvent.MIDDLE_CLICK,
+			flash.events.MouseEvent.MIDDLE_MOUSE_DOWN,
+			flash.events.MouseEvent.MIDDLE_MOUSE_UP,
+			flash.events.MouseEvent.MOUSE_DOWN,
+			flash.events.MouseEvent.MOUSE_UP
+		];
+		for( event in mouseEvents ) {
+			this.addEventListener(event,onMouseButton);	
+		}
 	}
 
 	/**
-	 * Enables click events on this camera. Any entities under the point clicked on will receive a click event.
+	 * Enables mousemove events on this camera. Any entities under the point clicked on will receive a click event.
 	 *
 	 */
 	public function enableOverEvents(){
@@ -356,20 +367,19 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		});
 	}
 
-	private function onClick(e:MouseEvent){
+	private function onMouseButton(e:MouseEvent){
 		var ents = _game.getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
         ents.sortByPropertyAsc("positionZ");
-        var event = new FMouseEvent(MouseEvent.CLICK, this, new firmament.core.FVector(e.localX, e.localY));
+        var event = new FMouseEvent(e.type, this, new firmament.core.FVector(e.localX, e.localY));
         event.bubbles = false;
 		for(ent in ents){
 			if(ent.isActive()){
 				ent.trigger(event);
 			}
-
 		}
 
         //send event to scene components
-        var event = new FMouseEvent(MouseEvent.CLICK, this, new firmament.core.FVector(e.localX, e.localY));
+        var event = new FMouseEvent(e.type, this, new firmament.core.FVector(e.localX, e.localY));
         _game.getCurrentScene().trigger(event);
 
 	}

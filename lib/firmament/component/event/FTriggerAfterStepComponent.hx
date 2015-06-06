@@ -32,6 +32,6 @@ class FTriggerAfterStepComponent extends FEntityComponent{
     }
 
     override public function getType(){
-        return "broadcastSceneEvents";
+        return "triggerAfterStep";
     }   
 }
