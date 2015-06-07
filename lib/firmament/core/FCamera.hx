@@ -331,7 +331,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		if(_clickEventsEnabled)return;
 		_clickEventsEnabled = true;
 		this.doubleClickEnabled=true; // turn on dblclicks
-		var mouseEvents = [ 
+		var mouseEvents = [ // this could be a static
 			flash.events.MouseEvent.CLICK,
 			flash.events.MouseEvent.DOUBLE_CLICK,
 			flash.events.MouseEvent.MIDDLE_CLICK,
@@ -353,6 +353,8 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	 *
 	 */
 	public function enableOverEvents(){
+		trace("Adding event - " + MouseEvent.MOUSE_OVER);
+		trace("Adding event - " + MouseEvent.MOUSE_OUT);
 		this.addEventListener(flash.events.MouseEvent.MOUSE_MOVE,function(e:MouseEvent){
 			var ents = _game.getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
 			for(ent in ents){
@@ -374,7 +376,6 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	private function onMouseButton(e:MouseEvent){
 		var ents = _game.getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
         ents.sortByPropertyAsc("positionZ");
-trace( e.type + " Click count - " + e.clickCount );
         var event = new FMouseEvent(e.type, this, new firmament.core.FVector(e.localX, e.localY));
         event.bubbles = false;
 		for(ent in ents){
