@@ -44,7 +44,7 @@ class FDecrementComponent extends FEntityComponent{
     override public function onActivate(){
       _startValue = _config.getNotNull('startValue',Int);
       _min = _config.get('min', Int, 0);
-      _decSize = Math.floor( Math.max(1,_config.get('decrementSize', Int, 0)));
+      _decSize = Math.floor( Math.max(0,_config.get('decrementSize', Int, 0)));
 
       _propertyName = _config.getNotNull('property',String);
       if(!_entity.hasProperty(_propertyName)) {
@@ -66,17 +66,19 @@ class FDecrementComponent extends FEntityComponent{
         }
         log("got "+e.name+"!");
         var h = _entity.getProp(_propertyName);
-        h-= Math.floor(Math.max(1, _config.get('decrementSize', Int, 0)));
-        if(h<=_min && !_triggered){
-            log("Reached min of " + _min);
-            h=_min;
-            _triggered = true;
-            _entity.setProp(_propertyName, h);
-            if(_deathEvent != null){
-                _entity.trigger(new FEvent(_deathEvent));
+        h-= Math.floor(Math.max(0, _config.get('decrementSize', Int, 0)));
+        if(h<=_min){
+            if( !_triggered ) {
+                _triggered = true;
+                h=_min;
+                log("Reached min of " + h);
+                _entity.setProp(_propertyName, h);
+                if(_deathEvent != null){
+                    log("Triggering " + _deathEvent);
+                    _entity.trigger(new FEvent(_deathEvent));
+                }
             }
-
-        }else{
+        }else {
             _entity.setProp(_propertyName, h);
         }
         log("Value Remaining - " + _entity.getProp(_propertyName) );

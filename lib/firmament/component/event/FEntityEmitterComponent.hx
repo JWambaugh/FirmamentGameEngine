@@ -22,12 +22,14 @@ class FEntityEmitterComponent extends FEntityComponent{
 
     override public function init(config:FConfig){
 
-        on(_entity,config.get('listen',String),this,
+        log("Adding emmiter to listen on " + config.get('listen',String) );
+        on(_entity,config.getNotNull('listen',String),this,
             function(e:FEvent) {
+                log("Got " + e.name);
                 _entity.getGameInstance().doAfterStep(
                     function() {
                         var amount:Int = config.get('amount', Int, 1);
-                        FLog.debug("amount to spawn: "+amount);
+                        log("Amount to spawn: "+amount);
                         for(n in 0...amount){
                             var ent = FEntityFactory.createEntity(
                                     config.getNotNull('entity',Dynamic));
@@ -55,6 +57,7 @@ class FEntityEmitterComponent extends FEntityComponent{
                         }
                         var trigger = config.get('trigger',String);
                         if(trigger != null){
+                            log("Triggering " + trigger);
                             _entity.trigger(new FEvent(trigger));
                         }
                     }
