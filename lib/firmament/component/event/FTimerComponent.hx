@@ -1,18 +1,21 @@
 
 package firmament.component.event;
 
-import firmament.util.FLog;
 import firmament.component.base.FEntityComponent;
 import firmament.core.FConfig;
 import firmament.core.FEntity;
 import firmament.core.FEvent;
 import firmament.process.timer.FTimer;
+import firmament.util.FLog;
 /*
     Class: FEventMapperComponent
     maps events on the entity of a type to another event of a different type.
 */
 class FTimerComponent extends FEntityComponent{
-    
+
+    static var _eventNames:Array<String> = ["start","stop"];    
+
+    var _events:Map<String,String>;
     var _timer:FTimer = null;
     var _start:Float;
     var _seconds:Null<Float>;
@@ -20,6 +23,7 @@ class FTimerComponent extends FEntityComponent{
 
     public function new(gameInstance:firmament.core.FGame){
         super(gameInstance);        
+        _events = new Map();
         _propertyName = null;
     }
 
@@ -49,6 +53,12 @@ class FTimerComponent extends FEntityComponent{
         _seconds = _config.getNotNull('seconds',Float);
         log("Starting timer - " + _seconds + " " + _config.get('name',String, ""));
         _timer = tm.addTimer(_seconds,this.triggerOnExpire,this);
+        // trigger start event for chaining
+
+        if( _events.exists ("start") == true ){ 
+            log("Firing <start> trigger as " + _events.get("start") );
+            _entity.trigger(new FEvent(_events.get("start")));
+        }
     }
 
     public function initialize(config:FConfig){
@@ -56,6 +66,15 @@ class FTimerComponent extends FEntityComponent{
         var startOn:String = _config.get('startOn',String);
         var stopOn:String = _config.get('stopOn',String);
 
+        var triggers:FConfig = _config.getNotNull('triggers',Dynamic,{});
+        for( name in _eventNames ) {
+            var value:String = triggers.get(name,String,null);
+            if( value != null ) { 
+                log("Setting trigger event " + name + " " + value );
+                _events.set(name,value); 
+            }
+        }
+        
         if(_propertyName != null) {
             _entity.setProp(_propertyName, 0);
         }
@@ -122,8 +141,17 @@ class FTimerComponent extends FEntityComponent{
     }
 
     private function triggerOnExpire(){
+        var eventName;
         stopTimerFunc(null);
-log("Timer expired");
-        _entity.trigger(new FEvent(this._config.getNotNull('trigger',String)));
+        log("Timer expired");
+
+        if( _events.exists("stop") == true ){ 
+            eventName = _events.get("stop");
+        } else { 
+            // deprecated
+            eventName = this._config.getNotNull('trigger',String);
+        }
+        log("Firing <stop> trigger as " + eventName );
+        _entity.trigger(new FEvent(eventName));
     }
 }

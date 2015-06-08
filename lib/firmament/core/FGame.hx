@@ -567,7 +567,13 @@ class FGame extends FObject
 	 */
 	public function initializeInterpreter(){
 		_interpreter = new Interp();
+		_interpreter.variables.set("Bool",Bool);
+		_interpreter.variables.set("Int",Int);
+		_interpreter.variables.set("Float",Float);
+		_interpreter.variables.set("Array",Array);
+		_interpreter.variables.set("Map",Map);
 		_interpreter.variables.set("Math",Math);
+		_interpreter.variables.set("Reflect",Reflect);
 		_interpreter.variables.set("FGame",FGame);
 		_interpreter.variables.set("FSoundtrackManager",firmament.sound.FSoundtrackManager);
 		_interpreter.variables.set("FCamera",FCamera);

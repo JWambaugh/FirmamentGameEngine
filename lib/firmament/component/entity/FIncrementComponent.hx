@@ -44,7 +44,13 @@ class FIncrementComponent extends FEntityComponent{
         //register the property if it doesn't exist
         if(!_entity.hasProperty(_propertyName))
             _entity.registerProperty(new firmament.core.FBasicProperty<Int>(_propertyName));
-        _entity.setProp(_propertyName, _startValue);
+
+        var initialValue = _startValue;
+        if( config.get("uninitalized",Bool,false) == true ) {
+            initialValue -= 1;
+        }
+        log("Setting initial value - " + initialValue);
+        _entity.setProp(_propertyName, initialValue);
         _triggered = false;
     }
 

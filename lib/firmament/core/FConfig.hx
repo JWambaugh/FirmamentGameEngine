@@ -37,9 +37,9 @@ abstract FConfig({}) from {} to {} {
         Reflect.setField(this, '__SCOPE__', s);
     }
 
-        public function getScope():FGameChildInterface{
-            return Reflect.field(this, '__SCOPE__');
-        }
+    public function getScope():FGameChildInterface{
+        return Reflect.field(this, '__SCOPE__');
+    }
 
     public function fields():Array<Dynamic> {
         if( Std.is(this,Array) ) {
@@ -412,11 +412,14 @@ abstract FConfig({}) from {} to {} {
             }
             if(program != null){
                 var game:FGame;
-                var scope = Reflect.field(this,'__SCOPE__');
-                if(scope == null) game = FGame.getInstance();
-                else game = scope.getGameInstance();
-                return game.execProgram(program, scope);
-
+                var programScope = Reflect.field(this,'__SCOPE__');
+                if(programScope == null)  {
+                    game = FGame.getInstance();
+                }
+                else {
+                    game = programScope.getGameInstance();
+                }
+                return game.execProgram(program, programScope);
             }else{
                 FLog.warning("Program failed to parse.");
                 return null;
