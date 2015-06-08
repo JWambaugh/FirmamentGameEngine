@@ -18,7 +18,7 @@ class FDecrementComponent extends FEntityComponent{
     var _min:Int;
     var _decSize:Int;
 
-    var _triggered:Bool = false;
+    var _triggered:Int = -1;
     var _startValue:Int;
 
     public function new(gameInstance:firmament.core.FGame){
@@ -51,7 +51,7 @@ class FDecrementComponent extends FEntityComponent{
           _entity.registerProperty(new firmament.core.FBasicProperty<Int>(_propertyName));
       }
       _entity.setProp(_propertyName, _startValue);
-      _triggered = false;
+      _triggered = -1;
     }
 
     override public function getType(){
@@ -66,19 +66,18 @@ class FDecrementComponent extends FEntityComponent{
         }
         var h = _entity.getProp(_propertyName);
         if(h>_min) { // allows for retriggering when value is changed elsewhere
-            _triggered = false;
+            _triggered = -1;
         }
         h-= Math.floor(Math.max(0, _config.get('decrementSize', Int, 1)));
         if(h<=_min) {
             h=_min;
-            if( !_triggered && _deathEvent != null) {
-                log("Triggering " + _deathEvent);
-                _entity.trigger(new FEvent(_deathEvent));
-            }
-            _triggered = true;
+            _triggered = 0;
         }
         log("Updating value to " + h);
         _entity.setProp(_propertyName, h);
-        
+        if( _deathEvent != null && _triggered == 0 ) {
+            _entity.trigger(new FEvent(_deathEvent));
+            _triggered = 1;
+        }
     }
 }

@@ -17,7 +17,7 @@ class FIncrementComponent extends FEntityComponent{
     var _propertyName:String;
     var _max:Int;
     var _incSize:Int;
-    var _triggered:Bool = false;
+    var _triggered:Int = -1;
     var _startValue:Int;
 
     public function new(gameInstance:firmament.core.FGame){
@@ -39,7 +39,7 @@ class FIncrementComponent extends FEntityComponent{
         _startValue = config.get('startValue',Int,0);
         _propertyName = config.getNotNull('property',String);
         _max = config.get('max', Int, 1);
-        _incSize = Math.floor( Math.max(1,config.get('incrementSize', Int, 0)));
+        _incSize = Math.floor( Math.max(0,config.get('incrementSize', Int, 1)));
 
         //register the property if it doesn't exist
         if(!_entity.hasProperty(_propertyName))
@@ -51,7 +51,7 @@ class FIncrementComponent extends FEntityComponent{
         }
         log("Setting initial value - " + initialValue);
         _entity.setProp(_propertyName, initialValue);
-        _triggered = false;
+        _triggered = -1;
     }
 
     override public function onActivate(){
@@ -63,18 +63,25 @@ class FIncrementComponent extends FEntityComponent{
     }
 
     public function onIncEvent(e:FEvent) {
-        if( !_triggered ) {
-            var h = _entity.getProp(_propertyName);
-            h+= Math.floor(Math.max(1, _config.get('incrementSize', Int, 0)));
-            _entity.setProp(_propertyName, h);
-            log("Updated value - " + h);
-            if(_max>0 && h>=_max){
-                h=_max;
-                _triggered = true;
-                if( _triggervent != null ) {
-                    _entity.trigger(new FEvent(_triggervent));
-                }
-            }
+        // if paused
+        if( !_entity.isActive() ) {
+            log("Paused - waiting");
+            return;
+        }
+        var h = _entity.getProp(_propertyName);
+        if(h<_max) { // allows for retriggering when value is changed elsewhere
+            _triggered = -1;
+        }
+        h+= Math.floor(Math.max(0, _config.get('incrementSize', Int, 1)));
+        if(_max>0 && h>=_max){
+            h=_max;
+            _triggered = 0;
+        }
+        log("Updating value to " + h);
+        _entity.setProp(_propertyName, h);
+        if( _triggervent != null && _triggered == 0) {
+            _entity.trigger(new FEvent(_triggervent));
+            _triggered = 1;
         }
     }
 }
