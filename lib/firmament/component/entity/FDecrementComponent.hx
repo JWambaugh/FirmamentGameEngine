@@ -64,23 +64,21 @@ class FDecrementComponent extends FEntityComponent{
             log("Paused - waiting");
             return;
         }
-        log("got "+e.name+"!");
         var h = _entity.getProp(_propertyName);
-        h-= Math.floor(Math.max(0, _config.get('decrementSize', Int, 1)));
-        if(h<=_min){
-            if( !_triggered ) {
-                _triggered = true;
-                h=_min;
-                log("Reached min of " + h);
-                _entity.setProp(_propertyName, h);
-                if(_deathEvent != null){
-                    log("Triggering " + _deathEvent);
-                    _entity.trigger(new FEvent(_deathEvent));
-                }
-            }
-        }else {
-            _entity.setProp(_propertyName, h);
+        if(h>_min) { // allows for retriggering when value is changed elsewhere
+            _triggered = false;
         }
-        log("Value Remaining - " + _entity.getProp(_propertyName) );
+        h-= Math.floor(Math.max(0, _config.get('decrementSize', Int, 1)));
+        if(h<=_min) {
+            h=_min;
+            if( !_triggered && _deathEvent != null) {
+                log("Triggering " + _deathEvent);
+                _entity.trigger(new FEvent(_deathEvent));
+            }
+            _triggered = true;
+        }
+        log("Updating value to " + h);
+        _entity.setProp(_propertyName, h);
+        
     }
 }
