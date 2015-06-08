@@ -44,7 +44,7 @@ class FDecrementComponent extends FEntityComponent{
     override public function onActivate(){
       _startValue = _config.getNotNull('startValue',Int);
       _min = _config.get('min', Int, 0);
-      _decSize = Math.floor( Math.max(0,_config.get('decrementSize', Int, 0)));
+      _decSize = Math.floor( Math.max(0,_config.get('decrementSize', Int, 1)));
 
       _propertyName = _config.getNotNull('property',String);
       if(!_entity.hasProperty(_propertyName)) {
@@ -66,7 +66,7 @@ class FDecrementComponent extends FEntityComponent{
         }
         log("got "+e.name+"!");
         var h = _entity.getProp(_propertyName);
-        h-= Math.floor(Math.max(0, _config.get('decrementSize', Int, 0)));
+        h-= Math.floor(Math.max(0, _config.get('decrementSize', Int, 1)));
         if(h<=_min){
             if( !_triggered ) {
                 _triggered = true;
