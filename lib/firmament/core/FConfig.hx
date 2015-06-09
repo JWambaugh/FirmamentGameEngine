@@ -48,8 +48,35 @@ abstract FConfig({}) from {} to {} {
         return Reflect.fields(this);
     }
 
-    public function get(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
+    public function get(field:Dynamic,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
         var entry:Dynamic;
+
+        //allow for chaining an array of subconfig objects
+        // example: 
+        // {
+        //     "parent":{
+        //         "child":{
+        //             "myKey":"My value"
+        //         }
+        //     }
+        // }
+        // config.get([parent,child,myKey])
+        if(Std.is(field, Array)){
+            var fieldArray:Array<String> = cast field;
+            if(fieldArray.length < 1) throw "Can't use empty array as field in FConfig.get()!";
+            var key:String = fieldArray.shift();
+            if(fieldArray.length<1){
+                return get(key,type,def);
+            }else{
+                var newConfig:FConfig = get(key);
+                if(newConfig == null){
+                    throw "value for key of "+key+" is not a valid FConfig object";
+                }
+                return newConfig.get(fieldArray,type,def);
+            }
+        }
+
+        
         // Allows arrays so keys are not necessary
         //  ie. components wouldn't need names anymore
         if( Std.is(this,Array) ) {
