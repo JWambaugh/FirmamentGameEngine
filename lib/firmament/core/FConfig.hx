@@ -60,7 +60,7 @@ abstract FConfig({}) from {} to {} {
         //         }
         //     }
         // }
-        // config.get([parent,child,myKey])
+        // config.get(['parent','child','myKey'])
         if(Std.is(field, Array)){
             var fieldArray:Array<String> = cast field;
             if(fieldArray.length < 1) throw "Can't use empty array as field in FConfig.get()!";
