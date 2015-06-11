@@ -12,7 +12,11 @@ import firmament.core.FEntityCollection;
 
 abstract FConfig({}) from {} to {} {
 
-    public function new(o:Dynamic){
+    public function new(o:Dynamic/*,?pos:PosInfos*/){
+        /*trace('Called from ${pos.className}');
+        trace('Called from ${pos.methodName}');
+        trace('Called from ${pos.fileName}');
+        trace('Called from ${pos.lineNumber}');*/
         this = o;
     }
 
@@ -45,7 +49,16 @@ abstract FConfig({}) from {} to {} {
         if( Std.is(this,Array) ) {
             return cast this;
         }
-        return Reflect.fields(this);
+        // So the __SCOPE__ field appeared in the field listing
+        // which was breaking some of the looping routines, which
+        // would then act on the __SCOPE__ property ...
+        return Lambda.array(
+                    Lambda.filter(
+                        Reflect.fields(this), 
+                        function(v) {return (v != "__SCOPE__"); } 
+                    )
+                );
+
     }
 
     public function get(field:Dynamic,?type:Dynamic=null,?def:Dynamic=null):Dynamic{

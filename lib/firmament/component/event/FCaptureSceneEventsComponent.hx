@@ -17,23 +17,32 @@ import firmament.core.FGame;
 */
 class FCaptureSceneEventsComponent extends FEntityComponent{
 
+	private var _mapping:Map<String,String>;
+
 	public function new(gameInstance:firmament.core.FGame){
 		super(gameInstance);
-		
+		_mapping = new Map();
 	}
 
 	override public function init(config:FConfig){
 		var scene:FScene = FGame.getInstance().getCurrentScene();
-	    var events:Array<String> = config.getNotNull("events");
-		for(event in events) {
-			log("Adding entity listener for " + event);
-			scene.on(event,this,this.bubbleEvent);
+	    var events:FConfig = config.getNotNull("events",Dynamic);
+	    events.setScope( config.getScope() ); 
+		for(event in events.fields() ) {
+			var eventName:String = Std.string(event); 
+			var value = events.get(event,String); // this is wierd, if an [] event and value 
+			                                      // will be the same.  If and {} event will
+			                                      // be value of property
+			log("Adding entity listener for " + eventName + ( eventName != value  ? " as <"+value+">": "" ) );
+			_mapping.set(eventName,value);
+			scene.on(eventName,this,this.bubbleEvent);
 		}
 	}
 
 	public function bubbleEvent(e:FEvent) {
-	    log("Bubbling event " + e);
-		_entity.trigger(e);
+	    var value = _mapping.get(e.name);
+		log("Bubbling event <"+e.name+">" + ( e.name != value  ? " as <"+value+">": "" ) );
+		_entity.trigger( new FEvent(value) );
 	}
 
 	override public function getType(){
