@@ -5,11 +5,8 @@ package firmament.core;
  * Manages the game, including all worlds, cameras, simulation, rendering, etc.
  */
 
-
-
-
-
 import firmament.component.base.FEntityComponent;
+import firmament.component.base.FEntityComponentFactory;
 import firmament.core.FCamera;
 import firmament.core.FConfig;
 import firmament.core.FEntity;
@@ -17,8 +14,8 @@ import firmament.core.FEntityCollection;
 import firmament.core.FEntityPoolManager;
 import firmament.core.FEvent;
 import firmament.core.FInput;
-import firmament.core.FThreadPool;
 import firmament.core.FObject;
+import firmament.core.FThreadPool;
 import firmament.filter.entity.FEntityFilter;
 import firmament.filter.entity.FEntityFilterFactory;
 import firmament.process.base.FProcess;
@@ -567,22 +564,36 @@ class FGame extends FObject
 	 */
 	public function initializeInterpreter(){
 		_interpreter = new Interp();
-		_interpreter.variables.set("Bool",Bool);
-		_interpreter.variables.set("Int",Int);
-		_interpreter.variables.set("Float",Float);
 		_interpreter.variables.set("Array",Array);
+		_interpreter.variables.set("Bool",Bool);
+		_interpreter.variables.set("FCamera",FCamera);
+		_interpreter.variables.set("FGame",FGame);
+		_interpreter.variables.set("Float",Float);
+		_interpreter.variables.set("FSoundtrackManager",firmament.sound.FSoundtrackManager);
+		_interpreter.variables.set("Int",Int);
 		_interpreter.variables.set("Map",Map);
 		_interpreter.variables.set("Math",Math);
 		_interpreter.variables.set("Reflect",Reflect);
-		_interpreter.variables.set("FGame",FGame);
-		_interpreter.variables.set("FSoundtrackManager",firmament.sound.FSoundtrackManager);
-		_interpreter.variables.set("FCamera",FCamera);
-        _interpreter.variables.set("FRepository",FRepository);
         _interpreter.variables.set("FConfig",FConfig);
         _interpreter.variables.set("FDataLoader",FDataLoader);
-        _interpreter.variables.set("FLog",FLog);
+        _interpreter.variables.set("FComponent",FComponent);
+        _interpreter.variables.set("FEntityComponent",FEntityComponent);
         _interpreter.variables.set("FEntityFactory",firmament.core.FEntityFactory);
+        _interpreter.variables.set("FPropertyContainer",firmament.core.FPropertyContainer);
+        _interpreter.variables.set("FGameChildInterface",firmament.core.FGameChildInterface);
+        _interpreter.variables.set("FLog",FLog);
+        _interpreter.variables.set("FEvent",FEvent);
+        _interpreter.variables.set("FRepository",FRepository);
         _interpreter.variables.set("Std",Std);
+
+        // Shortcut for a new class everytime a
+        // new component is added
+        var entityComponents = FEntityComponentFactory.getMappingTable();
+        for( key in Reflect.fields(entityComponents) ) {
+			var classObj = Reflect.field( entityComponents, key );
+			var className:String = Std.string( classObj ).split('.').pop();
+        	_interpreter.variables.set(className,classObj);
+        }
 	}
 	/**
 	 * returns the interpreter for this fgame instance.

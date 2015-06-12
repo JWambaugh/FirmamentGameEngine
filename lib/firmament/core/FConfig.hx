@@ -45,20 +45,26 @@ abstract FConfig({}) from {} to {} {
         return Reflect.field(this, '__SCOPE__');
     }
 
-    public function fields():Array<Dynamic> {
-        if( Std.is(this,Array) ) {
-            return cast this;
-        }
-        // So the __SCOPE__ field appeared in the field listing
+    public static function filterFields(object):Array<Dynamic> {
+        // So the __SCOPE__/__PROGRAM__ field appeared in the field listing
         // which was breaking some of the looping routines, which
-        // would then act on the __SCOPE__ property ...
+        // would then act on the __SCOPE__/__PROGRAM__ property ...
         return Lambda.array(
                     Lambda.filter(
-                        Reflect.fields(this), 
-                        function(v) {return (v != "__SCOPE__"); } 
+                        object, 
+                        function(v) {return StringTools.startsWith(v,"__") == false; } 
                     )
                 );
+    }
 
+    public function fields():Array<Dynamic> {
+        var tmp:Array<Dynamic>;
+        if( Std.is(this,Array) ) {
+            tmp = cast this;
+        } else {
+            tmp = Reflect.fields(this);
+        }
+        return FConfig.filterFields(tmp);
     }
 
     public function get(field:Dynamic,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
@@ -85,6 +91,8 @@ abstract FConfig({}) from {} to {} {
                 if(newConfig == null){
                     throw "value for key of "+key+" is not a valid FConfig object";
                 }
+                // returning a new config??
+                newConfig.setScope( getScope() );
                 return newConfig.get(fieldArray,type,def);
             }
         }
@@ -442,11 +450,11 @@ abstract FConfig({}) from {} to {} {
         var script = Reflect.field(v,'*script*');
         if(Reflect.isObject(v) ){
             //if we have a compiled program already, use it
-            program = Reflect.field(v,'program');
+            program = Reflect.field(v,'__PROGRAM__');
             if(program == null && Std.is(script, String)){
                 var parser = new hscript.Parser();
                 program = parser.parseString(script);
-                Reflect.setField(this,'program',program);
+                Reflect.setField(this,'__PROGRAM__',program);
             }else{
                 FLog.error('program is null and script is not string');
             }
@@ -454,6 +462,7 @@ abstract FConfig({}) from {} to {} {
                 var game:FGame;
                 var programScope = Reflect.field(this,'__SCOPE__');
                 if(programScope == null)  {
+                    FLog.error('-- No scope set --');
                     game = FGame.getInstance();
                 }
                 else {
@@ -468,7 +477,7 @@ abstract FConfig({}) from {} to {} {
         return null;
     }
 
-    public function getNotNull(field:String,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
+    public function getNotNull(field:Dynamic,?type:Dynamic=null,?def:Dynamic=null):Dynamic{
         var ret = get(field,type,def);
         if(ret == null){
             throw "Field "+field+" does not exist or is not a valid type";

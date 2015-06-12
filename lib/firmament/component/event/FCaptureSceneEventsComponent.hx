@@ -51,10 +51,14 @@ class FCaptureSceneEventsComponent extends FEntityComponent{
 
 	override public function destruct(){
 		var scene:FScene = FGame.getInstance().getCurrentScene();
-		var events:Array<String> = _config.getNotNull("events");
-		for(event in events) {
-			log("Cleaning up listening scene event - " + event);
-			scene.removeEventListener(event,this,this.bubbleEvent);
+		try {
+			var events:Array<String> = _config.getNotNull("events");
+			for(event in events) {
+				log("Cleaning up listening scene event - " + event);
+				scene.removeEventListener(event,this,this.bubbleEvent);
+			}
+		} catch(e:Dynamic) {
+			FLog.error( e );
 		}
 		super.destruct();
 	}

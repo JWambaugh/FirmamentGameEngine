@@ -14,6 +14,7 @@ import firmament.core.FEvent;
 
 class FDecrementComponent extends FEntityComponent{
     var _deathEvent:String;
+    var _updateEvent:String;
     var _propertyName:String;
     var _min:Int;
     var _decSize:Int;
@@ -24,12 +25,23 @@ class FDecrementComponent extends FEntityComponent{
     public function new(gameInstance:firmament.core.FGame){
         super(gameInstance);
         _deathEvent =null;
+        _updateEvent=null;
     }
 
     override public function init(config:firmament.core.FConfig){
         _deathEvent = config.get('deathEvent',String,
                         config.get('trigger',String)
                     );  // compatibility changes
+
+        var events = config.get('triggers');
+        for( event in Reflect.fields(events) ) {
+            switch( event.toLowerCase() ){
+                case 'update':
+                    _updateEvent = Reflect.field(events,event);
+                case 'done':
+                    _deathEvent = Reflect.field(events,event);
+            }
+        }
 
         //register the property if it doesn't exist
         var dEvent:String = config.getNotNull('decrementEvent',String,
@@ -64,17 +76,25 @@ class FDecrementComponent extends FEntityComponent{
             log("Paused - waiting");
             return;
         }
-        var h = _entity.getProp(_propertyName);
+        var prev = _entity.getProp(_propertyName);
+        var h = prev;
         if(h>_min) { // allows for retriggering when value is changed elsewhere
             _triggered = -1;
         }
         h-= Math.floor(Math.max(0, _config.get('decrementSize', Int, 1)));
         if(h<=_min) {
             h=_min;
-            _triggered = 0;
+            if(_triggered == -1) {
+                _triggered = 0;
+            }
         }
-        log("Updating value to " + h);
-        _entity.setProp(_propertyName, h);
+        if( h != prev ) {
+            log("Updating value from "+prev+" to "+h);
+            _entity.setProp(_propertyName, h);
+            if( _updateEvent != null ) {
+                _entity.trigger(new FEvent(_updateEvent));    
+            }
+        }
         if( _deathEvent != null && _triggered == 0 ) {
             _entity.trigger(new FEvent(_deathEvent));
             _triggered = 1;

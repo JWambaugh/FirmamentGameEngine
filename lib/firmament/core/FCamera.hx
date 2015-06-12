@@ -15,6 +15,7 @@ import firmament.core.FGame;
 import firmament.core.FConfig;
 import firmament.event.FMouseEvent;
 import firmament.tilesheet.FTilesheetRenderHelper;
+import firmament.util.FLog;
 /**
  * Class: FCamera
  *
@@ -344,7 +345,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 			flash.events.MouseEvent.RIGHT_CLICK
 		];
 		for( event in mouseEvents ) {
-			trace("Adding event - " + event);
+			FLog.debug("Adding event - " + event);
 			this.addEventListener(event,onMouseButton);	
 		}
 	}

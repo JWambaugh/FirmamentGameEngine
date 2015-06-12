@@ -13,7 +13,8 @@ import firmament.process.timer.FTimerManager;
 import firmament.core.FEvent;
 
 class FIncrementComponent extends FEntityComponent{
-    var _triggervent:String;
+    var _triggerEvent:String;
+    var _updateEvent:String;
     var _propertyName:String;
     var _max:Int;
     var _incSize:Int;
@@ -31,8 +32,18 @@ class FIncrementComponent extends FEntityComponent{
 
         setupComponent(config);
         
-        _triggervent = config.get('trigger',String);
+        _triggerEvent = config.get('trigger',String);
         _entity.on( cast(_config.getNotNull('listen',String),String) ,onIncEvent );
+
+        var events = config.get('triggers');
+        for( event in Reflect.fields(events) ) {
+            switch( event.toLowerCase() ){
+                case 'update':
+                    _updateEvent = Reflect.field(events,event);
+                case 'done':
+                    _triggerEvent = Reflect.field(events,event);
+            }
+        }
     }
 
     private function setupComponent(config:firmament.core.FConfig) {
@@ -68,19 +79,27 @@ class FIncrementComponent extends FEntityComponent{
             log("Paused - waiting");
             return;
         }
-        var h = _entity.getProp(_propertyName);
+        var prev = _entity.getProp(_propertyName);
+        var h = prev;
         if(h<_max) { // allows for retriggering when value is changed elsewhere
             _triggered = -1;
         }
         h+= Math.floor(Math.max(0, _config.get('incrementSize', Int, 1)));
         if(_max>0 && h>=_max){
             h=_max;
-            _triggered = 0;
+            if(_triggered == -1) {
+                _triggered = 0;
+            }
         }
-        log("Updating value to " + h);
-        _entity.setProp(_propertyName, h);
-        if( _triggervent != null && _triggered == 0) {
-            _entity.trigger(new FEvent(_triggervent));
+        if( h != prev ) {
+            log("Updating value from "+prev+" to "+h);
+            _entity.setProp(_propertyName, h);
+            if(_updateEvent != null) {
+                _entity.trigger(new FEvent(_updateEvent));
+            }
+        }
+        if( _triggerEvent != null && _triggered == 0) {
+            _entity.trigger(new FEvent(_triggerEvent));
             _triggered = 1;
         }
     }

@@ -28,7 +28,7 @@ class FIncrementModComponent extends FIncrementComponent{
         h+=_incSize;
         if(h>=_max) {
             log("Triggered - resetting value");
-            _entity.trigger(new FEvent(_triggervent));
+            _entity.trigger(new FEvent(_triggerEvent));
         }
         var inc:Int = _max - _startValue;
         while(h>=_max) {

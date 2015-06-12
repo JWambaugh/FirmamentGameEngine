@@ -46,7 +46,7 @@ class FEntityComponent extends firmament.core.FComponent
 	}
 
 	override public function _init(config:FConfig) {
-			// loop through FConfig looking for properties, convert to property objects!
+		// loop through FConfig looking for properties, convert to property objects!
 	    for( key in config.fields() ) {
 	    	var entry;
 	    	try {
@@ -62,7 +62,7 @@ class FEntityComponent extends firmament.core.FComponent
 	        }
 	    }
 	    super._init(config);
-			onActivate();
+	    onActivate();
 	}
 
 

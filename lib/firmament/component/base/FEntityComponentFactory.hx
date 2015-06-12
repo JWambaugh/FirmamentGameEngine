@@ -46,21 +46,7 @@ import firmament.component.ui.FEntityContainerComponent;
 
 
 class FEntityComponentFactory{
-	public static function createComponent(type:String, gameInstance:firmament.core.FGame):FEntityComponent {
-		var className = getClassFromType(type);
-		var c =Type.resolveClass(className);
-		if(c==null){
-			throw "class "+className+" could not be found.";
-		}
-		var component:FEntityComponent = Type.createInstance(c,[gameInstance]);
-		if(component == null){
-			throw "Component of type "+type+" with class "+className+" could not be instantiated!";
-		}
-		return component;
-	}
-
-	public static function getClassFromType(type:String){
-            var map = {
+      private static var _map = {
             "animation":"firmament.component.animation.FAnimationComponent"
             ,"areaTweener":"firmament.component.entity.FMovementComponent"
             ,"box2d":"firmament.component.physics.FBox2DComponent"
@@ -103,12 +89,30 @@ class FEntityComponentFactory{
             ,"wireframe":"firmament.component.render.FWireframeRenderComponent"
             ,"pointat":"firmament.component.entity.FPointAtEntityComponent"
             ,"textBox":"firmament.component.entity.FTextComponent"
-		};
+            };
 
-		var cls = Reflect.field(map,type);
+	public static function createComponent(type:String, gameInstance:firmament.core.FGame):FEntityComponent {
+		var className = getClassFromType(type);
+		var c =Type.resolveClass(className);
+		if(c==null){
+			throw "class "+className+" could not be found.";
+		}
+		var component:FEntityComponent = Type.createInstance(c,[gameInstance]);
+		if(component == null){
+			throw "Component of type "+type+" with class "+className+" could not be instantiated!";
+		}
+		return component;
+	}
+
+	public static function getClassFromType(type:String){
+		var cls = Reflect.field(_map,type);
 		if(cls == null) return type;
 		return cls;
 	}
+
+      public static function getMappingTable(){
+            return _map;
+      }
 
 }
 

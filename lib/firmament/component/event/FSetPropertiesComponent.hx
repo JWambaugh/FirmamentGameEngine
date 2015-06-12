@@ -13,7 +13,6 @@ import firmament.util.FLog;
 */
 class FSetPropertiesComponent extends FEntityComponent{
     
-    var properties:FConfig;
     var eventTrigger:String;
 
     public function new(gameInstance:firmament.core.FGame){
@@ -21,14 +20,17 @@ class FSetPropertiesComponent extends FEntityComponent{
     }
 
     private function listenEventFunc(E:FEvent=null){
-    
         // walk through the properties
-        var fields:Array<String> = Reflect.fields(properties);
+        var fields:Array<Dynamic> = FConfig.filterFields(
+                                            Reflect.fields(
+                                                _config.get('properties')
+                                            )
+                                    );
         for( key in fields ) {
             try {
                 var eprop = _entity.getProperty(key);
                 _entity.setPropertyValue( 
-                        key, properties.getNotNull(key, eprop.type ) );
+                        key, _config.getNotNull(['properties',key], eprop.type) );
                 log( "Set property <"+key+"> " + _entity.getPropertyValue(key) );
             } catch (e : Dynamic) {
                 FLog.error( e );
@@ -44,12 +46,10 @@ class FSetPropertiesComponent extends FEntityComponent{
     }
 
     override public function init(config:FConfig){
-        properties = config.getNotNull('properties');
+        config.getNotNull('properties'); // evaluation for error purposes
 
         var eventListen:String = config.getNotNull('listen',String);
-        if( eventListen != null ) { // not optional
-            _entity.on(eventListen,this,listenEventFunc);
-        }
+        _entity.on(eventListen,this,listenEventFunc);
     }
 
     override public function getType(){
