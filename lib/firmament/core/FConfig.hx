@@ -92,12 +92,11 @@ abstract FConfig({}) from {} to {} {
                     throw "value for key of "+key+" is not a valid FConfig object";
                 }
                 // returning a new config??
-                newConfig.setScope( getScope() );
+                try { newConfig.setScope( getScope() ); } catch(e:Dynamic) {}
                 return newConfig.get(fieldArray,type,def);
             }
         }
 
-        
         // Allows arrays so keys are not necessary
         //  ie. components wouldn't need names anymore
         if( Std.is(this,Array) ) {

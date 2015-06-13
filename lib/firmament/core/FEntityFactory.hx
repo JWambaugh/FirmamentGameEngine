@@ -1,6 +1,7 @@
 package firmament.core;
 
 import firmament.core.FEntity;
+import firmament.core.FProperty;
 import firmament.component.base.FEntityComponent;
 import firmament.component.base.FEntityComponentFactory;
 import firmament.util.loader.FDataLoader;
@@ -79,9 +80,22 @@ class FEntityFactory{
         
 		if(config.hasField('properties')){
             var props:FConfig = config.get('properties');
-			for (key in props.fields()){
-                var property = entity.getProperty(key);
-                firmament.util.FLog.debug(props.get(key,property.type));
+			for (key in props.fields()) {
+                var property:FProperty;
+                var type:Dynamic;
+                var value:Dynamic;
+                try {
+                	property = entity.getProperty(key);	
+                	type = property.type;
+                } catch (e:Dynamic) {
+					type = Type.resolveClass( props.get([key,"type"],String,"Float") );
+					property = FProperty.createBasic(key,type);
+					entity.registerProperty(property);
+                }
+                value = props.get([key,"value"], type, 
+                				props.getNotNull(key, type) 
+                			);
+                trace( 'Property ' + key + ' -> ' + value );
 				entity.setProp(key,props.get(key,property.type));
 			}
 		}
