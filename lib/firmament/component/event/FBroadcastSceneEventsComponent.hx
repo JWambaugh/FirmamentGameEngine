@@ -24,14 +24,20 @@ class FBroadcastSceneEventsComponent extends FEntityComponent{
 	override public function init(config:FConfig){
 		var scene:FScene = FGame.getInstance().getCurrentScene();
 		var listeners:FConfig = _config.get("listen");
+		var isMap:Bool = false;
 		if(listeners == null) {
 			listeners = _config.getNotNull("listeners");
+			isMap = !Std.is( _config.get("listeners",Dynamic),Array);
 		}
 
 		for(evt in listeners.fields() ){
+			log("Adding scene broadcaster for " + evt + ( isMap  ? " as <"+listeners.get(evt,String)+">": "" ) );
  			_entity.on(cast(evt,String),this,function(e:FEvent){
-				log("Sending <"+e.name+"> to scene");
-				scene.trigger(new FEvent(e.name));
+				var value:String;
+				if( ! isMap ) {value = e.name; } 
+				else {value = listeners.get(e.name,String); }
+			    log("Triggering scene event for " + e.name + ( e.name != value  ? " as <"+value+">": "" ) );
+				scene.trigger(new FEvent(value));
 			});
 		}
 	}

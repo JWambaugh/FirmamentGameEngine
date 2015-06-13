@@ -27,13 +27,14 @@ class FCaptureSceneEventsComponent extends FEntityComponent{
 	override public function init(config:FConfig){
 		var scene:FScene = FGame.getInstance().getCurrentScene();
 	    var events:FConfig = config.getNotNull("events",Dynamic);
+	    var isMap:Bool = !Std.is( config.getNotNull("events",Dynamic), Array );
 	    events.setScope( config.getScope() ); 
 		for(event in events.fields() ) {
-			var eventName:String = Std.string(event); 
-			var value = events.get(event,String); // this is wierd, if an [] event and value 
-			                                      // will be the same.  If and {} event will
-			                                      // be value of property
-			log("Adding entity listener for " + eventName + ( eventName != value  ? " as <"+value+">": "" ) );
+			var eventName:String = Std.string(event);
+			var value;
+			if( ! isMap) {value = eventName; }
+			else { value = events.get(event,String); }
+			log("Adding listener for scene event " + eventName + ( eventName != value  ? " as <"+value+">": "" ) );
 			_mapping.set(eventName,value);
 			scene.on(eventName,this,this.bubbleEvent);
 		}
@@ -41,7 +42,7 @@ class FCaptureSceneEventsComponent extends FEntityComponent{
 
 	public function bubbleEvent(e:FEvent) {
 	    var value = _mapping.get(e.name);
-		log("Bubbling event <"+e.name+">" + ( e.name != value  ? " as <"+value+">": "" ) );
+		log("Bubbling scene event <"+e.name+">" + ( e.name != value  ? " as <"+value+">": "" ) );
 		_entity.trigger( new FEvent(value) );
 	}
 
