@@ -1,12 +1,14 @@
 package firmament.core;
 
-import firmament.core.FEntity;
-import firmament.core.FProperty;
 import firmament.component.base.FEntityComponent;
 import firmament.component.base.FEntityComponentFactory;
-import firmament.util.loader.FDataLoader;
-import firmament.core.FObject;
 import firmament.core.FConfig;
+import firmament.core.FEntity;
+import firmament.core.FObject;
+import firmament.core.FProperty;
+import firmament.util.FLog;
+import firmament.util.loader.FDataLoader;
+
 class FEntityFactory{
 
 	public static function createEntity(config:Dynamic,?gameInstanceName:String='main'):FEntity{
@@ -95,7 +97,7 @@ class FEntityFactory{
                 value = props.get([key,"value"], type, 
                 				props.getNotNull(key, type) 
                 			);
-                trace( 'Property ' + key + ' -> ' + value );
+                FLog.debug( 'Property ' + key + ' -> ' + value );
 				entity.setProp(key,props.get(key,property.type));
 			}
 		}
