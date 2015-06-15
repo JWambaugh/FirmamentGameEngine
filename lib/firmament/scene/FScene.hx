@@ -1,23 +1,25 @@
 package firmament.scene;
 
+import flash.events.Event;
+import flash.Lib;
+
 import firmament.core.FCamera;
 import firmament.core.FConfig;
 import firmament.core.FEvent;
 import firmament.core.FGame;
 import firmament.core.FGameChildInterface;
 import firmament.core.FObject;
-import firmament.core.FPropertyContainer;
 import firmament.core.FProperty;
+import firmament.core.FPropertyContainer;
 import firmament.core.FVector;
 import firmament.scene.FSceneComponent;
 import firmament.scene.FSceneComponentFactory;
 import firmament.sound.FSoundManager;
 import firmament.util.FLog;
 import firmament.util.FRepository;
+import firmament.util.FStatistics;
 import firmament.util.loader.FDataLoader;
 import firmament.util.loader.FEntityLoader;
-import flash.events.Event;
-import flash.Lib;
 
 class FScene extends FPropertyContainer implements FGameChildInterface{
 
@@ -45,6 +47,10 @@ class FScene extends FPropertyContainer implements FGameChildInterface{
 		if(Std.is(config.properties,Dynamic)) {
 			// keeps the function clean by calling a method
 			createProperties(config.properties);
+		}
+		if(Std.is(config.statistics,Dynamic)) {
+			// keeps the function clean by calling a method
+			createProperties(config.statistics,FStatistics.getInstance() );
 		}
 		//initialize repository
 		FLog.debug( "Processing " + config.repository );
@@ -108,7 +114,9 @@ class FScene extends FPropertyContainer implements FGameChildInterface{
 			for(component in cast(config.components,Array<Dynamic>)){
 				if(Reflect.isObject(component)){
 					var c:FConfig = component;
-					var componentInstance = FSceneComponentFactory.createComponent(c.getNotNull("type"),_game);
+					var componentInstance = FSceneComponentFactory.createComponent(
+						c.get("componentName",Dynamic,c.getNotNull("type") )
+						,_game);
 					componentInstance.setConfig(c);
 					componentInstance.setScene(this);
                     componentInstance.setParent(this);
@@ -153,7 +161,10 @@ class FScene extends FPropertyContainer implements FGameChildInterface{
 		}
 	}
 
-	private function createProperties(propertyDefinitions:FConfig) {
+	private function createProperties(propertyDefinitions:FConfig,?propertyStore:FPropertyContainer=null) {
+		if( propertyStore == null ) {
+			propertyStore = this;
+		}
 		for( key in propertyDefinitions.fields() ) {
 			try {
 				var propDef:FConfig = propertyDefinitions.getNotNull(key);
@@ -161,7 +172,7 @@ class FScene extends FPropertyContainer implements FGameChildInterface{
 				var value:Dynamic = propDef.getNotNull("value", type );
 				var prop:FProperty = FProperty.createBasic(key,type);
 				prop.set( value );
-				this.registerProperty(prop);
+				propertyStore.registerProperty(prop);
 			} catch (e:Dynamic) {
 				FLog.error( e );
 			}

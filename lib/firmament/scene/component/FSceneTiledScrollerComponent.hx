@@ -12,7 +12,7 @@ import firmament.scene.FSceneComponent;
 import firmament.util.loader.FDataLoader;
 import firmament.component.physics.FNoPhysicsComponent;
 
-class FTiledScroller extends FSceneComponent {
+class FSceneTiledScrollerComponent extends FSceneComponent {
 
   var _entities:Array<FEntity>;
   var _widthHeight:FVector;

@@ -12,6 +12,10 @@ class FLog {
 
     public static var loggers:Array<FLogger> = [/*new FTraceLogger(),*/ new FStdoutLogger() ];
 
+    public static function is(level:Int) {
+        return ( level&logLevel != 0 );
+    }
+
     public static function error(message:Dynamic,?pos : haxe.PosInfos):Void{
         if(logLevel&ERROR > 0){
             msg("ERROR: "+Std.string(message) + "\n  " 

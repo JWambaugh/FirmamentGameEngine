@@ -57,12 +57,19 @@ abstract FConfig({}) from {} to {} {
                 );
     }
 
-    public function fields():Array<Dynamic> {
+    public function fields(?field:Dynamic=null):Array<Dynamic> {
         var tmp:Array<Dynamic>;
+        var mythis = this;
+        // if fields is !null attempt to look it up and then 
+        // return the fields for the subobject
+        if( field != null ) {
+            mythis = get(field,Dynamic);
+        }
+
         if( Std.is(this,Array) ) {
-            tmp = cast this;
+            tmp = cast mythis;
         } else {
-            tmp = Reflect.fields(this);
+            tmp = Reflect.fields(mythis);
         }
         return FConfig.filterFields(tmp);
     }
@@ -88,8 +95,8 @@ abstract FConfig({}) from {} to {} {
                 return get(key,type,def);
             }else{
                 var newConfig:FConfig = get(key);
-                if(newConfig == null){
-                    throw "value for key of "+key+" is not a valid FConfig object";
+                if(newConfig == null) {
+                    return def;
                 }
                 // returning a new config??
                 try { newConfig.setScope( getScope() ); } catch(e:Dynamic) {}
