@@ -4,6 +4,7 @@ import firmament.core.FConfig;
 import firmament.core.FGameChildInterface;
 import firmament.core.FPropertyContainer;
 import firmament.core.FPropertyDefinition;
+import firmament.util.FConditional;
 import firmament.util.FLog;
 
 
@@ -15,6 +16,7 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber imple
 
     private var _config:FConfig;
     private var _enableDebug:Bool;
+    private var _conditional:FConditional;
 
     var _gameInstance:FGame;
 
@@ -26,8 +28,11 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber imple
 
     //called by factory
     public function _init(config:FConfig){
+        
         _enableDebug = _config.get( 'debug', Bool, false );
+        _conditional = new FConditional(_config.get("conditional",Dynamic,null),this);
         _config.setScope(this);
+
         this.init(config);
     }
 
@@ -43,7 +48,6 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber imple
             FLog.debug(msg);
         }
     }
-
 
     public function useStep(u:Bool = true){
         if(_usesStep && !u){
@@ -110,5 +114,23 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber imple
         _config = null;
         _parent = null;
         _gameInstance = null;*/
+    }
+
+    // assist with conditional implementation
+    override public function trigger( event:FEvent ) {
+        var conditionalEvaluate = _conditional.evaluate( event.name );
+        if ( conditionalEvaluate == true ) {
+            super.trigger(event);       
+        }
+    }
+
+    override public function on(target:FObject=null,eventName:String, listeningObject:FObject=null, callback:Dynamic->Void){
+        super.on(target,eventName, listeningObject, function( e:FEvent) {
+                var conditionalEvaluate = _conditional.evaluate( e.name );
+                if ( conditionalEvaluate == true ) {
+                    callback(e);
+                }
+            } 
+        );
     }
 }

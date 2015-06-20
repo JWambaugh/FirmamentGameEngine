@@ -30,7 +30,6 @@ class FStatistics extends FPropertyContainer {
     }
 
 	override public function registerProperty(property:FProperty){
-		trace("Registering - " + property.getKey() + " -> " + property.getDynamic() );
 		super.registerProperty(property);
 	}
 
@@ -56,7 +55,6 @@ class FStatistics extends FPropertyContainer {
 	 * Registers a property in the entity. This must be done before the property can be read or written.
 	 */
 	override public function registerProp(key:String, type:Dynamic, getter:Dynamic->Dynamic=null, setter:Dynamic->Void=null){
-		trace("Register Property - " + key + " -> " + Std.string(type) );
         super.registerProp(key,type,getter,setter);
 	}
 
@@ -71,7 +69,6 @@ class FStatistics extends FPropertyContainer {
 	 * sets the value of the property
 	 */
 	override public function setProp(key:String,value:Dynamic){
-		trace("Set property - " + key + " -> " + value);
 		super.setProp(key,value);
 	}
 }

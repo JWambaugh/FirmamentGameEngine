@@ -26,6 +26,12 @@ class FObject{
 			if(__listeners.get(eventName) == null){
 				__listeners.set(eventName,new List<FObjectConnection>());
 			}
+			var stats = firmament.util.FStatistics.getInstance();
+			if( !stats.hasProperty('ActiveListeners') ) {
+				stats.registerProp('ActiveListeners','Int' );
+				stats.setProp('ActiveListeners',0);
+			}
+			stats.setProp('ActiveListeners', stats.getProp('ActiveListeners') + 1);
 			__listeners.get(eventName).push({listeningObject:listeningObject,callback:cast(callback)});
 		}
 	}
@@ -69,17 +75,24 @@ class FObject{
 
 	private function _removeEventListenerFromList(l:List<FObjectConnection>,listeningObject:FObject=null,callback:Dynamic->Void=null){
 		if(l != null){
+			var count=0;
 			var itemsToRemove:List<FObjectConnection> = new List();
 			for(c in l){
 				if(
 					(callback==null || (callback!=null && c.callback == callback) ) 
 				&& (listeningObject==null || (listeningObject!=null && c.listeningObject == listeningObject) )){
 					itemsToRemove.push(c);
+					count++;
 				}
 			}
+			var stats = firmament.util.FStatistics.getInstance();
+			if( stats.hasProperty('ActiveListeners') ) {
+				stats.setProp('ActiveListeners', stats.getProp('ActiveListeners') - count);
+			}			
 			while(itemsToRemove.length>0){
 				var item = itemsToRemove.pop();
 				//firmament.util.FLog.debug("Removing listener with target of "+Type.getClassName(Type.getClass(item.listeningObject))+" From "+Type.getClassName(Type.getClass(this)));
+				count++;
 				while(l.remove(item)){}
 			}
 			

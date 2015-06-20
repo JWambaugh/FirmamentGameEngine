@@ -16,6 +16,8 @@ import firmament.core.FConfig;
 import firmament.event.FMouseEvent;
 import firmament.tilesheet.FTilesheetRenderHelper;
 import firmament.util.FLog;
+import openfl.system.System;
+
 /**
  * Class: FCamera
  *
@@ -47,6 +49,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	var _fillColor:Int;
 	var _fillAlpha:Float;
 	var _clickEventsEnabled:Bool = false;
+	var _seconds:Int;
 
 	/**
 	 * Constructor: new
@@ -58,6 +61,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	public function new(?width:Int=100,?height:Int=100,?gameInstanceName='main')
 	{
 		super();
+		this._seconds = flash.Lib.getTimer();
 		this._zoom = 100;
 		this._position = new FVector(0, 0);
 		this._calculatedTopLeft = false;
@@ -163,6 +167,43 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 			}
 		}
 
+		var stats = firmament.util.FStatistics.getInstance();
+		recordFramesPerSecond(stats);
+		recordMemoryUsage(stats);
+
+	}
+
+	static var _aveFPS = 0;
+	static var _count = 0;
+	private function recordFramesPerSecond(stats:firmament.util.FStatistics) {
+		var ctime = flash.Lib.getTimer();
+		if( !stats.hasProperty('FPS') ) {
+			stats.registerProp('FPS',Float);
+		}
+		_aveFPS += ctime - _seconds;
+		if( _count == 0 ) {
+			stats.setProp('FPS', _aveFPS / 10.0);
+			_aveFPS = 0;
+		}
+		_count = (++_count % 10);
+		_seconds = ctime;
+	}
+
+	private function recordMemoryUsage(stats:firmament.util.FStatistics) {
+
+		var mem:Float = Math.round(System.totalMemory / 1024 / 1024 * 100) / 100;
+		
+		if( !stats.hasProperty('PeakMem') ) {
+			stats.registerProp('PeakMem',Int);
+		}
+		if( !stats.hasProperty('CurrentMem') ) {
+			stats.registerProp('CurrentMem',Int);
+		}
+		stats.setProp('CurrentMem', mem );
+		
+		if( stats.getProp('CurrentMem') <= mem ) {
+			stats.setProp('PeakMem', mem );
+		}		
 	}
 
 	private function calculateTopLeftPosition(?parallax:Float=1) {

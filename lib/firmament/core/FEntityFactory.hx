@@ -97,8 +97,8 @@ class FEntityFactory{
                 value = props.get([key,"value"], type, 
                 				props.getNotNull(key, type) 
                 			);
-                FLog.debug( 'Property ' + key + ' -> ' + value );
-				entity.setProp(key,props.get(key,property.type));
+                // trace( 'Property ' + key + ' -> ' + value );
+				entity.setProp(key,value);
 			}
 		}
 	}
