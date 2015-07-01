@@ -110,7 +110,7 @@ class FTweenerComponent extends FEntityComponent {
                     }
                     if( value != null ) {
                         _listeners.set(value,name);
-                        _entity.on(_entity, value, this, this.onEvent );
+                        on(_entity, value, this, this.onEvent );
                     }
             }
         }
@@ -149,7 +149,7 @@ class FTweenerComponent extends FEntityComponent {
             pause();
         }
         _initialized = true;
-        _entity.on(FEntity.ACTIVE_STATE_CHANGE,this,onToggleActive);
+        on(_entity,FEntity.ACTIVE_STATE_CHANGE,this,onToggleActive);
     }
 
     public function onToggleActive(e:FEvent) {

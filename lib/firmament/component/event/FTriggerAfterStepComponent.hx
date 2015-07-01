@@ -22,7 +22,7 @@ class FTriggerAfterStepComponent extends FEntityComponent{
         var scene:FScene = FGame.getInstance().getCurrentScene();
         var listeners:FConfig = _config.getNotNull("listen");
         for(evt in listeners.fields() ){
-            _entity.on(cast(evt,String),this,function(e:FEvent){
+            on(_entity,cast(evt,String),this,function(e:FEvent){
                 scene.trigger(new FEvent(e.name));
                 getGameInstance().doAfterStep(function(){
                     scene.trigger(new FEvent(listeners.get(evt,String)));

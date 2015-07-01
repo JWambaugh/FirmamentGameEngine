@@ -200,20 +200,18 @@ class FBox2DWorld extends FWorld
 		var p = new B2Vec2(fvec.x,fvec.y);
 		var ents:Array<FEntity> = this.getEntitiesInBox(p.x, p.y, p.x, p.y);
 		var filtered:Array<FEntity> = new Array<FEntity>();
+		var seen:Map<String,Int> = new Map();
 
 		//loop through each fixture in each entity, and see if its an actual match.
 		for (ent in ents) {
 			var component = cast(ent.getPhysicsComponent(), FBox2DComponent);
 			var fixture = component.body.getFixtureList();
 			while (fixture!=null) {
-				if (fixture.testPoint(p)) {
-					//match!
+				if ( fixture.testPoint(p) ) {
 					//check if its already in the array
-					var contains = false;
-					for (fItem in filtered) {
-						contains = true;
-					}
-					if (!contains) {
+					var id = ent.getInstanceId();
+					if( ! seen.exists( id ) ) {
+						seen.set( id, 1 );
 						filtered.push(ent);
 					}
 				}

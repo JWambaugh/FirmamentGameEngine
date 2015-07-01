@@ -48,7 +48,7 @@ class FSetScenePropertiesComponent extends FEntityComponent{
 
         var eventListen:String = config.getNotNull('listen',String);
         if( eventListen != null ) { // not optional
-            _entity.on(eventListen,this,listenEventFunc);
+            on(_entity,eventListen,this,listenEventFunc);
         }
     }
 

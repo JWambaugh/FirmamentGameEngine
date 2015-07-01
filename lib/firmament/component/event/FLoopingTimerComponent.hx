@@ -28,7 +28,7 @@ class FLoopingTimerComponent extends FTimerComponent{
         for( listener in listeners.fields() ) {
             switch(listener) {
                 case 'unpause':
-                    _entity.on( cast(listener,String) ,this,unpauseHandler);
+                    on( _entity,cast(listener,String),this,unpauseHandler);
                     break;
             }
         }

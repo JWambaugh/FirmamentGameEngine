@@ -75,7 +75,7 @@ class FMovementComponent extends FLinearTweenComponent {
                     case "limit" : break; // trigger only
                 }
                 if( callback != null ) {
-                   _entity.on(_entity, listeners.get(type), this, callback);
+                   on(_entity, listeners.get(type), this, callback);
                 }
             }
         }

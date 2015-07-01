@@ -44,6 +44,10 @@ class FSceneComponent extends firmament.core.FComponent{
 		return _scene;
 	}
 
+	override public function getObject():FScene {
+		return getScene();
+	}
+
 
 
 }

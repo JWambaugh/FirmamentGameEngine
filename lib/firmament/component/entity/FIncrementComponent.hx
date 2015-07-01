@@ -33,7 +33,7 @@ class FIncrementComponent extends FEntityComponent{
         setupComponent(config);
         
         _triggerEvent = config.get('trigger',String);
-        _entity.on( cast(_config.getNotNull('listen',String),String) ,onIncEvent );
+        on( _entity,_config.getNotNull('listen',String),this,onIncEvent );
 
         var events = config.get('triggers');
         for( event in Reflect.fields(events) ) {
@@ -92,7 +92,7 @@ class FIncrementComponent extends FEntityComponent{
             }
         }
         if( h != prev ) {
-            log("Updating value from "+prev+" to "+h);
+            log("Updating value "+ _propertyName +" from "+prev+" to "+h);
             _entity.setProp(_propertyName, h);
             if(_updateEvent != null) {
                 _entity.trigger(new FEvent(_updateEvent));

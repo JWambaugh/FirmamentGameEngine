@@ -30,7 +30,7 @@ class FPointAtEntityComponent extends FEntityComponent {
         _translationSpeed = _config.get('speed',Float,1);
 
         var listener:String = _config.getNotNull("listener",String);
-        _entity.on(listener,onEvent);
+        on(_entity,listener,this,onEvent);
 
         _targetAngle = _entity.getProp('angle');
     }

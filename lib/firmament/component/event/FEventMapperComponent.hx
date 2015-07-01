@@ -26,10 +26,10 @@ class FEventMapperComponent extends FEntityComponent{
 		}
 		
 		for( item in _map.fields() ) {
-			log( _entity.getTypeId() + ":"+ _entity.getInstanceId() + ") Adding event " + item );
+			log( "Adding event " + item, false );
 			on(_entity,item,function(e:FEvent){
 				var eventName = _map.getNotNull(e.name,String);
-				log( _entity.getTypeId() + ":"+ _entity.getInstanceId() + ") Sending event " + e.name + " as " + eventName );
+				log( "Sending event " + e.name + " as " + eventName );
 				_entity.trigger(new FEvent( eventName ));
 			});
 		}
@@ -37,11 +37,6 @@ class FEventMapperComponent extends FEntityComponent{
 
 	override public function getType(){
 		return "eventMapper";
-	}
-
-	override public function getEntity() {
-		log("Getting entity " + _entity );
-		return _entity;
 	}
 
 }

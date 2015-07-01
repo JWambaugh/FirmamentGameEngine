@@ -32,7 +32,7 @@ class FBroadcastSceneEventsComponent extends FEntityComponent{
 
 		for(evt in listeners.fields() ){
 			log("Adding scene broadcaster for " + evt + ( isMap  ? " as <"+listeners.get(evt,String)+">": "" ) );
- 			_entity.on(cast(evt,String),this,function(e:FEvent){
+ 			on(_entity,cast(evt,String),this,function(e:FEvent){
 				var value:String;
 				if( ! isMap ) {value = e.name; } 
 				else {value = listeners.get(e.name,String); }

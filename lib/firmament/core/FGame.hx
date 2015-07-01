@@ -217,7 +217,7 @@ class FGame extends FObject
 
 	public function getEntitiesAtPoint(p:FVector):FEntityCollection{
 		var a = new Array<FEntity>();
-		for(world in _worldHash){
+		for(world in getWorlds()) {
 			a=a.concat(world.getEntitiesAtPoint(p));
 		}
 		return new FEntityCollection(a);
@@ -225,7 +225,7 @@ class FGame extends FObject
 
 	public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):FEntityCollection {
 		var a = new Array<FEntity>();
-		for(world in _worldHash){
+		for(world in getWorlds()) {
 			a=a.concat(world.getEntitiesInBox(topLeftX,topLeftY,bottomRightX,bottomRightY));
 		}
 		return new FEntityCollection(a);

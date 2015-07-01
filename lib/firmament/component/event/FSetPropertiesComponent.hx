@@ -49,7 +49,7 @@ class FSetPropertiesComponent extends FEntityComponent{
         config.getNotNull('properties'); // evaluation for error purposes
 
         var eventListen:String = config.getNotNull('listen',String);
-        _entity.on(eventListen,this,listenEventFunc);
+        on(_entity,eventListen,this,listenEventFunc);
     }
 
     override public function getType(){

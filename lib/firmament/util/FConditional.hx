@@ -4,36 +4,55 @@ package firmament.util;
 import firmament.component.base.FEntityComponent;
 import firmament.core.FComponent;
 import firmament.core.FConfig;
+import firmament.core.FEntity;
 import firmament.core.FProperty;
+import firmament.scene.FScene;
 import firmament.scene.FSceneComponent;
+import firmament.util.FLog;
+import haxe.PosInfos;
 
 class FConditional {
 
 	private var _config:FConfig;
 	private var _context:FComponent;
-	private var _syntax = ~/([^\s<=>]+)\s*([!<=>]{2})?\s*([^\s<=>]+)?/;
+	private var _syntax = ~/([^\s<=>]+)\s*(!=|==|<=|>=|<|>)?\s*([^\s<=>]+)?/;
+	private var _source:Dynamic; // or entity or scene?
 
 	public function new ( config:FConfig, context:FComponent ) {
-		_config = config;
 		_context = context;
-		_config.setScope( _context ); // makes sure that scripts work properly
+		_config = config;
+		if( _config != null ) {
+			FLog.debug(Std.string(_config));
+			_config.setScope( _context ); // makes sure that scripts work properly
+		}
 	}
 
-	public function evaluate( name:String ):Bool {
+	private function log(message:String,?force:Bool=false,?pos:PosInfos) {
+		try{
+			_context.log(message,force,pos);
+		} catch(e:Dynamic) {
+			trace(e);
+		}
+	}
+
+	public function evaluate( name:String, ?source:Dynamic = null ):Bool {
 		var result:Bool = true;
-		try {
-			var expression:String = _config.getNotNull( name, String );
-			// trace(name);
-			// trace(expression);
-			// expressions
-			// prop|Int|Float cond prop|Int|Float
-			_syntax.match(expression);
-			// trace( Std.string(_syntax.matched(0)) );
-		    result = this.test(   _syntax.matched(1), 
-		    					( _syntax.matched(2) != null ? _syntax.matched(2) : "==" ), 
-		    					( _syntax.matched(3) != null ? _syntax.matched(3) : true ) );
-		} catch( exception:Dynamic) {
-			result = true; // allows pass through when no conditional exists
+		if( _config != null && _config.hasField( name ) ) {
+			_source = source; // this is temporary
+			try {
+				var expression:String = _config.getNotNull( name, String );
+				_syntax.match(expression);
+				log("Evaluating - " + name + " -> " + _syntax.matched(1) + (_syntax.matched(2)!=null?_syntax.matched(2) : "") + (_syntax.matched(3)!=null?_syntax.matched(3) : "") );
+			    result = this.test( 
+		    				  _syntax.matched(1), 
+		    				( _syntax.matched(2) != null ? _syntax.matched(2) : "==" ), 
+		    				( _syntax.matched(3) != null ? _syntax.matched(3) : true ) 
+			    		);
+			} catch( exception:Dynamic) {
+				result = true; // allows pass through when no conditional exists
+				FLog.debug( "Exception: " + Std.string(exception) );
+			}
+			_source = null;
 		}
 		return result;
 	}
@@ -42,7 +61,6 @@ class FConditional {
 		var result:Bool = true;
 		var eval1 = this.evaluateClause(clause1);
 		var eval2 = this.evaluateClause(clause2);
-		// trace(eval1,conditional,eval2);
 		switch( conditional ) {
 			case "==": result = (eval1 == eval2);
 			case "!=": result = (eval1 != eval2);
@@ -50,8 +68,9 @@ class FConditional {
 			case ">=": result = (eval1 >= eval2);
 			case ">": result = (eval1 > eval2);
 			case "<": result = (eval1 < eval2);
+			default: trace("Unsupported conditional type " + conditional);
 		}
-		// trace("Evaluated - " + result);
+		log( "condition -> " + eval1 + conditional + eval2 + " -> " + Std.string(result) );
 		return result;
 	}
 
@@ -64,14 +83,27 @@ class FConditional {
 			if( not ) {
 				strVal = strVal.substring(1);
 			}
-			if(strVal.indexOf("@")==0) {
-				var propertyKey = strVal.substr(1);
+			if(strVal.indexOf("@this.")==0) {
+				var propertyKey = strVal.substr(6);
 				if(Std.is( _context,FEntityComponent) ) {
 					var c:FEntityComponent = cast _context;
 					result = c.getEntity().getProp(propertyKey);
 				} else if(Std.is( _context,FSceneComponent) ) {
 					var c:FSceneComponent = cast _context;
 					result = c.getScene().getPropertyValue(propertyKey);
+				}
+			} else if ( strVal.indexOf("@")==0) {
+				if( _source == null ) {
+					log("Error: Conditional is comparing an entity that is not set! " + value );
+					throw "Error - invalid object in conditional";
+				}
+				var propertyKey = strVal.substr(5);
+				if(Std.is( _source,FEntity) ) {
+					var c:FEntity = cast _source;
+					result = c.getProp(propertyKey);
+				} else if(Std.is(_source,FScene) ) {
+					var c:FScene = cast _source;
+					result = c.getPropertyValue(propertyKey);
 				}
 			} else {
 				testValue = Std.parseInt(strVal);
@@ -92,7 +124,6 @@ class FConditional {
 				}
 			}
 			result = (not ? (! result) : result );
-			// trace("Final " + result);
 		}
 		return result;
 	}

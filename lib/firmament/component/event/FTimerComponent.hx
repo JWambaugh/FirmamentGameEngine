@@ -102,19 +102,19 @@ class FTimerComponent extends FEntityComponent{
         initialize(config);
 
         if( startOn != null ) {
-            _entity.on(startOn,this,startTimerFunc);
+            on(_entity,startOn,this,startTimerFunc);
         }
 
         if(stopOn != null){
-            _entity.on(stopOn,this,stopTimerFunc);
+            on(_entity,stopOn,this,stopTimerFunc);
         }
 
         if(reset != null){
-            _entity.on(reset,this,resetTimerFunc);
+            on(_entity,reset,this,resetTimerFunc);
         }
 
         //pause and unpause the timer as the entity changes active states
-        _entity.on(FEntity.ACTIVE_STATE_CHANGE,this,function(e:FEvent){
+        on(_entity,FEntity.ACTIVE_STATE_CHANGE,this,function(e:FEvent){
             if(_entity.isActive()){
                 if(_config.get('startOn',String)==null || _config.get('paused',Bool,true) == false){
                     startTimerFunc();

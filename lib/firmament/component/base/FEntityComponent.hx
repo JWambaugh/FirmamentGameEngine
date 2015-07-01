@@ -9,7 +9,7 @@ import firmament.core.FProperty;
 import firmament.core.FPropertyInterface;
 import firmament.util.FLog;
 import flash.events.EventDispatcher;
-
+import haxe.PosInfos;
 
 
 /*
@@ -45,6 +45,10 @@ class FEntityComponent extends firmament.core.FComponent
 		return this._entity;
 	}
 
+	override public function getObject():FEntity {
+		return getEntity();
+	}
+
 	override public function _init(config:FConfig) {
 		// loop through FConfig looking for properties, convert to property objects!
 	    for( key in config.fields() ) {
@@ -65,6 +69,10 @@ class FEntityComponent extends firmament.core.FComponent
 	    onActivate();
 	}
 
+	override public function log(message:Dynamic,force:Bool = false,?pos:PosInfos){
+		// Adding in the typeId to standardize and make debugging easier
+		super.log( this._entity.getTypeId() + ": " + message, force, pos );
+	}
 
 	override public function destruct(){
 		_entity.getGameInstance().removeEventListener(this);

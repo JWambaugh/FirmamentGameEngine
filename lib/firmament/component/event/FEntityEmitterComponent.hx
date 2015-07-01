@@ -25,14 +25,15 @@ class FEntityEmitterComponent extends FEntityComponent{
         log("Adding emiter to listen on " + config.get('listen',String) );
         on(_entity,config.getNotNull('listen',String),this,
             function(e:FEvent) {
-                log("Got " + e.name);
+                log("Listener executing for " + e.name);
                 _entity.getGameInstance().doAfterStep(
                     function() {
                         var amount:Int = config.get('amount', Int, 1);
                         log("Amount to spawn: "+amount);
                         for(n in 0...amount){
-                            var ent = FEntityFactory.createEntity(
-                                    config.getNotNull('entity',Dynamic));
+                            var cfg = config.getNotNull('entity',Dynamic);
+                            log( cfg );
+                            var ent = FEntityFactory.createEntity( cfg );
                             var angle:Float;
                             if(config.get("angleOffset",String)=="random"){
                                 angle = Math.random()*6.28318530718;
@@ -67,12 +68,9 @@ class FEntityEmitterComponent extends FEntityComponent{
 
     }
 
-
-
     override public function getType(){
         return "entityEmitter";
     }
-
 
 
 }

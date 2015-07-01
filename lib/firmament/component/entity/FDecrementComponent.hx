@@ -47,8 +47,7 @@ class FDecrementComponent extends FEntityComponent{
         var dEvent:String = config.getNotNull('decrementEvent',String,
                                      config.get('listen',String)
                             ); // compatibility changes
-
-        _entity.on(dEvent,onDecEvent);
+        on(_entity,dEvent,this,onDecEvent);
     }
 
 
@@ -89,7 +88,7 @@ class FDecrementComponent extends FEntityComponent{
             }
         }
         if( h != prev ) {
-            log("Updating value from "+prev+" to "+h);
+            log("Updating value "+ _propertyName +" from "+prev+" to "+h);
             _entity.setProp(_propertyName, h);
             if( _updateEvent != null ) {
                 _entity.trigger(new FEvent(_updateEvent));    

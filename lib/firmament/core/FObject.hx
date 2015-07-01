@@ -36,6 +36,7 @@ class FObject{
 		}
 	}
 
+	// refactor this to return bool
 	public function trigger(event:FEvent){
 
         //if the event doesn't bubble and has been handled by another object already, then do nothing.
@@ -92,7 +93,6 @@ class FObject{
 			while(itemsToRemove.length>0){
 				var item = itemsToRemove.pop();
 				//firmament.util.FLog.debug("Removing listener with target of "+Type.getClassName(Type.getClass(item.listeningObject))+" From "+Type.getClassName(Type.getClass(this)));
-				count++;
 				while(l.remove(item)){}
 			}
 			
@@ -100,6 +100,15 @@ class FObject{
 	}
 
 	public function removeAllListeners(){
+		for( eventName in __listeners.keys() ) {
+			var itemsToRemove:List<FObjectConnection> = __listeners.get(eventName);
+			var count  = itemsToRemove.length;
+			var stats = firmament.util.FStatistics.getInstance();
+			if( stats.hasProperty('ActiveListeners') ) {
+				stats.setProp('ActiveListeners', stats.getProp('ActiveListeners') - count);
+			}
+		}		
+			
 		__listeners = new Map();
 	}
 

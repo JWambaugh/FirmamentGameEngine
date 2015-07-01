@@ -6,6 +6,7 @@ import firmament.core.FPropertyContainer;
 import firmament.core.FPropertyDefinition;
 import firmament.util.FConditional;
 import firmament.util.FLog;
+import haxe.PosInfos;
 
 
 
@@ -40,12 +41,12 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber imple
         throw "This needs to be overwritten in a subclass.";
     }
 
-    public function log(message:Dynamic,force:Bool = false){
+    public function log(message:Dynamic,force:Bool = false,?pos:PosInfos){
         var msg:String = Std.string(message);
         if( _enableDebug == true || force == true ) {
-            FLog.msg(msg);
+            FLog.msg(msg,pos);
         } else {
-            FLog.debug(msg);
+            FLog.debug(msg,pos);
         }
     }
 
@@ -116,21 +117,18 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber imple
         _gameInstance = null;*/
     }
 
-    // assist with conditional implementation
-    override public function trigger( event:FEvent ) {
-        var conditionalEvaluate = _conditional.evaluate( event.name );
-        if ( conditionalEvaluate == true ) {
-            super.trigger(event);       
-        }
+    public function getObject():Dynamic {
+        throw "This must be overloaded by subclasses";
     }
 
     override public function on(target:FObject=null,eventName:String, listeningObject:FObject=null, callback:Dynamic->Void){
         super.on(target,eventName, listeningObject, function( e:FEvent) {
-                var conditionalEvaluate = _conditional.evaluate( e.name );
+                var conditionalEvaluate = _conditional.evaluate( e.name, target );
                 if ( conditionalEvaluate == true ) {
                     callback(e);
                 }
             } 
         );
     }
+    
 }
