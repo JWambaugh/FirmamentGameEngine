@@ -23,20 +23,24 @@ class FEntityScriptComponent extends FEntityComponent {
 		}
 
 		for(event in Reflect.fields(events)){
+			log("Adding listener " + event + " to execute script");
 			var value:FConfig = events[event], scriptText:String = null;
 			for( field in Reflect.fields(value) ) {
 				var val = value.get(field,String,null);
 				switch(field) {
 					case "file":
+						log("Loading file");
 						scriptText = FDataLoader.loadFile(val);
 						break;
 					default:
+						log("Loading script");
 						scriptText = val;
 						break;
 				}
 			}
-			// log("Processing <"+event+"> -> " + scriptText );
+			
 			if( scriptText != null ) {
+				// log("Processing <"+event+"> -> " + scriptText );
 				on(_entity,event,this,function(e:FEvent){
 					log(e.name + " event fired, running script");
 					var ret = _entity.getGameInstance().eval(scriptText,this);
