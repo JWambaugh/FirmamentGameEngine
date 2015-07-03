@@ -24,6 +24,11 @@ class FProperty{
             p.type = type;
 			return p;
 		}
+        if(type == String) {
+            var p = new FBasicProperty<String>(key);
+            p.type = type;
+            return p;
+        }
         if(type == FVector){
             var p = new FBasicProperty<FVector>(key);
             p.type = type;

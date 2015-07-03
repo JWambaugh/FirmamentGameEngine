@@ -94,11 +94,11 @@ class FEntityFactory{
 					property = FProperty.createBasic(key,type);
 					entity.registerProperty(property);
                 }
-                value = props.get([key,"value"], type, 
-                				props.getNotNull(key, type) 
+                value = props.getNotNull([key,"value"], type, 
+                				props.get(key, type, null) 
                 			);
                 // trace( 'Property ' + key + ' -> ' + value );
-				entity.setProp(key,value);
+				property.set(value);
 			}
 		}
 	}
