@@ -29,6 +29,13 @@ class FTilesheet extends Tilesheet {
 		_rects = new Array<Rectangle>();
 		_renderPriority = 0;
 		_labelMap = new Map();
+
+		var stats = firmament.util.FStatistics.getInstance();
+		if( !stats.hasProperty('Tilesheets') ) {
+			stats.registerProp('Tilesheets','Int');
+			stats.setProp('Tilesheets',0);
+		}
+		stats.setProp('Tilesheets',stats.getProp('Tilesheets')+1);
 	}
 
 

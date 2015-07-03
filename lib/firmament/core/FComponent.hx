@@ -109,11 +109,11 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber imple
     override public function destruct(){
         //FLog.warning('destructor called');
         super.destruct();
+        _parent = null;
         // TBD - This clean up was breaking the trigger execution in 
         //       timer and looping timer.  Please fix Jordan.
         /*_config.destruct();
         _config = null;
-        _parent = null;
         _gameInstance = null;*/
     }
 
@@ -122,11 +122,14 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber imple
     }
 
     override public function on(target:FObject=null,eventName:String, listeningObject:FObject=null, callback:Dynamic->Void){
-        super.on(target,eventName, listeningObject, function( e:FEvent) {
-                var conditionalEvaluate = _conditional.evaluate( e.name, target );
-                if ( conditionalEvaluate == true ) {
-                    callback(e);
-                }
+        super.on(target,eventName, listeningObject, function(e:Dynamic) {
+                try {
+                    // this is only valid for FEventComponents
+                    if ( _conditional.evaluate( e.name, target ) != true ) {
+                        return;
+                    }
+                } catch (e:Dynamic) {}
+                callback(e);
             } 
         );
     }

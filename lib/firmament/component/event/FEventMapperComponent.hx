@@ -30,7 +30,12 @@ class FEventMapperComponent extends FEntityComponent{
 			on(_entity,item,function(e:FEvent){
 				var eventName = _map.getNotNull(e.name,String);
 				log( "Sending event " + e.name + " as " + eventName );
-				_entity.trigger(new FEvent( eventName ));
+				// this allows reflection of FEvent Objects like FMouseEvent
+				if( eventName != e.name ) {
+					_entity.trigger( new FEvent(eventName));
+				} else {
+					_entity.trigger(e);
+				}
 			});
 		}
 	}

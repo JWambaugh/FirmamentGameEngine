@@ -37,7 +37,7 @@ class FObject{
 	}
 
 	// refactor this to return bool
-	public function trigger(event:FEvent){
+	public function trigger(event:Dynamic){
 
         //if the event doesn't bubble and has been handled by another object already, then do nothing.
         if(event.bubbles == false && event.handled)return;
@@ -48,11 +48,8 @@ class FObject{
 				try {
                 	connection.callback(event);
 				} catch (e:Dynamic) {
-					FLog.error( 
-					  Std.string(event.name) + " -> "
-					  + Std.string(connection) + "\n  " 
-					  + Std.string(e)
-					);
+					FLog.error( Std.string(event.name) + " -> " + Std.string(connection) + "\n " + Std.string(e) );
+					throw e;
 				}
 			}
 		}

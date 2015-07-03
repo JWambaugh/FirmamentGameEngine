@@ -468,7 +468,6 @@ abstract FConfig({}) from {} to {} {
                 var game:FGame;
                 var programScope = Reflect.field(this,'__SCOPE__');
                 if(programScope == null)  {
-                    FLog.error('-- No scope set --');
                     game = FGame.getInstance();
                 }
                 else {

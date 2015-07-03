@@ -14,6 +14,7 @@ class FSceneDisplayStatisticsComponent extends FSceneComponent {
 	private var _textField:flash.text.TextField;
     private var _textFormat:flash.text.TextFormat;
 	private var _statistics:FStatistics;
+    private var _screenPosition:FVector;
 
 	public function new(gameInstance:Dynamic) 
 	{
@@ -58,6 +59,14 @@ class FSceneDisplayStatisticsComponent extends FSceneComponent {
 
         var stage = Lib.current.stage;
         stage.addChild(_textField);
+
+        var camera = _gameInstance.getCamera('main');
+        _screenPosition = camera.getScreenPosition( 
+             _config.get('positionX',Float,0),
+             _config.get('positionY',Float,0) );
+
+        _textField.x = _screenPosition.x;
+        _textField.y = _screenPosition.y;
 	}
 
 	override public function destruct(){
@@ -68,13 +77,7 @@ class FSceneDisplayStatisticsComponent extends FSceneComponent {
 
 	override public function step(delta:Float) {
 		var camera = _gameInstance.getCamera('main');
-        var screenPosition:FVector = camera.getScreenPosition( 
-             _config.get('positionX',Float,0),
-             _config.get('positionY',Float,0) );
-
-        _textField.x = screenPosition.x;
-        _textField.y = screenPosition.y;
-
+        
         var textValue:Dynamic = "";
         var count = 0;
         for( key in _statistics.keys() ) {
@@ -90,7 +93,7 @@ class FSceneDisplayStatisticsComponent extends FSceneComponent {
         }
 
         if(Math.random() <= .1) {
-            log("Value - " + _textField.text + " Position - " + screenPosition);
+            log("Value - " + _textField.text + " Position - " + _screenPosition);
         }
 	}
 }

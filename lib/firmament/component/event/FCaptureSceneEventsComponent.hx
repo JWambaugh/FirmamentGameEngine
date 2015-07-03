@@ -41,9 +41,14 @@ class FCaptureSceneEventsComponent extends FEntityComponent{
 	}
 
 	public function bubbleEvent(e:FEvent) {
-	    var value = _mapping.get(e.name);
-		log("Bubbling scene event <"+e.name+">" + ( e.name != value  ? " as <"+value+">": "" ) );
-		_entity.trigger( new FEvent(value) );
+	    var eventName = _mapping.get(e.name);
+		log("Bubbling scene event <"+e.name+">" + ( e.name != eventName  ? " as <"+eventName+">": "" ) );
+		// this allows reflection of FEvent Objects like FMouseEvent
+		if( eventName != e.name ) {
+			_entity.trigger( new FEvent(eventName));
+		} else {
+			_entity.trigger(e);
+		}
 	}
 
 	override public function getType(){

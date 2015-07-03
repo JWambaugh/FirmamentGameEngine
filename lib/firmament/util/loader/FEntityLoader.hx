@@ -62,8 +62,12 @@ class FEntityLoader extends EventDispatcher
 		}
 
 		if(!Std.is(data['typeId'],String)){
+			trace("Loading " + fileName );
 			data['typeId'] = fileName;
-		}
+		} else
+			trace("Loading " + fileName + ":" + data['typeId']);
+
+
 		
 		var ent:FEntity;
 

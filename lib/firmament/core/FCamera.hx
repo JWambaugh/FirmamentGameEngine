@@ -193,16 +193,16 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 
 		var mem:Float = Math.round(System.totalMemory / 1024 / 1024 * 100) / 100;
 		
-		if( !stats.hasProperty('PeakMem') ) {
-			stats.registerProp('PeakMem',Int);
+		if( !stats.hasProperty('MemPeak') ) {
+			stats.registerProp('MemPeak',Int);
 		}
-		if( !stats.hasProperty('CurrentMem') ) {
-			stats.registerProp('CurrentMem',Int);
+		if( !stats.hasProperty('MemCurrent') ) {
+			stats.registerProp('MemCurrent',Int);
 		}
-		stats.setProp('CurrentMem', mem );
+		stats.setProp('MemCurrent', mem );
 		
-		if( stats.getProp('CurrentMem') <= mem ) {
-			stats.setProp('PeakMem', mem );
+		if( stats.getProp('MemCurrent') <= mem ) {
+			stats.setProp('MemPeak', mem );
 		}		
 	}
 
@@ -418,8 +418,9 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 
 	private function onMouseButton(e:MouseEvent){
 		var ents = _game.getEntitiesAtPoint(getWorldPosition(e.localX,e.localY));
+		var mousePos:firmament.core.FVector = new firmament.core.FVector(e.localX, e.localY);
         ents.sortByPropertyAsc("positionZ");
-        var event = new FMouseEvent(e.type, this, new firmament.core.FVector(e.localX, e.localY));
+        var event = new FMouseEvent(e.type, this, mousePos);
         event.bubbles = false;
 		for(ent in ents){
 			if(ent.isActive()){
@@ -428,7 +429,7 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		}
 
         //send event to scene components
-        var event = new FMouseEvent(e.type, this, new firmament.core.FVector(e.localX, e.localY));
+        var event = new FMouseEvent(e.type, this, mousePos);
         _game.getCurrentScene().trigger(event);
 
 	}
