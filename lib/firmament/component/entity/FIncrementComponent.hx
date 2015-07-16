@@ -11,11 +11,14 @@ import firmament.event.FPhysicsCollisionEvent;
 import firmament.util.FMisc;
 import firmament.process.timer.FTimerManager;
 import firmament.core.FEvent;
+import firmament.core.FProperty;
+import firmament.core.FPropertyContainer;
 
 class FIncrementComponent extends FEntityComponent{
     var _triggerEvent:String;
     var _updateEvent:String;
     var _propertyName:String;
+    var _property:FProperty;
     var _max:Int;
     var _incSize:Int;
     var _triggered:Int = -1;
@@ -46,22 +49,38 @@ class FIncrementComponent extends FEntityComponent{
         }
     }
 
+    private function getPropertyObject( propertyName:String ):FProperty {
+        
+        var container:FPropertyContainer = _entity; // scene or entity
+        if( propertyName.indexOf('@scene.') == 0 ) {
+            propertyName = propertyName.substr(7);
+            container = _entity.getGameInstance().getCurrentScene();
+        } else if ( propertyName.indexOf('@this.') == 0  ) {
+            propertyName = propertyName.substr(6);
+        } 
+
+        //register the property if it doesn't exist
+        if( !container.hasProperty(propertyName) ) {
+            container.registerProperty(
+                new firmament.core.FBasicProperty<Int>(propertyName));
+        }
+
+        return container.getProperty(propertyName);
+    }
+
     private function setupComponent(config:firmament.core.FConfig) {
         _startValue = config.get('startValue',Int,0);
         _propertyName = config.getNotNull('property',String);
         _max = config.get('max', Int, 1);
         _incSize = Math.floor( Math.max(0,config.get('incrementSize', Int, 1)));
-
-        //register the property if it doesn't exist
-        if(!_entity.hasProperty(_propertyName))
-            _entity.registerProperty(new firmament.core.FBasicProperty<Int>(_propertyName));
-
+        _property = this.getPropertyObject(_propertyName);
+        
         var initialValue = _startValue;
         if( config.get("uninitalized",Bool,false) == true ) {
             initialValue -= 1;
         }
         log("Setting initial value - " + initialValue);
-        _entity.setProp(_propertyName, initialValue);
+        _property.set(initialValue);
         _triggered = -1;
     }
 
@@ -79,7 +98,7 @@ class FIncrementComponent extends FEntityComponent{
             log("Paused - waiting");
             return;
         }
-        var prev = _entity.getProp(_propertyName);
+        var prev = _property.getDynamic();
         var h = prev;
         if(h<_max) { // allows for retriggering when value is changed elsewhere
             _triggered = -1;
@@ -93,7 +112,7 @@ class FIncrementComponent extends FEntityComponent{
         }
         if( h != prev ) {
             log("Updating value "+ _propertyName +" from "+prev+" to "+h);
-            _entity.setProp(_propertyName, h);
+            _property.set(h);
             if(_updateEvent != null) {
                 _entity.trigger(new FEvent(_updateEvent));
             }

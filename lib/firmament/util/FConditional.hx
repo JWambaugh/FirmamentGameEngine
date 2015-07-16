@@ -6,6 +6,7 @@ import firmament.core.FComponent;
 import firmament.core.FConfig;
 import firmament.core.FEntity;
 import firmament.core.FProperty;
+import firmament.core.FGame;
 import firmament.scene.FScene;
 import firmament.scene.FSceneComponent;
 import firmament.util.FLog;
@@ -92,6 +93,10 @@ class FConditional {
 					var c:FSceneComponent = cast _context;
 					result = c.getScene().getPropertyValue(propertyKey);
 				}
+			} else if ( strVal.indexOf("@scene.")==0) {
+				var propertyKey = strVal.substr(7);
+				var c:FScene = FGame.getInstance().getCurrentScene();
+				result = c.getPropertyValue(propertyKey);
 			} else if ( strVal.indexOf("@")==0) {
 				if( _source == null ) {
 					log("Error: Conditional is comparing an entity that is not set! " + value );

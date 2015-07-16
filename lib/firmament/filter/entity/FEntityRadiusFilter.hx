@@ -7,8 +7,8 @@ import firmament.core.FConfig;
 class FEntityRadiusFilter extends FEntityFilter{
 
 	var _type:String;
-	public function new(){
-		super();
+	public function new(?scope:FEntity=null){
+		super(scope);
 	}
 
 	//returns true if the entity matches the criteria of the filter

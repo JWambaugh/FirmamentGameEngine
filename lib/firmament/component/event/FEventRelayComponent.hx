@@ -53,7 +53,7 @@ class FEventRelayComponent extends FEntityComponent{
 		var c:Dynamic = {}; // FMisc.deepClone(_config); // caused program to hang
 		
 		Reflect.setField(c, 'point', _entity.getProp('position') );
-		if(Reflect.isObject(_config['topLeft'])) {	
+		if(Reflect.isObject(_config['topLeft'])) {
 			Reflect.setField(c,'topLeft', new FVector(_config['topLeft'].x + c.point.x, _config['topLeft'].y + c.point.y ) );
 		}
 		if(Reflect.isObject(_config['bottomRight'])){ // ironically this requires the first to have worked
@@ -71,7 +71,7 @@ class FEventRelayComponent extends FEntityComponent{
 			}
 		}
 
-		var entities:FEntityCollection = FGame.getInstance().queryEntities(c);
+		var entities:FEntityCollection = FGame.getInstance().queryEntities(c,getEntity());
 		var relayEvent:String = (_reflect == true) ? e.name : _fireEvent; 
 		log("Relaying event " + relayEvent + " -> " + Std.string(entities.length) + " items");
 		log( "config - " + Std.string(c) );
@@ -79,6 +79,5 @@ class FEventRelayComponent extends FEntityComponent{
 			log("Relaying to " + ent.getTypeId() );
 			ent.trigger(new FEventRelayEvent(relayEvent,_entity,_config));
 		}
-
 	}
 }

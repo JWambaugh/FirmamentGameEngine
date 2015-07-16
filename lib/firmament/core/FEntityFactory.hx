@@ -14,6 +14,7 @@ class FEntityFactory{
 	public static function createEntity(config:Dynamic,?gameInstanceName:String='main'):FEntity{
 		var entity:FEntity;
 		if(Std.is(config,String)){
+            FLog.debug("Creating entity - " + config);
 			//pool support
 			var str:String = config;
 			//if string starts with "pool:" then get the entity from the specified pool
@@ -29,6 +30,7 @@ class FEntityFactory{
 			if(c==null){
 				throw "class "+config.className+" could not be found. Did you remember to include the whole package name?";
 			}
+            FLog.debug("Creating entity type - " + c);
 			entity = Type.createInstance(c,[config,gameInstanceName]);
 		} else {
 			entity = new FEntity(config,gameInstanceName);

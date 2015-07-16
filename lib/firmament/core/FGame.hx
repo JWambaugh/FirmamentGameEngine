@@ -251,7 +251,7 @@ class FGame extends FObject
 			}
 
 	*/
-	public function queryEntities(query:Dynamic, scope:FEntity=null):FEntityCollection{
+	public function queryEntities(query:Dynamic, ?scope:FEntity=null):FEntityCollection{
 		if(Std.is(query, String)){
 			return this.select(query);
 		}
@@ -277,7 +277,7 @@ class FGame extends FObject
 		//run filters
 		if(Reflect.isObject(query.filters)){
 			for(filterName in Reflect.fields(query.filters)){
-				var filter:FEntityFilter = FEntityFilterFactory.createfilter(filterName);
+				var filter:FEntityFilter = FEntityFilterFactory.createfilter(filterName,scope);
 				entities = filter.filterEntityArray(entities,Reflect.field(query.filters,filterName));
 			}
 		}
