@@ -95,6 +95,7 @@ abstract FConfig({}) from {} to {} {
                 return get(key,type,def);
             }else{
                 var newConfig:FConfig = get(key);
+                newConfig.setScope(getScope());
                 if(newConfig == null) {
                     return def;
                 }

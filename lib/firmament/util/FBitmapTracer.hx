@@ -42,7 +42,7 @@ class FBitmapTracer
 	}
 	
 	public function getPolys() {
-		var verts = this.firmament.util.FLog.debug();
+		var verts = traceImage();
 		return this.vertexesToPolys(verts);
 	}
 	
@@ -106,7 +106,7 @@ class FBitmapTracer
 	}
 	
 	
-	private function firmament.util.FLog.debug():Array<FTracerVertex> {
+	private function traceImage():Array<FTracerVertex> {
 		var vArray:Array<FTracerVertex> = new Array<FTracerVertex>();
 		
 		//get first edge
