@@ -228,7 +228,7 @@ class FTilesheetManager {
 
 		#if(cpp||neko)
 		if(img==null){
-			img = BitmapData.load(fileName);
+			//img = BitmapData.load(fileName);
 		}
 		#end
 		return img;

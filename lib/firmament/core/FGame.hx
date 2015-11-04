@@ -571,10 +571,10 @@ class FGame extends FObject
 		_interpreter.variables.set("Float",Float);
 		_interpreter.variables.set("FSoundtrackManager",firmament.sound.FSoundtrackManager);
 		_interpreter.variables.set("Int",Int);
-		_interpreter.variables.set("Map",Map);
+		//_interpreter.variables.set("Map",Map);
 		_interpreter.variables.set("Math",Math);
 		_interpreter.variables.set("Reflect",Reflect);
-        _interpreter.variables.set("FConfig",FConfig);
+        //_interpreter.variables.set("FConfig",FConfig);
         _interpreter.variables.set("FDataLoader",FDataLoader);
         _interpreter.variables.set("FComponent",FComponent);
         _interpreter.variables.set("FEntityComponent",FEntityComponent);
@@ -603,18 +603,19 @@ class FGame extends FObject
 		return _interpreter;
 	}
 
-    public function execProgram(program:hscript.Expr, scope:Dynamic=null){
+    public function execProgram(program:hscript.Expr, scope:Dynamic=null):Dynamic{
         _interpreter.variables.set('this',scope);
-        return _interpreter.execute(program);
+        var value:Dynamic = _interpreter.execute(program);
+        return value;
     }
 
-	public function eval(script:String, scope:Dynamic=null){
+	public function eval(script:String, scope:Dynamic=null):Dynamic{
 		var parser = new hscript.Parser();
 		var program = parser.parseString(script);
 		return execProgram(program, scope);
 	}
 
-	public function executeFile(fileName:String, scope:Dynamic=null){
+	public function executeFile(fileName:String, scope:Dynamic=null):Dynamic{
 		return eval(FDataLoader.loadFile(fileName), scope);
 	}
 

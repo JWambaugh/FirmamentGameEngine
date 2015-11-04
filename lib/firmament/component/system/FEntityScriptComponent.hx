@@ -41,9 +41,9 @@ class FEntityScriptComponent extends FEntityComponent {
 			
 			if( scriptText != null ) {
 				// log("Processing <"+event+"> -> " + scriptText );
-				on(_entity,event,this,function(e:FEvent){
+				on(_entity,event,this,function(e:FEvent):Dynamic{
 					log(e.name + " event fired, running script");
-					var ret = _entity.getGameInstance().eval(scriptText,this);
+					var ret:Dynamic = _entity.getGameInstance().eval(scriptText, this);
 					var triggerEvent:String = _config.get('trigger',String,null);
 					if( triggerEvent != null ) {
 						_entity.trigger( new FEvent(triggerEvent) );

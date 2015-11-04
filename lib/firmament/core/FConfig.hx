@@ -12,11 +12,13 @@ import firmament.core.FEntityCollection;
 
 abstract FConfig({}) from {} to {} {
 
+   
     public function new(o:Dynamic/*,?pos:PosInfos*/){
         /*trace('Called from ${pos.className}');
         trace('Called from ${pos.methodName}');
         trace('Called from ${pos.fileName}');
         trace('Called from ${pos.lineNumber}');*/
+        Reflect.setField(o, '__SCOPE__', null);
         this = o;
     }
 
@@ -38,11 +40,13 @@ abstract FConfig({}) from {} to {} {
     }
 
     public function setScope(s:FGameChildInterface):Void{
-        Reflect.setField(this, '__SCOPE__', s);
+        
+        Reflect.setField(this, '__SCOPE__', s); //doesn't work
     }
 
     public function getScope():FGameChildInterface{
-        return Reflect.field(this, '__SCOPE__');
+        return Reflect.field(this, '__SCOPE__');//doesnt work
+        
     }
 
     public static function filterFields(object):Array<Dynamic> {
@@ -97,6 +101,7 @@ abstract FConfig({}) from {} to {} {
                 var newConfig:FConfig = get(key);
                 newConfig.setScope(getScope());
                 if(newConfig == null) {
+                    FLog.warning("field "+key+" does not exist");
                     return def;
                 }
                 // returning a new config??
