@@ -120,7 +120,7 @@ class FScene extends FPropertyContainer implements FGameChildInterface{
 					componentInstance.setConfig(c);
 					componentInstance.setScene(this);
                     componentInstance.setParent(this);
-					componentInstance.init(c);
+					componentInstance._init(c);
 					_components.push(componentInstance);
 				}
 			}

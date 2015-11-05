@@ -29,10 +29,10 @@ class FComponent extends FObject implements firmament.core.FStepSubscriber imple
 
     //called by factory
     public function _init(config:FConfig){
-        
+        _config.setScope(this);
         _enableDebug = _config.get( 'debug', Bool, false );
         _conditional = new FConditional(_config.get("conditional",Dynamic,null),this);
-        _config.setScope(this);
+        
 
         this.init(config);
     }

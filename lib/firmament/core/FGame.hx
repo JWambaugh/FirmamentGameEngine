@@ -525,7 +525,7 @@ class FGame extends FObject
 	/**
 	 * Loads a scene.
 	 */
-	public function loadScene(scene:FConfig){
+	public function loadScene(scene:Dynamic){
 
 		if(_inStep){
 			var deferredFunctions:List<Void->Void> 
@@ -536,13 +536,17 @@ class FGame extends FObject
 			);
 			return;
 		}
-		var instanceName = getInstanceName();
-		clearAll();
+        try {
+    		var instanceName = getInstanceName();
+    		clearAll();
 
-		//firmament.util.FLog.debug("loadScene: Creating new scene");
-		_currentScene = new FScene();
-		//firmament.util.FLog.debug("loadScene: Loading instance data");
-		_currentScene.init(scene,instanceName);
+    		//firmament.util.FLog.debug("loadScene: Creating new scene");
+    		_currentScene = new FScene();
+    		//firmament.util.FLog.debug("loadScene: Loading instance data");
+    		_currentScene.init(scene,instanceName);
+        }catch(e:Dynamic){
+            FLog.error(e);
+        }
 		return;
 	}
 

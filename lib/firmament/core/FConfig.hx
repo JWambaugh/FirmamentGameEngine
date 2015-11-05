@@ -10,15 +10,18 @@ import firmament.component.base.FEntityComponent;
 import firmament.core.FEntityCollection;
 
 
+@:forward
 abstract FConfig({}) from {} to {} {
 
-   
+
     public function new(o:Dynamic/*,?pos:PosInfos*/){
+        if(Std.is(o, String)){
+            throw "Cannot convert string to FConfig!";
+        }
         /*trace('Called from ${pos.className}');
         trace('Called from ${pos.methodName}');
         trace('Called from ${pos.fileName}');
         trace('Called from ${pos.lineNumber}');*/
-        Reflect.setField(o, '__SCOPE__', null);
         this = o;
     }
 
@@ -40,7 +43,6 @@ abstract FConfig({}) from {} to {} {
     }
 
     public function setScope(s:FGameChildInterface):Void{
-        
         Reflect.setField(this, '__SCOPE__', s); //doesn't work
     }
 
@@ -98,12 +100,9 @@ abstract FConfig({}) from {} to {} {
             if(fieldArray.length<1){
                 return get(key,type,def);
             }else{
-                var newConfig:FConfig = get(key);
-                newConfig.setScope(getScope());
-                if(newConfig == null) {
-                    FLog.warning("field "+key+" does not exist");
-                    return def;
-                }
+                //just try to set its scope, ignore failure
+                var newConfig:FConfig = null;
+                
                 // returning a new config??
                 try { newConfig.setScope( getScope() ); } catch(e:Dynamic) {}
                 return newConfig.get(fieldArray,type,def);
@@ -208,8 +207,12 @@ abstract FConfig({}) from {} to {} {
 
     private function getEntities(d:Dynamic){
         var scope = getScope();
-        if(scope == null) throw "Scope required for querying entities!";
-        return scope.getGameInstance().queryEntities(d, cast (scope, FEntityComponent).getEntity());
+        var e:FEntity=null;
+        try{ //ignore errors here
+            e = cast (scope, FEntityComponent).getEntity();
+        }catch(ex:Dynamic){}
+        if(scope == null) throw "Scope required for querying entities!" + Std.string(this);
+        return scope.getGameInstance().queryEntities(d, e);
     }
 
     private function parseVectorObject(v:Dynamic,d:FVector=null):FVector {

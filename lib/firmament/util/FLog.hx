@@ -18,6 +18,7 @@ class FLog {
 
     public static function error(message:Dynamic,?pos : haxe.PosInfos):Void{
         if(logLevel&ERROR > 0){
+            
             msg("ERROR: "+Std.string(message) + "\n  " 
                 + haxe.CallStack.toString(haxe.CallStack.exceptionStack())
                 ,pos);
@@ -46,6 +47,7 @@ class FLog {
             }
         }
     }
+
 
 
     
