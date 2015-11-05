@@ -1,19 +1,16 @@
+
 package firmament.component.base;
-import firmament.core.FEntity;
-import flash.events.EventDispatcher;
-import firmament.core.FEvent;
-import firmament.util.FConfigHelper;
-import firmament.core.FProperty;
-import firmament.core.FObject;
+
 import firmament.core.FConfig;
+import firmament.core.FEntity;
+import firmament.core.FEvent;
+import firmament.core.FObject;
+import firmament.core.FProperty;
+import firmament.core.FPropertyInterface;
+import firmament.util.FLog;
+import flash.events.EventDispatcher;
+import haxe.PosInfos;
 
-
-typedef PropertyDefinition={
-    key:String,
-    type:Dynamic,
-    setter:Dynamic->Void,
-    getter:Void->Dynamic
-};
 
 /*
 	Class: FEntity Component
@@ -23,52 +20,23 @@ typedef PropertyDefinition={
 	@author Jordan Wambaugh
  */
 
-class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
+class FEntityComponent extends firmament.core.FComponent
 {
 
-	private var _config:FConfig;
 	private var _entity:FEntity;
-	private var _componentKey:String;
-	private var _configHelper:FConfigHelper;
-	private var _usesStep:Bool;
 
-	public function new() 
+	public function new(gameInstance:firmament.core.FGame)
 	{
-		_configHelper = null;
-		super();
-		_usesStep = false;
+		super(gameInstance);
 
+		_enableDebug = false;
 	}
 
-	public function useStep(u:Bool = true){
-		if(_usesStep && !u){
-			_entity.getGameInstance().removeStepSubscriber(this);
-		}else{
-			_entity.getGameInstance().addStepSubscriber(this);
-		}
-		_usesStep = u;
-	}
-
-	//called by FGame instance
-	public function _doStep(delta:Float){
-		if(_entity.isActive() && _usesStep){
-			step(delta);
-		}
-	}
-
-	public function step(delta:Float){
-
-	}
-	
-	public function init(config:Dynamic):Void {
-		throw "This needs to be overwritten in a subclass.";
-	}
-	
 	public function getType():String {
 		throw "this needs to be overwritten in a subclass.";
 		return "";
 	}
-	
+
 	public function setEntity(entity:FEntity){
 		this._entity = entity;
 	}
@@ -77,36 +45,43 @@ class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
 		return this._entity;
 	}
 
-	public function setConfig(c:Dynamic){
-		_config = c;
+	override public function getObject():FEntity {
+		return getEntity();
 	}
 
-	public function getConfig(){
-		return _config;
+	override public function _init(config:FConfig) {
+		// loop through FConfig looking for properties, convert to property objects!
+	    for( key in config.fields() ) {
+	    	var entry;
+	    	try {
+	          entry = Reflect.field(config,key); // should I use reflect here?
+	      } catch(e:Dynamic) {
+	        	/* ignore any special types */
+	        	continue;
+	        }
+	        if( Reflect.isObject(entry) && Reflect.hasField(entry,'*property*') ) {
+	            var prop = Reflect.field(entry,'*property*');
+	            var property:firmament.core.FProperty = _entity.getProperty( prop );
+	            Reflect.setField(config, key, property );
+	        }
+	    }
+	    super._init(config);
+	    onActivate();
 	}
 
-    public function getProperties():Array<PropertyDefinition>{
-        return [];
-    }
-
-	/**
-	 * Returns a config helper object for the component's config
-	 */
-	public function getConfigHelper():FConfigHelper{
-		if(_configHelper == null){
-			_configHelper = new FConfigHelper(_config);
-		}
-		return _configHelper;
+	override public function log(message:Dynamic,force:Bool = false,?pos:PosInfos){
+		// Adding in the typeId to standardize and make debugging easier
+		super.log( this._entity.getTypeId() + ": " + message, force, pos );
 	}
 
-	
 	override public function destruct(){
 		_entity.getGameInstance().removeEventListener(this);
 		_entity.removeEventListener(this);
 		if(_usesStep)_entity.getGameInstance().removeStepSubscriber(this);
+        //_entity = null;
 		super.destruct();
 	}
-	
+
 
 	public function removeEventListenerFromEntity(event:String){
 		_entity.removeEventListener(event,this);
@@ -116,24 +91,34 @@ class FEntityComponent extends FObject implements firmament.core.FStepSubscriber
 		_entity.removeEventListener(this);
 	}
 
-	public function setComponentKey(key:String){
-		_componentKey = key;
-	}
 
-	//entity property helpers
-	public function registerProp(key:String, type:Dynamic, getter:Void->Dynamic=null, setter:Dynamic->Void=null){
-		
-		_entity.registerProp(key,type,getter,setter);
-	}
+    /**
+     * Called when the entity is activated (like from a pool)
+     */
+    public function onActivate(){
 
-	public function getProp(key:String){
-		return _entity.getProperty(key).getDynamic();
-	}
+    }
 
-	public function setProp(key:String,value:Dynamic){
-		_entity.getProperty(key).set(value);
-	}
+    /**
+     * Called when the entity is deactivated (like when repooled)
+     */
+    public function onDeactivate(){
+
+    }
+
+    /**
+     * Called after all entities are initialized
+     */
+    public function afterInit(){
+
+    }
 
 
+    //called by FGame instance
+    override public function _doStep(delta:Float){
+        if(_entity.isActive() && _usesStep){
+            step(delta);
+        }
+    }
 
 }

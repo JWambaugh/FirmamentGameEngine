@@ -16,7 +16,7 @@ interface FProcessInterface
 	/**
 	 * Called after each step. This method should do a bit of work and then finish. Each step should not be too long.
 	 */
-	public function step():Void;
+	public function step(delta:Float):Void;
 	
 	
 	/**

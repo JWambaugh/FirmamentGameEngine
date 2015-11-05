@@ -6,13 +6,13 @@ import firmament.filter.entity.FEntityTagFilter;
 import firmament.filter.entity.FEntityFilterInterface;
 
 class FEntityFilterFactory{
-	public static function createfilter(type:String):FEntityFilter {
+	public static function createfilter(type:String,?scope:Dynamic=null):FEntityFilter {
 		var className = getClassFromType(type);
 		var c =Type.resolveClass(className);
 		if(c==null){
 			throw "class "+className+" could not be found.";
 		}
-		var filter:FEntityFilter = Type.createInstance(c,[]);
+		var filter:FEntityFilter = Type.createInstance(c,[scope]);
 		if(filter == null){
 			throw "filter of type "+type+" with class "+className+" could not be instantiated!";
 		}

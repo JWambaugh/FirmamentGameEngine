@@ -62,8 +62,12 @@ class FEntityLoader extends EventDispatcher
 		}
 
 		if(!Std.is(data['typeId'],String)){
+			trace("Loading " + fileName );
 			data['typeId'] = fileName;
-		}
+		} else
+			trace("Loading " + fileName + ":" + data['typeId']);
+
+
 		
 		var ent:FEntity;
 
@@ -85,7 +89,7 @@ class FEntityLoader extends EventDispatcher
 		if(Std.is(map,String)){
 			data = FDataLoader.loadData(map);
 			fileName = map;
-		} else if (Std.is(map, FConfig) || Reflect.isObject(map)){
+		} else if (Reflect.isObject(map)){
 			data = map;
 		} else {
 			throw "map is invalid";

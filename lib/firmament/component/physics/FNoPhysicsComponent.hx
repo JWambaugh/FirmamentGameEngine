@@ -1,8 +1,9 @@
 package firmament.component.physics;
 
 
+
 import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.core.FComputedProperty;
 import firmament.core.FConfig;
 import firmament.core.FEntity;
@@ -10,6 +11,8 @@ import firmament.core.FEvent;
 import firmament.core.FGame;
 import firmament.core.FPolygonShape;
 import firmament.core.FProperty;
+import firmament.core.FPropertyDefinition;
+import firmament.core.FPropertyInterface;
 import firmament.core.FShape;
 import firmament.core.FVector;
 import firmament.core.FWorldPositionalInterface;
@@ -19,14 +22,14 @@ import firmament.world.FWorld;
 import haxe.Timer;
 
 /**
- * FBox2DComponent
+ *
  * @author Jordan Wambaugh
  */
 
-class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentInterface implements FWorldPositionalInterface 
+class FNoPhysicsComponent extends FEntityComponent
 {
-	
-	
+
+
 	private var _positionZ:Float;
 	private var _position:FVector;
 	private var _world:FNoPhysicsWorld;
@@ -43,10 +46,10 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	private var _deleted:Bool;
 
 
-	public function new() 
+	public function new(gameInstance:firmament.core.FGame)
 	{
-		super();
-		
+		super(gameInstance);
+
 		_position = new FVector(0,0);
 		_isSleeping = false;
 		_isActive = true;
@@ -58,80 +61,94 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
         _height=0;
         _world = null;
 	}
-	
+
 	override public function init(config:FConfig):Void {
 		_world = cast(_entity.getGameInstance().getWorld("noPhysics"),FNoPhysicsWorld);
 		registerEventHandlers();
-		
-		
-		_position = config.getVector('position');
+
+
+		_position = config.getVector('position',_position);
 		_width = config.getNotNull('width',Float);
 		_height = config.getNotNull('height',Float);
-		_linearVelocity = config.getVector('linearVelocity');
-		_angularVelocity = config.get('angularVelocity',Float,0);
+		_linearVelocity = config.getVector('linearVelocity',_linearVelocity);
+		_angularVelocity = config.get('angularVelocity',Float,_angularVelocity);
 		_angle = config.get('angle');
-		_fixedRotation = config.get('fixedRotation',Bool,false);
+		_fixedRotation = config.get('fixedRotation',Bool,_fixedRotation);
 		_allowSleep = config.get('allowSleep',Bool,true);
-		_positionZ = config.get('positionZ');
+		_positionZ = config.get('positionZ',Float,_positionZ);
 
 
 		if (config.hasField('maxLifeSeconds')) {
 			Timer.delay(function() { this._entity.delete(); }, Math.floor(config.get('maxLifeSeconds',Float) * 1000));
 		}
-		
-		
+
+
 		if(config.get('alwaysRender',Bool,false) ){
 			_world.addToAlwaysRenderList(_entity);
 		}
 		_world.addEntity(this._entity);
-		
+
 		buildShape();
 	}
 
 
-    override public function getProperties():Array<PropertyDefinition>{
-        var props:Array<PropertyDefinition> = [
+    override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = [
             {
                 key:'position'
                 ,type:FVector
                 ,getter:getPosition
                 ,setter:setPosition
+                ,sortOrder:1
             }
             ,{
                 key:"positionX"
                 ,type:Float
                 ,getter:getPositionX
                 ,setter:setPositionX
+                ,sortOrder:1
             }
             ,{
                 key:"positionY"
                 ,type:Float
                 ,getter:getPositionY
                 ,setter:setPositionY
+                ,sortOrder:1
             }
             ,{
                 key:"positionZ"
                 ,type:Float
                 ,getter:getPositionZ
                 ,setter:setPositionZ
+                ,sortOrder:1
             }
             ,{
                 key:"angle"
                 ,type:Float
                 ,getter:getAngle
                 ,setter:setAngle
+                ,sortOrder:1
             }
             ,{
                 key:"angularVelocity"
                 ,type:Float
                 ,getter:getAngularVelocity
                 ,setter:setAngularVelocity
+                ,sortOrder:1
             }
             ,{
                 key:"linearVelocity"
                 ,type:FVector
                 ,getter:getLinearVelocity
                 ,setter:setLinearVelocity
+                ,sortOrder:1
+            }
+			,{
+                key:"shapes"
+                ,type: Array
+                ,getter:getShapes
+                ,setter:null
+                ,sortOrder:1
             }
         ];
         return props;
@@ -145,15 +162,15 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 			,new FVector(_width/2,-_height/2)
 			]);
 	}
-		
+
 	private function registerEventHandlers(){
 		on(_entity,FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
 	}
 
 	private function removeEventHandlers(){
 		_entity.removeEventListener(this);
-	}	
-	
+	}
+
 	public function onActiveStateChange(e:FEvent){
 			deactivate();
 	}
@@ -163,15 +180,15 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		_world.updateSleepState(this);
 	}
 
-	public function  getPosition() {
+	public function  getPosition(p:FVector=null) {
 		return _position;
 	}
-	
+
 	public function setPosition(pos:FVector) {
 		if(_deleted)return;
 		var oldTopX = _position.x - _width/2;
 		var oldTopY = _position.y - _height/2;
-		
+
 		_position=pos;
 		_world.updatePositionState(this,oldTopX,oldTopY);
 	}
@@ -182,10 +199,10 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 
 		var oldTopX = _position.x - _width/2;
 		var oldTopY = _position.y - _height/2;
-		
+
 		_position.x=x;
 		_position.y=y;
-        if(_world!=null)        
+        if(_world!=null)
 		  _world.updatePositionState(this,oldTopX,oldTopY);
 	}
 
@@ -197,22 +214,22 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		setPositionXY(_position.x, y);
 	}
 
-	public function getPositionX():Float{
+	public function getPositionX(p:Float=0):Float{
 		return this.getPosition().x;
 	}
 
-	public function getPositionY():Float{
+	public function getPositionY(p:Float=0):Float{
 		return this.getPosition().y;
 	}
-	
+
 	public function setAngle(a:Float):Void {
 		_angle = a;
 	}
-	
-	public function getAngle():Float {
+
+	public function getAngle(p:Float=0):Float {
 		return _angle;
 	}
-	
+
 	public function applyLinearForce(v:FVector,?point:FVector=null):Void {
 		_isSleeping = false;
 		_world.updateSleepState(this);
@@ -225,8 +242,8 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 		_world.updateSleepState(this);
 		_linearVelocity = vel;
 	}
-	
-	public function getLinearVelocity():FVector {
+
+	public function getLinearVelocity(p:FVector=null):FVector {
 		return _linearVelocity;
 	}
 
@@ -235,17 +252,17 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	    _angularVelocity = omega;
 	}
 
-	public function getAngularVelocity():Float {
+	public function getAngularVelocity(p:Float=0):Float {
 	    return _angularVelocity;
 	}
 
 	public function addAngularVelocity(omega:Float) {
 		_isSleeping=false;
 		var ome = this.getAngularVelocity();
-	    this.setAngularVelocity(ome+omega);	
+	    this.setAngularVelocity(ome+omega);
 	}
-	
-	public function getPositionZ():Float {
+
+	public function getPositionZ(p:Float=0):Float {
 		return _positionZ;
 	}
 
@@ -296,9 +313,23 @@ class FNoPhysicsComponent extends FEntityComponent implements FPhysicsComponentI
 	public function getBottomY(){
 		return _position.y + _height/2;
 	}
-	public function getShapes():Array<FShape>{
+
+	public function getShapes(shapes:Array<FShape> = null):Array<FShape>{
 		return [_shape];
 	}
+
+
+    //gets called by the world when the world is updating their positions
+    public function onWorldStep(delta:Float){
+        if(_angularVelocity!=0){
+            setAngle(_angle + _angularVelocity * delta);
+        }
+
+        if(_linearVelocity.x!=0 || _linearVelocity.y!=0){
+            setPositionXY(_position.x+_linearVelocity.x * delta, _position.y + _linearVelocity.y * delta);
+        }
+    }
+
 	override public function destruct(){
 		_deleted = true;
 		_world.deleteEntity(_entity);

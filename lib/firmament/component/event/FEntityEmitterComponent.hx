@@ -3,68 +3,74 @@ package firmament.component.event;
 import firmament.component.base.FEntityComponent;
 import firmament.core.FEvent;
 import firmament.util.FEntityUtils;
-import firmament.util.FConfigHelper;
 import firmament.core.FEntityFactory;
 import firmament.core.FEntity;
 import firmament.event.FEntityEvent;
 import firmament.util.FLog;
+import firmament.core.FConfig;
+
 /*
-	Class: FEntityEmitterComponent
-	emits the specified entities when an event is fired.
+    Class: FEntityEmitterComponent
+    emits the specified entities when an event is fired.
 */
 class FEntityEmitterComponent extends FEntityComponent{
 
-	public function new(){
-		super();
-		
-	}
+    public function new(gameInstance:firmament.core.FGame){
+        super(gameInstance);
+        
+    }
 
-	override public function init(config:Dynamic){
-		if(Reflect.isObject(config.emitters)){
-			for(event in Reflect.fields(config.emitters)){
-				var emitter = Reflect.field(config.emitters,event);
+    override public function init(config:FConfig){
 
-				if(Reflect.isObject(emitter)){
-					var ec:firmament.core.FConfig = emitter;
-					on(_entity,event,function(e:FEvent){
-                        
-                        var amount:Int = ec.get('amount', Int, 1);
-                        FLog.debug("amount to spawn: "+amount);
+        log("Adding emiter to listen on " + config.get('listen',String) );
+        on(_entity,config.getNotNull('listen',String),this,
+            function(e:FEvent) {
+                log("Listener executing for " + e.name);
+                _entity.getGameInstance().doAfterStep(
+                    function() {
+                        var amount:Int = config.get('amount', Int, 1);
+                        log("Amount to spawn: "+amount);
                         for(n in 0...amount){
-    						var ent = FEntityFactory.createEntity(ec.getNotNull('entity',Dynamic));
-    						var angle:Float;
-    						if(ec.get("angleOffset",String)=="random"){
-    							angle = Math.random()*6.28318530718;
-    						}else{
-    							angle=ec.get("angleOffset",Float);
-    						}
-    						
-    						var originEntity = _entity;
-    						
-    						//if event received is an entity event, use that entity as the origin instead
-    						if(Std.is(e,FEntityEvent)){
-    							originEntity = cast(e,FEntityEvent).getEntity();
-    						}
-    						
-    						FEntityUtils.emitEntity(originEntity
-    							,ent
-    							,ec.get("speed",Float,0)
-    							,angle
-    							,ec.get("distanceOffset",Float,0.01) ); 
-    						ent.setActive(true);
+                            var cfg = config.getNotNull('entity',Dynamic);
+                            log( cfg );
+                            var ent = FEntityFactory.createEntity( cfg );
+                            var angle:Float;
+                            if(config.get("angleOffset",String)=="random"){
+                                angle = Math.random()*6.28318530718;
+                            }else{
+                                angle=config.get("angleOffset",Float);
+                            }
+
+                            var originEntity = _entity;
+
+                            //if event received is an entity event, use that entity as the origin instead
+                            if(Std.is(e,FEntityEvent)){
+                                originEntity = cast(e,FEntityEvent).getEntity();
+                            }
+
+                            FEntityUtils.emitEntity(originEntity
+                                ,ent
+                                ,config.get("speed",Float,0)
+                                ,angle
+                                ,config.get("distanceOffset",Float,0.01)
+                                ,config.get("ignoreParent",Bool,false) );
+                            ent.setActive(true);
                         }
-					});
-				}else throw "emitter type of '"+event+"' is not an object";
-			}
-		}else{
-			throw "emitters property not valid for entity emitter.";
-		}
-	}
+                        var trigger = config.get('trigger',String);
+                        if(trigger != null){
+                            log("Triggering " + trigger);
+                            _entity.trigger(new FEvent(trigger));
+                        }
+                    }
+                );
+            }
+        );
 
-	override public function getType(){
-		return "entityEmitter";
-	}	
+    }
 
-	
+    override public function getType(){
+        return "entityEmitter";
+    }
+
 
 }

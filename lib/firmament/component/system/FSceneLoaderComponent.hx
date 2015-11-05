@@ -5,17 +5,18 @@ import firmament.component.base.FEntityComponent;
 
 import firmament.core.FEvent;
 
-import firmament.util.FConfigHelper;
-
 import firmament.util.loader.FSceneLoader;
+
+import firmament.core.FConfig;
+
 /**
  * 
  */
 class FSceneLoaderComponent extends FEntityComponent  {
 	var _events:Dynamic;
 	public static inline var SCENE_LOADED_EVENT:String = "sceneLoaded";
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		
 	}
 
@@ -29,7 +30,7 @@ class FSceneLoaderComponent extends FEntityComponent  {
 		for(eventName in Reflect.fields(_events)){
 			on(_entity,eventName,function(e:FEvent){
 				var eventValue = Reflect.field(_events,eventName);
-				var ech = new FConfigHelper(eventValue);
+				var ech:FConfig = eventValue;
 				var gameKey = ech.get('game',String,'main');
 				var scene = ech.getNotNull('scene',Dynamic);
 				FSceneLoader.loadScene(scene,gameKey);

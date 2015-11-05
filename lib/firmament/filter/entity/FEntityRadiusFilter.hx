@@ -2,21 +2,21 @@ package firmament.filter.entity;
 
 import firmament.core.FEntity;
 import firmament.core.FVector;
-import firmament.util.FConfigHelper;
+import firmament.core.FConfig;
 
 class FEntityRadiusFilter extends FEntityFilter{
 
 	var _type:String;
-	public function new(){
-		super();
+	public function new(?scope:FEntity=null){
+		super(scope);
 	}
 
 	//returns true if the entity matches the criteria of the filter
 	override public function filterEntity(entity:FEntity,?options:Dynamic=null):Bool{
-		var oh = new FConfigHelper(options);
+		var oh:FConfig =  options;
 		var radius:Float = oh.getNotNull("radius",Float);
 		var point:FVector = oh.getVector("point",null);
-		var entPoint = entity.getPhysicsComponent().getPosition();
+		var entPoint = entity.getProp('position');
 		if(point == null){
 			throw "point parameter in options is null but should be a vector.";
 		}
@@ -27,7 +27,7 @@ class FEntityRadiusFilter extends FEntityFilter{
 		return false;
 	}
 
-	
+
 
 
 }

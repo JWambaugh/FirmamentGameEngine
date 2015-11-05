@@ -13,6 +13,6 @@ interface FRenderComponentInterface
 	
 	function getBitmapData():BitmapData;
 
-	function getParallaxMultiplier():Float;
+	function getParallaxMultiplier(p:Float=0):Float;
 	
 }

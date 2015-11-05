@@ -2,27 +2,28 @@ package firmament.component.render;
 
 
 
+import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.component.render.FRenderComponentInterface;
 import firmament.core.FCamera;
+import firmament.core.FEvent;
+import firmament.core.FPropertyDefinition;
 import firmament.core.FGame;
+import firmament.core.FPropertyInterface;
+import firmament.core.FVector;
 import firmament.tilesheet.FTilesheet;
 import firmament.tilesheet.FTilesheetManager;
 import firmament.tilesheet.FTilesheetRenderHelper;
-import firmament.component.animation.FAnimationComponent;
-import firmament.core.FVector;
-import openfl.Assets;
 import flash.display.BitmapData;
 import flash.display.IBitmapDrawable;
 import flash.display.Sprite;
-import openfl.display.Tilesheet;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import firmament.core.FEvent;
-
+import openfl.Assets;
+import openfl.display.Tilesheet;
 
 
 
@@ -34,6 +35,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 {
 	var drawList:Array<Float>;
 	var _tilesheet:FTilesheet;
+    var _tilesheetId:Int;
 	var imageScale:Float;
 	var _tile:Int;
 	var _parallax:Float;
@@ -48,9 +50,9 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 	var _b:Float=1;
 	var _alpha:Float=1;
 
-	public function new() {
+	public function new(gameInstance:firmament.core.FGame) {
 		imageScale=100;
-		super();
+		super(gameInstance);
 		drawList = new Array<Float>();
 		_tile = 0;
 		_parallax = 1;
@@ -62,7 +64,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 
 	override public function init(config:Dynamic){
 		this._config = config;
-		var ch = getConfigHelper();
+		var ch:firmament.core.FConfig = config;
 		initTilesheet();
 
 		if(_tilesheet == null){
@@ -143,6 +145,42 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		}
 	}
 
+
+    override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = [
+            {
+                key:'imageScale'
+                ,type:Float
+                ,getter:getImageScale
+                ,setter:setImageScale
+                ,sortOrder:1
+            }
+            ,{   
+                key:'tileId'
+                ,type:Int
+                ,getter:getCurrentTile
+                ,setter:setTile
+                ,sortOrder:1
+            }
+            ,{  
+                key:'parallax'
+                ,type:Float
+                ,getter:getParallaxMultiplier
+                ,setter:setParallaxMultiplier
+                ,sortOrder:1
+            }
+            ,{  
+                key:'tilesheetId'
+                ,type:Int
+                ,getter:getTilesheetId
+                ,setter:setTilesheetId
+                ,sortOrder:1
+            }
+
+        ];
+        return props;
+    }
+
 	public function render(camera:FCamera):Void {
 		
 		//make sure we are currently active 
@@ -195,7 +233,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		this._tile = _tilesheet.getTileNumber(label);
 	}
 
-	public function getCurrentTile(){
+	public function getCurrentTile(p:Float=0){
 		return _tile;
 	}
 
@@ -209,11 +247,12 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 	}
 
 
+
 	public function setImageScale(scale:Float){
 		imageScale = scale;
 	}
 
-	public function getImageScale(){
+	public function getImageScale(p:Float=0){
 		return imageScale;
 	}
 	
@@ -225,9 +264,13 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		return "render";
 	}
 
-	public function getParallaxMultiplier():Float{
+	public function getParallaxMultiplier(p:Float=0):Float{
 		return _parallax;
 	}
+
+    public function setParallaxMultiplier(p:Float):Void{
+        _parallax = p;
+    }
 
 	public function setRGB(r:Float,g:Float,b:Float){
 		_r=r;
@@ -250,6 +293,18 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 	public function getAlpha(){
 		return _alpha;
 	}
+
+    public function setTilesheetId(id:Int){
+        _tilesheetId = id;
+        _tilesheet = FTilesheetManager.getInstance().getTilesheetWithId(id);
+        if(_tilesheet == null){
+            throw "Tilesheet with id of "+id+" does not exist.";
+        }
+    }
+
+    public function getTilesheetId(p:Int=0){
+        return _tilesheetId;
+    }
 	
 	
 }

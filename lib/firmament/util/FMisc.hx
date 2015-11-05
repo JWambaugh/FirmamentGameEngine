@@ -8,7 +8,7 @@ import firmament.process.helper.FCallbackProcess;
  * @author Jordan Wambaugh
  */
 
-class FMisc 
+class FMisc
 {
 
 	/**
@@ -37,7 +37,7 @@ class FMisc
 		for (f in Reflect.fields(a)) {
 			var val:Dynamic = Reflect.field(a, f);
 			if(Std.is(val,Array)){
-				if(Std.is( Reflect.field(b, f), Array )){ 
+				if(Std.is( Reflect.field(b, f), Array )){
 					Reflect.setField(b,f,cast(Reflect.field(b, f), Array<Dynamic>).concat(val));
 				} else {
 					Reflect.setField(b, f, val);
@@ -62,41 +62,41 @@ class FMisc
 
 		return a;
 	}*/
-	/** 
-		*deep copy of anything 
-	 **/ 
-	public static function deepClone<T>( v:T ) : T 
-	{ 
-		if (!Reflect.isObject(v) || Std.is(v,String)) // simple type 
-		{ 
-			return v; 
-		} 
-		else if( Std.is( v, Array ) ) // array 
-		{ 
-			var r = Type.createInstance(Type.getClass(v), []); 
-			untyped 
-			{ 
-			for( ii in 0...v.length ) 
-				r.push(deepClone(v[ii])); 
-			} 
-			return r; 
-		} 
-		else if( Type.getClass(v) == null ) // anonymous object 
-		{ 
-			var obj : Dynamic = {}; 
-			for( ff in Reflect.fields(v) ) 
-				Reflect.setField(obj, ff, deepClone(Reflect.field(v, ff))); 
-			return obj; 
-		} 
-		else // class 
-		{ 
-			var obj = Type.createEmptyInstance(Type.getClass(v)); 
-			for( ff in Reflect.fields(v) ) 
-				Reflect.setField(obj, ff, deepClone(Reflect.field(v, ff))); 
-			return obj; 
-		} 
-		return null; 
-	} 
+	/**
+		*deep copy of anything
+	 **/
+	public static function deepClone<T>( v:T ) : T
+	{
+		if (!Reflect.isObject(v) || Std.is(v,String)) // simple type
+		{
+			return v;
+		}
+		else if( Std.is( v, Array ) ) // array
+		{
+			var r = Type.createInstance(Type.getClass(v), []);
+			untyped
+			{
+			for( ii in 0...v.length )
+				r.push(deepClone(v[ii]));
+			}
+			return r;
+		}
+		else if( Type.getClass(v) == null ) // anonymous object
+		{
+			var obj : Dynamic = {};
+			for( ff in Reflect.fields(v) )
+				Reflect.setField(obj, ff, deepClone(Reflect.field(v, ff)));
+			return obj;
+		}
+		else // class
+		{
+			var obj = Type.createEmptyInstance(Type.getClass(v));
+			for( ff in Reflect.fields(v) )
+				Reflect.setField(obj, ff, deepClone(Reflect.field(v, ff)));
+			return obj;
+		}
+		return null;
+	}
 
 	public static function doLater(cb:Void->Void){
 		FGame.getInstance().getProcessManager().addProcess(new FCallbackProcess({step:function(){
@@ -119,7 +119,7 @@ class FMisc
 				break;
 			}
 			if(step=='')continue;
-			
+
 			var n:Dynamic  = Reflect.field(currentPos,step);
 			if(n!=null){
 				currentPos = n;
@@ -131,5 +131,31 @@ class FMisc
 		}
 	}
 
-	
+	public static function smartSplitWhiteSpace(str:String):Array<Dynamic>{
+		var arr:Array<Dynamic> = new Array();
+		var buffer:StringBuf = new StringBuf();
+		var c:String;
+		var f:Float;
+		var i=0;
+		do{
+			c = str.charAt(i);
+			if(c == ' ' || c == "\t" || c == ""){
+				if(buffer.length > 0){
+					f = Std.parseFloat(buffer.toString());
+					if(Math.isNaN(f)){
+						arr.push(buffer.toString());
+					}else{
+						arr.push(f);
+					}
+					buffer = new StringBuf();
+				}
+			} else {
+				buffer.add(c);
+			}
+			i++;
+		} while(c != "");
+		return arr;
+	}
+
+
 }

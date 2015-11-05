@@ -21,9 +21,7 @@ class FJsonSerializer implements FSerializerInterface
 		
 	}
 	public function unserialize(data:String,?fileName:String=''):Dynamic {
-		_scripts = new Array();
 		var d = TJSON.parse(data,fileName /*,processStringVal*/);
-		d._scripts = _scripts;
 		return d;
 		
 	}

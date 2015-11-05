@@ -11,7 +11,7 @@ import firmament.core.FEntity;
 
 import flash.geom.Point;
 import flash.display.Graphics;
-import firmament.util.FConfigHelper;
+import firmament.core.FConfig;
 
 class FSplineTweener extends FProcess {
 
@@ -25,7 +25,7 @@ class FSplineTweener extends FProcess {
     private var _draw:Bool;
     private var _changeAngle:Bool;
 
-	public function new(?name:String="splineTweener",parameters:FConfigHelper, ?entity:FEntity=null,?graphics:Graphics=null) {
+	public function new(parameters:FConfig, ?entity:FEntity=null,?graphics:Graphics=null) {
 		super();
 
 		var points:Array<FVector> = [];
@@ -38,7 +38,7 @@ class FSplineTweener extends FProcess {
 		    points.push( new FVector(pt[0],pt[1]) );
 		}
 		spline = new CatmullRom(points, totalTime);
-		
+
 		//apply random start position if desired
 		if(parameters.get('randomStart',Bool,false)){
 			var startSeed = Math.random()*totalTime;
@@ -47,10 +47,10 @@ class FSplineTweener extends FProcess {
 
 		_entity = entity;
 		if(_entity != null) {
-			_startPos = _entity.getPhysicsComponent().getPosition();
+			_startPos = _entity.getProp('position');
 		}
 		_graphics = graphics;
-		
+
 		//build spline path
 		// this will build a static array which will be incorrect
 		// when dynamically updating array position/shape
@@ -70,8 +70,8 @@ class FSplineTweener extends FProcess {
 		}
 
 		spline.setActive(true);
-		
-		FGame.getInstance().addProcess(name,this);
+
+		FGame.getInstance().addProcess(this);
 	}
 
 	public function setEntity(entity:FEntity): FEntity {
@@ -84,25 +84,24 @@ class FSplineTweener extends FProcess {
 		_graphics = g;
 	}
 
-	override public function step() {
-		var delta = this._manager.getFrameDelta();
+	override public function step(delta:Float) {
 		spline.update(delta);
-		
+
 		q=spline.getPosition();
 		t=spline.getTangent();
 		if(_entity != null) {
 		    var qa = q.copy();
 		    qa.add(_startPos);
-			_entity.getPhysicsComponent().setPosition( qa );
+			_entity.setProp('position', qa );
 			if(_changeAngle){
-				_entity.getPhysicsComponent().setAngle(Math.atan2(t.y,t.x));
+				_entity.setProp('angle',Math.atan2(t.y,t.x));
 			}
 		}
 
 		if(spline.isActive() == false ) {
 			spline.reset();
 			spline.setActive(true);
-		} 
+		}
 	}
 
 	public function render() {

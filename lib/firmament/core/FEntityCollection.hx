@@ -1,11 +1,16 @@
 package firmament.core;
 
 
+
+import firmament.core.FMutex;
 import firmament.core.FEntity;
+import firmament.util.FMisc;
+import haxe.ds.ArraySort;
 
 class FEntityCollection implements ArrayAccess<FEntity>{
 	var _entities:Array<FEntity>;
 	var _this:FEntity;
+    var _mutex:FMutex;
 
 	public var length(get_length,never):Int;
 
@@ -15,6 +20,9 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 		}
 		_entities = a;
 		_this = thisEntity;
+
+        _mutex = new FMutex();
+
 	}
 
 
@@ -22,7 +30,7 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 		return _entities;
 	}
 
-	/** 
+	/**
 	 * Sets the scope of 'this' to the specified entity.
 	 *
 	 */
@@ -32,8 +40,21 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 	}
 
 
-	public function filter(val:Array<Dynamic>){
+
+
+	public function filter(val:Dynamic){
+
+		if(val == "" || val == null) return this;
+		if(Std.is(val, String)){
+			val = FMisc.smartSplitWhiteSpace(val);
+		}
+		if(!Std.is(val, Array)){
+			throw "Value must be string or array";
+		}
+		firmament.util.FLog.debug(Std.string(val));
+    _mutex.acquire();
 		doFilter(val);
+    _mutex.release();
 		return this;
 	}
 
@@ -45,7 +66,7 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 		var newArray = new Array<FEntity>();
 
 		for(entity in _entities){
-			if(comparator(subject,val,entity)){
+			if(entity.isActive() && comparator(subject,val,entity)){
 				newArray.push(entity);
 			}
 		}
@@ -78,29 +99,37 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 		return switch(comparatorStr){
 			case "equals","equal","=","==": this.equals;
 			case "lessThan","<": this.lessThan;
-			case "greaterThan",">": this.lessThan;
+            case "greaterThan",">": this.lessThan;
+			case "notEqual","!=": this.lessThan;
 			default: throw "Unrecognized comparator: "+comparatorStr;
 		};
 	}
 
 	private function equals(a:Dynamic,b:Array<Dynamic>, ent:FEntity):Bool{
-		return evalValue(a,ent)==evalValue(b[0],ent);
+		return evalValue(a,ent) == evalValue(b[0],ent);
 	}
 
 	private function lessThan(a:Dynamic,b:Array<Dynamic>, ent:FEntity):Bool{
-		return evalValue(a,ent)<evalValue(b[0],ent);
+		return evalValue(a,ent) < evalValue(b[0],ent);
 	}
 
 	private function greaterThan(a:Dynamic,b:Array<Dynamic>, ent:FEntity):Bool{
-		return evalValue(a,ent)>evalValue(b[0],ent);
+		return evalValue(a,ent) > evalValue(b[0],ent);
 	}
+
+    private function notEqual(a:Dynamic,b:Array<Dynamic>, ent:FEntity):Bool{
+        return evalValue(a,ent) != evalValue(b[0],ent);
+    }
 
 	public function iterator(){
 		return _entities.iterator();
 	}
 
 	public function remove(e:FEntity){
-		return _entities.remove(e);
+        _mutex.acquire();
+		var rval = _entities.remove(e);
+        _mutex.release();
+        return rval;
 	}
 
 	public function get_length(){
@@ -110,15 +139,24 @@ class FEntityCollection implements ArrayAccess<FEntity>{
 
 	//array access
 	public function __get(x:Int){
-		return _entities[x];
+        _mutex.acquire();
+        var rval = _entities[x];
+        _mutex.release();
+		return rval;
 	}
 
 	public function __set(x:Int,v:FEntity){
-		return _entities[x] = v;
+        _mutex.acquire();
+        var rval = _entities[x] = v;
+        _mutex.release();
+        return rval;
+
 	}
 
 	public function sort(f:FEntity ->FEntity ->Int):Void{
-		_entities.sort(f);
+        _mutex.acquire();
+        ArraySort.sort(_entities, f);
+        _mutex.release();
 	}
 
     public function sortByPropertyAsc(property:String){
@@ -142,7 +180,16 @@ class FEntityCollection implements ArrayAccess<FEntity>{
     }
 
 	public function first():FEntity{
-		return _entities[0];
+        _mutex.acquire();
+        var rval = _entities[0];
+        _mutex.release();
+        return rval;
 	}
-}
 
+    public function concat(c:FEntityCollection){
+        _mutex.acquire();
+        var rval = _entities.concat(c.get());
+        _mutex.release();
+        return rval;
+    }
+}

@@ -15,14 +15,14 @@ import firmament.core.FEvent;
 class FDestroyEntityComponent extends FEntityComponent{
 
     var _destroyAction:String;
-    public function new(){
-        super();
+    public function new(gameInstance:firmament.core.FGame){
+        super(gameInstance);
     }
 
     override public function init(config:firmament.core.FConfig){
         _destroyAction = config.get("destroyAction",String,"destroy");
-        var event:String = config.getNotNull("event",String);
-        _entity.on(event,destroyEvent);
+        var event:String = config.getNotNull("listen",String);
+        on(_entity,event,this,destroyEvent);
     }
 
 
@@ -32,9 +32,12 @@ class FDestroyEntityComponent extends FEntityComponent{
 
     public function destroyEvent(e:FEvent){
         _entity.getGameInstance().doAfterStep(function(){
-            if(this._destroyAction=='repool'){
+            // an entity can be either so try to return first
+            // and then follow up with the regular delete if
+            // there wasn't a pool available
+            if( _entity.getPool() != null ) {
                 _entity.returnToPool();
-            }else{
+            } else {
                 _entity.delete();
             }
         });

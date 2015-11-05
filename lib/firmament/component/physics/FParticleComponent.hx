@@ -2,13 +2,15 @@ package firmament.component.physics;
 
 
 import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.core.FComputedProperty;
 import firmament.core.FConfig;
 import firmament.core.FEntity;
 import firmament.core.FEvent;
 import firmament.core.FGame;
+import firmament.core.FPropertyDefinition;
 import firmament.core.FPolygonShape;
+import firmament.core.FPropertyInterface;
 import firmament.core.FShape;
 import firmament.core.FVector;
 import firmament.core.FWorldPositionalInterface;
@@ -22,10 +24,10 @@ import haxe.Timer;
  * @author Jordan Wambaugh
  */
 
-class FParticleComponent extends FEntityComponent implements FPhysicsComponentInterface implements FWorldPositionalInterface 
+class FParticleComponent extends FEntityComponent
 {
-	
-	
+
+
 	private var _positionZ:Float;
 	private var _position:FVector;
 	private var _world:FParticleWorld;
@@ -43,9 +45,9 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
     private var _gravity:FVector;
 
 
-	public function new() 
+	public function new(gameInstance:firmament.core.FGame)
 	{
-		super();
+		super(gameInstance);
 		_world = cast(FGame.getInstance().getWorld("particle"),FParticleWorld);
 		_position = new FVector(0,0);
 		_isSleeping = false;
@@ -55,11 +57,11 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 		_deleted = false;
         _gravity = null;
 	}
-	
+
 	override public function init(config:FConfig):Void {
 		registerEventHandlers();
-		
-		
+
+
 		_position = config.getVector('position');
         _width = config.getNotNull('width',Float);
         _height = config.getNotNull('height',Float);
@@ -75,65 +77,80 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
         if (config.hasField('maxLifeSeconds')) {
             Timer.delay(function() { this._entity.delete(); }, Math.floor(config.get('maxLifeSeconds',Float) * 1000));
         }
-        
-        
+
+
         if(config.get('alwaysRender',Bool,false) ){
             _world.addToAlwaysRenderList(_entity);
         }
 		_world.addEntity(this._entity);
-	
+
 		buildShape();
 	}
 
-	override public function getProperties():Array<PropertyDefinition>{
-        var props:Array<PropertyDefinition> = [
+	override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = [
             {
                 key:'position'
                 ,type:FVector
                 ,getter:getPosition
                 ,setter:setPosition
+                ,sortOrder:1
             }
             ,{
                 key:"positionX"
                 ,type:Float
                 ,getter:getPositionX
                 ,setter:setPositionX
+                ,sortOrder:1
             }
             ,{
                 key:"positionY"
                 ,type:Float
                 ,getter:getPositionY
                 ,setter:setPositionY
+                ,sortOrder:1
             }
             ,{
                 key:"positionZ"
                 ,type:Float
                 ,getter:getPositionZ
                 ,setter:setPositionZ
+                ,sortOrder:1
             }
             ,{
                 key:"angle"
                 ,type:Float
                 ,getter:getAngle
                 ,setter:setAngle
+                ,sortOrder:1
             }
             ,{
                 key:"angularVelocity"
                 ,type:Float
                 ,getter:getAngularVelocity
                 ,setter:setAngularVelocity
+                ,sortOrder:1
             }
             ,{
                 key:"linearVelocity"
                 ,type:FVector
                 ,getter:getLinearVelocity
                 ,setter:setLinearVelocity
+                ,sortOrder:1
             }
             ,{
                 key:"gravity"
                 ,type:FVector
                 ,getter:getGravity
                 ,setter:setGravity
+                ,sortOrder:1
+            }
+			,{
+                key:"shapes"
+                ,type: Array
+                ,getter:getShapes
+                ,setter:null
+                ,sortOrder:1
             }
         ];
         return props;
@@ -147,15 +164,15 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 			,new FVector(_width/2,-_height/2)
 			]);
 	}
-		
+
 	private function registerEventHandlers(){
 		on(_entity,FEntity.ACTIVE_STATE_CHANGE, onActiveStateChange);
 	}
 
 	private function removeEventHandlers(){
 		_entity.removeEventListener(this);
-	}	
-	
+	}
+
 	public function onActiveStateChange(e:FEvent){
 			deactivate();
 	}
@@ -164,10 +181,10 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 		this._isActive = _entity.isActive();
 	}
 
-	public function  getPosition() {
+	public function  getPosition(p:FVector=null) {
 		return _position;
 	}
-	
+
 	public function setPosition(pos:FVector) {
 		if(_deleted)return;
 		_position=pos;
@@ -184,22 +201,22 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 		_position.set(_position.x,y);
 	}
 
-	public function getPositionX():Float{
+	public function getPositionX(p:Float=0):Float{
 		return this.getPosition().x;
 	}
 
-	public function getPositionY():Float{
+	public function getPositionY(p:Float=0):Float{
 		return this.getPosition().y;
 	}
-	
+
 	public function setAngle(a:Float):Void {
 		_angle = a;
 	}
-	
-	public function getAngle():Float {
+
+	public function getAngle(p:Float=0):Float {
 		return _angle;
 	}
-	
+
 	public function applyLinearForce(v:FVector,?point:FVector=null):Void {
 		_isSleeping = false;
 		_world.updateSleepState(this);
@@ -212,8 +229,8 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 		_world.updateSleepState(this);
 		_linearVelocity = vel;
 	}
-	
-	public function getLinearVelocity():FVector {
+
+	public function getLinearVelocity(p:FVector=null):FVector {
 		return _linearVelocity;
 	}
 
@@ -222,14 +239,14 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 	    _angularVelocity = omega;
 	}
 
-	public function getAngularVelocity():Float {
+	public function getAngularVelocity(p:Float=0):Float {
 	    return _angularVelocity;
 	}
 
 	public function addAngularVelocity(omega:Float) {
 		_isSleeping=false;
 		var ome = this.getAngularVelocity();
-	    this.setAngularVelocity(ome+omega);	
+	    this.setAngularVelocity(ome+omega);
 	}
 
     public function setGravity(g:FVector):Void {
@@ -237,11 +254,11 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
         _gravity = g;
     }
 
-    public function getGravity():FVector {
+    public function getGravity(p:FVector=null):FVector {
         return _gravity;
     }
-	
-	public function getPositionZ():Float {
+
+	public function getPositionZ(p:Float=0):Float {
 		return _positionZ;
 	}
 
@@ -292,7 +309,7 @@ class FParticleComponent extends FEntityComponent implements FPhysicsComponentIn
 	public function getBottomY(){
 		return _position.y + _height/2;
 	}
-	public function getShapes():Array<FShape>{
+	public function getShapes(shapes:Array<FShape> = null):Array<FShape>{
 		return [_shape];
 	}
 	override public function destruct(){

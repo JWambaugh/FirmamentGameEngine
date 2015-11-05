@@ -25,6 +25,10 @@ class FTilesheetManager {
 	
 	
 	static var _instance:FTilesheetManager;
+	
+	private var _stats:firmament.util.FStatistics;
+	private var _totalTilesheetMaps:Int;
+
 	var idCounter:Int;
 	var tilesheets:Map<Int,FTilesheet>;
 	var _orderedTilesheets:Array<FTilesheet>;
@@ -32,15 +36,29 @@ class FTilesheetManager {
     
 	//tracks which tilesheet an asset is in
 	var tilesheetMap:Map<String,SpriteTilesheet>;
-
 	var tilesheetAutoQueue:Array<String>;
 
 	private function new () {
 		idCounter = 0;
+		_totalTilesheetMaps = 0;
 		tilesheets = new Map<Int,FTilesheet>();
 		_orderedTilesheets = new Array<FTilesheet>();
 		tilesheetMap = new Map();
 		tilesheetAutoQueue = new Array();
+
+		// adding this as an include makes a wierd confict and
+		// creates a compile error
+		_stats = firmament.util.FStatistics.getInstance();
+
+		if( !_stats.hasProperty('TilesheetIdMax') ) {
+			_stats.registerProp('TilesheetIdMax','Int');
+		}
+		_stats.setProp('TilesheetIdMax',this.idCounter);
+
+		if( !_stats.hasProperty('TilesheetMaps') ) {
+			_stats.registerProp('TilesheetMaps','Int');
+		}
+		_stats.setProp('TilesheetMaps',_totalTilesheetMaps);	
 		
 	}
 
@@ -52,10 +70,10 @@ class FTilesheetManager {
 		return _instance;
 	}
 
-
-
 	public function genTilesheetId(){
-		return this.idCounter++;
+		this.idCounter++;
+		_stats.setProp('TilesheetIdMax',this.idCounter);
+		return this.idCounter;
 	}
 
 
@@ -188,10 +206,7 @@ class FTilesheetManager {
 		for(entry in entries){
 				var tileId = t.addTileRectWithLabel(entry.rect,entry.center,entry.label);
 				if(entry.path != null){
-					tilesheetMap.set(entry.path,{
-						tilesheetId: t.getId()
-						,tileId: tileId
-					});
+					addToTilesheetMap(entry.path,t.getId(),tileId);
 				}
 			}
 		return t;
@@ -200,6 +215,9 @@ class FTilesheetManager {
 	
 	
 	public function addToTilesheetMap(path, tilesheetId, tileId){
+		if( tilesheetMap.exists(path)) {
+			_stats.setProp('TilesheetMaps',++_totalTilesheetMaps);	
+		}
 		tilesheetMap.set(path,{
 			tilesheetId: tilesheetId
 			,tileId: tileId
@@ -212,7 +230,7 @@ class FTilesheetManager {
 
 		#if(cpp||neko)
 		if(img==null){
-			img = BitmapData.load(fileName);
+			//img = BitmapData.load(fileName);
 		}
 		#end
 		return img;

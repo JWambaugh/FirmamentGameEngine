@@ -1,14 +1,19 @@
 package firmament.component.render;
-import flash.display.BitmapData;
-import flash.geom.Matrix;
-import flash.display.IBitmapDrawable;
-import flash.geom.Point;
-import flash.events.EventDispatcher;
-import firmament.core.FConfig;
-import firmament.tilesheet.FTilesheetManager;
+
+import firmament.component.base.FEntityComponent;
 import firmament.component.render.FTilesheetRenderComponent;
+import firmament.core.*;
 import firmament.core.FCamera;
+import firmament.core.FConfig;
+import firmament.core.FPropertyInterface;
+import firmament.core.FPropertyDefinition;
 import firmament.core.FVector;
+import firmament.tilesheet.FTilesheetManager;
+import flash.display.BitmapData;
+import flash.display.IBitmapDrawable;
+import flash.events.EventDispatcher;
+import flash.geom.Matrix;
+import flash.geom.Point;
 /**
  * 
  * @author Jordan Wambaugh
@@ -20,9 +25,9 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
 	
 	var _currentImagePath:String = null;
 
-	public function new() 
+	public function new(gameInstance:firmament.core.FGame) 
 	{
-		super();
+		super(gameInstance);
 		imageScale=100;
 		drawList = new Array<Float>();
 		_tile = 0;
@@ -38,28 +43,37 @@ class FSpriteRenderComponent extends FTilesheetRenderComponent  implements FRend
 		var ch:FConfig = config;
 
 
-        if(Std.is(config.imageScale,Float)) {
-			imageScale = config.imageScale;
-		}
+		imageScale = ch.get("imageScale",Float,100.0);
+		_parallax = ch.get("parallax",Float,1);
+		_flipX = ch.get("flipX",Bool,false);
+		_flipY = ch.get("flipY",Bool,false);
 
-		if(Std.is(config.parallax,Float)){
-			_parallax = config.parallax;
-		}
+		_r=ch.get('red',Float,1.0);
+		_g=ch.get('green',Float,1.0);
+		_b=ch.get('blue',Float,1.0);
+		_alpha=ch.get('alpha',Float,1.0);
 
-		if(Std.is(config.flipX,Bool)){
-			_flipX = config.flipX;
-		}
-		if(Std.is(config.flipY,Bool)){
-			_flipY = config.flipY;
-		}
-
-		_r=ch.get('red',Float,1.);
-		_g=ch.get('green',Float,1.);
-		_b=ch.get('blue',Float,1.);
-		_alpha=ch.get('alpha',Float,1.);
 		setImage(ch.get("image",String));
-
 	}
+
+    override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = super.getProperties();
+         
+            props.push({   // this is a fake property until it can be fixed
+                key:'image'
+                ,type:String
+                ,getter:function(i:String=null){return _currentImagePath;}
+                ,setter:setImage
+                ,sortOrder:1
+            });
+            
+        
+        return props;
+    }
+
+
+    
+
 
 	public function setImage(image:Dynamic){
 		if(Std.is(image,String)){

@@ -65,6 +65,13 @@ class FTilesheet  {
 		_renderPriority = 0;
 		_labelMap = new Map();
         this.bitmapData = inImage;
+
+		var stats = firmament.util.FStatistics.getInstance();
+		if( !stats.hasProperty('Tilesheets') ) {
+			stats.registerProp('Tilesheets','Int');
+			stats.setProp('Tilesheets',0);
+		}
+		stats.setProp('Tilesheets',stats.getProp('Tilesheets')+1);
 	}
 
     private function createBuffers ():Void {

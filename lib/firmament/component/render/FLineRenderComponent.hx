@@ -3,7 +3,7 @@ package firmament.component.render;
 
 
 import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.component.render.FRenderComponentInterface;
 import firmament.core.FCamera;
 import firmament.core.FGame;
@@ -43,9 +43,9 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 	var _g:Float=1;
 	var _b:Float=1;
 	var _alpha:Float=1;
-	public function new() {
+	public function new(gameInstance:firmament.core.FGame) {
 		imageScale=100;
-		super();
+		super(gameInstance);
 
 		_tile = 0;
 		_parallax = 1;
@@ -217,7 +217,7 @@ class FLineRenderComponent extends FEntityComponent  implements FRenderComponent
 		return "render";
 	}
 
-	public function getParallaxMultiplier():Float{
+	public function getParallaxMultiplier(p:Float=0):Float{
 		return _parallax;
 	}
 	

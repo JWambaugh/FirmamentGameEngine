@@ -1,12 +1,18 @@
 package firmament.core;
+
 import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.component.render.FRenderComponentInterface;
 import firmament.component.render.FTilesheetRenderComponent;
 import firmament.core.FEntityPool;
+import firmament.core.FEvent;
 import firmament.core.FGame;
+import firmament.core.FGameChildInterface;
+import firmament.core.FObject;
 import firmament.core.FProperty;
+import firmament.core.FPropertyInterface;
 import firmament.util.FGuidManager;
+import firmament.util.FLog;
 import firmament.util.FMisc;
 import firmament.world.FWorld;
 import flash.display.BitmapData;
@@ -15,23 +21,18 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import openfl.Assets;
 import openfl.display.Tilesheet;
-import firmament.core.FObject;
-import firmament.core.FEvent;
- 
  /**
   * Core entity class for all entities/actors in the game.
   * entities now follow a component archetecture. Modify their behavior with coponents.
-  * 
-  * 
+  *
+  *
   */
-class FEntity extends FObject
-{
+class FEntity extends FPropertyContainer implements FGameChildInterface{
 
 	//events
 	public static inline var COMPONENTS_INITIALIZED = 'componentsInited';
 	public static inline var ACTIVE_STATE_CHANGE = "activeChange";
 
-	var _config:Dynamic;
 	var _componentsHash:Map<String,Array<FEntityComponent>>;
 	var _components:Array<FEntityComponent>;
 	var _pool:FEntityPool;
@@ -40,32 +41,29 @@ class FEntity extends FObject
 	var _tags:Array<String>;
 	var _gameInstance:FGame;
 	var _instanceId:String = null;
-	var _properties:Map<String,FProperty>;
+	var _debug:Bool = false;
 
 
 
 	/**
-	 * 
+	 *
 	 * Config Paramers:
 	 * 	imageScale - [Float] The initial scale value for the sprite.
 	 * 	sprite  - [BitmapData] The image to use as a sprite for this entity
 	 */
-	public function new(config:Dynamic,?gameInstanceName='main') 
+	public function new(config:Dynamic,?gameInstanceName='main')
 	{
-		super();
-		if(config == null) config ={};
-		this._config = config;
+		super(config);
+
 		this._componentsHash = new Map<String,Array<FEntityComponent>>();
-		_properties = new Map<String,FProperty>();
 		_components = new Array<FEntityComponent>();
 		_active = true;
 		if(!Std.is(config.typeId,String)){
 			config.typeId = "Entity_"+Math.floor(Math.random()*10000000);
-			
+
 		}
 		_typeId = config.typeId;
 		_instanceId = config.instanceId;
-		
 
 		if(Std.is(config.tags,Array)){
 			_tags = config.tags;
@@ -74,10 +72,12 @@ class FEntity extends FObject
 		}
 		_gameInstance = FGame.getInstance(gameInstanceName);
 		registerProperty(new FComputedProperty<String>("typeId",getTypeId,setTypeId));
+        registerProperty(new FComputedProperty<String>("instanceId",getInstanceId,setInstanceId));
+		registerProperty(new FComputedProperty<Bool>("debug",getDebug,setDebug));
 	}
 
 
-	public function getTypeId():String{
+	public function getTypeId(t:String=""):String{
 		return _typeId;
 	}
 
@@ -85,12 +85,20 @@ class FEntity extends FObject
 		_typeId = typeId;
 	}
 
+	public function getDebug(d:Bool=false):Bool{
+		return _debug;
+	}
+
+	public function setDebug(value:Bool){
+		_debug = value;
+	}
+
 	/**
 	 * Returns the instanceId of this entity. If an instanceId is not set by the 'instanceId' config proprty,
 	 * a guid will be assigned (lazily)
 	 *
 	 */
-	public function getInstanceId():String{
+	public function getInstanceId(i:String=''):String{
 		if(_instanceId == null){
 			_instanceId = FGuidManager.getGuid();
 		}
@@ -106,11 +114,11 @@ class FEntity extends FObject
 		if(_instanceId != null) throw dbgMsg()+"instanceId already set";
 		_instanceId = id;
 	}
-	
-	
+
+
 	/**
 	 * Returns an array of components with the specified type.
-	 * 
+	 *
 	 * @return  The components with matching type
 	 */
 	public function getComponent(type:String):Array<FEntityComponent> {
@@ -124,11 +132,11 @@ class FEntity extends FObject
 
 	/**
 	 *	returns a physics component if there is one. null otherwise
-	 * 
+	 *
 	 *
 	 * @return PysicsComponentInterface
 	 */
-	public function getPhysicsComponent():FPhysicsComponentInterface {
+	public function getPhysicsComponent():FEntityComponent {
 		var ca = this.getComponent('physics');
 		if(ca!=null){
 			return cast(ca[0]);
@@ -138,7 +146,7 @@ class FEntity extends FObject
 
 	/**
 	 *	returns a render component, if there is one. null otherwise
-	 * 
+	 *
 	 *
 	 * @return PysicsComponentInterface
 	 */
@@ -149,7 +157,7 @@ class FEntity extends FObject
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Adds a component to the entity
 	 */
@@ -164,11 +172,7 @@ class FEntity extends FObject
 		_components.push(component);
 		component.setEntity(this);
 	}
-	
-	
-	public function getConfig():Dynamic {
-		return this._config;
-	}
+
 
 	/**
 	 * Deletes the entity
@@ -194,7 +198,12 @@ class FEntity extends FObject
 		if(active!=_active){
 			_active = active;
 			this.trigger(new FEvent(ACTIVE_STATE_CHANGE));
+            for (c in _components){
+                if(active)c.onActivate();
+                else c.onDeactivate();
+            }
 		}
+
 	}
 
 	public function isActive():Bool{
@@ -207,17 +216,17 @@ class FEntity extends FObject
 	public function getPool(){
 		return _pool;
 	}
-	
+
 	public function returnToPool(){
-		
+
 		this.setActive(false);
-		
+
 		if(_pool == null){
 			throw dbgMsg()+"Can't return to pool. Pool is null";
 		}else{
 			_pool.addEntity(this);
 		}
-		
+
 	}
 
 	public function getTags():Array<String>{
@@ -245,56 +254,20 @@ class FEntity extends FObject
 
 	//property functions
 
-	public function registerProperty(property:FProperty){
-		if(_properties.exists(property.getKey())) throw(dbgMsg()+"Property already exists with key "+property.getKey());
-		_properties.set(property.getKey(),property);
+	override public function getProperty(key:String):FProperty{
+		try {
+			return super.getProperty(key);
+		} catch (e:String) {
+			throw dbgMsg() + e;
+		}
 	}
 
-    public function hasProperty(key:String){
-        return _properties.exists(key);
-    }
-	
-	public function getProperty(key:String):FProperty{
-
-		var p = _properties.get(key);
-		if(p == null)throw(dbgMsg()+"No property with key "+key);
-		return p;
-	}
-
-
-	public function getPropertyValue(key:String):Dynamic{
-		return getProperty(key).getDynamic();
-	}
-
-	public function setPropertyValue(key:String,value:Dynamic){
-		getProperty(key).set(value);
-	}
-
-	//property helper functions
-	/**
-	 * Registers a property in the entity. This must be done before the property can be read or written.
-	 */
-	public function registerProp(key:String, type:Dynamic, getter:Void->Dynamic=null, setter:Dynamic->Void=null){
-        var prop;
-        if(getter==null&&setter==null)
-            prop = FProperty.createBasic(key,type);
-        else
-            prop = FProperty.createComputed(key,type,getter,setter);
-		this.registerProperty(prop);
-	}
-	
-	/**
-	 * Returns the value of the given property
-	 */
-	public function getProp(key:String):Dynamic{
-		return getProperty(key).getDynamic();
-	}
-
-	/**
-	 * sets the value of the property
-	 */
-	public function setProp(key:String,value:Dynamic){
-		getProperty(key).set(value);
+	override public function registerProperty(property:FProperty){
+		try {
+			super.registerProperty(property);
+		} catch (e:String) {
+			throw dbgMsg() + e;
+		}
 	}
 
     public function registerComponentProperties(){
@@ -303,14 +276,29 @@ class FEntity extends FObject
             for (p in props){
                 if(!hasProperty(p.key)){
                     registerProp(p.key,p.type,p.getter,p.setter);
+                }else{
+                    var property = getProperty(p.key);
+                    if(Std.is(property,firmament.core.FComputedProperty)){
+                        cast(property, firmament.core.FComputedProperty<Dynamic>).add(p.getter,p.setter,p.sortOrder);
+                    }else{
+                        //do nothing for non-computed properties
+                    }
                 }
             }
         }
     }
 
     private function dbgMsg(){
-        return "Entity '"+_typeId+"':'"+_instanceId+"': "; 
+        return "Entity '"+_typeId+"':'"+_instanceId+"': ";
     }
 
-	
+    public function log(message:Dynamic,force:Bool = false){
+		var msg:String = dbgMsg() + Std.string(message);
+		if( _debug == true || force == true ) {
+			FLog.msg(msg);
+		} else {
+			FLog.debug(msg);
+		}
+	}
+
 }

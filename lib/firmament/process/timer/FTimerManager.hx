@@ -6,7 +6,7 @@ import firmament.process.base.FProcessManager;
 import firmament.process.timer.FTimer;
 import firmament.core.FSortedLinkedList;
 import firmament.core.FSortedLinkedListCell;
-import flash.events.Event;
+import firmament.core.FEvent;
 import haxe.Timer;
 
 class FTimerManager extends FProcess {
@@ -23,8 +23,8 @@ class FTimerManager extends FProcess {
 	 */
 	override public function beforeStart(processManager:FProcessManager):Void{
 		super.beforeStart(processManager);
-		processManager.addEventListener(FProcessManager.PAUSED,pause);
-		processManager.addEventListener(FProcessManager.UNPAUSED,unPause);
+		processManager.on(FProcessManager.PAUSED, this, pause);
+		processManager.on(FProcessManager.UNPAUSED, this, unPause);
 		//firmament.util.FLog.debug('TIMER BEFORE START');
 	}
 
@@ -35,7 +35,7 @@ class FTimerManager extends FProcess {
 		return timer;
 	}
 
-	override public function step(){
+	override public function step(delta:Float){
 		//firmament.util.FLog.debug("TimeManager step");
 		var timerCell:FSortedLinkedListCell<FTimer>;
 
@@ -51,11 +51,11 @@ class FTimerManager extends FProcess {
 			}
 			
 		}
-		super.step();
+		super.step(delta);
 		//firmament.util.FLog.debug(_timers.getCellCount());
 	}
 
-	public function pause(e:Event){
+	public function pause(e:FEvent=null){
 		//firmament.util.FLog.debug("Timer Paused");
 		var timerCell:FSortedLinkedListCell<FTimer>;
 
@@ -66,7 +66,7 @@ class FTimerManager extends FProcess {
 		}
 	}
 
-	public function unPause(e:Event){
+	public function unPause(e:FEvent=null){
 		//firmament.util.FLog.debug("Timer UnPaused");
 
 		var timerCell:FSortedLinkedListCell<FTimer>;

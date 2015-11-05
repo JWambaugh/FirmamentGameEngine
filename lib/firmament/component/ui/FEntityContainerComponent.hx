@@ -20,15 +20,15 @@ class FEntityContainerComponent extends FEntityComponent  {
 	var _position:FVector;
 	var _entities:Array<FEntity>;
 	var _game:FGame;
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 		_entities = new Array();
-		
+
 	}
 
 	override public function init(config:Dynamic){
 		on(_entity,FEntity.COMPONENTS_INITIALIZED,function(e:FEvent){
-			_position = _entity.getPhysicsComponent().getPosition().copy();
+			_position = _entity.getProp('position').copy();
 		});
 		_game = _entity.getGameInstance();
 		on(_game,FGame.AFTER_STEP,afterStep);
@@ -45,18 +45,18 @@ class FEntityContainerComponent extends FEntityComponent  {
 	}
 
 	private function afterStep(e:FEvent){
-		var diff:FVector = _entity.getPhysicsComponent().getPosition().copy();
+		var diff:FVector = _entity.getProp('position').copy();
 		diff.subtract(_position);
 		for(entity in _entities){
-			var pc = entity.getPhysicsComponent();
-			var pos = pc.getPosition();
-			pc.setPosition(new FVector(pos.x+diff.x,pos.y+diff.y));
+
+			var pos = entity.getProp('position');
+			entity.setProp('position',new FVector(pos.x+diff.x,pos.y+diff.y));
 		}
 	}
 
 	override public function getType(){
 		return "entityContainer";
-	}	
+	}
 
 	public function addEntity(entity:FEntity){
 		_entities.push(entity);

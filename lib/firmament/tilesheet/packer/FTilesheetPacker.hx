@@ -20,6 +20,7 @@ class FTilesheetPacker{
 	private var _padding:Int;
 	private var _entries:Array<TilesheetEntry>;
 	private var _tilesheet:FTilesheet = null;
+	private var _stats:firmament.util.FStatistics;
 
 	public function new(width:Int, height:Int, padding:Int = 1){
 		_bitmap = new BitmapData(width, height, true, 0x00FFFFFF);
@@ -27,10 +28,17 @@ class FTilesheetPacker{
 		_root.rect = new FRectangle(0.0, 0.0, width, height);
 		_padding = padding;
 		_entries = new Array();
+
+		_stats = firmament.util.FStatistics.getInstance();
+		if( !_stats.hasProperty('BitmapData') ) {
+			_stats.registerProp('BitmapData','Int');
+			_stats.setProp('BitmapData',0);
+		}
 	}
 
 	
 	public function addBitmapData(img:BitmapData, label:String, path:String = null):Rectangle{
+		_stats.setProp('BitmapData',_stats.getProp('BitmapData')+1);
 		var node = _root.insert(img,_padding);
 		if(node == null){
 			throw "Error adding image '"+label+"' to tilesheet. Out of room?";

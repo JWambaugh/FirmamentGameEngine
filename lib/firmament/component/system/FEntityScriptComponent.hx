@@ -10,8 +10,8 @@ class FEntityScriptComponent extends FEntityComponent {
 
 	private var events:FConfig;
 
-	public function new() {
-		super();
+	public function new(gameInstance:firmament.core.FGame) {
+		super(gameInstance);
 	}
 
 	override public function init(conf:Dynamic) {
@@ -23,22 +23,32 @@ class FEntityScriptComponent extends FEntityComponent {
 		}
 
 		for(event in Reflect.fields(events)){
+			log("Adding listener " + event + " to execute script");
 			var value:FConfig = events[event], scriptText:String = null;
 			for( field in Reflect.fields(value) ) {
 				var val = value.get(field,String,null);
 				switch(field) {
 					case "file":
+						log("Loading file");
 						scriptText = FDataLoader.loadFile(val);
 						break;
 					default:
+						log("Loading script");
 						scriptText = val;
 						break;
 				}
 			}
-			firmament.util.FLog.debug("Processing <"+event+"> -> " + scriptText );
+			
 			if( scriptText != null ) {
-				on(_entity,event,this,function(e:FEvent){
-					return _entity.getGameInstance().eval(scriptText);
+				// log("Processing <"+event+"> -> " + scriptText );
+				on(_entity,event,this,function(e:FEvent):Dynamic{
+					log(e.name + " event fired, running script");
+					var ret:Dynamic = _entity.getGameInstance().eval(scriptText, this);
+					var triggerEvent:String = _config.get('trigger',String,null);
+					if( triggerEvent != null ) {
+						_entity.trigger( new FEvent(triggerEvent) );
+					}
+					return ret;
 				});
 			}
 		}

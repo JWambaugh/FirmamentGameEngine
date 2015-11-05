@@ -73,6 +73,11 @@ class FPhysicsCollisionEvent extends FEvent
 
 	}
 
+	public function collisionAllowed():Bool{
+		return true;
+	}
+
+
 	public function getLocalPointOfContact(entity:FEntity):FVector{
 		return new FVector(0,0);
 	}

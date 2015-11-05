@@ -1,5 +1,7 @@
 package firmament.core;
 
+import firmament.util.FLog;
+
 import firmament.core.FEvent;
 typedef FObjectConnection={
 	listeningObject:FObject
@@ -15,7 +17,7 @@ class FObject{
 	}
 
 	public function on(target:FObject=null,eventName:String, listeningObject:FObject=null, callback:Dynamic->Void){
-		//if target is not this, call on on the target, otherwise add the listener to us
+		//if target is not this, call on the target, otherwise add the listener to us
 		if(target!=null&&target!=this){
 			target.on(target, eventName, this, callback);
 			return;
@@ -24,11 +26,18 @@ class FObject{
 			if(__listeners.get(eventName) == null){
 				__listeners.set(eventName,new List<FObjectConnection>());
 			}
+			var stats = firmament.util.FStatistics.getInstance();
+			if( !stats.hasProperty('ActiveListeners') ) {
+				stats.registerProp('ActiveListeners','Int' );
+				stats.setProp('ActiveListeners',0);
+			}
+			stats.setProp('ActiveListeners', stats.getProp('ActiveListeners') + 1);
 			__listeners.get(eventName).push({listeningObject:listeningObject,callback:cast(callback)});
 		}
 	}
 
-	public function trigger(event:FEvent){
+	// refactor this to return bool
+	public function trigger(event:Dynamic){
 
         //if the event doesn't bubble and has been handled by another object already, then do nothing.
         if(event.bubbles == false && event.handled)return;
@@ -36,7 +45,12 @@ class FObject{
 		if(l != null){
             event.handled = true; //default to event was handled by this object. Listener can set this to false to allow it to bubble further.
 			for(connection in l){
-                connection.callback(event);
+				try {
+                	connection.callback(event);
+				} catch (e:Dynamic) {
+					FLog.error( Std.string(event.name) + " -> " + Std.string(connection) + "\n " + Std.string(e) );
+					throw e;
+				}
 			}
 		}
 	}
@@ -59,17 +73,23 @@ class FObject{
 
 	private function _removeEventListenerFromList(l:List<FObjectConnection>,listeningObject:FObject=null,callback:Dynamic->Void=null){
 		if(l != null){
+			var count=0;
 			var itemsToRemove:List<FObjectConnection> = new List();
 			for(c in l){
 				if(
 					(callback==null || (callback!=null && c.callback == callback) ) 
 				&& (listeningObject==null || (listeningObject!=null && c.listeningObject == listeningObject) )){
 					itemsToRemove.push(c);
+					count++;
 				}
 			}
+			var stats = firmament.util.FStatistics.getInstance();
+			if( stats.hasProperty('ActiveListeners') ) {
+				stats.setProp('ActiveListeners', stats.getProp('ActiveListeners') - count);
+			}			
 			while(itemsToRemove.length>0){
 				var item = itemsToRemove.pop();
-				firmament.util.FLog.debug("Removing listener with target of "+Type.getClassName(Type.getClass(item.listeningObject))+" From "+Type.getClassName(Type.getClass(this)));
+				//firmament.util.FLog.debug("Removing listener with target of "+Type.getClassName(Type.getClass(item.listeningObject))+" From "+Type.getClassName(Type.getClass(this)));
 				while(l.remove(item)){}
 			}
 			
@@ -77,6 +97,15 @@ class FObject{
 	}
 
 	public function removeAllListeners(){
+		for( eventName in __listeners.keys() ) {
+			var itemsToRemove:List<FObjectConnection> = __listeners.get(eventName);
+			var count  = itemsToRemove.length;
+			var stats = firmament.util.FStatistics.getInstance();
+			if( stats.hasProperty('ActiveListeners') ) {
+				stats.setProp('ActiveListeners', stats.getProp('ActiveListeners') - count);
+			}
+		}		
+			
 		__listeners = new Map();
 	}
 

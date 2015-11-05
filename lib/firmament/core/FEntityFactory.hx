@@ -1,16 +1,20 @@
 package firmament.core;
 
-import firmament.core.FEntity;
 import firmament.component.base.FEntityComponent;
 import firmament.component.base.FEntityComponentFactory;
-import firmament.util.loader.FDataLoader;
+import firmament.core.FConfig;
+import firmament.core.FEntity;
 import firmament.core.FObject;
+import firmament.core.FProperty;
+import firmament.util.FLog;
+import firmament.util.loader.FDataLoader;
 
 class FEntityFactory{
 
 	public static function createEntity(config:Dynamic,?gameInstanceName:String='main'):FEntity{
 		var entity:FEntity;
 		if(Std.is(config,String)){
+            FLog.debug("Creating entity - " + config);
 			//pool support
 			var str:String = config;
 			//if string starts with "pool:" then get the entity from the specified pool
@@ -26,43 +30,77 @@ class FEntityFactory{
 			if(c==null){
 				throw "class "+config.className+" could not be found. Did you remember to include the whole package name?";
 			}
+            FLog.debug("Creating entity type - " + c);
 			entity = Type.createInstance(c,[config,gameInstanceName]);
 		} else {
 			entity = new FEntity(config,gameInstanceName);
 		}
-		applyComponents(entity,config);
+        var game = FGame.getInstance(gameInstanceName);
+		applyComponents(entity,config, game);
         entity.registerComponentProperties();
         applyProperties(entity, config);
 		initComponents(entity,config);
 
+        for(c in entity.getAllComponents()){
+            c.afterInit();
+        }
 		entity.trigger(new FEvent(FEntity.COMPONENTS_INITIALIZED));
 		return entity;
 	}
 
 
-	public static function applyComponents(entity:FEntity, config:Dynamic){
-		if(!Std.is(config.components,Dynamic) || config.components == null){
+	public static function applyComponents(entity:FEntity, config:Dynamic, game:firmament.core.FGame){
+		if(config.components == null){
 			throw("no components specified in entity config.");
 		}
-		for(componentKey in Reflect.fields(config.components)){
-			var cConfig= Reflect.field(config.components,componentKey);
-			var component = FEntityComponentFactory.createComponent(cConfig.componentName,componentKey);
-			component.setConfig(cConfig);
-			entity.setComponent(component);
-		}
+
+        if(Std.is(config.components, Array) ){
+            var ca:Array<Dynamic> = cast config.components;
+            for(cConfig in ca){
+                var component = FEntityComponentFactory.createComponent(cConfig.componentName,game);
+                component.setConfig(cConfig);
+                entity.setComponent(component);
+            }
+        }
+        else{
+            for(componentKey in Reflect.fields(config.components)){
+                var cConfig= Reflect.field(config.components,componentKey);
+                var component = FEntityComponentFactory.createComponent(cConfig.componentName,game);
+                component.setConfig(cConfig);
+                entity.setComponent(component);
+            }
+        }
+		
 	}
 
 
 	public static function initComponents(entity:FEntity, config:Dynamic){
 		for(component in entity.getAllComponents()){
-			component.init(component.getConfig());
+			component._init(component.getConfig());
 		}
 	}
 
-	public static function applyProperties(entity:FEntity, config:Dynamic){
-		if(config.properties != null && Reflect.isObject(config.properties)){
-			for (key in Reflect.fields(config.properties)){
-				entity.setProp(key,Reflect.field(config.properties,key));
+	public static function applyProperties(entity:FEntity, config:FConfig){
+        
+		if(config.hasField('properties')){
+            var props:FConfig = config.get('properties');
+			for (key in props.fields()) {
+                var property:FProperty;
+                var type:Dynamic;
+                var value:Dynamic;
+                try {
+                	property = entity.getProperty(key);	
+                	type = property.type;
+                } catch (e:Dynamic) {
+					type = Type.resolveClass( props.get([key,"type"],String,"Float") );
+					property = FProperty.createBasic(key,type);
+					entity.registerProperty(property);
+                }
+                value = props.getNotNull([key,"value"], type, 
+                				props.get(key, type, null) 
+                			);
+                // trace( 'Property ' + key + ' -> ' + value );
+				property.set(value);
 			}
 		}
 	}

@@ -1,26 +1,27 @@
 package firmament.component.render;
 
-
-
+import firmament.component.animation.FAnimationComponent;
 import firmament.component.base.FEntityComponent;
-import firmament.component.physics.FPhysicsComponentInterface;
+
 import firmament.component.render.FRenderComponentInterface;
 import firmament.core.FCamera;
+import firmament.core.FPropertyDefinition;
+import firmament.core.FComputedProperty;
+import firmament.core.FEvent;
 import firmament.core.FGame;
+import firmament.core.FProperty;
+import firmament.core.FPropertyInterface;
+import firmament.core.FVector;
 import firmament.tilesheet.FTilesheet;
 import firmament.tilesheet.FTilesheetManager;
 import firmament.tilesheet.FTilesheetRenderHelper;
-import firmament.component.animation.FAnimationComponent;
-import firmament.core.FComputedProperty;
-import firmament.core.FVector;
-import openfl.Assets;
 import flash.display.BitmapData;
 import flash.display.IBitmapDrawable;
 import flash.display.Sprite;
-import openfl.display.Tilesheet;
-import firmament.core.FEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import openfl.Assets;
+import openfl.display.Tilesheet;
 
 
 typedef LetterPositionData={
@@ -40,15 +41,15 @@ typedef PositionData={
  * ...
  * @author jordan
  */
-class FTextRenderComponent extends FEntityComponent  implements FRenderComponentInterface 
+class FTextRenderComponent extends FEntityComponent  implements FRenderComponentInterface
 {
-	
+
 	var _tilesheet:FTilesheet;
 	var imageScale:Float;
 	var _parallax:Float;
 	var _flipX:Bool;
 	var _flipY:Bool;
-	
+
 	var _positionOffset:FVector;
 	var _angleOffset:Float;
 
@@ -64,10 +65,10 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	var _textAlign:String;
 
 
-	public function new() {
+	public function new(gameInstance:firmament.core.FGame) {
 		imageScale=100;
-		super();
-		
+		super(gameInstance);
+
 		_parallax = 1;
 		_flipX = false;
 		_flipY = false;
@@ -78,13 +79,13 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	override public function init(config:Dynamic){
 		//firmament.util.FLog.debug(Std.string(config));
 		this._config = config;
-		var ch = getConfigHelper();
+		var ch:firmament.core.FConfig = config;
 		initTilesheet();
 
 		if(_tilesheet == null){
 			throw 'tilesheet is still null after init';
 		}
-		
+
         if(Std.is(config.imageScale,Float)) {
 			imageScale = config.imageScale;
 		}
@@ -109,23 +110,24 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		_textAlign = ch.get("textAlign",String,"center");
 		calculatePositions();
 	}
-	
-     override public function getProperties():Array<PropertyDefinition>{
-        var props:Array<PropertyDefinition> = [
+
+     override public function getProperties():Array<FPropertyDefinition>{
+        var props:Array<FPropertyDefinition> = [
             {
                 key:'text'
                 ,type:String
                 ,getter:getText
                 ,setter:setText
+                ,sortOrder:1
             }
         ];
         return props;
     }
 	public function initTilesheet(){
-		
+
 		var imageIsFileName = false;
-		
-		var ch = getConfigHelper();
+
+		var ch:firmament.core.FConfig= _config;
 		var tilesheetConfig = _config['tilesheet'];
 		var fontKey:String = ch.getNotNull('fontKey',String);
 		if(Reflect.isObject(tilesheetConfig)){
@@ -144,8 +146,8 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	}
 
 	public function render(camera:FCamera):Void {
-		
-		//make sure we are currently active 
+
+		//make sure we are currently active
 		if(!_entity.isActive())return;
 
 		if (_tilesheet == null) {
@@ -154,25 +156,24 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		}
 
 		_entity.trigger(new FEvent(FGame.BEFORE_RENDER));
-		
-		var physicsComponent:FPhysicsComponentInterface = this._entity.getPhysicsComponent();
-		if(physicsComponent == null) return;
+
+
 		var cameraPos = camera.getTopLeftPosition(this._parallax);
 		var ratio = camera.getZoom() / imageScale;
-		var pos = physicsComponent.getPosition();
+		var pos = _entity.getProp('position');
 
 		var drawList:Array<Float> = new Array();
 		var count:Int = 0;
 		for(letter in _positionData.letters){
-			
+
 			var nx = (((pos.x+_positionOffset.x + letter.xOffset) - cameraPos.x) *_parallax * camera.getZoom());
 			var ny = (((pos.y+_positionOffset.y + letter.yOffset) - cameraPos.y) *_parallax * camera.getZoom());
 			var a:Float, b:Float,c:Float,d:Float;
-			var angle =physicsComponent.getAngle()+_angleOffset;
+			var angle = _entity.getProp('angle')+_angleOffset;
 			//perform rotation and scale
 			a = Math.cos(angle)*ratio;
-			b = Math.sin(angle)*ratio; 
-			c = -Math.sin(angle)*ratio; 
+			b = Math.sin(angle)*ratio;
+			c = -Math.sin(angle)*ratio;
 			d = Math.cos(angle)*ratio;
 			if(_flipX)a =- a;
 			if(_flipY)d =- d;
@@ -190,15 +191,15 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 			//drawList[count++] = ratio;
 			//drawList[count++] = physicsComponent.getAngle();
 			drawList[count++] = _alpha;
-			
+
 			FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList, _entity.getProp('positionZ'));
 		}
 		FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList, _entity.getProp('positionZ'));
 	}
 
-	
 
-	
+
+
 
 
 	public function getTilesheet():FTilesheet{
@@ -218,16 +219,16 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 	public function getImageScale(){
 		return imageScale;
 	}
-	
+
 	public function getBitmapData():BitmapData{
         return _tilesheet.getTileBitmap(_positionData.letters[0].tile);
 	}
-	
+
 	override public function getType():String {
 		return "render";
 	}
 
-	public function getParallaxMultiplier():Float{
+	public function getParallaxMultiplier(p:Float=0):Float{
 		return _parallax;
 	}
 
@@ -253,8 +254,8 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 		return _alpha;
 	}
 
-	public function getText(){
-		return _text;
+	public function getText(t:String=''){
+		return t+_text;
 	}
 
 	public function setText(t:String){
@@ -264,7 +265,7 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 
 
 	/**
-	 * precalculates data for rendering of text. 
+	 * precalculates data for rendering of text.
 	 * we do it once when the text is set instead of at render time.
 	 */
 	private function calculatePositions(){
@@ -280,13 +281,13 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 
 			var letter = _text.charAt(index);
 			var letterConfig = Reflect.field(_config['glyphs'],letter);
-			var advance:Int = letterConfig.advance;
 			if(letter == ' ')firmament.util.FLog.debug('got a space');
 			if(letterConfig == null) throw("No glyph config found for "+letter);
+			var advance:Int = letterConfig.advance;
 			var nextLetter = _text.charAt(index+1);
 			var tile = _tilePrefix + letter;
 			var code = letter.charCodeAt(0);
-			
+
 			var tileId = _tilesheet.getTileNumber(tile);
 			var tileWidth = _tilesheet.getRectangle(tileId).width/this.imageScale;
 			var tileHeight = _tilesheet.getRectangle(tileId).height/this.imageScale;
@@ -324,8 +325,8 @@ class FTextRenderComponent extends FEntityComponent  implements FRenderComponent
 			}
 		}
 
-		
+
 	}
-	
-	
+
+
 }

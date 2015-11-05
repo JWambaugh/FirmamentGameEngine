@@ -2,17 +2,17 @@ package firmament.world;
 
 
 import firmament.component.physics.FBox2DComponent;
+import firmament.component.physics.FNoPhysicsComponent;
 import firmament.core.FEntity;
-import firmament.world.FWorld;
+import firmament.core.FGame;
+import firmament.core.FVector;
 import firmament.event.FBox2DCollisionEvent;
 import firmament.event.FPhysicsCollisionEvent;
-import firmament.ui.FDialog;
-import flash.events.Event;
-import firmament.core.FGame;
 import firmament.process.base.FProcessManager;
-import firmament.component.physics.FNoPhysicsComponent;
+import firmament.ui.FDialog;
 import firmament.util.rtree.RTree;
-import firmament.core.FVector;
+import firmament.world.FWorld;
+import flash.events.Event;
 
 /**
  * ...
@@ -49,19 +49,8 @@ class FNoPhysicsWorld extends FWorld
 		_inStep = true;
 		var elapsedTime = FGame.getInstance().getProcessManager().getFrameDelta();
 		for(ent in _activeAwakeEntities){
-			var pc = ent.getPhysicsComponent();
-			var lv = pc.getLinearVelocity();
-			var av = pc.getAngularVelocity();
-
-			if(av!=0){
-				pc.setAngle(pc.getAngle() + av * elapsedTime);
-			}
-
-			if(lv.x!=0 || lv.y!=0){
-				var pos = pc.getPosition();
-				pc.setPosition(new FVector(pos.x+lv.x * elapsedTime, pos.y + lv.y * elapsedTime));
-			}
-
+			var pc:FNoPhysicsComponent = cast(ent.getPhysicsComponent());
+			pc.onWorldStep(elapsedTime);
 		}
 
 		_inStep = false;

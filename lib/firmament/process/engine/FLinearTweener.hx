@@ -5,111 +5,87 @@ package firmament.process.engine;
 import firmament.core.FGame;
 import firmament.core.FVector;
 import firmament.world.FWorld;
-import firmament.core.FWorldPositionalInterface;
+import firmament.core.FPropertyInterface;
 import firmament.process.base.FProcess;
+import firmament.core.FConfig;
+import firmament.core.FProperty;
 import Type;
+
+typedef FTweenEntry={
+    property:FProperty
+    ,targetVal:Dynamic
+}
 
 class FLinearTweener extends FProcess {
 
-	private var _object:FWorldPositionalInterface;
-	private var _start:FVector; 
-	private var _end:FVector;
-	private var _step:FVector;
-	private var _startAngle:Float;
-	private var _endAngle:Float;
-	private var _stepAngle:Float;
-	private var _currentStep:Float; 
-	private var _duration:Float; 
-	private var _infinite:Bool;
+	private var _object:FPropertyInterface;
+	private var _config:FConfig;
+    private var _tweenEntries:Array<FTweenEntry>;
+    private var _timeRemaining:Float;
 
-	private function getCopyOfFVector(pos:FVector):FVector {
-		var coords = new FVector(0.0,0.0);
-		coords.add(pos);
-		return coords;
+	public function new(object:FPropertyInterface, config:FConfig) {
+        super();
+		_timeRemaining = config.getNotNull("duration", Float);
+        _config = config;
+        _object = object;
+        _tweenEntries = new Array<FTweenEntry>();
+        var properties:FConfig=config.getNotNull("properties");
+        var relative:Bool = config.get('mode',String,'absolute')=='relative';
+        for(propName in properties.fields()){
+            var property:FProperty = _object.getProperty(propName);
+            var targetVal:Dynamic = properties.getNotNull(propName, property.type);
+            if(relative){
+                switch(property.type){
+                    case Float,Int:{
+                        targetVal = property.getFloat()+targetVal;
+                    };
+                    case FVector:{
+                        var currentVal:FVector = property.getDynamic();
+                        targetVal.x+=currentVal.x;
+                        targetVal.y+=currentVal.y;
+                    }
+                }
+            }
+            _tweenEntries.push({
+                 property: property
+                ,targetVal: targetVal
+                });
+        }
 	}
 
-	public function new(object:FWorldPositionalInterface,parameters:Dynamic,infinite:Bool=false) {
-		_step = new FVector(0.0,0.0);
-	 	_duration = 0.0;
-		_object = object;
-	 	_start = getCopyOfFVector(_object.getPosition());
-	 	_startAngle = _object.getAngle();
-	 	_end = getCopyOfFVector(_start);
-	 	_endAngle = _object.getAngle();
-		_infinite = infinite;
 
-		firmament.util.FLog.debug("FLinearTweener: init, " + parameters);
-
-		if( parameters.start != null) {
-			initStart(parameters.start);
-			initEnd(parameters.start);
-		}
-		if( parameters.end != null) {
-			initEnd(parameters.end);
-		}
-		if(parameters.time != null) {
-			_duration = parameters.time+0.0;
-		}
-		_step.x = (_end.x - _start.x) / (_duration+.0000001);
-		_step.y = (_end.y - _start.y) / (_duration+.0000001);
-		_stepAngle = (_endAngle - _startAngle) / (_duration+.0000001);
-		_currentStep=0.0;
-		super();
-	}
-
-	private function initStart(startParams) {
-		_start.x = Math.isNaN(startParams.x)==false?startParams.x+0.0:_start.x;
-		_start.y = Math.isNaN(startParams.y)==false?startParams.y+0.0:_start.y;
-		_startAngle = Math.isNaN(startParams.angle)==false?startParams.angle+0.0:_startAngle;
-	}
-
-	private function initEnd(endParams) { 
-		_end.x = Math.isNaN(endParams.x)==false?endParams.x+0.0:_end.x;
-		_end.y = Math.isNaN(endParams.y)==false?endParams.y+0.0:_end.y;
-		_endAngle = Math.isNaN(endParams.angle)==false?endParams.angle+0.0:_endAngle;
-	}
-
-	/*override*/ public function pause() { 
-		_isRunning = false; 
-	}
-
-	/*override*/ public function resume() { 
-		_isRunning = true; 
-	}
-
-	/*override*/ public function stop() { 
-		_isComplete = true; 
-	}
-
-	/*override*/ public function reset() { 
-		_currentStep = 0; 
-		_isComplete = false; 
-		_object.setPosition(_start);
-		_object.setAngle(_startAngle);
-	}
-
-	override public function step() {
+	override public function step(delta:Float) {
 		// TODO: Parent needs to handle these
 		if( _isRunning == false ) { return; } 
 		if( _isComplete == true ) { return; }
-		// TODO: Parent needs to handle these
-		var timeDelta = this._manager.getFrameDelta();
-		if( _infinite || (_currentStep + timeDelta) < _duration) {
-			var pos = getCopyOfFVector(_object.getPosition());
-			var angle = _object.getAngle();
-			var stepDelta:FVector = new FVector(_step.x*timeDelta,_step.y*timeDelta);
-			pos.add(stepDelta);
-			angle += _stepAngle * timeDelta;
-			_object.setPosition(pos);
-			_object.setAngle(angle);
-		} else {
-			_object.setPosition(_end);
-			_object.setAngle(_endAngle);
-			_isComplete = true;	
 
-		}
-		_currentStep += timeDelta;
-		super.step();
+        _timeRemaining-=delta;
+     
+
+        for(entry in _tweenEntries){
+            if(_timeRemaining <= 0.0){
+                entry.property.set(entry.targetVal);
+                _isComplete = true;
+            }else{
+                switch(entry.property.type){
+                    case Int,Float:{
+                        var currentVal = entry.property.getFloat() ;
+                        entry.property.set(currentVal +  (entry.targetVal- currentVal)/_timeRemaining*delta);
+                    }
+                    case FVector:{
+                        var currentVal:FVector = entry.property.getDynamic();
+                        currentVal.x+=(entry.targetVal.x - currentVal.x)/_timeRemaining*delta;
+                        currentVal.y+=(entry.targetVal.y - currentVal.y)/_timeRemaining*delta;
+                        entry.property.set(currentVal);
+                    }
+                }
+
+            }
+
+        }
+
+
+		super.step(delta);
 	}
 	
 }

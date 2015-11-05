@@ -11,7 +11,6 @@ import firmament.event.FPhysicsCollisionEvent;
 import firmament.process.base.FProcess;
 import firmament.process.engine.CatmullRom;
 import firmament.process.engine.FLinearTweener;
-import firmament.util.FConfigHelper;
 import firmament.util.FEntityUtils;
 import firmament.core.FEvent;
 import flash.events.Event;
@@ -23,8 +22,8 @@ class FSimpleFollowSplineComponent extends FEntityComponent {
 
 	var _path:FSplineTweener;
 	var _camera:FCamera;
-	public function new(){
-		super();
+	public function new(gameInstance:firmament.core.FGame){
+		super(gameInstance);
 	}	
 
 	override public function init(config:Dynamic){
@@ -43,8 +42,7 @@ class FSimpleFollowSplineComponent extends FEntityComponent {
 		*/
 
 		//firmament.util.FLog.debug(Std.string(_config));
-		var cfgHelper = new FConfigHelper(_config);
-		_path = new FSplineTweener(_componentKey,cfgHelper,_entity,_camera.graphics);
+		_path = new FSplineTweener(_config,_entity,_camera.graphics);
 	}
 
 	public function postRender(e:Event) {

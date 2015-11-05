@@ -18,50 +18,49 @@ import firmament.world.grid.FGridSector;
  * @author Jordan Wambaugh
  */
 
- 
 
- 
+
+
 class FGridWorld extends FWorld
 {
 
-	
-	
+
+
 	var _inStep:Bool;
-	
+
 	var _activeAwakeEntities:Array<FEntity>;
-	public function new() 
+	public function new()
 	{
 		super();
 		_inStep=false;
 		_activeAwakeEntities = new Array<FEntity>();
 	}
-	
-	
+
+
 	override public function step():Void {
 		_inStep = true;
 		var elapsedTime = FGame.getInstance().getProcessManager().getFrameDelta();
 		for(ent in _activeAwakeEntities){
-			var pc = ent.getPhysicsComponent();
-			var lv = pc.getLinearVelocity();
-			var av = pc.getAngularVelocity();
+			var lv = ent.getProp('linearVelocity');
+			var av = ent.getProp('angularVelocity');
 
 			if(av!=0){
-				pc.setAngle(pc.getAngle() + av * elapsedTime);
+				ent.setProp('angle', ent.getProp('angle')+ av * elapsedTime);
 			}
 
 			if(lv.x!=0 || lv.y!=0){
-				var pos = pc.getPosition();
-				pc.setPositionXY(pos.x+lv.x * elapsedTime, pos.y + lv.y * elapsedTime);
+				var pos = ent.getProp('position');
+				ent.setProp('position', new FVector(pos.x+lv.x * elapsedTime, pos.y + lv.y * elapsedTime));
 			}
 
 		}
 
 		_inStep = false;
 		this.endOfStep();
-		
-		
+
+
 	}
-	
+
 	public function updateSleepState(component:FParticleComponent){
 		if(component.isSleeping()){
 			_activeAwakeEntities.remove(component.getEntity());
@@ -71,7 +70,7 @@ class FGridWorld extends FWorld
 		}
 	}
 
-	
+
 	override public function getType():String{
 		return "particle";
 	}
@@ -84,23 +83,23 @@ class FGridWorld extends FWorld
 	override public function getAllEntities():Array<FEntity> {
 		return this.entities;
 	}
-	
+
 	override public function getEntitiesAtPoint(p:FVector):Array<FEntity> {
 		return new Array<FEntity>();
 	}
-	
+
 	override public function addEntity(ent:FEntity) {
 		super.addEntity(ent);
 		var component:FParticleComponent = cast(ent.getPhysicsComponent());
-		
+
 		updateSleepState(component);
 	}
-	
+
 	override public function getEntitiesInBox(topLeftX:Float,topLeftY:Float,bottomRightX:Float,bottomRightY:Float):Array<FEntity> {
 		return this._activeAwakeEntities;
 	}
 
-	
+
 	override public function deleteEntity(ent:FEntity) {
 		var component:FParticleComponent = cast(ent.getPhysicsComponent());
 		super.deleteEntity(ent);
@@ -110,7 +109,7 @@ class FGridWorld extends FWorld
 	override public function destruct(){
 		super.destruct();
 	}
-	
 
-	
+
+
 }

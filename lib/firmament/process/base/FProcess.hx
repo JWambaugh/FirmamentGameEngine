@@ -1,12 +1,12 @@
 package firmament.process.base;
 import firmament.process.base.FProcessManager;
-import flash.events.Event;
+import firmament.core.FEvent;
 /**
  * Basic process implementation that does nothing. Extend for easy process implementation.
  * @author Jordan Wambaugh
  */
 
-class FProcess extends flash.events.EventDispatcher implements FProcessInterface
+class FProcess extends firmament.core.FObject implements FProcessInterface
 {
 
 	public static inline var COMPLETE:String = "FProcess.COMPLETE";
@@ -34,9 +34,9 @@ class FProcess extends flash.events.EventDispatcher implements FProcessInterface
 	/**
 	 * Called after each step. This method should do a bit of work and then finish. Each step should not be too long.
 	 */
-	public function step():Void {
+	public function step(delta:Float):Void {
 		if(_isComplete){
-			this.dispatchEvent(new Event(FProcess.COMPLETE));
+			this.trigger(new FEvent(FProcess.COMPLETE));
 		}
 	}
 	
@@ -71,7 +71,11 @@ class FProcess extends flash.events.EventDispatcher implements FProcessInterface
 		_isRunning = false;
 	}
 	
-	
+	public function abort(){
+        if(_manager!=null){
+            _manager.abortProcess(this);
+        }
+    }
 	
 	
 }

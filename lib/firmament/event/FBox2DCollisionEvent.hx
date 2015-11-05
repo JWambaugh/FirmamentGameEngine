@@ -39,7 +39,6 @@ class FBox2DCollisionEvent extends FPhysicsCollisionEvent
 	}
 
 
-	
 	override public function getEntityA():FEntity {
 		return cast(_contact.getFixtureA().getBody().getUserData(),FBox2DComponent).getEntity();
 	}
@@ -52,7 +51,8 @@ class FBox2DCollisionEvent extends FPhysicsCollisionEvent
 		_contact.setEnabled(c);
 	}
 
-	
-
+	override public function collisionAllowed():Bool{
+		return _contact.isEnabled();
+	}
 
 }
