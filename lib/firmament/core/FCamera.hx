@@ -1,6 +1,7 @@
 package firmament.core;
 
 import firmament.component.render.FRenderComponentInterface;
+import flash.display.OpenGLView;
 import flash.display.Sprite;
 import firmament.core.FEntity;
 import firmament.world.FWorld;
@@ -17,7 +18,12 @@ import firmament.event.FMouseEvent;
 import firmament.tilesheet.FTilesheetRenderHelper;
 import firmament.util.FLog;
 import openfl.system.System;
-
+import openfl.geom.Matrix3D;
+import openfl.gl.GL;
+import openfl.gl.GLBuffer;
+import openfl.gl.GLTexture;
+import openfl.gl.GLProgram;
+import openfl.gl.GLUniformLocation;
 /**
  * Class: FCamera
  *
@@ -50,6 +56,13 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	var _fillAlpha:Float;
 	var _clickEventsEnabled:Bool = false;
 	var _seconds:Int;
+    public var _shaderProgram:GLProgram;
+    public var _vertexAttribute:Int;
+    public var _modelViewMatrixUniform:GLUniformLocation;
+    public var _projectionMatrixUniform:GLUniformLocation;
+    public var _texCoordAttribute:Int;
+    public var _imageUniform:GLUniformLocation;
+
 
 	/**
 	 * Constructor: new
@@ -61,6 +74,9 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 	public function new(?width:Int=100,?height:Int=100,?gameInstanceName='main')
 	{
 		super();
+        var glView:OpenGLView = new OpenGLView();
+        
+
 		this._seconds = flash.Lib.getTimer();
 		this._zoom = 100;
 		this._position = new FVector(0, 0);
@@ -74,6 +90,9 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		_mouseOverEnts = new FEntityCollection();
 		_autoZoomToFit = false;
 		enableClickEvents();
+        initializeShaders();
+        glView.render=renderView;
+        addChild(glView);
 	}
 
 
@@ -151,6 +170,27 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 				entityList=entityList.concat(entities);
 		}
 
+        /*
+        //setup openGL
+        var w = getDisplayWidth();
+        var h = getDisplayHeight();
+        
+        //resize the viewport
+        GL.viewport (Std.int (_position.x - w/2), Std.int (_position.y-h/2), Std.int (w), Std.int (h));
+        
+        //clear screen
+        GL.clearColor (1.0, 1.0, 1.0, _fillAlpha);
+        GL.clear (GL.COLOR_BUFFER_BIT);
+        
+        //set our active program
+        GL.useProgram (_shaderProgram);
+        _vertexAttribute = GL.getAttribLocation (_shaderProgram, "aVertexPosition");
+        _texCoordAttribute = GL.getAttribLocation (_shaderProgram, "aTexCoord");
+        var projectionMatrix = new Matrix3D();//Matrix3D.createOrtho (0, rect.width, rect.height, 0, 1000, -1000);
+        var modelViewMatrix = Matrix3D.create2D (_position.x, _position.y, 1, 0);
+        //GL.uniformMatrix4fv (_projectionMatrixUniform, false, cast projectionMatrix.rawData);
+        //GL.uniformMatrix4fv (_modelViewMatrixUniform, false, cast modelViewMatrix.rawData);
+*/
 		for (ent in entityList) {
 			var components = ent.getComponent("render");
 			if(components!=null)
@@ -159,7 +199,9 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 			}
 		}
 		this.dispatchEvent(new Event(FCamera.AFTER_RENDER_EVENT));
-		rh.postRender(this);
+		
+        //not using renderHeper
+        //rh.postRender(this);
 		if(_debugRender){
 			for (ent in entityList) {
 				_debugRenderer.setEntity(ent);
@@ -438,13 +480,111 @@ class FCamera extends Sprite implements FWorldPositionalInterface
 		parent.removeChild(this);
 	}
 
-    public function getDisplayWidth(){
+    public function getDisplayWidth():Int{
         return _displayWidth;
     }
 
-     public function getDisplayHeight(){
+     public function getDisplayHeight():Int{
         return _displayHeight;
     }
 	
+
+     private function initializeShaders ():Void {
+        
+        var vertexShaderSource = 
+            
+            "attribute vec3 aVertexPosition;
+            attribute vec2 aTexCoord;
+            varying vec2 vTexCoord;
+            
+            uniform mat4 uModelViewMatrix;
+            uniform mat4 uProjectionMatrix;
+            
+            void main(void) {
+                vTexCoord = aTexCoord;
+                gl_Position = uProjectionMatrix * uModelViewMatrix * vec4 (aVertexPosition, 1.0);
+            }";
+        
+        var vertexShader = GL.createShader (GL.VERTEX_SHADER);
+        GL.shaderSource (vertexShader, vertexShaderSource);
+        GL.compileShader (vertexShader);
+        
+        if (GL.getShaderParameter (vertexShader, GL.COMPILE_STATUS) == 0) {
+            
+            throw "Error compiling vertex shader";
+            
+        }
+        
+        /*var fragmentShaderSource = 
+            
+            #if !desktop
+            "precision mediump float;" +
+            #end
+            "varying vec2 vTexCoord;
+            uniform sampler2D uImage0;
+            
+            void main(void)
+            {"
+            #if html5
+                + "gl_FragColor = texture2D (uImage0, vTexCoord);" + 
+            #else
+                + "gl_FragColor = texture2D (uImage0, vTexCoord).gbar;" + 
+            #end
+            "}";*/
+
+
+        var fragmentShaderSource = "
+            varying vec2 vTexCoord;
+            uniform sampler2D uImage0;
+            //uniform float u_time;
+             
+            // 1
+            const float speed = 2.0;
+            const float bendFactor = 0.2;
+            void main()
+            {
+              // 2
+              float height = 1.0 - vTexCoord.y;
+              // 3
+              float offset = pow(height, 2.5);
+             
+              // 4 multiply by sin since it gives us nice bending
+              //offset *= (sin(u_time * speed) * bendFactor);
+             
+              // 5
+              //gl_FragColor = texture2D(uImage0, vec2(vTexCoord.x + offset, vTexCoord.y)).gbar;
+              gl_FragColor = texture2D(uImage0,vTexCoord);
+              //gl_FragColor = vec4(normalColor, 1);
+            }";
+        
+        var fragmentShader = GL.createShader (GL.FRAGMENT_SHADER);
+        GL.shaderSource (fragmentShader, fragmentShaderSource);
+        GL.compileShader (fragmentShader);
+        
+        if (GL.getShaderParameter (fragmentShader, GL.COMPILE_STATUS) == 0) {
+            
+            throw "Error compiling fragment shader";
+            
+        }
+        
+        //create program and compile shaders
+        _shaderProgram = GL.createProgram ();
+        GL.attachShader (_shaderProgram, vertexShader);
+        GL.attachShader (_shaderProgram, fragmentShader);
+        GL.linkProgram (_shaderProgram);
+        
+        if (GL.getProgramParameter (_shaderProgram, GL.LINK_STATUS) == 0) {
+            
+            throw "Unable to initialize the shader program.";
+            
+        }
+        
+        //get locations of attributes
+       
+        _projectionMatrixUniform = GL.getUniformLocation (_shaderProgram, "uProjectionMatrix");
+        _modelViewMatrixUniform = GL.getUniformLocation (_shaderProgram, "uModelViewMatrix");
+        _imageUniform = GL.getUniformLocation (_shaderProgram, "uImage0");
+        
+    }
 
 }

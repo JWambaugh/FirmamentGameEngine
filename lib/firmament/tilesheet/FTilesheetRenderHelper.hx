@@ -27,7 +27,7 @@ class FTilesheetRenderHelper {
 	var initializedCameras:Array<FCamera>;
 	var drawItemPool:Array<DrawItem>;
 
-       private var shaderProgram:GLProgram;
+    private var shaderProgram:GLProgram;
     private var vertexAttribute:Int;
     private var modelViewMatrixUniform:GLUniformLocation;
     private var projectionMatrixUniform:GLUniformLocation;
@@ -92,7 +92,7 @@ class FTilesheetRenderHelper {
         var fragmentShaderSource = "
             varying vec2 vTexCoord;
             uniform sampler2D uImage0;
-            uniform float u_time;
+            //uniform float u_time;
              
             // 1
             const float speed = 2.0;
@@ -105,10 +105,11 @@ class FTilesheetRenderHelper {
               float offset = pow(height, 2.5);
              
               // 4 multiply by sin since it gives us nice bending
-              offset *= (sin(u_time * speed) * bendFactor);
+              //offset *= (sin(u_time * speed) * bendFactor);
              
               // 5
-              gl_FragColor = texture2D(uImage0, vec2(vTexCoord.x + offset, vTexCoord.y)).gbar;
+              //gl_FragColor = texture2D(uImage0, vec2(vTexCoord.x + offset, vTexCoord.y)).gbar;
+              gl_FragColor = texture2D(uImage0,vTexCoord);
               //gl_FragColor = vec4(normalColor, 1);
             }";
         
@@ -122,6 +123,7 @@ class FTilesheetRenderHelper {
             
         }
         
+        //create program and compile shaders
         shaderProgram = GL.createProgram ();
         GL.attachShader (shaderProgram, vertexShader);
         GL.attachShader (shaderProgram, fragmentShader);
@@ -133,6 +135,7 @@ class FTilesheetRenderHelper {
             
         }
         
+        //get locations of attributes
         vertexAttribute = GL.getAttribLocation (shaderProgram, "aVertexPosition");
         texCoordAttribute = GL.getAttribLocation (shaderProgram, "aTexCoord");
         projectionMatrixUniform = GL.getUniformLocation (shaderProgram, "uProjectionMatrix");
@@ -204,28 +207,60 @@ class FTilesheetRenderHelper {
 				Tilesheet.TILE_TRANS_2x2 | Tilesheet.TILE_ALPHA |Tilesheet.TILE_RGB);
 				break;
 			}
-<<<<<<< HEAD
 		
 		}*/
 		
 	}
 
     private function renderView (camera:FCamera):Void {
-        var w = camera.getDisplayWidth;
-        var h = camera.getDisplayHeight;
+        /*var w = camera.getDisplayWidth();
+        var h = camera.getDisplayHeight();
+        
+        //resize the viewport
         GL.viewport (Std.int (camera.x - w/2), Std.int (camera.y-h/2), Std.int (w), Std.int (h));
         
+        //clear screen
         GL.clearColor (1.0, 1.0, 1.0, 1.0);
         GL.clear (GL.COLOR_BUFFER_BIT);
         
-        var positionX = (stage.stageWidth - bitmapData.width) / 2;
-        var positionY = (stage.stageHeight - bitmapData.height) / 2;
+        //set our active program
+        GL.useProgram (shaderProgram);
+
+        var currentSheet:FTilesheet = drawList[0].tilesheet;
+        var l:Array<Float> = new Array();
+        var i:Int=0;
+        while(true){
+            var di:DrawItem = drawList[i];
+
+            if(di.tilesheet == currentSheet){
+                l = l.concat(di.list);
+            }else{
+                drawTileSheet(currentSheet, l);
+                l = di.list.copy();
+
+                currentSheet = di.tilesheet;
+            }
+
+            if(++i==drawList.length){
+                drawTileSheet(currentSheet, l);
+                break;
+            }
+        
+        }
+        //disable program
+        GL.useProgram (null);*/
+
+    }
+
+    function drawTileSheet(t:FTilesheet, drawList:Array<Int>){
+      /*  var positionX = (w- bitmapData.width) / 2;
+        var positionY = (h - bitmapData.height) / 2;
         
         var projectionMatrix = Matrix3D.createOrtho (0, rect.width, rect.height, 0, 1000, -1000);
         var modelViewMatrix = Matrix3D.create2D (positionX, positionY, 1, 0);
         
-        GL.useProgram (shaderProgram);
-        GL.uniform1f(timeUniform,time);
+        
+        //GL.uniform1f(timeUniform,time);
         GL.enableVertexAttribArray (vertexAttribute);
         GL.enableVertexAttribArray (texCoordAttribute);
         
@@ -255,9 +290,8 @@ class FTilesheetRenderHelper {
         #end
         
         GL.disableVertexAttribArray (vertexAttribute);
-        GL.disableVertexAttribArray (texCoordAttribute);
-        GL.useProgram (null);
-        time+=.1;
+        GL.disableVertexAttribArray (texCoordAttribute);*/
+        
     }
 
 

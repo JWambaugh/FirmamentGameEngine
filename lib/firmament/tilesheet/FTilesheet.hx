@@ -42,11 +42,9 @@ class FTile {
  */
 class FTilesheet  {
 	
-    private var texture:GLTexture;
-    private var vertexAttribute:Int;
-    private var vertexBuffer:GLBuffer;
-    private var texCoordAttribute:Int;
-    private var texCoordBuffer:GLBuffer;
+    public var texture:GLTexture;
+    public var vertexBuffer:GLBuffer;
+    public var texCoordBuffer:GLBuffer;
     private var bitmapData:BitmapData;
 	private var id:Int;
 	private var definitionFileName:String;
@@ -72,6 +70,8 @@ class FTilesheet  {
 			stats.setProp('Tilesheets',0);
 		}
 		stats.setProp('Tilesheets',stats.getProp('Tilesheets')+1);
+        createBuffers();
+        createTexture();
 	}
 
     private function createBuffers ():Void {
@@ -207,5 +207,6 @@ class FTilesheet  {
         bmd.copyPixels(bitmapData,tile.pixelRect, new Point(0,0));
         return bmd;
     }
+
 
 }

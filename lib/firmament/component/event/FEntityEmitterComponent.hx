@@ -22,7 +22,7 @@ class FEntityEmitterComponent extends FEntityComponent{
 
     override public function init(config:FConfig){
 
-        log("Adding emiter to listen on " + config.get('listen',String) );
+        //log("Adding emiter to listen on " + config.get('listen',String) );
         on(_entity,config.getNotNull('listen',String),this,
             function(e:FEvent) {
                 log("Listener executing for " + e.name);

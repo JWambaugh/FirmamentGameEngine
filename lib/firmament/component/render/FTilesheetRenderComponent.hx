@@ -14,7 +14,7 @@ import firmament.core.FPropertyInterface;
 import firmament.core.FVector;
 import firmament.tilesheet.FTilesheet;
 import firmament.tilesheet.FTilesheetManager;
-import firmament.tilesheet.FTilesheetRenderHelper;
+//import firmament.tilesheet.FTilesheetRenderHelper;
 import flash.display.BitmapData;
 import flash.display.IBitmapDrawable;
 import flash.display.Sprite;
@@ -25,6 +25,11 @@ import flash.geom.Rectangle;
 import openfl.Assets;
 import openfl.display.Tilesheet;
 
+import openfl.gl.GL;
+import openfl.gl.GLBuffer;
+import openfl.gl.GLTexture;
+import openfl.gl.GLProgram;
+import openfl.gl.GLUniformLocation;
 
 
 /**
@@ -113,7 +118,7 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		else if(image !=null){
 			if(Std.is(image,FTilesheet)){
 				_tilesheet = cast(image);
-                firmament.util.FLog.warning('using tilesheet '+_tilesheet.getId());
+                //firmament.util.FLog.warning('using tilesheet '+_tilesheet.getId());
 			}else{
 				var bd:BitmapData = null;
 				if(Std.is(image,String)){
@@ -190,7 +195,33 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 			firmament.util.FLog.debug('tilesheet is null');
 			return;
 		}
+        
 
+        GL.enableVertexAttribArray (camera._vertexAttribute);
+        GL.enableVertexAttribArray (camera._texCoordAttribute);
+        GL.activeTexture (GL.TEXTURE0);
+        GL.bindTexture (GL.TEXTURE_2D, _tilesheet.texture);
+
+        GL.bindBuffer (GL.ARRAY_BUFFER, _tilesheet.vertexBuffer);
+        GL.vertexAttribPointer (camera._vertexAttribute, 3, GL.FLOAT, false, 0, 0);
+        GL.bindBuffer (GL.ARRAY_BUFFER, _tilesheet.texCoordBuffer);
+        GL.vertexAttribPointer (camera._texCoordAttribute, 2, GL.FLOAT, false, 0, 0);
+        
+       
+       // GL.uniform1i (imageUniform, 0);
+        
+        GL.drawArrays (GL.TRIANGLES, 0, 4);
+        
+        GL.bindBuffer (GL.ARRAY_BUFFER, null);
+        GL.bindTexture (GL.TEXTURE_2D, null);
+        
+        #if desktop
+        GL.disable (GL.TEXTURE_2D);
+        #end
+        
+        GL.disableVertexAttribArray (camera._vertexAttribute);
+        GL.disableVertexAttribArray (camera._texCoordAttribute);
+/*
 		this._entity.trigger(new FEvent(FGame.BEFORE_RENDER));
 		
 		var cameraPos = camera.getTopLeftPosition(this._parallax);
@@ -223,7 +254,8 @@ class FTilesheetRenderComponent extends FEntityComponent  implements FRenderComp
 		drawList[10] = _alpha;
 		
 		FTilesheetRenderHelper.getInstance().addToDrawList(_tilesheet, drawList, _entity.getProp('positionZ'));
-	}
+	   */
+    }
 
 	public function setTile(t:Int){
 		this._tile = t;
