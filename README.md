@@ -15,16 +15,16 @@ It is currently under heavy development, so its feature list is constantly expan
 * To get started with Firmament, download it, and start playing today!
 
 
-##Website and Documentation
+## Website and Documentation
 For more information including news, blogs, and documentation, please check out the website at [firmament.atlassian.net/wiki](https://firmament.atlassian.net/wiki) (Note that this is a new location)
 
-##Installation
+## Installation
 Please see the [Installation Guide](https://firmament.atlassian.net/wiki/display/FE/Installation) on our website for information on obtaining and installing Firmament.
 
-##Issues
+## Issues
 If you encounter any issues, wish to file a feature request, or want to help contribute to the project, please check out the project jira at [firmament.atlassian.net](https://firmament.atlassian.net/)
 
-##License
+## License
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, version 3 of the License.
@@ -39,5 +39,5 @@ along with this program.  If not, see [http://www.gnu.org/licenses/](http://www.
 
 Commercial licensing options may be available. Please contact Jordan Wambugh at [jordan@wambaugh.org](mailto:jordan@wambaugh.org) for more information.
 
-###Box2d
+### Box2d
 This software uses and includes a port Erin Catto's excellent Box2D physics engine. Some small changes have been made for compilation or performance reasons from his original work. For more information on Box2d, or to download the original work, please see the [website](http://box2d.org/).
